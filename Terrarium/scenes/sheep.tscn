@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://blg3yr70eue5y"]
+
+[ext_resource type="Script" path="res://scenes/sheep.gd" id="1_47l58"]
+
+[node name="Sheep" type="CharacterBody3D"]
+script = ExtResource("1_47l58")
+
+[node name="SheepBody" type="CSGBox3D" parent="."]
