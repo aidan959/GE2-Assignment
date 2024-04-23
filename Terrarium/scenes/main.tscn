@@ -1,11 +1,19 @@
-[gd_scene load_steps=4 format=3 uid="uid://dh52fxfx2rten"]
+[gd_scene load_steps=7 format=3 uid="uid://dh52fxfx2rten"]
 
 [ext_resource type="Shader" path="res://shaders/moss_shader.gdshader" id="1_8fgs3"]
+[ext_resource type="Texture2D" uid="uid://cbblhxbokckte" path="res://textures/dirt1.png" id="2_m1ghf"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_moybj"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_myoja"]
+noise = SubResource("FastNoiseLite_moybj")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_oscqt"]
 render_priority = 0
 shader = ExtResource("1_8fgs3")
 shader_parameter/blend_strength = null
+shader_parameter/dirt_texture = ExtResource("2_m1ghf")
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_myoja")
 
 [sub_resource type="SphereMesh" id="SphereMesh_f8l0t"]
 material = SubResource("ShaderMaterial_oscqt")
