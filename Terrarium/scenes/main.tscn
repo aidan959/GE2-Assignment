@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://dh52fxfx2rten"]
+
+[ext_resource type="Shader" path="res://shaders/moss_shader.gdshader" id="1_8fgs3"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_oscqt"]
+render_priority = 0
+shader = ExtResource("1_8fgs3")
+shader_parameter/blend_strength = null
+
+[sub_resource type="SphereMesh" id="SphereMesh_f8l0t"]
+material = SubResource("ShaderMaterial_oscqt")
+
+[node name="Main" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_f8l0t")
