@@ -1,4 +1,4 @@
-class_name Roam extends SteeringBehavior
+class_name Roam extends SteeringBehaviour
 
 
 var force = Vector3.ZERO

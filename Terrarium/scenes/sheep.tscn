@@ -4,5 +4,6 @@
 
 [node name="Sheep" type="CharacterBody3D"]
 script = ExtResource("1_47l58")
+metabolism = 0.01
 
 [node name="SheepBody" type="CSGBox3D" parent="."]

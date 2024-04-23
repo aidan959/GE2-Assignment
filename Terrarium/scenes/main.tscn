@@ -1,10 +1,10 @@
 [gd_scene load_steps=10 format=3 uid="uid://dh52fxfx2rten"]
 
 [ext_resource type="Shader" path="res://shaders/moss_shader.gdshader" id="1_8fgs3"]
-[ext_resource type="Texture2D" uid="uid://cj3vob6b3xju8" path="res://textures/dirt1_normal.png" id="2_lyjn1"]
+[ext_resource type="Texture2D" uid="uid://cj3vob6b3xju8" path="res://shaders/dirt1_normal.png" id="2_lyjn1"]
 [ext_resource type="Texture2D" uid="uid://cbblhxbokckte" path="res://textures/dirt1.png" id="2_m1ghf"]
 [ext_resource type="Texture2D" uid="uid://bf5r2lkwaxguk" path="res://textures/moss1.png" id="3_kcun4"]
-[ext_resource type="Texture2D" uid="uid://cgefufbfp1t6w" path="res://textures/moss1_normal.png" id="4_jilt8"]
+[ext_resource type="Texture2D" uid="uid://cgefufbfp1t6w" path="res://shaders/moss1_normal.png" id="4_jilt8"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_moybj"]
 seed = 405

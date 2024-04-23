@@ -1,4 +1,4 @@
-class_name SteeringBehavior extends Node
+class_name SteeringBehaviour extends Node
 
 @export var weight = 1.0
 @export var draw_gizmos = true
