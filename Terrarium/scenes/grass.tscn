@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://c2nwkj3tahlxg"]
+
+[ext_resource type="Texture2D" uid="uid://bf5r2lkwaxguk" path="res://textures/moss1.png" id="1_vhiwu"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5tj4n"]
+albedo_texture = ExtResource("1_vhiwu")
+
+[sub_resource type="TextMesh" id="TextMesh_5sns6"]
+material = SubResource("StandardMaterial3D_5tj4n")
+text = "GRASS"
+pixel_size = 0.05
+depth = 0.5
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_gi46d"]
+size = Vector3(5, 1, 5)
+
+[node name="Grass" type="Area3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("TextMesh_5sns6")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 6.46044e-05, -3.04385e-05, -6.46044e-05, 1, -7.65898e-05, 3.04385e-05, 7.65898e-05, 1, 0, 0, 0)
+shape = SubResource("BoxShape3D_gi46d")
