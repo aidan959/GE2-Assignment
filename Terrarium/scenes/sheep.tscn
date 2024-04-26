@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://blg3yr70eue5y"]
+[gd_scene load_steps=5 format=3 uid="uid://blg3yr70eue5y"]
 
 [ext_resource type="Script" path="res://scripts/sheep.gd" id="1_47l58"]
+[ext_resource type="PackedScene" uid="uid://c83v5ntlr0m0p" path="res://scripts/generic_behaviours/Grazer.tscn" id="2_4chqj"]
 
 [sub_resource type="TextMesh" id="TextMesh_hbalk"]
 text = "SHEEP"
@@ -11,8 +12,8 @@ depth = 0.5
 size = Vector3(2.335, 0.6, 0.5)
 
 [node name="Sheep" type="CharacterBody3D"]
-collision_layer = 257
-collision_mask = 257
+collision_layer = 256
+collision_mask = 0
 script = ExtResource("1_47l58")
 metabolism = 0.01
 
@@ -25,3 +26,5 @@ mesh = SubResource("TextMesh_hbalk")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.006, -0.027, 0)
 shape = SubResource("BoxShape3D_ggkxb")
+
+[node name="Grazer" parent="." instance=ExtResource("2_4chqj")]

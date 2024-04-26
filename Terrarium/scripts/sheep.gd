@@ -1,4 +1,4 @@
-extends CharacterBody3D
+class_name Sheep extends CharacterBody3D
 
 # - 0 = not hungry, 1 = hungry
 @export_range(0.0,1.0) var hunger : float = 0.0
@@ -8,6 +8,9 @@ extends CharacterBody3D
 @export_range(0.0,100.0) var health : float = 100.0
 
 @export_range(0, 60.0) var tick_rate : int = 1 # abstract this to director  
+
+@onready var grazer: Grazer = get_node("Grazer")
+
 var tick_counter :int = 0# abstract this to director 
 
 var hunger_threshold = 0.3
@@ -30,11 +33,10 @@ func think():
 	elif hunger > 0.1 and randi() % excessive_eating_chance == 0:
 		# random eating
 		change_state(states.EATING)
-		pass
 	elif hunger > 0.7:
 		# eat if we arent evading
 		change_state(states.EATING)
-		pass
+
 func _ready():
 	randomize()
 func _physics_process(delta):
@@ -47,18 +49,19 @@ func _physics_process(delta):
 		health = clamp(health, 0, 100.0)
 		if(is_equal_approx(health, 0.0)):
 			change_state(states.DEAD)
-		print(hunger)
-		print(health)
+		#print(hunger)
+		#print(health)
 		
 	tick_counter+= 1
 	
 	match current_state:
+		
 		states.ROAMING:
-			print("roaming about")
+			pass#print("roaming about")
 		states.EATING:
-			print("eating")
+			pass#print("eating")
 		states.DEAD:
-			print("DEAD - need to implement mechanism to clean up or decompose bodies")
+			pass#print("DEAD - need to implement mechanism to clean up or decompose bodies")
 
 func change_state(state : states):
 	current_state = state

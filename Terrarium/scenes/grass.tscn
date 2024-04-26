@@ -16,7 +16,7 @@ depth = 0.5
 size = Vector3(5, 1, 5)
 
 [node name="Grass" type="Area3D"]
-collision_layer = 256
+collision_layer = 0
 collision_mask = 256
 script = ExtResource("1_l7ap0")
 
@@ -26,3 +26,6 @@ mesh = SubResource("TextMesh_5sns6")
 [node name="GrassCollision" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 6.46044e-05, -3.04385e-05, -6.46044e-05, 1, -7.65898e-05, 3.04385e-05, 7.65898e-05, 1, 0, 0, 0)
 shape = SubResource("BoxShape3D_gi46d")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exit"]
