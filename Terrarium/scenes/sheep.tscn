@@ -11,6 +11,8 @@ depth = 0.5
 size = Vector3(2.335, 0.6, 0.5)
 
 [node name="Sheep" type="CharacterBody3D"]
+collision_layer = 257
+collision_mask = 257
 script = ExtResource("1_47l58")
 metabolism = 0.01
 
