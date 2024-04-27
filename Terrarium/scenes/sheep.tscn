@@ -19,6 +19,7 @@ metabolism = 0.01
 
 [node name="SheepBody" type="CSGBox3D" parent="."]
 visible = false
+layers = 256
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("TextMesh_hbalk")
