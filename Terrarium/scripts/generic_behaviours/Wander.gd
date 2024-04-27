@@ -25,11 +25,11 @@ func on_draw_gizmos():
 func calculate():		
 	var delta = get_process_delta_time()
 	var disp = jitter * Utils.random_point_in_unit_sphere() * delta
+	disp.y = 0.0
 	wander_target += disp
 	wander_target = wander_target.limit_length(radius)
 	var local_target = (Vector3.BACK * distance) + wander_target
 
 	world_target = boid.global_transform * (local_target)
-	# print("world" + str(worldTarget))
 	
 	return boid.seek_force(world_target)

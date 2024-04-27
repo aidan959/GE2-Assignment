@@ -7,7 +7,7 @@ class_name Sheep extends CharacterBody3D
 @export var speed:float
 @export var max_speed: float = 10.0
 
-var behaviors = [] 
+@export var behaviours : Array[SteeringBehavior] = [] 
 @export var max_force = 10
 @export var banking = 0.1
 @export var damping = 0.1
@@ -75,26 +75,27 @@ func _ready():
 	for i in get_child_count():
 		var child = get_child(i)
 		if child is SteeringBehavior:
-			behaviors.push_back(child)
+			behaviours.push_back(child)
 			child.draw_gizmos = draw_gizmos
 			child.set_process(child.enabled) 
 	# enable_all(false)
 func _physics_process(delta):
-	# pause = true
+	if pause:
+		return
+	if max_speed == 0:
+		push_warning("max_speed is 0")
 	# lerp in the new forces
 	if should_calculate:
 		new_force = calculate()
 		should_calculate = false		
 	force = lerp(force, new_force, delta)
-	if pause:
-		return
+
 
 	acceleration = force / mass
 	vel += acceleration * delta
 	speed = vel.length()
 	if speed > 0:		
-		if max_speed == 0:
-			print("max_speed is 0")
+		
 		vel = vel.limit_length(max_speed)
 		
 		# Damping
@@ -183,7 +184,7 @@ func count_neighbors_simple():
 
 func _input(event):
 	if event is InputEventKey and event.keycode == KEY_P and event.pressed:
-		pause = ! pause
+		pause = !pause
 		
 func set_enabled(behavior, enabled):
 	behavior.enabled = enabled
@@ -191,12 +192,10 @@ func set_enabled(behavior, enabled):
 
 
 func on_draw_gizmos():
-
 	DebugDraw3D.draw_arrow(global_transform.origin,  global_transform.origin + transform.basis.z * 10.0 , Color(0, 0, 1), 0.1)
 	DebugDraw3D.draw_arrow(global_transform.origin,  global_transform.origin + transform.basis.x * 10.0 , Color(1, 0, 0), 0.1)
 	DebugDraw3D.draw_arrow(global_transform.origin,  global_transform.origin + transform.basis.y * 10.0 , Color(0, 1, 0), 0.1)
 	DebugDraw3D.draw_arrow(global_transform.origin,  global_transform.origin + force, Color(1, 1, 0), 0.1)
-	
 	if flock and count_neighbors:
 		DebugDraw3D.draw_sphere(global_transform.origin, flock.neighbor_distance, Color.WEB_PURPLE)
 		for neighbor in neighbors:
@@ -206,7 +205,9 @@ func seek_force(target: Vector3):
 	var toTarget = target - global_transform.origin
 	toTarget = toTarget.normalized()
 	var desired = toTarget * max_speed
-	return desired - vel
+	var output = desired - vel
+	output.y = 0.0
+	return output
 	
 func arrive_force(target:Vector3, slowingDistance:float):
 	var toTarget = target - global_transform.origin
@@ -222,8 +223,8 @@ func arrive_force(target:Vector3, slowingDistance:float):
 
 	
 func set_enabled_all(enabled):
-	for i in behaviors.size():
-		behaviors[i].enabled = enabled
+	for i in behaviours.size():
+		behaviours[i].enabled = enabled
 		
 func update_weights(weights):
 	for behavior in weights:
@@ -232,15 +233,15 @@ func update_weights(weights):
 			b.weight = weights[behavior]
 
 func calculate():
-	var force_acc = Vector3.ZERO	
+	var force_acc = Vector3.ZERO
 	var behaviors_active = ""
-	for i in behaviors.size():
-		if behaviors[i].enabled:
-			var f = behaviors[i].calculate() * behaviors[i].weight
+	for i in behaviours.size():
+		if behaviours[i].enabled:
+			var f = behaviours[i].calculate() * behaviours[i].weight
 			if is_nan(f.x) or is_nan(f.y) or is_nan(f.z):
-				print(str(behaviors[i]) + " is NAN")
+				push_error(str(behaviours[i]) + " is NAN")
 				f = Vector3.ZERO
-			behaviors_active += behaviors[i].name + ": " + str(round(f.length())) + " "
+			behaviors_active += behaviours[i].name + ": " + str(round(f.length())) + " "
 			force_acc += f 
 			if force_acc.length() > max_force:
 				force_acc = force_acc.limit_length(max_force)

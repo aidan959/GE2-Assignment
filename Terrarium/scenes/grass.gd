@@ -10,7 +10,6 @@ func _ready():
 func _process(delta):
 	pass
 func _on_body_entered(body : Node3D):
-	
 	if "grazer" in body:
 		current_num_grazers += 1
 		body.grazer.can_graze(true)

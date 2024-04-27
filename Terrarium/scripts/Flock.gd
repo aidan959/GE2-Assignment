@@ -65,6 +65,7 @@ func _ready():
 	for i in count:
 		var sheep = sheep_scene.instantiate()		
 		var pos = Utils.random_point_in_unit_sphere() * radius
+		pos.y = 1.0
 		add_child(sheep)
 		sheep.global_position = pos
 		sheep.global_rotation = Vector3(0, randf_range(0, PI * 2.0),  0)
