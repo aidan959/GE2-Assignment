@@ -9,7 +9,6 @@ enum ForceDirection {Normal, Incident, Up, Braking}
 @export var feeler_angle = 45
 @export var feeler_length = 10
 @export var updates_per_second = 5
-
 var force = Vector3.ZERO
 var feelers = []
 var space_state
@@ -19,11 +18,11 @@ func on_draw_gizmos():
 	for i in feelers.size():
 		var feeler = feelers[i]		
 		
-		if feeler.hit:
+		if feeler.hit and draw_gizmos:
 			DebugDraw3D.draw_line(boid.global_transform.origin, feeler.hit_target, Color.CHARTREUSE)
 			DebugDraw3D.draw_arrow(feeler.hit_target, feeler.hit_target + feeler.normal, Color.BLUE, 0.1)
 			DebugDraw3D.draw_arrow(feeler.hit_target, feeler.hit_target + feeler.force * weight, Color.RED, 0.1)			
-		else:
+		elif draw_gizmos:
 			DebugDraw3D.draw_line(boid.global_transform.origin, feeler.end, Color.CHARTREUSE)
 
 func start_updating():

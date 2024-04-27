@@ -46,12 +46,6 @@ enum states {
 } 
 
 
-func draw_gizmos_recursive(dg):
-	draw_gizmos = dg
-	var children = get_children()
-	for child in children:
-		if child is SteeringBehavior:
-			child.draw_gizmos = dg
 
 var current_state : states
 func think():
@@ -76,6 +70,7 @@ func _ready():
 		var child = get_child(i)
 		if child is SteeringBehavior:
 			behaviors.push_back(child)
+			child.draw_gizmos = draw_gizmos
 			child.set_process(child.enabled) 
 	# enable_all(false)
 func _physics_process(delta):
