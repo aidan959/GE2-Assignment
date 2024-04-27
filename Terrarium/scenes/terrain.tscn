@@ -455,3 +455,1420 @@ skeleton = NodePath("../../..")
 transform = Transform3D(0.981634, 0, -0.190775, 0, 1, 0, 0.190775, 0, 0.981634, -14.0145, 0, 17.1789)
 mesh = ExtResource("7_8wump")
 skeleton = NodePath("../../..")
+
+[node name="TreeGroupMedium" type="Node3D" parent="."]
+transform = Transform3D(-0.627188, 0, 0.778868, 0, 1, 0, -0.778868, 0, -0.627188, 439.348, 0, 942.541)
+
+[node name="TreeGroupSmall7" type="Node3D" parent="TreeGroupMedium"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.5952, -7.62939e-06, -10.237)
+
+[node name="LowpolyTreeSample" type="MeshInstance3D" parent="TreeGroupMedium/TreeGroupSmall7"]
+transform = Transform3D(-0.413009, 0, -0.910727, 0, 1, 0, 0.910727, 0, -0.413009, 0, 0, 0)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../..")
+
+[node name="LowpolyTreeSample2" type="MeshInstance3D" parent="TreeGroupMedium/TreeGroupSmall7"]
+transform = Transform3D(-0.150435, -0.006438, 0.988599, -0.00452464, 0.999973, 0.00582358, -0.98861, -0.00359702, -0.15046, 8.55307, 0.500202, -22.4022)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../..")
+
+[node name="LowpolyTreeSample3" type="MeshInstance3D" parent="TreeGroupMedium/TreeGroupSmall7"]
+transform = Transform3D(0.776695, 0, 0.629876, 0, 1, 0, -0.629876, 0, 0.776695, -18.4427, 0.587496, -3.835)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../..")
+
+[node name="LowpolyTreeSample4" type="MeshInstance3D" parent="TreeGroupMedium/TreeGroupSmall7"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.7804, -0.860731, 40.2367)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../..")
+
+[node name="LowpolyTreeSample5" type="MeshInstance3D" parent="TreeGroupMedium/TreeGroupSmall7"]
+transform = Transform3D(0.607653, 0, -0.794203, 0, 1, 0, 0.794203, 0, 0.607653, 34.9203, 0.587496, 19.2613)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../..")
+
+[node name="LowpolyTreeSample6" type="MeshInstance3D" parent="TreeGroupMedium/TreeGroupSmall7"]
+transform = Transform3D(-0.999994, 0, -0.00335112, 0, 1, 0, 0.00335112, 0, -0.999994, 8.43704, 0.587496, 23.2135)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../..")
+
+[node name="LowpolyTreeSample7" type="MeshInstance3D" parent="TreeGroupMedium/TreeGroupSmall7"]
+transform = Transform3D(-0.966232, 0, -0.257673, 0, 1, 0, 0.257673, 0, -0.966232, 21.5686, 0.587496, -3.835)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../..")
+
+[node name="LowpolyTreeSample8" type="MeshInstance3D" parent="TreeGroupMedium/TreeGroupSmall7"]
+transform = Transform3D(0.727976, 0, 0.685602, 0, 1, 0, -0.685602, 0, 0.727976, -7.92261, 0.606401, 17.8274)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../..")
+
+[node name="LowpolyTreeSample9" type="MeshInstance3D" parent="TreeGroupMedium/TreeGroupSmall7"]
+transform = Transform3D(0.727976, 0, 0.685602, 0, 1, 0, -0.685602, 0, 0.727976, -22.881, 0.606401, 25.2056)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../..")
+
+[node name="LowpolyTreeSample10" type="MeshInstance3D" parent="TreeGroupMedium/TreeGroupSmall7"]
+transform = Transform3D(0.727976, 0, 0.685602, 0, 1, 0, -0.685602, 0, 0.727976, -9.77896, 0.606401, 46.449)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../..")
+
+[node name="TreeGroupSmaller4" type="Node3D" parent="TreeGroupMedium"]
+transform = Transform3D(0.837366, 0, 0.546643, 0, 1, 0, -0.546643, 0, 0.837366, -12.8451, 0, 30.5434)
+
+[node name="LowpolyTreeSample" type="MeshInstance3D" parent="TreeGroupMedium/TreeGroupSmaller4"]
+transform = Transform3D(-0.413009, 0, -0.910727, 0, 1, 0, 0.910727, 0, -0.413009, 0, 0, 0)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../..")
+
+[node name="LowpolyTreeSample2" type="MeshInstance3D" parent="TreeGroupMedium/TreeGroupSmaller4"]
+transform = Transform3D(0.286708, 0, 0.958018, 0, 1, 0, -0.958018, 0, 0.286708, -14.1396, 0, -20.4174)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../..")
+
+[node name="LowpolyTreeSample3" type="MeshInstance3D" parent="TreeGroupMedium/TreeGroupSmaller4"]
+transform = Transform3D(-0.413009, 0, -0.910727, 0, 1, 0, 0.910727, 0, -0.413009, -24.0345, 0, -12.5768)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../..")
+
+[node name="LowpolyTreeSample4" type="MeshInstance3D" parent="TreeGroupMedium/TreeGroupSmaller4"]
+transform = Transform3D(-0.999944, 0, -0.010594, 0, 1, 0, 0.010594, 0, -0.999944, -13.8045, 0, 0)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../..")
+
+[node name="LowpolyTreeSample5" type="MeshInstance3D" parent="TreeGroupMedium/TreeGroupSmaller4"]
+transform = Transform3D(-0.976624, 0, -0.214957, 0, 1, 0, 0.214957, 0, -0.976624, -1.76885, 0, -20.2753)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../..")
+
+[node name="LowpolyTreeSample6" type="MeshInstance3D" parent="TreeGroupMedium/TreeGroupSmaller4"]
+transform = Transform3D(0.981634, 0, -0.190775, 0, 1, 0, 0.190775, 0, 0.981634, -14.0145, 0, 17.1789)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../..")
+
+[node name="TreeGroupSmaller5" type="Node3D" parent="TreeGroupMedium"]
+transform = Transform3D(0.985712, 0, 0.168438, 0, 1, 0, -0.168438, 0, 0.985712, 5.19812, 0, -50.3916)
+
+[node name="LowpolyTreeSample" type="MeshInstance3D" parent="TreeGroupMedium/TreeGroupSmaller5"]
+transform = Transform3D(-0.413009, 0, -0.910727, 0, 1, 0, 0.910727, 0, -0.413009, 0, 0, 0)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../..")
+
+[node name="LowpolyTreeSample2" type="MeshInstance3D" parent="TreeGroupMedium/TreeGroupSmaller5"]
+transform = Transform3D(0.286708, 0, 0.958018, 0, 1, 0, -0.958018, 0, 0.286708, -14.1396, 0, -20.4174)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../..")
+
+[node name="LowpolyTreeSample3" type="MeshInstance3D" parent="TreeGroupMedium/TreeGroupSmaller5"]
+transform = Transform3D(-0.413009, 0, -0.910727, 0, 1, 0, 0.910727, 0, -0.413009, -24.0345, 0, -12.5768)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../..")
+
+[node name="LowpolyTreeSample4" type="MeshInstance3D" parent="TreeGroupMedium/TreeGroupSmaller5"]
+transform = Transform3D(-0.999944, 0, -0.010594, 0, 1, 0, 0.010594, 0, -0.999944, -13.8045, 0, 0)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../..")
+
+[node name="LowpolyTreeSample5" type="MeshInstance3D" parent="TreeGroupMedium/TreeGroupSmaller5"]
+transform = Transform3D(-0.976624, 0, -0.214957, 0, 1, 0, 0.214957, 0, -0.976624, -1.76885, 0, -20.2753)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../..")
+
+[node name="LowpolyTreeSample6" type="MeshInstance3D" parent="TreeGroupMedium/TreeGroupSmaller5"]
+transform = Transform3D(0.981634, 0, -0.190775, 0, 1, 0, 0.190775, 0, 0.981634, -14.0145, 0, 17.1789)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../..")
+
+[node name="TreeGroupSmall8" type="Node3D" parent="TreeGroupMedium"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -53.0865, -7.62939e-06, -34.401)
+
+[node name="LowpolyTreeSample" type="MeshInstance3D" parent="TreeGroupMedium/TreeGroupSmall8"]
+transform = Transform3D(-0.413009, 0, -0.910727, 0, 1, 0, 0.910727, 0, -0.413009, 0, 0, 0)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../..")
+
+[node name="LowpolyTreeSample2" type="MeshInstance3D" parent="TreeGroupMedium/TreeGroupSmall8"]
+transform = Transform3D(-0.150435, -0.006438, 0.988599, -0.00452464, 0.999973, 0.00582358, -0.98861, -0.00359702, -0.15046, 8.55307, 0.500202, -22.4022)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../..")
+
+[node name="LowpolyTreeSample3" type="MeshInstance3D" parent="TreeGroupMedium/TreeGroupSmall8"]
+transform = Transform3D(0.776695, 0, 0.629876, 0, 1, 0, -0.629876, 0, 0.776695, -18.4427, 0.587496, -3.835)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../..")
+
+[node name="LowpolyTreeSample4" type="MeshInstance3D" parent="TreeGroupMedium/TreeGroupSmall8"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.7804, -0.860731, 40.2367)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../..")
+
+[node name="LowpolyTreeSample5" type="MeshInstance3D" parent="TreeGroupMedium/TreeGroupSmall8"]
+transform = Transform3D(0.607653, 0, -0.794203, 0, 1, 0, 0.794203, 0, 0.607653, 34.9203, 0.587496, 19.2613)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../..")
+
+[node name="LowpolyTreeSample6" type="MeshInstance3D" parent="TreeGroupMedium/TreeGroupSmall8"]
+transform = Transform3D(-0.999994, 0, -0.00335112, 0, 1, 0, 0.00335112, 0, -0.999994, 8.43704, 0.587496, 23.2135)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../..")
+
+[node name="LowpolyTreeSample7" type="MeshInstance3D" parent="TreeGroupMedium/TreeGroupSmall8"]
+transform = Transform3D(-0.966232, 0, -0.257673, 0, 1, 0, 0.257673, 0, -0.966232, 21.5686, 0.587496, -3.835)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../..")
+
+[node name="LowpolyTreeSample8" type="MeshInstance3D" parent="TreeGroupMedium/TreeGroupSmall8"]
+transform = Transform3D(0.727976, 0, 0.685602, 0, 1, 0, -0.685602, 0, 0.727976, -7.92261, 0.606401, 17.8274)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../..")
+
+[node name="LowpolyTreeSample9" type="MeshInstance3D" parent="TreeGroupMedium/TreeGroupSmall8"]
+transform = Transform3D(0.727976, 0, 0.685602, 0, 1, 0, -0.685602, 0, 0.727976, -22.881, 0.606401, 25.2056)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../..")
+
+[node name="LowpolyTreeSample10" type="MeshInstance3D" parent="TreeGroupMedium/TreeGroupSmall8"]
+transform = Transform3D(0.727976, 0, 0.685602, 0, 1, 0, -0.685602, 0, 0.727976, -9.77896, 0.606401, 46.449)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../..")
+
+[node name="LowpolyTreeSample" type="MeshInstance3D" parent="TreeGroupMedium"]
+transform = Transform3D(-0.413009, 0, -0.910727, 0, 1, 0, 0.910727, 0, -0.413009, -12.664, -3.8147e-06, 0.906468)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../..")
+
+[node name="LowpolyTreeSample2" type="MeshInstance3D" parent="TreeGroupMedium"]
+transform = Transform3D(0.60628, 0, -0.795251, 0, 1, 0, 0.795251, 0, 0.60628, 21.8562, -2.05326, -23.7613)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../..")
+
+[node name="TreeGroupMedium2" type="Node3D" parent="."]
+transform = Transform3D(0.573948, 0, -0.818892, 0, 1, 0, 0.818892, 0, 0.573948, 334.303, 0, 931.363)
+
+[node name="TreeGroupSmall7" type="Node3D" parent="TreeGroupMedium2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.5952, -7.62939e-06, -10.237)
+
+[node name="LowpolyTreeSample" type="MeshInstance3D" parent="TreeGroupMedium2/TreeGroupSmall7"]
+transform = Transform3D(-0.413009, 0, -0.910727, 0, 1, 0, 0.910727, 0, -0.413009, 0, 0, 0)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../..")
+
+[node name="LowpolyTreeSample2" type="MeshInstance3D" parent="TreeGroupMedium2/TreeGroupSmall7"]
+transform = Transform3D(-0.150435, -0.006438, 0.988599, -0.00452464, 0.999973, 0.00582358, -0.98861, -0.00359702, -0.15046, 8.55307, 0.500202, -22.4022)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../..")
+
+[node name="LowpolyTreeSample3" type="MeshInstance3D" parent="TreeGroupMedium2/TreeGroupSmall7"]
+transform = Transform3D(0.776695, 0, 0.629876, 0, 1, 0, -0.629876, 0, 0.776695, -18.4427, 0.587496, -3.835)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../..")
+
+[node name="LowpolyTreeSample4" type="MeshInstance3D" parent="TreeGroupMedium2/TreeGroupSmall7"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.7804, -0.860731, 40.2367)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../..")
+
+[node name="LowpolyTreeSample5" type="MeshInstance3D" parent="TreeGroupMedium2/TreeGroupSmall7"]
+transform = Transform3D(0.607653, 0, -0.794203, 0, 1, 0, 0.794203, 0, 0.607653, 34.9203, 0.587496, 19.2613)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../..")
+
+[node name="LowpolyTreeSample6" type="MeshInstance3D" parent="TreeGroupMedium2/TreeGroupSmall7"]
+transform = Transform3D(-0.999994, 0, -0.00335112, 0, 1, 0, 0.00335112, 0, -0.999994, 8.43704, 0.587496, 23.2135)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../..")
+
+[node name="LowpolyTreeSample7" type="MeshInstance3D" parent="TreeGroupMedium2/TreeGroupSmall7"]
+transform = Transform3D(-0.966232, 0, -0.257673, 0, 1, 0, 0.257673, 0, -0.966232, 21.5686, 0.587496, -3.835)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../..")
+
+[node name="LowpolyTreeSample8" type="MeshInstance3D" parent="TreeGroupMedium2/TreeGroupSmall7"]
+transform = Transform3D(0.727976, 0, 0.685602, 0, 1, 0, -0.685602, 0, 0.727976, -7.92261, 0.606401, 17.8274)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../..")
+
+[node name="LowpolyTreeSample9" type="MeshInstance3D" parent="TreeGroupMedium2/TreeGroupSmall7"]
+transform = Transform3D(0.727976, 0, 0.685602, 0, 1, 0, -0.685602, 0, 0.727976, -22.881, 0.606401, 25.2056)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../..")
+
+[node name="LowpolyTreeSample10" type="MeshInstance3D" parent="TreeGroupMedium2/TreeGroupSmall7"]
+transform = Transform3D(0.727976, 0, 0.685602, 0, 1, 0, -0.685602, 0, 0.727976, -9.77896, 0.606401, 46.449)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../..")
+
+[node name="TreeGroupSmaller4" type="Node3D" parent="TreeGroupMedium2"]
+transform = Transform3D(0.837366, 0, 0.546643, 0, 1, 0, -0.546643, 0, 0.837366, -12.8451, 0, 30.5434)
+
+[node name="LowpolyTreeSample" type="MeshInstance3D" parent="TreeGroupMedium2/TreeGroupSmaller4"]
+transform = Transform3D(-0.413009, 0, -0.910727, 0, 1, 0, 0.910727, 0, -0.413009, 0, 0, 0)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../..")
+
+[node name="LowpolyTreeSample2" type="MeshInstance3D" parent="TreeGroupMedium2/TreeGroupSmaller4"]
+transform = Transform3D(0.286708, 0, 0.958018, 0, 1, 0, -0.958018, 0, 0.286708, -14.1396, 0, -20.4174)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../..")
+
+[node name="LowpolyTreeSample3" type="MeshInstance3D" parent="TreeGroupMedium2/TreeGroupSmaller4"]
+transform = Transform3D(-0.413009, 0, -0.910727, 0, 1, 0, 0.910727, 0, -0.413009, -24.0345, 0, -12.5768)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../..")
+
+[node name="LowpolyTreeSample4" type="MeshInstance3D" parent="TreeGroupMedium2/TreeGroupSmaller4"]
+transform = Transform3D(-0.999944, 0, -0.010594, 0, 1, 0, 0.010594, 0, -0.999944, -13.8045, 0, 0)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../..")
+
+[node name="LowpolyTreeSample5" type="MeshInstance3D" parent="TreeGroupMedium2/TreeGroupSmaller4"]
+transform = Transform3D(-0.976624, 0, -0.214957, 0, 1, 0, 0.214957, 0, -0.976624, -1.76885, 0, -20.2753)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../..")
+
+[node name="LowpolyTreeSample6" type="MeshInstance3D" parent="TreeGroupMedium2/TreeGroupSmaller4"]
+transform = Transform3D(0.981634, 0, -0.190775, 0, 1, 0, 0.190775, 0, 0.981634, -14.0145, 0, 17.1789)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../..")
+
+[node name="TreeGroupSmaller5" type="Node3D" parent="TreeGroupMedium2"]
+transform = Transform3D(0.985712, 0, 0.168438, 0, 1, 0, -0.168438, 0, 0.985712, 5.19812, 0, -50.3916)
+
+[node name="LowpolyTreeSample" type="MeshInstance3D" parent="TreeGroupMedium2/TreeGroupSmaller5"]
+transform = Transform3D(-0.413009, 0, -0.910727, 0, 1, 0, 0.910727, 0, -0.413009, 0, 0, 0)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../..")
+
+[node name="LowpolyTreeSample2" type="MeshInstance3D" parent="TreeGroupMedium2/TreeGroupSmaller5"]
+transform = Transform3D(0.286708, 0, 0.958018, 0, 1, 0, -0.958018, 0, 0.286708, -14.1396, 0, -20.4174)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../..")
+
+[node name="LowpolyTreeSample3" type="MeshInstance3D" parent="TreeGroupMedium2/TreeGroupSmaller5"]
+transform = Transform3D(-0.413009, 0, -0.910727, 0, 1, 0, 0.910727, 0, -0.413009, -24.0345, 0, -12.5768)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../..")
+
+[node name="LowpolyTreeSample4" type="MeshInstance3D" parent="TreeGroupMedium2/TreeGroupSmaller5"]
+transform = Transform3D(-0.999944, 0, -0.0105938, 0, 1, 0, 0.0105938, 0, -0.999944, -28.1643, 5.5899, -17.5752)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../..")
+
+[node name="LowpolyTreeSample5" type="MeshInstance3D" parent="TreeGroupMedium2/TreeGroupSmaller5"]
+transform = Transform3D(-0.976624, 0, -0.214957, 0, 1, 0, 0.214957, 0, -0.976624, -1.76885, 0, -20.2753)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../..")
+
+[node name="LowpolyTreeSample6" type="MeshInstance3D" parent="TreeGroupMedium2/TreeGroupSmaller5"]
+transform = Transform3D(0.981634, 0, -0.190775, 0, 1, 0, 0.190775, 0, 0.981634, -14.0145, 0, 17.1789)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../..")
+
+[node name="TreeGroupSmall8" type="Node3D" parent="TreeGroupMedium2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -53.0865, -7.62939e-06, -34.401)
+
+[node name="LowpolyTreeSample" type="MeshInstance3D" parent="TreeGroupMedium2/TreeGroupSmall8"]
+transform = Transform3D(-0.413009, 0, -0.910727, 0, 1, 0, 0.910727, 0, -0.413009, 0, 0, 0)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../..")
+
+[node name="LowpolyTreeSample2" type="MeshInstance3D" parent="TreeGroupMedium2/TreeGroupSmall8"]
+transform = Transform3D(-0.150435, -0.006438, 0.988599, -0.00452464, 0.999973, 0.00582358, -0.98861, -0.00359702, -0.15046, 8.55307, 0.500202, -22.4022)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../..")
+
+[node name="LowpolyTreeSample3" type="MeshInstance3D" parent="TreeGroupMedium2/TreeGroupSmall8"]
+transform = Transform3D(0.776695, 0, 0.629876, 0, 1, 0, -0.629876, 0, 0.776695, -18.4427, 0.587496, -3.835)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../..")
+
+[node name="LowpolyTreeSample4" type="MeshInstance3D" parent="TreeGroupMedium2/TreeGroupSmall8"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.7804, -0.860731, 40.2367)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../..")
+
+[node name="LowpolyTreeSample5" type="MeshInstance3D" parent="TreeGroupMedium2/TreeGroupSmall8"]
+transform = Transform3D(0.607653, 0, -0.794203, 0, 1, 0, 0.794203, 0, 0.607653, 34.9203, 0.587496, 19.2613)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../..")
+
+[node name="LowpolyTreeSample6" type="MeshInstance3D" parent="TreeGroupMedium2/TreeGroupSmall8"]
+transform = Transform3D(-0.999994, 0, -0.00335112, 0, 1, 0, 0.00335112, 0, -0.999994, 8.43704, 0.587496, 23.2135)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../..")
+
+[node name="LowpolyTreeSample7" type="MeshInstance3D" parent="TreeGroupMedium2/TreeGroupSmall8"]
+transform = Transform3D(-0.966232, 0, -0.257673, 0, 1, 0, 0.257673, 0, -0.966232, 21.5686, 0.587496, -3.835)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../..")
+
+[node name="LowpolyTreeSample8" type="MeshInstance3D" parent="TreeGroupMedium2/TreeGroupSmall8"]
+transform = Transform3D(0.727976, 0, 0.685602, 0, 1, 0, -0.685602, 0, 0.727976, -7.92261, 0.606401, 17.8274)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../..")
+
+[node name="LowpolyTreeSample9" type="MeshInstance3D" parent="TreeGroupMedium2/TreeGroupSmall8"]
+transform = Transform3D(0.727976, 0, 0.685602, 0, 1, 0, -0.685602, 0, 0.727976, -22.881, 0.606401, 25.2056)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../..")
+
+[node name="LowpolyTreeSample10" type="MeshInstance3D" parent="TreeGroupMedium2/TreeGroupSmall8"]
+transform = Transform3D(0.727976, 0, 0.685602, 0, 1, 0, -0.685602, 0, 0.727976, -9.77896, 0.606401, 46.449)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../..")
+
+[node name="LowpolyTreeSample" type="MeshInstance3D" parent="TreeGroupMedium2"]
+transform = Transform3D(-0.413009, 0, -0.910727, 0, 1, 0, 0.910727, 0, -0.413009, -12.664, -3.8147e-06, 0.906468)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../..")
+
+[node name="LowpolyTreeSample2" type="MeshInstance3D" parent="TreeGroupMedium2"]
+transform = Transform3D(0.60628, 0, -0.795251, 0, 1, 0, 0.795251, 0, 0.60628, 21.8562, -2.05326, -23.7613)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../..")
+
+[node name="TreeGroupMedium3" type="Node3D" parent="."]
+transform = Transform3D(0.732792, 0, -0.680452, 0, 1, 0, 0.680452, 0, 0.732792, 560.898, 0, 925.889)
+
+[node name="TreeGroupSmall7" type="Node3D" parent="TreeGroupMedium3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.5952, -7.62939e-06, -10.237)
+
+[node name="LowpolyTreeSample" type="MeshInstance3D" parent="TreeGroupMedium3/TreeGroupSmall7"]
+transform = Transform3D(-0.413009, 0, -0.910727, 0, 1, 0, 0.910727, 0, -0.413009, 0, 0, 0)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../..")
+
+[node name="LowpolyTreeSample2" type="MeshInstance3D" parent="TreeGroupMedium3/TreeGroupSmall7"]
+transform = Transform3D(-0.150435, -0.006438, 0.988599, -0.00452464, 0.999973, 0.00582358, -0.98861, -0.00359702, -0.15046, 8.55307, 0.500202, -22.4022)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../..")
+
+[node name="LowpolyTreeSample3" type="MeshInstance3D" parent="TreeGroupMedium3/TreeGroupSmall7"]
+transform = Transform3D(0.776695, 0, 0.629876, 0, 1, 0, -0.629876, 0, 0.776695, -18.4427, 0.587496, -3.835)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../..")
+
+[node name="LowpolyTreeSample4" type="MeshInstance3D" parent="TreeGroupMedium3/TreeGroupSmall7"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.7804, -0.860731, 40.2367)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../..")
+
+[node name="LowpolyTreeSample5" type="MeshInstance3D" parent="TreeGroupMedium3/TreeGroupSmall7"]
+transform = Transform3D(0.607653, 0, -0.794203, 0, 1, 0, 0.794203, 0, 0.607653, 34.9203, 0.587496, 19.2613)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../..")
+
+[node name="LowpolyTreeSample6" type="MeshInstance3D" parent="TreeGroupMedium3/TreeGroupSmall7"]
+transform = Transform3D(-0.999994, 0, -0.00335112, 0, 1, 0, 0.00335112, 0, -0.999994, 8.43704, 0.587496, 23.2135)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../..")
+
+[node name="LowpolyTreeSample7" type="MeshInstance3D" parent="TreeGroupMedium3/TreeGroupSmall7"]
+transform = Transform3D(-0.966232, 0, -0.257673, 0, 1, 0, 0.257673, 0, -0.966232, 21.5686, 0.587496, -3.835)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../..")
+
+[node name="LowpolyTreeSample8" type="MeshInstance3D" parent="TreeGroupMedium3/TreeGroupSmall7"]
+transform = Transform3D(0.727976, 0, 0.685602, 0, 1, 0, -0.685602, 0, 0.727976, -7.92261, 0.606401, 17.8274)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../..")
+
+[node name="LowpolyTreeSample9" type="MeshInstance3D" parent="TreeGroupMedium3/TreeGroupSmall7"]
+transform = Transform3D(0.727976, 0, 0.685602, 0, 1, 0, -0.685602, 0, 0.727976, -22.881, 0.606401, 25.2056)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../..")
+
+[node name="LowpolyTreeSample10" type="MeshInstance3D" parent="TreeGroupMedium3/TreeGroupSmall7"]
+transform = Transform3D(0.727976, 0, 0.685602, 0, 1, 0, -0.685602, 0, 0.727976, -9.77896, 0.606401, 46.449)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../..")
+
+[node name="TreeGroupSmaller4" type="Node3D" parent="TreeGroupMedium3"]
+transform = Transform3D(0.837366, 0, 0.546643, 0, 1, 0, -0.546643, 0, 0.837366, -12.8451, 0, 30.5434)
+
+[node name="LowpolyTreeSample" type="MeshInstance3D" parent="TreeGroupMedium3/TreeGroupSmaller4"]
+transform = Transform3D(-0.413009, 0, -0.910727, 0, 1, 0, 0.910727, 0, -0.413009, 0, 0, 0)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../..")
+
+[node name="LowpolyTreeSample2" type="MeshInstance3D" parent="TreeGroupMedium3/TreeGroupSmaller4"]
+transform = Transform3D(0.286708, 0, 0.958018, 0, 1, 0, -0.958018, 0, 0.286708, -14.1396, 0, -20.4174)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../..")
+
+[node name="LowpolyTreeSample3" type="MeshInstance3D" parent="TreeGroupMedium3/TreeGroupSmaller4"]
+transform = Transform3D(-0.413009, 0, -0.910727, 0, 1, 0, 0.910727, 0, -0.413009, -24.0345, 0, -12.5768)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../..")
+
+[node name="LowpolyTreeSample4" type="MeshInstance3D" parent="TreeGroupMedium3/TreeGroupSmaller4"]
+transform = Transform3D(-0.999944, 0, -0.010594, 0, 1, 0, 0.010594, 0, -0.999944, -13.8045, 0, 0)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../..")
+
+[node name="LowpolyTreeSample5" type="MeshInstance3D" parent="TreeGroupMedium3/TreeGroupSmaller4"]
+transform = Transform3D(-0.976624, 0, -0.214957, 0, 1, 0, 0.214957, 0, -0.976624, -1.76885, 0, -20.2753)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../..")
+
+[node name="LowpolyTreeSample6" type="MeshInstance3D" parent="TreeGroupMedium3/TreeGroupSmaller4"]
+transform = Transform3D(0.981634, 0, -0.190775, 0, 1, 0, 0.190775, 0, 0.981634, -14.0145, 0, 17.1789)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../..")
+
+[node name="TreeGroupSmaller5" type="Node3D" parent="TreeGroupMedium3"]
+transform = Transform3D(0.985712, 0, 0.168438, 0, 1, 0, -0.168438, 0, 0.985712, 5.19812, 0, -50.3916)
+
+[node name="LowpolyTreeSample" type="MeshInstance3D" parent="TreeGroupMedium3/TreeGroupSmaller5"]
+transform = Transform3D(-0.413009, 0, -0.910727, 0, 1, 0, 0.910727, 0, -0.413009, 0, 0, 0)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../..")
+
+[node name="LowpolyTreeSample2" type="MeshInstance3D" parent="TreeGroupMedium3/TreeGroupSmaller5"]
+transform = Transform3D(0.286708, 0, 0.958018, 0, 1, 0, -0.958018, 0, 0.286708, -14.1396, 0, -20.4174)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../..")
+
+[node name="LowpolyTreeSample3" type="MeshInstance3D" parent="TreeGroupMedium3/TreeGroupSmaller5"]
+transform = Transform3D(-0.413009, 0, -0.910727, 0, 1, 0, 0.910727, 0, -0.413009, -24.0345, 0, -12.5768)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../..")
+
+[node name="LowpolyTreeSample4" type="MeshInstance3D" parent="TreeGroupMedium3/TreeGroupSmaller5"]
+transform = Transform3D(-0.999944, 0, -0.010594, 0, 1, 0, 0.010594, 0, -0.999944, -13.8045, 0, 0)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../..")
+
+[node name="LowpolyTreeSample5" type="MeshInstance3D" parent="TreeGroupMedium3/TreeGroupSmaller5"]
+transform = Transform3D(-0.976624, 0, -0.214957, 0, 1, 0, 0.214957, 0, -0.976624, -1.76885, 0, -20.2753)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../..")
+
+[node name="LowpolyTreeSample6" type="MeshInstance3D" parent="TreeGroupMedium3/TreeGroupSmaller5"]
+transform = Transform3D(0.981634, 0, -0.190775, 0, 1, 0, 0.190775, 0, 0.981634, -14.0145, 0, 17.1789)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../..")
+
+[node name="TreeGroupSmall8" type="Node3D" parent="TreeGroupMedium3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -53.0865, -7.62939e-06, -34.401)
+
+[node name="LowpolyTreeSample" type="MeshInstance3D" parent="TreeGroupMedium3/TreeGroupSmall8"]
+transform = Transform3D(-0.413009, 0, -0.910727, 0, 1, 0, 0.910727, 0, -0.413009, 0, 0, 0)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../..")
+
+[node name="LowpolyTreeSample2" type="MeshInstance3D" parent="TreeGroupMedium3/TreeGroupSmall8"]
+transform = Transform3D(-0.150435, -0.006438, 0.988599, -0.00452464, 0.999973, 0.00582358, -0.98861, -0.00359702, -0.15046, 8.55307, 0.500202, -22.4022)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../..")
+
+[node name="LowpolyTreeSample3" type="MeshInstance3D" parent="TreeGroupMedium3/TreeGroupSmall8"]
+transform = Transform3D(0.776695, 0, 0.629876, 0, 1, 0, -0.629876, 0, 0.776695, -18.4427, 0.587496, -3.835)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../..")
+
+[node name="LowpolyTreeSample4" type="MeshInstance3D" parent="TreeGroupMedium3/TreeGroupSmall8"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.7804, -0.860731, 40.2367)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../..")
+
+[node name="LowpolyTreeSample5" type="MeshInstance3D" parent="TreeGroupMedium3/TreeGroupSmall8"]
+transform = Transform3D(0.607653, 0, -0.794203, 0, 1, 0, 0.794203, 0, 0.607653, 34.9203, 0.587496, 19.2613)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../..")
+
+[node name="LowpolyTreeSample6" type="MeshInstance3D" parent="TreeGroupMedium3/TreeGroupSmall8"]
+transform = Transform3D(-0.999994, 0, -0.00335112, 0, 1, 0, 0.00335112, 0, -0.999994, 8.43704, 0.587496, 23.2135)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../..")
+
+[node name="LowpolyTreeSample7" type="MeshInstance3D" parent="TreeGroupMedium3/TreeGroupSmall8"]
+transform = Transform3D(-0.966232, 0, -0.257673, 0, 1, 0, 0.257673, 0, -0.966232, 21.5686, 0.587496, -3.835)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../..")
+
+[node name="LowpolyTreeSample8" type="MeshInstance3D" parent="TreeGroupMedium3/TreeGroupSmall8"]
+transform = Transform3D(0.727976, 0, 0.685602, 0, 1, 0, -0.685602, 0, 0.727976, -7.92261, 0.606401, 17.8274)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../..")
+
+[node name="LowpolyTreeSample9" type="MeshInstance3D" parent="TreeGroupMedium3/TreeGroupSmall8"]
+transform = Transform3D(0.727976, 0, 0.685602, 0, 1, 0, -0.685602, 0, 0.727976, -22.881, 0.606401, 25.2056)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../..")
+
+[node name="LowpolyTreeSample10" type="MeshInstance3D" parent="TreeGroupMedium3/TreeGroupSmall8"]
+transform = Transform3D(0.727976, 0, 0.685602, 0, 1, 0, -0.685602, 0, 0.727976, -9.77896, 0.606401, 46.449)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../..")
+
+[node name="LowpolyTreeSample" type="MeshInstance3D" parent="TreeGroupMedium3"]
+transform = Transform3D(-0.413009, 0, -0.910727, 0, 1, 0, 0.910727, 0, -0.413009, -12.664, -3.8147e-06, 0.906468)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../..")
+
+[node name="LowpolyTreeSample2" type="MeshInstance3D" parent="TreeGroupMedium3"]
+transform = Transform3D(0.60628, 0, -0.795251, 0, 1, 0, 0.795251, 0, 0.60628, 21.8562, -2.05326, -23.7613)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../..")
+
+[node name="TreeGroupSmaller4" type="Node3D" parent="."]
+transform = Transform3D(0.916914, 0, 0.399085, 0, 1, 0, -0.399085, 0, 0.916914, 528.705, 0, 984.424)
+
+[node name="LowpolyTreeSample" type="MeshInstance3D" parent="TreeGroupSmaller4"]
+transform = Transform3D(-0.413009, 0, -0.910727, 0, 1, 0, 0.910727, 0, -0.413009, 0, 0, 0)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../..")
+
+[node name="LowpolyTreeSample2" type="MeshInstance3D" parent="TreeGroupSmaller4"]
+transform = Transform3D(0.286708, 0, 0.958018, 0, 1, 0, -0.958018, 0, 0.286708, -14.1396, 0, -20.4174)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../..")
+
+[node name="LowpolyTreeSample3" type="MeshInstance3D" parent="TreeGroupSmaller4"]
+transform = Transform3D(-0.413009, 0, -0.910727, 0, 1, 0, 0.910727, 0, -0.413009, -24.0345, 0, -12.5768)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../..")
+
+[node name="LowpolyTreeSample4" type="MeshInstance3D" parent="TreeGroupSmaller4"]
+transform = Transform3D(-0.999944, 0, -0.010594, 0, 1, 0, 0.010594, 0, -0.999944, -13.8045, 0, 0)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../..")
+
+[node name="LowpolyTreeSample5" type="MeshInstance3D" parent="TreeGroupSmaller4"]
+transform = Transform3D(-0.976624, 0, -0.214957, 0, 1, 0, 0.214957, 0, -0.976624, -1.76885, 0, -20.2753)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../..")
+
+[node name="LowpolyTreeSample6" type="MeshInstance3D" parent="TreeGroupSmaller4"]
+transform = Transform3D(0.981634, 0, -0.190775, 0, 1, 0, 0.190775, 0, 0.981634, -14.0145, 0, 17.1789)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../..")
+
+[node name="TreeGroupSmaller5" type="Node3D" parent="."]
+transform = Transform3D(-0.179266, 0, -0.983801, 0, 1, 0, 0.983801, 0, -0.179266, 564.506, 0, 1008)
+
+[node name="LowpolyTreeSample" type="MeshInstance3D" parent="TreeGroupSmaller5"]
+transform = Transform3D(-0.413009, 0, -0.910727, 0, 1, 0, 0.910727, 0, -0.413009, 0, 0, 0)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../..")
+
+[node name="LowpolyTreeSample2" type="MeshInstance3D" parent="TreeGroupSmaller5"]
+transform = Transform3D(0.286708, 0, 0.958018, 0, 1, 0, -0.958018, 0, 0.286708, -14.1396, 0, -20.4174)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../..")
+
+[node name="LowpolyTreeSample3" type="MeshInstance3D" parent="TreeGroupSmaller5"]
+transform = Transform3D(-0.413009, 0, -0.910727, 0, 1, 0, 0.910727, 0, -0.413009, -24.0345, 0, -12.5768)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../..")
+
+[node name="LowpolyTreeSample4" type="MeshInstance3D" parent="TreeGroupSmaller5"]
+transform = Transform3D(-0.999944, 0, -0.010594, 0, 1, 0, 0.010594, 0, -0.999944, -13.8045, 0, 0)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../..")
+
+[node name="LowpolyTreeSample5" type="MeshInstance3D" parent="TreeGroupSmaller5"]
+transform = Transform3D(-0.976624, 0, -0.214957, 0, 1, 0, 0.214957, 0, -0.976624, -1.76885, 0, -20.2753)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../..")
+
+[node name="LowpolyTreeSample6" type="MeshInstance3D" parent="TreeGroupSmaller5"]
+transform = Transform3D(0.981634, 0, -0.190775, 0, 1, 0, 0.190775, 0, 0.981634, -14.0145, 0, 17.1789)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../..")
+
+[node name="TreeGroupSmall7" type="Node3D" parent="."]
+transform = Transform3D(-0.0797466, 0, -0.996815, 0, 1, 0, 0.996815, 0, -0.0797466, 463.717, 7.62939e-06, 571.149)
+
+[node name="LowpolyTreeSample" type="MeshInstance3D" parent="TreeGroupSmall7"]
+transform = Transform3D(-0.413009, 0, -0.910727, 0, 1, 0, 0.910727, 0, -0.413009, 0, 0, 0)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../..")
+
+[node name="LowpolyTreeSample2" type="MeshInstance3D" parent="TreeGroupSmall7"]
+transform = Transform3D(-0.150435, -0.006438, 0.988599, -0.00452464, 0.999973, 0.00582358, -0.98861, -0.00359702, -0.15046, 8.55307, 0.500202, -22.4022)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../..")
+
+[node name="LowpolyTreeSample3" type="MeshInstance3D" parent="TreeGroupSmall7"]
+transform = Transform3D(0.776695, 0, 0.629876, 0, 1, 0, -0.629876, 0, 0.776695, -18.4427, 0.587496, -3.835)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../..")
+
+[node name="LowpolyTreeSample4" type="MeshInstance3D" parent="TreeGroupSmall7"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.7804, -0.860731, 40.2367)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../..")
+
+[node name="LowpolyTreeSample5" type="MeshInstance3D" parent="TreeGroupSmall7"]
+transform = Transform3D(0.607653, 0, -0.794203, 0, 1, 0, 0.794203, 0, 0.607653, 34.9203, 0.587496, 19.2613)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../..")
+
+[node name="LowpolyTreeSample6" type="MeshInstance3D" parent="TreeGroupSmall7"]
+transform = Transform3D(-0.999994, 0, -0.00335112, 0, 1, 0, 0.00335112, 0, -0.999994, 8.43704, 0.587496, 23.2135)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../..")
+
+[node name="LowpolyTreeSample7" type="MeshInstance3D" parent="TreeGroupSmall7"]
+transform = Transform3D(-0.966232, 0, -0.257673, 0, 1, 0, 0.257673, 0, -0.966232, 21.5686, 0.587496, -3.835)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../..")
+
+[node name="LowpolyTreeSample8" type="MeshInstance3D" parent="TreeGroupSmall7"]
+transform = Transform3D(0.727976, 0, 0.685602, 0, 1, 0, -0.685602, 0, 0.727976, -7.92261, 0.606401, 17.8274)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../..")
+
+[node name="LowpolyTreeSample9" type="MeshInstance3D" parent="TreeGroupSmall7"]
+transform = Transform3D(0.727976, 0, 0.685602, 0, 1, 0, -0.685602, 0, 0.727976, -22.881, 0.606401, 25.2056)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../..")
+
+[node name="LowpolyTreeSample10" type="MeshInstance3D" parent="TreeGroupSmall7"]
+transform = Transform3D(0.727976, 0, 0.685602, 0, 1, 0, -0.685602, 0, 0.727976, -9.77896, 0.606401, 46.449)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../..")
+
+[node name="TreeGroupSmall8" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 126.217, 7.62939e-06, 739.911)
+
+[node name="LowpolyTreeSample" type="MeshInstance3D" parent="TreeGroupSmall8"]
+transform = Transform3D(-0.413009, 0, -0.910727, 0, 1, 0, 0.910727, 0, -0.413009, 0, 0, 0)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../..")
+
+[node name="LowpolyTreeSample2" type="MeshInstance3D" parent="TreeGroupSmall8"]
+transform = Transform3D(-0.150435, -0.006438, 0.988599, -0.00452464, 0.999973, 0.00582358, -0.98861, -0.00359702, -0.15046, 8.55307, 0.500202, -22.4022)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../..")
+
+[node name="LowpolyTreeSample3" type="MeshInstance3D" parent="TreeGroupSmall8"]
+transform = Transform3D(0.776695, 0, 0.629876, 0, 1, 0, -0.629876, 0, 0.776695, -18.4427, 0.587496, -3.835)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../..")
+
+[node name="LowpolyTreeSample4" type="MeshInstance3D" parent="TreeGroupSmall8"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.7804, -0.860731, 40.2367)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../..")
+
+[node name="LowpolyTreeSample5" type="MeshInstance3D" parent="TreeGroupSmall8"]
+transform = Transform3D(0.607653, 0, -0.794203, 0, 1, 0, 0.794203, 0, 0.607653, 34.9203, 0.587496, 19.2613)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../..")
+
+[node name="LowpolyTreeSample6" type="MeshInstance3D" parent="TreeGroupSmall8"]
+transform = Transform3D(-0.999994, 0, -0.00335112, 0, 1, 0, 0.00335112, 0, -0.999994, 8.43704, 0.587496, 23.2135)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../..")
+
+[node name="LowpolyTreeSample7" type="MeshInstance3D" parent="TreeGroupSmall8"]
+transform = Transform3D(-0.966232, 0, -0.257673, 0, 1, 0, 0.257673, 0, -0.966232, 21.5686, 0.587496, -3.835)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../..")
+
+[node name="LowpolyTreeSample8" type="MeshInstance3D" parent="TreeGroupSmall8"]
+transform = Transform3D(0.727976, 0, 0.685602, 0, 1, 0, -0.685602, 0, 0.727976, -7.92261, 0.606401, 17.8274)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../..")
+
+[node name="LowpolyTreeSample9" type="MeshInstance3D" parent="TreeGroupSmall8"]
+transform = Transform3D(0.727976, 0, 0.685602, 0, 1, 0, -0.685602, 0, 0.727976, -22.881, 0.606401, 25.2056)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../..")
+
+[node name="LowpolyTreeSample10" type="MeshInstance3D" parent="TreeGroupSmall8"]
+transform = Transform3D(0.727976, 0, 0.685602, 0, 1, 0, -0.685602, 0, 0.727976, -9.77896, 0.606401, 46.449)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../..")
+
+[node name="TreeGroupSmaller6" type="Node3D" parent="."]
+transform = Transform3D(0.185992, 0, -0.982551, 0, 1, 0, 0.982551, 0, 0.185992, 311.544, 0, 655.356)
+
+[node name="LowpolyTreeSample" type="MeshInstance3D" parent="TreeGroupSmaller6"]
+transform = Transform3D(-0.413009, 0, -0.910727, 0, 1, 0, 0.910727, 0, -0.413009, 0, 0, 0)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../..")
+
+[node name="LowpolyTreeSample2" type="MeshInstance3D" parent="TreeGroupSmaller6"]
+transform = Transform3D(0.286708, 0, 0.958018, 0, 1, 0, -0.958018, 0, 0.286708, -14.1396, 0, -20.4174)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../..")
+
+[node name="LowpolyTreeSample3" type="MeshInstance3D" parent="TreeGroupSmaller6"]
+transform = Transform3D(-0.413009, 0, -0.910727, 0, 1, 0, 0.910727, 0, -0.413009, -24.0345, 0, -12.5768)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../..")
+
+[node name="LowpolyTreeSample4" type="MeshInstance3D" parent="TreeGroupSmaller6"]
+transform = Transform3D(-0.999944, 0, -0.010594, 0, 1, 0, 0.010594, 0, -0.999944, -13.8045, 0, 0)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../..")
+
+[node name="LowpolyTreeSample5" type="MeshInstance3D" parent="TreeGroupSmaller6"]
+transform = Transform3D(-0.976624, 0, -0.214957, 0, 1, 0, 0.214957, 0, -0.976624, -1.76885, 0, -20.2753)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../..")
+
+[node name="LowpolyTreeSample6" type="MeshInstance3D" parent="TreeGroupSmaller6"]
+transform = Transform3D(0.981634, 0, -0.190775, 0, 1, 0, 0.190775, 0, 0.981634, -14.0145, 0, 17.1789)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../..")
+
+[node name="TreeGroupSmaller7" type="Node3D" parent="."]
+transform = Transform3D(0.837366, 0, 0.546643, 0, 1, 0, -0.546643, 0, 0.837366, 161.317, 0, 630.334)
+
+[node name="LowpolyTreeSample" type="MeshInstance3D" parent="TreeGroupSmaller7"]
+transform = Transform3D(-0.413009, 0, -0.910727, 0, 1, 0, 0.910727, 0, -0.413009, 0, 0, 0)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../..")
+
+[node name="LowpolyTreeSample2" type="MeshInstance3D" parent="TreeGroupSmaller7"]
+transform = Transform3D(0.286708, 0, 0.958018, 0, 1, 0, -0.958018, 0, 0.286708, -14.1396, 0, -20.4174)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../..")
+
+[node name="LowpolyTreeSample3" type="MeshInstance3D" parent="TreeGroupSmaller7"]
+transform = Transform3D(-0.413009, 0, -0.910727, 0, 1, 0, 0.910727, 0, -0.413009, -24.0345, 0, -12.5768)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../..")
+
+[node name="LowpolyTreeSample4" type="MeshInstance3D" parent="TreeGroupSmaller7"]
+transform = Transform3D(-0.999944, 0, -0.010594, 0, 1, 0, 0.010594, 0, -0.999944, -13.8045, 0, 0)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../..")
+
+[node name="LowpolyTreeSample5" type="MeshInstance3D" parent="TreeGroupSmaller7"]
+transform = Transform3D(-0.976624, 0, -0.214957, 0, 1, 0, 0.214957, 0, -0.976624, -1.76885, 0, -20.2753)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../..")
+
+[node name="LowpolyTreeSample6" type="MeshInstance3D" parent="TreeGroupSmaller7"]
+transform = Transform3D(0.981634, 0, -0.190775, 0, 1, 0, 0.190775, 0, 0.981634, -14.0145, 0, 17.1789)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../..")
+
+[node name="TreeGroupSmaller8" type="Node3D" parent="."]
+transform = Transform3D(-0.135733, 0, 0.990745, 0, 1, 0, -0.990745, 0, -0.135733, 340.187, 0, 766.851)
+
+[node name="LowpolyTreeSample" type="MeshInstance3D" parent="TreeGroupSmaller8"]
+transform = Transform3D(-0.413009, 0, -0.910727, 0, 1, 0, 0.910727, 0, -0.413009, 0, 0, 0)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../..")
+
+[node name="LowpolyTreeSample2" type="MeshInstance3D" parent="TreeGroupSmaller8"]
+transform = Transform3D(0.286708, 0, 0.958018, 0, 1, 0, -0.958018, 0, 0.286708, -14.1396, 0, -20.4174)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../..")
+
+[node name="LowpolyTreeSample3" type="MeshInstance3D" parent="TreeGroupSmaller8"]
+transform = Transform3D(-0.413009, 0, -0.910727, 0, 1, 0, 0.910727, 0, -0.413009, -24.0345, 0, -12.5768)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../..")
+
+[node name="LowpolyTreeSample4" type="MeshInstance3D" parent="TreeGroupSmaller8"]
+transform = Transform3D(-0.999944, 0, -0.010594, 0, 1, 0, 0.010594, 0, -0.999944, -13.8045, 0, 0)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../..")
+
+[node name="LowpolyTreeSample5" type="MeshInstance3D" parent="TreeGroupSmaller8"]
+transform = Transform3D(-0.976624, 0, -0.214957, 0, 1, 0, 0.214957, 0, -0.976624, -1.76885, 0, -20.2753)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../..")
+
+[node name="LowpolyTreeSample6" type="MeshInstance3D" parent="TreeGroupSmaller8"]
+transform = Transform3D(0.981634, 0, -0.190775, 0, 1, 0, 0.190775, 0, 0.981634, -14.0145, 0, 17.1789)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../..")
+
+[node name="TreeGroupLarge" type="Node3D" parent="."]
+transform = Transform3D(-0.996646, 0, 0.0818342, 0, 1, 0, -0.0818342, 0, -0.996646, 679.188, 0.731789, 926.154)
+
+[node name="TreeGroupMedium7" type="Node3D" parent="TreeGroupLarge"]
+transform = Transform3D(0.732792, 0, -0.680452, 0, 1, 0, 0.680452, 0, 0.732792, 67.1466, 0.193451, -42.7558)
+
+[node name="TreeGroupSmall7" type="Node3D" parent="TreeGroupLarge/TreeGroupMedium7"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.5952, -7.62939e-06, -10.237)
+
+[node name="LowpolyTreeSample" type="MeshInstance3D" parent="TreeGroupLarge/TreeGroupMedium7/TreeGroupSmall7"]
+transform = Transform3D(-0.413009, 0, -0.910727, 0, 1, 0, 0.910727, 0, -0.413009, 0, 0, 0)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../../..")
+
+[node name="LowpolyTreeSample2" type="MeshInstance3D" parent="TreeGroupLarge/TreeGroupMedium7/TreeGroupSmall7"]
+transform = Transform3D(-0.150435, -0.006438, 0.988599, -0.00452464, 0.999973, 0.00582358, -0.98861, -0.00359702, -0.15046, 8.55307, 0.500202, -22.4022)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../../..")
+
+[node name="LowpolyTreeSample3" type="MeshInstance3D" parent="TreeGroupLarge/TreeGroupMedium7/TreeGroupSmall7"]
+transform = Transform3D(0.776695, 0, 0.629876, 0, 1, 0, -0.629876, 0, 0.776695, -18.4427, 0.587496, -3.835)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../../..")
+
+[node name="LowpolyTreeSample4" type="MeshInstance3D" parent="TreeGroupLarge/TreeGroupMedium7/TreeGroupSmall7"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.7804, -0.860731, 40.2367)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../../..")
+
+[node name="LowpolyTreeSample5" type="MeshInstance3D" parent="TreeGroupLarge/TreeGroupMedium7/TreeGroupSmall7"]
+transform = Transform3D(0.607653, 0, -0.794203, 0, 1, 0, 0.794203, 0, 0.607653, 34.9203, 0.587496, 19.2613)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../../..")
+
+[node name="LowpolyTreeSample6" type="MeshInstance3D" parent="TreeGroupLarge/TreeGroupMedium7/TreeGroupSmall7"]
+transform = Transform3D(-0.999994, 0, -0.00335112, 0, 1, 0, 0.00335112, 0, -0.999994, 8.43704, 0.587496, 23.2135)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../../..")
+
+[node name="LowpolyTreeSample7" type="MeshInstance3D" parent="TreeGroupLarge/TreeGroupMedium7/TreeGroupSmall7"]
+transform = Transform3D(-0.966232, 0, -0.257673, 0, 1, 0, 0.257673, 0, -0.966232, 21.5686, 0.587496, -3.835)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../../..")
+
+[node name="LowpolyTreeSample8" type="MeshInstance3D" parent="TreeGroupLarge/TreeGroupMedium7/TreeGroupSmall7"]
+transform = Transform3D(0.727976, 0, 0.685602, 0, 1, 0, -0.685602, 0, 0.727976, -7.92261, 0.606401, 17.8274)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../../..")
+
+[node name="LowpolyTreeSample9" type="MeshInstance3D" parent="TreeGroupLarge/TreeGroupMedium7/TreeGroupSmall7"]
+transform = Transform3D(0.727976, 0, 0.685602, 0, 1, 0, -0.685602, 0, 0.727976, -22.881, 0.606401, 25.2056)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../../..")
+
+[node name="LowpolyTreeSample10" type="MeshInstance3D" parent="TreeGroupLarge/TreeGroupMedium7/TreeGroupSmall7"]
+transform = Transform3D(0.727976, 0, 0.685602, 0, 1, 0, -0.685602, 0, 0.727976, -9.77896, 0.606401, 46.449)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../../..")
+
+[node name="TreeGroupSmaller4" type="Node3D" parent="TreeGroupLarge/TreeGroupMedium7"]
+transform = Transform3D(0.837366, 0, 0.546643, 0, 1, 0, -0.546643, 0, 0.837366, -12.8451, 0, 30.5434)
+
+[node name="LowpolyTreeSample" type="MeshInstance3D" parent="TreeGroupLarge/TreeGroupMedium7/TreeGroupSmaller4"]
+transform = Transform3D(-0.413009, 0, -0.910727, 0, 1, 0, 0.910727, 0, -0.413009, 0, 0, 0)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../../../..")
+
+[node name="LowpolyTreeSample2" type="MeshInstance3D" parent="TreeGroupLarge/TreeGroupMedium7/TreeGroupSmaller4"]
+transform = Transform3D(0.286708, 0, 0.958018, 0, 1, 0, -0.958018, 0, 0.286708, -14.1396, 0, -20.4174)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../../../..")
+
+[node name="LowpolyTreeSample3" type="MeshInstance3D" parent="TreeGroupLarge/TreeGroupMedium7/TreeGroupSmaller4"]
+transform = Transform3D(-0.413009, 0, -0.910727, 0, 1, 0, 0.910727, 0, -0.413009, -24.0346, 1.15835, -12.5768)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../../../..")
+
+[node name="LowpolyTreeSample4" type="MeshInstance3D" parent="TreeGroupLarge/TreeGroupMedium7/TreeGroupSmaller4"]
+transform = Transform3D(-0.999944, 0, -0.010594, 0, 1, 0, 0.010594, 0, -0.999944, -13.8045, 0, 0)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../../../..")
+
+[node name="LowpolyTreeSample5" type="MeshInstance3D" parent="TreeGroupLarge/TreeGroupMedium7/TreeGroupSmaller4"]
+transform = Transform3D(-0.976624, 0, -0.214957, 0, 1, 0, 0.214957, 0, -0.976624, -1.76885, 0, -20.2753)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../../../..")
+
+[node name="LowpolyTreeSample6" type="MeshInstance3D" parent="TreeGroupLarge/TreeGroupMedium7/TreeGroupSmaller4"]
+transform = Transform3D(0.981634, 0, -0.190775, 0, 1, 0, 0.190775, 0, 0.981634, -14.0145, 0, 17.179)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../../../..")
+
+[node name="TreeGroupSmaller5" type="Node3D" parent="TreeGroupLarge/TreeGroupMedium7"]
+transform = Transform3D(0.985712, 0, 0.168438, 0, 1, 0, -0.168438, 0, 0.985712, 5.19812, 0, -50.3916)
+
+[node name="LowpolyTreeSample" type="MeshInstance3D" parent="TreeGroupLarge/TreeGroupMedium7/TreeGroupSmaller5"]
+transform = Transform3D(-0.413009, 0, -0.910727, 0, 1, 0, 0.910727, 0, -0.413009, 0, 0, 0)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../../../..")
+
+[node name="LowpolyTreeSample2" type="MeshInstance3D" parent="TreeGroupLarge/TreeGroupMedium7/TreeGroupSmaller5"]
+transform = Transform3D(0.286708, 0, 0.958018, 0, 1, 0, -0.958018, 0, 0.286708, -14.1396, 0, -20.4174)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../../../..")
+
+[node name="LowpolyTreeSample3" type="MeshInstance3D" parent="TreeGroupLarge/TreeGroupMedium7/TreeGroupSmaller5"]
+transform = Transform3D(-0.413009, 0, -0.910727, 0, 1, 0, 0.910727, 0, -0.413009, -24.0345, 0, -12.5768)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../../../..")
+
+[node name="LowpolyTreeSample4" type="MeshInstance3D" parent="TreeGroupLarge/TreeGroupMedium7/TreeGroupSmaller5"]
+transform = Transform3D(-0.999944, 0, -0.010594, 0, 1, 0, 0.010594, 0, -0.999944, -13.8045, 0, 0)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../../../..")
+
+[node name="LowpolyTreeSample5" type="MeshInstance3D" parent="TreeGroupLarge/TreeGroupMedium7/TreeGroupSmaller5"]
+transform = Transform3D(-0.976624, 0, -0.214957, 0, 1, 0, 0.214957, 0, -0.976624, -1.76885, 0, -20.2753)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../../../..")
+
+[node name="LowpolyTreeSample6" type="MeshInstance3D" parent="TreeGroupLarge/TreeGroupMedium7/TreeGroupSmaller5"]
+transform = Transform3D(0.981634, 0, -0.190775, 0, 1, 0, 0.190775, 0, 0.981634, -14.0145, 0, 17.1789)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../../../..")
+
+[node name="TreeGroupSmall8" type="Node3D" parent="TreeGroupLarge/TreeGroupMedium7"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -53.0865, -7.62939e-06, -34.401)
+
+[node name="LowpolyTreeSample" type="MeshInstance3D" parent="TreeGroupLarge/TreeGroupMedium7/TreeGroupSmall8"]
+transform = Transform3D(-0.413009, 0, -0.910727, 0, 1, 0, 0.910727, 0, -0.413009, 0, 4.78655, 0)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../../..")
+
+[node name="LowpolyTreeSample2" type="MeshInstance3D" parent="TreeGroupLarge/TreeGroupMedium7/TreeGroupSmall8"]
+transform = Transform3D(-0.150435, -0.006438, 0.988599, -0.00452464, 0.999973, 0.00582358, -0.98861, -0.00359702, -0.15046, 8.55286, 4.43206, -22.4022)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../../..")
+
+[node name="LowpolyTreeSample3" type="MeshInstance3D" parent="TreeGroupLarge/TreeGroupMedium7/TreeGroupSmall8"]
+transform = Transform3D(0.776695, 0, 0.629876, 0, 1, 0, -0.629876, 0, 0.776695, -18.4427, 8.52218, -3.83505)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../../..")
+
+[node name="LowpolyTreeSample4" type="MeshInstance3D" parent="TreeGroupLarge/TreeGroupMedium7/TreeGroupSmall8"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.7804, 0.765222, 40.2368)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../../..")
+
+[node name="LowpolyTreeSample5" type="MeshInstance3D" parent="TreeGroupLarge/TreeGroupMedium7/TreeGroupSmall8"]
+transform = Transform3D(0.607653, 0, -0.794203, 0, 1, 0, 0.794203, 0, 0.607653, 34.9203, 0.11753, 19.2612)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../../..")
+
+[node name="LowpolyTreeSample6" type="MeshInstance3D" parent="TreeGroupLarge/TreeGroupMedium7/TreeGroupSmall8"]
+transform = Transform3D(-0.999994, 0, -0.00335109, 0, 1, 0, 0.00335109, 0, -0.999994, 8.43677, 1.95981, 23.2134)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../../..")
+
+[node name="LowpolyTreeSample7" type="MeshInstance3D" parent="TreeGroupLarge/TreeGroupMedium7/TreeGroupSmall8"]
+transform = Transform3D(-0.966232, 0, -0.257673, 0, 1, 0, 0.257673, 0, -0.966232, 21.5685, 1.40952, -3.83505)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../../..")
+
+[node name="LowpolyTreeSample8" type="MeshInstance3D" parent="TreeGroupLarge/TreeGroupMedium7/TreeGroupSmall8"]
+transform = Transform3D(0.727976, 0, 0.685602, 0, 1, 0, -0.685602, 0, 0.727976, -7.92273, 4.92179, 17.8273)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../../..")
+
+[node name="LowpolyTreeSample9" type="MeshInstance3D" parent="TreeGroupLarge/TreeGroupMedium7/TreeGroupSmall8"]
+transform = Transform3D(0.727976, 0, 0.685602, 0, 1, 0, -0.685602, 0, 0.727976, -22.8811, 7.70669, 25.2056)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../../..")
+
+[node name="LowpolyTreeSample10" type="MeshInstance3D" parent="TreeGroupLarge/TreeGroupMedium7/TreeGroupSmall8"]
+transform = Transform3D(0.727976, 0, 0.685602, 0, 1, 0, -0.685602, 0, 0.727976, -9.77893, 4.41226, 46.449)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../../..")
+
+[node name="LowpolyTreeSample" type="MeshInstance3D" parent="TreeGroupLarge/TreeGroupMedium7"]
+transform = Transform3D(-0.413009, 0, -0.910727, 0, 1, 0, 0.910727, 0, -0.413009, -12.9661, -0.26831, 0.864624)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../../..")
+
+[node name="LowpolyTreeSample2" type="MeshInstance3D" parent="TreeGroupLarge/TreeGroupMedium7"]
+transform = Transform3D(0.60628, 0, -0.795251, 0, 1, 0, 0.795251, 0, 0.60628, 21.8562, -2.05326, -23.7613)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../../..")
+
+[node name="TreeGroupMedium8" type="Node3D" parent="TreeGroupLarge"]
+transform = Transform3D(0.732792, 0, -0.680452, 0, 1, 0, 0.680452, 0, 0.732792, 2.18457, 0, 75.7115)
+
+[node name="TreeGroupSmall7" type="Node3D" parent="TreeGroupLarge/TreeGroupMedium8"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.5952, -7.62939e-06, -10.237)
+
+[node name="LowpolyTreeSample" type="MeshInstance3D" parent="TreeGroupLarge/TreeGroupMedium8/TreeGroupSmall7"]
+transform = Transform3D(-0.413009, 0, -0.910727, 0, 1, 0, 0.910727, 0, -0.413009, 0, 0, 0)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../../..")
+
+[node name="LowpolyTreeSample2" type="MeshInstance3D" parent="TreeGroupLarge/TreeGroupMedium8/TreeGroupSmall7"]
+transform = Transform3D(-0.150435, -0.006438, 0.988599, -0.00452464, 0.999973, 0.00582358, -0.98861, -0.00359702, -0.15046, 8.55307, 0.500202, -22.4022)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../../..")
+
+[node name="LowpolyTreeSample3" type="MeshInstance3D" parent="TreeGroupLarge/TreeGroupMedium8/TreeGroupSmall7"]
+transform = Transform3D(0.776695, 0, 0.629876, 0, 1, 0, -0.629876, 0, 0.776695, -18.4427, 0.587496, -3.835)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../../..")
+
+[node name="LowpolyTreeSample4" type="MeshInstance3D" parent="TreeGroupLarge/TreeGroupMedium8/TreeGroupSmall7"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.7804, -0.860731, 40.2367)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../../..")
+
+[node name="LowpolyTreeSample5" type="MeshInstance3D" parent="TreeGroupLarge/TreeGroupMedium8/TreeGroupSmall7"]
+transform = Transform3D(0.607653, 0, -0.794203, 0, 1, 0, 0.794203, 0, 0.607653, 34.9203, 0.587496, 19.2613)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../../..")
+
+[node name="LowpolyTreeSample6" type="MeshInstance3D" parent="TreeGroupLarge/TreeGroupMedium8/TreeGroupSmall7"]
+transform = Transform3D(-0.999994, 0, -0.00335112, 0, 1, 0, 0.00335112, 0, -0.999994, 8.43704, 0.587496, 23.2135)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../../..")
+
+[node name="LowpolyTreeSample7" type="MeshInstance3D" parent="TreeGroupLarge/TreeGroupMedium8/TreeGroupSmall7"]
+transform = Transform3D(-0.966232, 0, -0.257673, 0, 1, 0, 0.257673, 0, -0.966232, 21.5686, 0.587496, -3.835)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../../..")
+
+[node name="LowpolyTreeSample8" type="MeshInstance3D" parent="TreeGroupLarge/TreeGroupMedium8/TreeGroupSmall7"]
+transform = Transform3D(0.727976, 0, 0.685602, 0, 1, 0, -0.685602, 0, 0.727976, -7.92261, 0.606401, 17.8274)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../../..")
+
+[node name="LowpolyTreeSample9" type="MeshInstance3D" parent="TreeGroupLarge/TreeGroupMedium8/TreeGroupSmall7"]
+transform = Transform3D(0.727976, 0, 0.685602, 0, 1, 0, -0.685602, 0, 0.727976, -22.881, 0.606401, 25.2056)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../../..")
+
+[node name="LowpolyTreeSample10" type="MeshInstance3D" parent="TreeGroupLarge/TreeGroupMedium8/TreeGroupSmall7"]
+transform = Transform3D(0.727976, 0, 0.685602, 0, 1, 0, -0.685602, 0, 0.727976, -9.77896, 0.606401, 46.449)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../../..")
+
+[node name="TreeGroupSmaller4" type="Node3D" parent="TreeGroupLarge/TreeGroupMedium8"]
+transform = Transform3D(0.837366, 0, 0.546643, 0, 1, 0, -0.546643, 0, 0.837366, -12.8451, 0, 30.5434)
+
+[node name="LowpolyTreeSample" type="MeshInstance3D" parent="TreeGroupLarge/TreeGroupMedium8/TreeGroupSmaller4"]
+transform = Transform3D(-0.413009, 0, -0.910727, 0, 1, 0, 0.910727, 0, -0.413009, 0, 0, 0)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../../../..")
+
+[node name="LowpolyTreeSample2" type="MeshInstance3D" parent="TreeGroupLarge/TreeGroupMedium8/TreeGroupSmaller4"]
+transform = Transform3D(0.286708, 0, 0.958018, 0, 1, 0, -0.958018, 0, 0.286708, -14.1396, 0, -20.4174)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../../../..")
+
+[node name="LowpolyTreeSample3" type="MeshInstance3D" parent="TreeGroupLarge/TreeGroupMedium8/TreeGroupSmaller4"]
+transform = Transform3D(-0.413009, 0, -0.910727, 0, 1, 0, 0.910727, 0, -0.413009, -24.0345, 0, -12.5768)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../../../..")
+
+[node name="LowpolyTreeSample4" type="MeshInstance3D" parent="TreeGroupLarge/TreeGroupMedium8/TreeGroupSmaller4"]
+transform = Transform3D(-0.999944, 0, -0.010594, 0, 1, 0, 0.010594, 0, -0.999944, -13.8045, 0, 0)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../../../..")
+
+[node name="LowpolyTreeSample5" type="MeshInstance3D" parent="TreeGroupLarge/TreeGroupMedium8/TreeGroupSmaller4"]
+transform = Transform3D(-0.976624, 0, -0.214957, 0, 1, 0, 0.214957, 0, -0.976624, -1.76885, 0, -20.2753)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../../../..")
+
+[node name="LowpolyTreeSample6" type="MeshInstance3D" parent="TreeGroupLarge/TreeGroupMedium8/TreeGroupSmaller4"]
+transform = Transform3D(0.981634, 0, -0.190775, 0, 1, 0, 0.190775, 0, 0.981634, -14.0145, 0, 17.1789)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../../../..")
+
+[node name="TreeGroupSmaller5" type="Node3D" parent="TreeGroupLarge/TreeGroupMedium8"]
+transform = Transform3D(0.985712, 0, 0.168438, 0, 1, 0, -0.168438, 0, 0.985712, 5.19812, 0, -50.3916)
+
+[node name="LowpolyTreeSample" type="MeshInstance3D" parent="TreeGroupLarge/TreeGroupMedium8/TreeGroupSmaller5"]
+transform = Transform3D(-0.413009, 0, -0.910727, 0, 1, 0, 0.910727, 0, -0.413009, 0, 0, 0)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../../../..")
+
+[node name="LowpolyTreeSample2" type="MeshInstance3D" parent="TreeGroupLarge/TreeGroupMedium8/TreeGroupSmaller5"]
+transform = Transform3D(0.286708, 0, 0.958018, 0, 1, 0, -0.958018, 0, 0.286708, -14.1396, 0, -20.4174)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../../../..")
+
+[node name="LowpolyTreeSample3" type="MeshInstance3D" parent="TreeGroupLarge/TreeGroupMedium8/TreeGroupSmaller5"]
+transform = Transform3D(-0.413009, 0, -0.910727, 0, 1, 0, 0.910727, 0, -0.413009, -24.0345, 0, -12.5768)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../../../..")
+
+[node name="LowpolyTreeSample4" type="MeshInstance3D" parent="TreeGroupLarge/TreeGroupMedium8/TreeGroupSmaller5"]
+transform = Transform3D(-0.999944, 0, -0.010594, 0, 1, 0, 0.010594, 0, -0.999944, -13.8045, 0, 0)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../../../..")
+
+[node name="LowpolyTreeSample5" type="MeshInstance3D" parent="TreeGroupLarge/TreeGroupMedium8/TreeGroupSmaller5"]
+transform = Transform3D(-0.976624, 0, -0.214957, 0, 1, 0, 0.214957, 0, -0.976624, -1.76885, 0, -20.2753)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../../../..")
+
+[node name="LowpolyTreeSample6" type="MeshInstance3D" parent="TreeGroupLarge/TreeGroupMedium8/TreeGroupSmaller5"]
+transform = Transform3D(0.981634, 0, -0.190775, 0, 1, 0, 0.190775, 0, 0.981634, -14.0145, 0, 17.1789)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../../../..")
+
+[node name="TreeGroupSmall8" type="Node3D" parent="TreeGroupLarge/TreeGroupMedium8"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -53.0865, -7.62939e-06, -34.401)
+
+[node name="LowpolyTreeSample" type="MeshInstance3D" parent="TreeGroupLarge/TreeGroupMedium8/TreeGroupSmall8"]
+transform = Transform3D(-0.413009, 0, -0.910727, 0, 1, 0, 0.910727, 0, -0.413009, 0, 0, 0)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../../..")
+
+[node name="LowpolyTreeSample2" type="MeshInstance3D" parent="TreeGroupLarge/TreeGroupMedium8/TreeGroupSmall8"]
+transform = Transform3D(-0.150435, -0.006438, 0.988599, -0.00452464, 0.999973, 0.00582358, -0.98861, -0.00359702, -0.15046, 8.55307, 0.500202, -22.4022)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../../..")
+
+[node name="LowpolyTreeSample3" type="MeshInstance3D" parent="TreeGroupLarge/TreeGroupMedium8/TreeGroupSmall8"]
+transform = Transform3D(0.776695, 0, 0.629876, 0, 1, 0, -0.629876, 0, 0.776695, -18.4427, 0.587496, -3.835)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../../..")
+
+[node name="LowpolyTreeSample4" type="MeshInstance3D" parent="TreeGroupLarge/TreeGroupMedium8/TreeGroupSmall8"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.7804, -0.860731, 40.2367)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../../..")
+
+[node name="LowpolyTreeSample5" type="MeshInstance3D" parent="TreeGroupLarge/TreeGroupMedium8/TreeGroupSmall8"]
+transform = Transform3D(0.607653, 0, -0.794203, 0, 1, 0, 0.794203, 0, 0.607653, 34.9203, 0.587496, 19.2613)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../../..")
+
+[node name="LowpolyTreeSample6" type="MeshInstance3D" parent="TreeGroupLarge/TreeGroupMedium8/TreeGroupSmall8"]
+transform = Transform3D(-0.999994, 0, -0.00335112, 0, 1, 0, 0.00335112, 0, -0.999994, 8.43704, 0.587496, 23.2135)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../../..")
+
+[node name="LowpolyTreeSample7" type="MeshInstance3D" parent="TreeGroupLarge/TreeGroupMedium8/TreeGroupSmall8"]
+transform = Transform3D(-0.966232, 0, -0.257673, 0, 1, 0, 0.257673, 0, -0.966232, 21.5686, 0.587496, -3.835)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../../..")
+
+[node name="LowpolyTreeSample8" type="MeshInstance3D" parent="TreeGroupLarge/TreeGroupMedium8/TreeGroupSmall8"]
+transform = Transform3D(0.727976, 0, 0.685602, 0, 1, 0, -0.685602, 0, 0.727976, -7.92261, 0.606401, 17.8274)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../../..")
+
+[node name="LowpolyTreeSample9" type="MeshInstance3D" parent="TreeGroupLarge/TreeGroupMedium8/TreeGroupSmall8"]
+transform = Transform3D(0.727976, 0, 0.685602, 0, 1, 0, -0.685602, 0, 0.727976, -22.881, 0.606401, 25.2056)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../../..")
+
+[node name="LowpolyTreeSample10" type="MeshInstance3D" parent="TreeGroupLarge/TreeGroupMedium8/TreeGroupSmall8"]
+transform = Transform3D(0.727976, 0, 0.685602, 0, 1, 0, -0.685602, 0, 0.727976, -9.77896, 0.606401, 46.449)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../../..")
+
+[node name="LowpolyTreeSample" type="MeshInstance3D" parent="TreeGroupLarge/TreeGroupMedium8"]
+transform = Transform3D(-0.413009, 0, -0.910727, 0, 1, 0, 0.910727, 0, -0.413009, -12.664, -3.8147e-06, 0.906468)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../../..")
+
+[node name="LowpolyTreeSample2" type="MeshInstance3D" parent="TreeGroupLarge/TreeGroupMedium8"]
+transform = Transform3D(0.60628, 0, -0.795251, 0, 1, 0, 0.795251, 0, 0.60628, 21.8562, -2.05326, -23.7613)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../../..")
+
+[node name="TreeGroupMedium9" type="Node3D" parent="TreeGroupLarge"]
+transform = Transform3D(0.732792, 0, -0.680452, 0, 1, 0, 0.680452, 0, 0.732792, -68.1399, 0, 53.4584)
+
+[node name="TreeGroupSmall7" type="Node3D" parent="TreeGroupLarge/TreeGroupMedium9"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.5952, -7.62939e-06, -10.237)
+
+[node name="LowpolyTreeSample" type="MeshInstance3D" parent="TreeGroupLarge/TreeGroupMedium9/TreeGroupSmall7"]
+transform = Transform3D(-0.413009, 0, -0.910727, 0, 1, 0, 0.910727, 0, -0.413009, 0, 0, 0)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../../..")
+
+[node name="LowpolyTreeSample2" type="MeshInstance3D" parent="TreeGroupLarge/TreeGroupMedium9/TreeGroupSmall7"]
+transform = Transform3D(-0.150435, -0.006438, 0.988599, -0.00452464, 0.999973, 0.00582358, -0.98861, -0.00359702, -0.15046, 8.55307, 0.500202, -22.4022)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../../..")
+
+[node name="LowpolyTreeSample3" type="MeshInstance3D" parent="TreeGroupLarge/TreeGroupMedium9/TreeGroupSmall7"]
+transform = Transform3D(0.776695, 0, 0.629876, 0, 1, 0, -0.629876, 0, 0.776695, -18.4427, 0.587496, -3.835)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../../..")
+
+[node name="LowpolyTreeSample4" type="MeshInstance3D" parent="TreeGroupLarge/TreeGroupMedium9/TreeGroupSmall7"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.7804, -0.860731, 40.2367)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../../..")
+
+[node name="LowpolyTreeSample5" type="MeshInstance3D" parent="TreeGroupLarge/TreeGroupMedium9/TreeGroupSmall7"]
+transform = Transform3D(0.607653, 0, -0.794203, 0, 1, 0, 0.794203, 0, 0.607653, 34.9203, 0.587496, 19.2613)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../../..")
+
+[node name="LowpolyTreeSample6" type="MeshInstance3D" parent="TreeGroupLarge/TreeGroupMedium9/TreeGroupSmall7"]
+transform = Transform3D(-0.999994, 0, -0.00335112, 0, 1, 0, 0.00335112, 0, -0.999994, 8.43704, 0.587496, 23.2135)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../../..")
+
+[node name="LowpolyTreeSample7" type="MeshInstance3D" parent="TreeGroupLarge/TreeGroupMedium9/TreeGroupSmall7"]
+transform = Transform3D(-0.966232, 0, -0.257673, 0, 1, 0, 0.257673, 0, -0.966232, 21.5686, 0.587496, -3.835)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../../..")
+
+[node name="LowpolyTreeSample8" type="MeshInstance3D" parent="TreeGroupLarge/TreeGroupMedium9/TreeGroupSmall7"]
+transform = Transform3D(0.727976, 0, 0.685602, 0, 1, 0, -0.685602, 0, 0.727976, -7.92261, 0.606401, 17.8274)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../../..")
+
+[node name="LowpolyTreeSample9" type="MeshInstance3D" parent="TreeGroupLarge/TreeGroupMedium9/TreeGroupSmall7"]
+transform = Transform3D(0.727976, 0, 0.685602, 0, 1, 0, -0.685602, 0, 0.727976, -22.881, 0.606401, 25.2056)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../../..")
+
+[node name="LowpolyTreeSample10" type="MeshInstance3D" parent="TreeGroupLarge/TreeGroupMedium9/TreeGroupSmall7"]
+transform = Transform3D(0.727976, 0, 0.685602, 0, 1, 0, -0.685602, 0, 0.727976, -9.77896, 0.606401, 46.449)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../../..")
+
+[node name="TreeGroupSmaller4" type="Node3D" parent="TreeGroupLarge/TreeGroupMedium9"]
+transform = Transform3D(0.837366, 0, 0.546643, 0, 1, 0, -0.546643, 0, 0.837366, -12.8451, 0, 30.5434)
+
+[node name="LowpolyTreeSample" type="MeshInstance3D" parent="TreeGroupLarge/TreeGroupMedium9/TreeGroupSmaller4"]
+transform = Transform3D(-0.413009, 0, -0.910727, 0, 1, 0, 0.910727, 0, -0.413009, 0, 0, 0)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../../../..")
+
+[node name="LowpolyTreeSample2" type="MeshInstance3D" parent="TreeGroupLarge/TreeGroupMedium9/TreeGroupSmaller4"]
+transform = Transform3D(0.286708, 0, 0.958018, 0, 1, 0, -0.958018, 0, 0.286708, -14.1396, 3.27101, -20.4174)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../../../..")
+
+[node name="LowpolyTreeSample3" type="MeshInstance3D" parent="TreeGroupLarge/TreeGroupMedium9/TreeGroupSmaller4"]
+transform = Transform3D(-0.413009, 0, -0.910727, 0, 1, 0, 0.910727, 0, -0.413009, -24.0345, 3.4134, -12.5768)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../../../..")
+
+[node name="LowpolyTreeSample4" type="MeshInstance3D" parent="TreeGroupLarge/TreeGroupMedium9/TreeGroupSmaller4"]
+transform = Transform3D(-0.999944, 0, -0.010594, 0, 1, 0, 0.010594, 0, -0.999944, -13.8045, 1.20763, 0.00012207)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../../../..")
+
+[node name="LowpolyTreeSample5" type="MeshInstance3D" parent="TreeGroupLarge/TreeGroupMedium9/TreeGroupSmaller4"]
+transform = Transform3D(-0.976624, 0, -0.214957, 0, 1, 0, 0.214957, 0, -0.976624, -1.76892, 1.97172, -20.2752)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../../../..")
+
+[node name="LowpolyTreeSample6" type="MeshInstance3D" parent="TreeGroupLarge/TreeGroupMedium9/TreeGroupSmaller4"]
+transform = Transform3D(0.981634, 0, -0.190775, 0, 1, 0, 0.190775, 0, 0.981634, -14.0145, 0, 17.1789)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../../../..")
+
+[node name="TreeGroupSmaller5" type="Node3D" parent="TreeGroupLarge/TreeGroupMedium9"]
+transform = Transform3D(0.985712, 0, 0.168438, 0, 1, 0, -0.168438, 0, 0.985712, 5.19812, 0, -50.3916)
+
+[node name="LowpolyTreeSample" type="MeshInstance3D" parent="TreeGroupLarge/TreeGroupMedium9/TreeGroupSmaller5"]
+transform = Transform3D(-0.413009, 0, -0.910727, 0, 1, 0, 0.910727, 0, -0.413009, 0, 0, 0)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../../../..")
+
+[node name="LowpolyTreeSample2" type="MeshInstance3D" parent="TreeGroupLarge/TreeGroupMedium9/TreeGroupSmaller5"]
+transform = Transform3D(0.286708, 0, 0.958018, 0, 1, 0, -0.958018, 0, 0.286708, -14.1396, 0, -20.4174)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../../../..")
+
+[node name="LowpolyTreeSample3" type="MeshInstance3D" parent="TreeGroupLarge/TreeGroupMedium9/TreeGroupSmaller5"]
+transform = Transform3D(-0.413009, 0, -0.910727, 0, 1, 0, 0.910727, 0, -0.413009, -24.0345, 0, -12.5768)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../../../..")
+
+[node name="LowpolyTreeSample4" type="MeshInstance3D" parent="TreeGroupLarge/TreeGroupMedium9/TreeGroupSmaller5"]
+transform = Transform3D(-0.999944, 0, -0.010594, 0, 1, 0, 0.010594, 0, -0.999944, -13.8045, 0, 0)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../../../..")
+
+[node name="LowpolyTreeSample5" type="MeshInstance3D" parent="TreeGroupLarge/TreeGroupMedium9/TreeGroupSmaller5"]
+transform = Transform3D(-0.976624, 0, -0.214957, 0, 1, 0, 0.214957, 0, -0.976624, -1.76885, 0, -20.2753)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../../../..")
+
+[node name="LowpolyTreeSample6" type="MeshInstance3D" parent="TreeGroupLarge/TreeGroupMedium9/TreeGroupSmaller5"]
+transform = Transform3D(0.981634, 0, -0.190775, 0, 1, 0, 0.190775, 0, 0.981634, -14.0145, 0, 17.1789)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../../../..")
+
+[node name="TreeGroupSmall8" type="Node3D" parent="TreeGroupLarge/TreeGroupMedium9"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -53.0865, -7.62939e-06, -34.401)
+
+[node name="LowpolyTreeSample" type="MeshInstance3D" parent="TreeGroupLarge/TreeGroupMedium9/TreeGroupSmall8"]
+transform = Transform3D(-0.413009, 0, -0.910727, 0, 1, 0, 0.910727, 0, -0.413009, 0, 6.44213, 0)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../../..")
+
+[node name="LowpolyTreeSample2" type="MeshInstance3D" parent="TreeGroupLarge/TreeGroupMedium9/TreeGroupSmall8"]
+transform = Transform3D(-0.150435, -0.006438, 0.988599, -0.00452464, 0.999973, 0.00582358, -0.98861, -0.00359702, -0.15046, 8.5531, 4.84606, -22.4023)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../../..")
+
+[node name="LowpolyTreeSample3" type="MeshInstance3D" parent="TreeGroupLarge/TreeGroupMedium9/TreeGroupSmall8"]
+transform = Transform3D(0.776695, 0, 0.629876, 0, 1, 0, -0.629876, 0, 0.776695, -18.4426, 9.49512, -3.83508)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../../..")
+
+[node name="LowpolyTreeSample4" type="MeshInstance3D" parent="TreeGroupLarge/TreeGroupMedium9/TreeGroupSmall8"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.7804, 2.92331, 40.2367)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../../..")
+
+[node name="LowpolyTreeSample5" type="MeshInstance3D" parent="TreeGroupLarge/TreeGroupMedium9/TreeGroupSmall8"]
+transform = Transform3D(0.607653, 0, -0.794203, 0, 1, 0, 0.794203, 0, 0.607653, 34.9203, 0.587496, 19.2613)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../../..")
+
+[node name="LowpolyTreeSample6" type="MeshInstance3D" parent="TreeGroupLarge/TreeGroupMedium9/TreeGroupSmall8"]
+transform = Transform3D(-0.999994, 0, -0.00335109, 0, 1, 0, 0.00335109, 0, -0.999994, 8.43701, 4.41432, 23.2134)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../../..")
+
+[node name="LowpolyTreeSample7" type="MeshInstance3D" parent="TreeGroupLarge/TreeGroupMedium9/TreeGroupSmall8"]
+transform = Transform3D(-0.966232, 0, -0.257673, 0, 1, 0, 0.257673, 0, -0.966232, 21.5686, 2.50419, -3.83502)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../../..")
+
+[node name="LowpolyTreeSample8" type="MeshInstance3D" parent="TreeGroupLarge/TreeGroupMedium9/TreeGroupSmall8"]
+transform = Transform3D(0.727976, 0, 0.685602, 0, 1, 0, -0.685602, 0, 0.727976, -7.92261, 7.40899, 17.8273)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../../..")
+
+[node name="LowpolyTreeSample9" type="MeshInstance3D" parent="TreeGroupLarge/TreeGroupMedium9/TreeGroupSmall8"]
+transform = Transform3D(0.727976, 0, 0.685602, 0, 1, 0, -0.685602, 0, 0.727976, -22.8809, 11.0097, 25.2055)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../../..")
+
+[node name="LowpolyTreeSample10" type="MeshInstance3D" parent="TreeGroupLarge/TreeGroupMedium9/TreeGroupSmall8"]
+transform = Transform3D(0.727976, 0, 0.685602, 0, 1, 0, -0.685602, 0, 0.727976, -9.77881, 8.09446, 46.449)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../../..")
+
+[node name="LowpolyTreeSample" type="MeshInstance3D" parent="TreeGroupLarge/TreeGroupMedium9"]
+transform = Transform3D(-0.413009, 0, -0.910727, 0, 1, 0, 0.910727, 0, -0.413009, -12.664, -3.8147e-06, 0.906468)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../../..")
+
+[node name="LowpolyTreeSample2" type="MeshInstance3D" parent="TreeGroupLarge/TreeGroupMedium9"]
+transform = Transform3D(0.60628, 0, -0.795251, 0, 1, 0, 0.795251, 0, 0.60628, 21.8562, -2.05326, -23.7613)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../../..")
+
+[node name="TreeGroupSmaller10" type="Node3D" parent="TreeGroupLarge"]
+transform = Transform3D(-0.966322, 0, 0.257335, 0, 1, 0, -0.257335, 0, -0.966322, -2.33948, 8.08786, -57.9429)
+
+[node name="LowpolyTreeSample" type="MeshInstance3D" parent="TreeGroupLarge/TreeGroupSmaller10"]
+transform = Transform3D(-0.413009, 0, -0.910727, 0, 1, 0, 0.910727, 0, -0.413009, 0, -4.00609, 0)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../../..")
+
+[node name="LowpolyTreeSample2" type="MeshInstance3D" parent="TreeGroupLarge/TreeGroupSmaller10"]
+transform = Transform3D(0.286708, 0, 0.958018, 0, 1, 0, -0.958018, 0, 0.286708, -14.1396, 0, -20.4174)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../../..")
+
+[node name="LowpolyTreeSample3" type="MeshInstance3D" parent="TreeGroupLarge/TreeGroupSmaller10"]
+transform = Transform3D(-0.413009, 0, -0.910727, 0, 1, 0, 0.910727, 0, -0.413009, -24.0345, 0, -12.5768)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../../..")
+
+[node name="LowpolyTreeSample4" type="MeshInstance3D" parent="TreeGroupLarge/TreeGroupSmaller10"]
+transform = Transform3D(-0.999944, 0, -0.0105939, 0, 1, 0, 0.0105939, 0, -0.999944, -13.8046, -6.06787, 0)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../../..")
+
+[node name="LowpolyTreeSample5" type="MeshInstance3D" parent="TreeGroupLarge/TreeGroupSmaller10"]
+transform = Transform3D(-0.976624, 0, -0.214957, 0, 1, 0, 0.214957, 0, -0.976624, -1.76886, -5.75108, -20.2753)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../../..")
+
+[node name="LowpolyTreeSample6" type="MeshInstance3D" parent="TreeGroupLarge/TreeGroupSmaller10"]
+transform = Transform3D(0.981634, 0, -0.190775, 0, 1, 0, 0.190775, 0, 0.981634, -14.0145, -4.19768, 17.179)
+mesh = ExtResource("7_8wump")
+skeleton = NodePath("../../../../..")
