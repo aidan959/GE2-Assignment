@@ -21,7 +21,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0785122, 0.0586605, -0.0539
 size = Vector3(25, 0.001, 25)
 
 [node name="Sheep" parent="." instance=ExtResource("2_cbkbv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.14906, 0.429386, 2.66806)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.36027, 0.429386, 1.81409)
 
 [node name="Grass" parent="." instance=ExtResource("1_8n11t")]
 transform = Transform3D(0.498282, 0.00411509, -0.867005, -0.004245, 0.999988, 0.00230659, 0.867005, 0.00253109, 0.498293, 8.24336, 0.417116, 2.50571)
@@ -34,3 +34,9 @@ environment = SubResource("Environment_aijpb")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment"]
 transform = Transform3D(1, 0, 0, 0, -0.937312, 0.34849, 0, -0.34849, -0.937312, 0, 0, 0)
+
+[node name="Sheep2" parent="." instance=ExtResource("2_cbkbv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.30957, 0.858772, 3.01295)
+
+[node name="Sheep3" parent="." instance=ExtResource("2_cbkbv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.53153, 1.28816, 0.0739493)
