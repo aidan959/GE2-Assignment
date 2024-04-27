@@ -69,9 +69,9 @@ func _ready():
 		sheep.global_position = pos
 		sheep.global_rotation = Vector3(0, randf_range(0, PI * 2.0),  0)
 
-		var boid = sheep
+		var boid : Sheep = sheep
 		if boids.size() == 0:
-			boid.draw_gizmos = true
+			boid.draw_gizmos_recursive(draw_gizmos)
 			pass
 		boids.push_back(boid)		
 		

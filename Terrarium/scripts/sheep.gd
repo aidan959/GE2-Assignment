@@ -46,6 +46,12 @@ enum states {
 } 
 
 
+func draw_gizmos_recursive(dg):
+	draw_gizmos = dg
+	var children = get_children()
+	for child in children:
+		if child is SteeringBehavior:
+			child.draw_gizmos = draw_gizmos
 
 var current_state : states
 func think():
