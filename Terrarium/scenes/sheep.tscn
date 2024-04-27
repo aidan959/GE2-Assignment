@@ -1,7 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://blg3yr70eue5y"]
+[gd_scene load_steps=10 format=3 uid="uid://blg3yr70eue5y"]
 
 [ext_resource type="Script" path="res://scripts/sheep.gd" id="1_47l58"]
 [ext_resource type="PackedScene" uid="uid://c83v5ntlr0m0p" path="res://scripts/generic_behaviours/Grazer.tscn" id="2_4chqj"]
+[ext_resource type="Script" path="res://scripts/generic_behaviours/Alignment.gd" id="2_c5dl5"]
+[ext_resource type="Script" path="res://scripts/generic_behaviours/Avoidance.gd" id="3_a0rhm"]
+[ext_resource type="Script" path="res://scripts/generic_behaviours/Cohesion.gd" id="3_isb34"]
+[ext_resource type="Script" path="res://scripts/generic_behaviours/Constrain.gd" id="5_mgo6i"]
+[ext_resource type="Script" path="res://scripts/generic_behaviours/Wander.gd" id="7_tx6mo"]
 
 [sub_resource type="TextMesh" id="TextMesh_hbalk"]
 text = "SHEEP"
@@ -11,23 +16,36 @@ depth = 0.5
 [sub_resource type="BoxShape3D" id="BoxShape3D_ggkxb"]
 size = Vector3(2.335, 0.6, 0.5)
 
-[node name="Sheep" type="Node"]
-
-[node name="Boid" type="CharacterBody3D" parent="."]
+[node name="Boid" type="CharacterBody3D"]
 collision_layer = 256
 collision_mask = 0
 script = ExtResource("1_47l58")
-metabolism = 0.01
+draw_gizmos = false
 
-[node name="SheepBody" type="CSGBox3D" parent="Boid"]
+[node name="SheepBody" type="CSGBox3D" parent="."]
 visible = false
 layers = 256
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Boid"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("TextMesh_hbalk")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Boid"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.006, -0.027, 0)
 shape = SubResource("BoxShape3D_ggkxb")
 
-[node name="Grazer" parent="Boid" instance=ExtResource("2_4chqj")]
+[node name="Alignment" type="Node" parent="."]
+script = ExtResource("2_c5dl5")
+
+[node name="Avoidance" type="Node" parent="."]
+script = ExtResource("3_a0rhm")
+
+[node name="Cohesion" type="Node" parent="."]
+script = ExtResource("3_isb34")
+
+[node name="Constrain" type="Node" parent="."]
+script = ExtResource("5_mgo6i")
+
+[node name="Grazer" parent="." instance=ExtResource("2_4chqj")]
+
+[node name="Wander" type="Node" parent="."]
+script = ExtResource("7_tx6mo")

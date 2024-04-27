@@ -10,7 +10,7 @@ class_name Flock extends Node
 @export var max_neighbors = 10
 
 var boids = []
-
+@export var draw_gizmos : bool = false
 @export var cell_size = 10
 @export var grid_size = 10000
 @export var partition = true
@@ -19,7 +19,7 @@ var cells = {}
 @export var center_path:NodePath
 var center
 
-func draw_gizmos():
+func do_draw_gizmos():
 	var size = 200
 	var sub_divisions = size / cell_size
 	DebugDraw3D.draw_grid(Vector3.ZERO, Vector3.RIGHT * size, Vector3.BACK * size, Vector2(sub_divisions, sub_divisions), Color.AQUAMARINE)
@@ -52,8 +52,7 @@ func do_partition():
 		cells[key].push_back(boid)
 
 func _process(delta):
-	#if draw_gizmos:
-	draw_gizmos()
+	if draw_gizmos: do_draw_gizmos()
 	if partition:
 		do_partition()
 
@@ -70,11 +69,7 @@ func _ready():
 		sheep.global_position = pos
 		sheep.global_rotation = Vector3(0, randf_range(0, PI * 2.0),  0)
 
-		var boid
-		if sheep is Boid:
-			boid = sheep
-		else:
-			boid = sheep.find_child("Boid", true)
+		var boid = sheep
 		if boids.size() == 0:
 			boid.draw_gizmos = true
 			pass
