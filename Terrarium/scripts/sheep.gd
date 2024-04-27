@@ -46,7 +46,7 @@ enum states {
 } 
 
 
-func draw_gizmos_recursive(dg):
+func draw_gizmos_propagate(dg):
 	draw_gizmos = dg
 	var children = get_children()
 	for child in children:
@@ -86,25 +86,27 @@ func _physics_process(delta):
 		new_force = calculate()
 		should_calculate = false		
 	force = lerp(force, new_force, delta)
-	if ! pause:
-		acceleration = force / mass
-		vel += acceleration * delta
-		speed = vel.length()
-		if speed > 0:		
-			if max_speed == 0:
-				print("max_speed is 0")
-			vel = vel.limit_length(max_speed)
-			
-			# Damping
-			vel -= vel * delta * damping
-			
-			set_velocity(vel)
-			move_and_slide()
-			
-			# Implement Banking as described:
-			# https://www.cs.toronto.edu/~dt/siggraph97-course/cwr87/
-			var temp_up = global_transform.basis.y.lerp(Vector3.UP + (acceleration * banking), delta * 5.0)
-			look_at(global_transform.origin - vel.normalized(), temp_up)
+	if pause:
+		return
+
+	acceleration = force / mass
+	vel += acceleration * delta
+	speed = vel.length()
+	if speed > 0:		
+		if max_speed == 0:
+			print("max_speed is 0")
+		vel = vel.limit_length(max_speed)
+		
+		# Damping
+		vel -= vel * delta * damping
+		
+		set_velocity(vel)
+		move_and_slide()
+		
+		# Implement Banking as described:
+		# https://www.cs.toronto.edu/~dt/siggraph97-course/cwr87/
+		var temp_up = global_transform.basis.y.lerp(Vector3.UP + (acceleration * banking), delta * 5.0)
+		look_at(global_transform.origin - vel.normalized(), temp_up)
 	return
 	if tick_counter % tick_rate == 0:
 		hunger += metabolism * randf_range(0,0.01)

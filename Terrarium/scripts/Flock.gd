@@ -71,7 +71,7 @@ func _ready():
 
 		var boid : Sheep = sheep
 		if boids.size() == 0:
-			boid.draw_gizmos_recursive(draw_gizmos)
+			boid.draw_gizmos_propagate(draw_gizmos)
 			pass
 		boids.push_back(boid)		
 		
