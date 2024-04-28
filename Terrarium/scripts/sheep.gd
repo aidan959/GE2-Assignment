@@ -10,6 +10,8 @@ class_name Sheep extends CharacterBody3D
 @export var behaviours : Array[SteeringBehavior] = [] 
 @export var banking = 0.1
 @export var damping = 0.1
+@export var max_force : float = 10.0
+
 
 @export var draw_gizmos = true
 @export var pause = false
@@ -204,7 +206,7 @@ func update_weights(weights):
 			b.weight = weights[behavior]
 
 func calculate():
-	var force_acc = Vector3.ZERO
+	var force_acc : Vector3 = Vector3.ZERO
 	var behaviors_active = ""
 	for i in behaviours.size():
 		if not behaviours[i].enabled:
@@ -217,6 +219,7 @@ func calculate():
 			f = Vector3.ZERO
 		behaviors_active += behaviours[i].name + ": " + str(round(f.length())) + " "
 		force_acc += f 
+		force_acc.limit_length(max_force)
 
 	if draw_gizmos:
 		DebugDraw2D.set_text(name, behaviors_active)

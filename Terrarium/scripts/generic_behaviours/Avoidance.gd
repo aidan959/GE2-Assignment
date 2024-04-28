@@ -5,7 +5,7 @@ class_name Avoidance extends SteeringBehavior
 # var b = "text"
 
 enum ForceDirection {Normal, Incident, Up, Braking}
-@export var softness : float = 10
+@export var softness : float = 1000
 var fake_zero : float = 0.0001
 var force = Vector3.ZERO
 var feelers = []
@@ -27,9 +27,10 @@ func calculate():
 	force = Vector3.ZERO
 	for other_boid in boid.neighbors:
 		var other_pos = other_boid.global_position
-		var diff = other_pos - me_pos
+		var diff = me_pos - other_pos
 		var distance = diff.length()
 		force += (diff/distance) * inv_square(distance)
+
 		DebugDraw3D.draw_line(boid.global_position, boid.global_position + force, Color.BLACK, 1)
 			
 	return force

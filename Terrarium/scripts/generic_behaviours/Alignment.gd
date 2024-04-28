@@ -13,11 +13,11 @@ func on_draw_gizmos():
 func calculate():
 	desired = Vector3.ZERO
 	if boid.neighbors.size() < 0:
-		return Vector3.ZERO
+		return desired
 	
 	for other_boid in boid.neighbors:
 		desired += other_boid.velocity
-	
+	desired /= boid.neighbors.size()
 	force = desired.normalized() - boid.velocity
 	return force
 	

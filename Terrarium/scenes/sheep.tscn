@@ -21,9 +21,8 @@ size = Vector3(0.60084, 0.91084, 1.39185)
 collision_layer = 256
 collision_mask = 0
 script = ExtResource("1_47l58")
-max_speed = 1.0
+max_speed = 5.0
 draw_gizmos = false
-metadata/_edit_group_ = true
 
 [node name="SheepBody" type="CSGBox3D" parent="."]
 visible = false
@@ -37,16 +36,16 @@ mesh = SubResource("TextMesh_hbalk")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0451426, 0.454725, 0.0760498)
 shape = SubResource("BoxShape3D_ggkxb")
 
+[node name="Cohesion" type="Node" parent="."]
+script = ExtResource("3_isb34")
+
 [node name="Alignment" type="Node" parent="."]
 script = ExtResource("2_c5dl5")
 
 [node name="Avoidance" type="Node" parent="."]
 script = ExtResource("3_a0rhm")
-softness = 100.0
+softness = 1.0
 weight = 0.8
-
-[node name="Cohesion" type="Node" parent="."]
-script = ExtResource("3_isb34")
 
 [node name="Constrain" type="Node" parent="."]
 script = ExtResource("5_mgo6i")

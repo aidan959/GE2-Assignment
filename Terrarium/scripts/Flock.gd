@@ -54,15 +54,10 @@ func _process(delta):
 func _ready():
 	randomize()
 	center = get_node(center_path)
-	var fixed_pos = [
-		Vector3(9,0,9),
-		Vector3(9,0,-9),
-		
-	]
+
 	for i in count:
 		var sheep = sheep_scene.instantiate()		
-		#var pos = Utils.random_point_in_unit_sphere() * radius
-		var pos = fixed_pos[i]
+		var pos = Utils.random_point_in_unit_sphere() * radius
 		pos.y = 0.0
 		add_child(sheep)
 		sheep.global_position = pos
