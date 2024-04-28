@@ -1,9 +1,58 @@
 [gd_scene load_steps=2 format=3 uid="uid://blg3yr70eue5y"]
 
 [ext_resource type="Script" path="res://scripts/sheep.gd" id="1_47l58"]
+<<<<<<< Updated upstream
+=======
+[ext_resource type="PackedScene" uid="uid://c83v5ntlr0m0p" path="res://scripts/generic_behaviours/Grazer.tscn" id="2_4chqj"]
+[ext_resource type="Script" path="res://scripts/generic_behaviours/Alignment.gd" id="2_c5dl5"]
+[ext_resource type="Script" path="res://scripts/generic_behaviours/Avoidance.gd" id="3_a0rhm"]
+[ext_resource type="Script" path="res://scripts/generic_behaviours/Cohesion.gd" id="3_isb34"]
+[ext_resource type="Script" path="res://scripts/generic_behaviours/Constrain.gd" id="5_mgo6i"]
+[ext_resource type="Script" path="res://scripts/generic_behaviours/Wander.gd" id="7_tx6mo"]
+[ext_resource type="PackedScene" uid="uid://bgorjqgqqhk2f" path="res://scenes/sheepanimator.tscn" id="8_omki6"]
+>>>>>>> Stashed changes
 
 [node name="Sheep" type="CharacterBody3D"]
 script = ExtResource("1_47l58")
 metabolism = 0.01
 
 [node name="SheepBody" type="CSGBox3D" parent="."]
+<<<<<<< Updated upstream
+=======
+visible = false
+layers = 256
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+visible = false
+mesh = SubResource("TextMesh_hbalk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0451426, 0.454725, 0.0760498)
+shape = SubResource("BoxShape3D_ggkxb")
+
+[node name="Cohesion" type="Node" parent="."]
+script = ExtResource("3_isb34")
+
+[node name="Alignment" type="Node" parent="."]
+script = ExtResource("2_c5dl5")
+
+[node name="Avoidance" type="Node" parent="."]
+script = ExtResource("3_a0rhm")
+softness = 1.0
+weight = 0.8
+
+[node name="Constrain" type="Node" parent="."]
+script = ExtResource("5_mgo6i")
+weight = 0.0
+draw_gizmos = false
+
+[node name="Grazer" parent="." instance=ExtResource("2_4chqj")]
+
+[node name="Wander" type="Node" parent="."]
+script = ExtResource("7_tx6mo")
+distance = 10.0
+radius = 5.0
+weight = 0.1
+
+[node name="Sheep" parent="." instance=ExtResource("8_omki6")]
+>>>>>>> Stashed changes
