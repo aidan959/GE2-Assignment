@@ -44,3 +44,4 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0638123, 0.0283203, -0.0484
 shape = SubResource("BoxShape3D_8n2mg")
 
 [node name="EnvironmentController" parent="." instance=ExtResource("6_usu0l")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0178843, 2.38419e-07, -0.00143909)
