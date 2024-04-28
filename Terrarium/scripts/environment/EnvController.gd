@@ -5,7 +5,7 @@ extends Node
 @onready var weather = get_node("weather")
 
 
-var day_length = 60.0  # Full day in seconds
+var day_length = 300.0  # Full day in seconds
 var current_time = 0.0  # Current time in the cycle
 
 var sunrise_start = 0.2
@@ -14,7 +14,7 @@ var sunset_start = 0.7
 var sunset_end = 0.8
 
 func _ready():
-	set_weather_condition("rain")
+	set_weather_condition("clear")
 
 
 func _process(delta):
