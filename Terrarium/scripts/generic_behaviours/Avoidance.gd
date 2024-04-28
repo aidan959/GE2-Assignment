@@ -20,25 +20,17 @@ func inv_square(dist: float) -> float:
 
 
 func on_draw_gizmos():
-	for i in feelers.size():
-		var feeler = feelers[i]		
-		
-		if feeler.hit and draw_gizmos:
-			DebugDraw3D.draw_line(boid.global_transform.origin, feeler.hit_target, Color.CHARTREUSE)
-			DebugDraw3D.draw_arrow(feeler.hit_target, feeler.hit_target + feeler.normal, Color.BLUE, 0.1)
-			DebugDraw3D.draw_arrow(feeler.hit_target, feeler.hit_target + feeler.force * weight, Color.RED, 0.1)			
-		elif draw_gizmos:
-			DebugDraw3D.draw_line(boid.global_transform.origin, feeler.end, Color.CHARTREUSE)
+	pass
 
 func calculate():
 	var me_pos = boid.global_position
 	force = Vector3.ZERO
-	for i in boid.neighbors.size():
-		var other= boid.neighbors[i]
-		var other_pos = other.global_position
-		var diff = me_pos - other_pos
-		force += (diff/diff.length()) * inv_square(diff.length())
-	DebugDraw3D.draw_arrow(boid.global_transform.origin, force, Color.RED, 0.10)
+	for other_boid in boid.neighbors:
+		var other_pos = other_boid.global_position
+		var diff = other_pos - me_pos
+		var distance = diff.length()
+		force += (diff/distance) * inv_square(distance)
+		DebugDraw3D.draw_line(boid.global_position, boid.global_position + force, Color.BLACK, 1)
 			
 	return force
 

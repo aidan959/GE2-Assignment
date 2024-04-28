@@ -14,8 +14,9 @@ func calculate():
 	desired = Vector3.ZERO
 	if boid.neighbors.size() < 0:
 		return Vector3.ZERO
+	
 	for other_boid in boid.neighbors:
-		desired += other_boid.global_transform.basis.y
+		desired += other_boid.velocity
 	
 	force = desired.normalized() - boid.velocity
 	return force
