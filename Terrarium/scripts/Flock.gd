@@ -7,6 +7,8 @@ class_name Flock extends Node
 @export var radius = 100
 
 @export var neighbor_distance = 20
+@export var avoid_distance = 20
+
 @export var max_neighbors = 10
 
 var boids = []
@@ -43,29 +45,25 @@ func cell_to_position(cell):
 	p -= Vector3(10000, 10000, 10000) 
 	return p
 	
-func do_partition():
-	cells.clear()	
-	for boid in boids:
-		var key = position_to_cell(boid.transform.origin)
-		if ! cells.has(key):
-			cells[key] = []	
-		cells[key].push_back(boid)
 
 func _process(delta):
 	if draw_gizmos: do_draw_gizmos()
-	if partition:
-		do_partition()
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	randomize()
 	center = get_node(center_path)
-	var cell = position_to_cell(Vector3(-60, 59, 80))
-	var p = cell_to_position(cell)
+	var fixed_pos = [
+		Vector3(9,0,9),
+		Vector3(9,0,-9),
+		
+	]
 	for i in count:
 		var sheep = sheep_scene.instantiate()		
-		var pos = Utils.random_point_in_unit_sphere() * radius
-		pos.y = 1.0
+		#var pos = Utils.random_point_in_unit_sphere() * radius
+		var pos = fixed_pos[i]
+		pos.y = 0.0
 		add_child(sheep)
 		sheep.global_position = pos
 		sheep.global_rotation = Vector3(0, randf_range(0, PI * 2.0),  0)

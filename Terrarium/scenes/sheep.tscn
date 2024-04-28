@@ -23,6 +23,7 @@ collision_mask = 0
 script = ExtResource("1_47l58")
 max_speed = 1.0
 draw_gizmos = false
+metadata/_edit_group_ = true
 
 [node name="SheepBody" type="CSGBox3D" parent="."]
 visible = false
@@ -33,15 +34,16 @@ visible = false
 mesh = SubResource("TextMesh_hbalk")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0451426, 0.12842, 0.0760498)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0451426, 0.454725, 0.0760498)
 shape = SubResource("BoxShape3D_ggkxb")
 
 [node name="Alignment" type="Node" parent="."]
 script = ExtResource("2_c5dl5")
-enabled = false
 
 [node name="Avoidance" type="Node" parent="."]
 script = ExtResource("3_a0rhm")
+softness = 100.0
+weight = 0.8
 
 [node name="Cohesion" type="Node" parent="."]
 script = ExtResource("3_isb34")
@@ -50,7 +52,6 @@ script = ExtResource("3_isb34")
 script = ExtResource("5_mgo6i")
 weight = 0.0
 draw_gizmos = false
-enabled = false
 
 [node name="Grazer" parent="." instance=ExtResource("2_4chqj")]
 
@@ -58,7 +59,7 @@ enabled = false
 script = ExtResource("7_tx6mo")
 distance = 10.0
 radius = 5.0
-enabled = false
+weight = 0.1
 
 [node name="Sheep" parent="." instance=ExtResource("8_xtb2k")]
-transform = Transform3D(-2.18557e-08, 0, -0.5, 0, 0.5, 0, 0.5, 0, -2.18557e-08, 0, -0.331498, 0)
+transform = Transform3D(-2.18557e-08, 0, -0.5, 0, 0.5, 0, 0.5, 0, -2.18557e-08, 0, -0.00519189, 0)

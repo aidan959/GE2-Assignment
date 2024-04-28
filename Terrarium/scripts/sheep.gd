@@ -8,19 +8,20 @@ class_name Sheep extends CharacterBody3D
 @export var max_speed: float = 10.0
 
 @export var behaviours : Array[SteeringBehavior] = [] 
-@export var max_force = 10
 @export var banking = 0.1
 @export var damping = 0.1
 
 @export var draw_gizmos = true
 @export var pause = false
-
+var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 var count_neighbors = false
 var neighbors = [] 
 
 var flock = null
 var new_force = Vector3.ZERO
 var should_calculate = false
+
+var grav_vel: Vector3 # Gravity velocity 
 
 # - 0 = not hungry, 1 = hungry
 @export_range(0.0,1.0) var hunger : float = 0.0
@@ -50,8 +51,9 @@ func draw_gizmos_propagate(dg):
 	draw_gizmos = dg
 	var children = get_children()
 	for child in children:
-		if child is SteeringBehavior:
-			child.draw_gizmos = draw_gizmos
+		if not child  is SteeringBehavior:
+			continue
+		child.draw_gizmos = draw_gizmos
 
 var current_state : states
 func think():
@@ -74,14 +76,19 @@ func _ready():
 	
 	for i in get_child_count():
 		var child = get_child(i)
-		if child is SteeringBehavior:
-			behaviours.push_back(child)
-			child.draw_gizmos = draw_gizmos
-			child.set_process(child.enabled) 
+		if not child is SteeringBehavior:
+			continue
+		behaviours.push_back(child)
+		child.draw_gizmos = draw_gizmos
+		child.set_process(child.enabled) 
 	# enable_all(false)
+
+func _gravity(delta: float) -> Vector3:
+	return Vector3.ZERO if is_on_floor() else grav_vel.move_toward(Vector3(0, velocity.y - gravity, 0), gravity * delta)
 func _physics_process(delta):
 	if pause:
 		return
+	count_neighbors_simple()
 	if max_speed == 0:
 		push_warning("max_speed is 0")
 	# lerp in the new forces
@@ -92,22 +99,22 @@ func _physics_process(delta):
 
 
 	acceleration = force / mass
-	vel += acceleration * delta
-	speed = vel.length()
+	velocity += acceleration * delta
+	speed = velocity.length()
 	if speed > 0:		
 		
-		vel = vel.limit_length(max_speed)
+		velocity = velocity.limit_length(max_speed)
 		
 		# Damping
-		vel -= vel * delta * damping
+		velocity -= velocity * delta * damping
 		
-		set_velocity(vel)
+		
 		move_and_slide()
 		
 		# Implement Banking as described:
 		# https://www.cs.toronto.edu/~dt/siggraph97-course/cwr87/
 		var temp_up = global_transform.basis.y.lerp(Vector3.UP + (acceleration * banking), delta * 5.0)
-		look_at(global_transform.origin - vel.normalized(), temp_up)
+		look_at(global_transform.origin - velocity.normalized(), temp_up)
 	return
 	if tick_counter % tick_rate == 0:
 		hunger += metabolism * randf_range(0,0.01)
@@ -135,42 +142,6 @@ func _physics_process(delta):
 func change_state(state : states):
 	current_state = state
 
-
-func count_neighbors_partitioned():
-	neighbors.clear()
-
-	# var cells_around = 1
-	var my_cell = flock.position_to_cell(transform.origin)
-		
-	if draw_gizmos:
-		var a = flock.cell_to_position(my_cell)
-		var b = a + Vector3(flock.cell_size, flock.cell_size, flock.cell_size)
-		DebugDraw3D.draw_aabb_ab(a, b, Color.CYAN)
-						
-	# Check center cell first!
-	for slice in [0, -1, 1]:
-		for row in [0, -1, 1]:
-			for col in [0, -1, 1]:
-				var pos = global_transform.origin + Vector3(col * flock.cell_size, row * flock.cell_size, slice * flock.cell_size)
-				var key = flock.position_to_cell(pos)
-				
-				if draw_gizmos:
-					var a = flock.cell_to_position(key)
-					var b = a + Vector3(flock.cell_size, flock.cell_size, flock.cell_size)
-					DebugDraw3D.draw_aabb_ab(a, b, Color.CYAN)
-				
-				if flock.cells.has(key):
-					var cell = flock.cells[key]
-					# print(key)
-					for boid in cell:
-						if draw_gizmos:
-							if boid != self:
-								DebugDraw3D.draw_box(boid.global_transform.origin, Quaternion.IDENTITY,  Vector3(3, 3, 3), Color.DARK_GOLDENROD, true)
-						if boid != self and boid.global_transform.origin.distance_to(global_transform.origin) < flock.neighbor_distance:
-							neighbors.push_back(boid)
-							if neighbors.size() == flock.max_neighbors:
-								return neighbors.size()					
-	return neighbors.size()
 	
 func count_neighbors_simple():
 	neighbors.clear()
@@ -236,19 +207,20 @@ func calculate():
 	var force_acc = Vector3.ZERO
 	var behaviors_active = ""
 	for i in behaviours.size():
-		if behaviours[i].enabled:
-			var f = behaviours[i].calculate() * behaviours[i].weight
-			if is_nan(f.x) or is_nan(f.y) or is_nan(f.z):
-				push_error(str(behaviours[i]) + " is NAN")
-				f = Vector3.ZERO
-			behaviors_active += behaviours[i].name + ": " + str(round(f.length())) + " "
-			force_acc += f 
-			if force_acc.length() > max_force:
-				force_acc = force_acc.limit_length(max_force)
-				behaviors_active += " Limiting force"
-				break
+		if not behaviours[i].enabled:
+			continue
+
+		var f = behaviours[i].calculate() * behaviours[i].weight
+
+		if is_nan(f.x) or is_nan(f.y) or is_nan(f.z):
+			push_error(str(behaviours[i]) + " is NAN")
+			f = Vector3.ZERO
+		behaviors_active += behaviours[i].name + ": " + str(round(f.length())) + " "
+		force_acc += f 
+
 	if draw_gizmos:
 		DebugDraw2D.set_text(name, behaviors_active)
+
 	return force_acc
 
 
@@ -256,9 +228,5 @@ func _process(delta):
 	should_calculate = true
 	if draw_gizmos:
 		on_draw_gizmos()
-	if flock and count_neighbors:
-		if flock.partition:
-			count_neighbors_partitioned()
-		else:
-			count_neighbors_simple()
+		
 			

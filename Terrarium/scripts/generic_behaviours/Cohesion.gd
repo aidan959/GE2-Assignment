@@ -16,12 +16,10 @@ func calculate():
 	center_of_mass = Vector3.ZERO
 	if boid.neighbors.size() <= 0:
 		return Vector3.ZERO
-	for i in boid.neighbors.size():
-		var other = boid.neighbors[i]
-		center_of_mass += other.global_transform.origin
+	for other_boid in boid.neighbors:
+		center_of_mass += other_boid.global_transform.origin
 	center_of_mass /= boid.neighbors.size()
-	var diff : Vector3 = center_of_mass - boid.global_transform.origin
-	force = diff
-	force = boid.seek_force(center_of_mass).normalized()
+	force = center_of_mass - boid.global_transform.origin
+	force = force.normalized()
 	return force
 	

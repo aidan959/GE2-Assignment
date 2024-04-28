@@ -38,11 +38,15 @@ transform = Transform3D(1, 0, 0, 0, -0.937312, 0.34849, 0, -0.34849, -0.937312, 
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.19638, 0)
 script = ExtResource("2_qkdbf")
 sheep_scene = ExtResource("2_cbkbv")
-count = 50
+count = 2
 radius = 10
+neighbor_distance = 50
+avoid_distance = 1
 max_neighbors = 15
+draw_gizmos = true
 cell_size = 20
 grid_size = 100
+partition = false
 center_path = NodePath("../World Center")
 
 [node name="World Center" type="Node3D" parent="."]

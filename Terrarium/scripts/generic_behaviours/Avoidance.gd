@@ -31,13 +31,14 @@ func on_draw_gizmos():
 			DebugDraw3D.draw_line(boid.global_transform.origin, feeler.end, Color.CHARTREUSE)
 
 func calculate():
-	var me = boid.global_position
+	var me_pos = boid.global_position
 	force = Vector3.ZERO
 	for i in boid.neighbors.size():
-			var other= boid.neighbors[i]
-			var other_pos = other.global_position
-			var diff = me - other_pos
-			force += (diff/diff.length()) * inv_square(diff.length())
+		var other= boid.neighbors[i]
+		var other_pos = other.global_position
+		var diff = me_pos - other_pos
+		force += (diff/diff.length()) * inv_square(diff.length())
+	DebugDraw3D.draw_arrow(boid.global_transform.origin, force, Color.RED, 0.10)
 			
 	return force
 
