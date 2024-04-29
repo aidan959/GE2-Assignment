@@ -1,7 +1,7 @@
 extends Node3D
 
 var time : float
-@export var length : float = 300.0
+@export var length : float = 30.0
 @export var start_time : float = 0.3
 var time_rate : float 
 

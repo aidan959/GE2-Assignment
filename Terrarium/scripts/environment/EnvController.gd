@@ -14,8 +14,7 @@ var sunset_start = 0.7
 var sunset_end = 0.8
 
 func _ready():
-	set_weather_condition("clear")
-
+	set_weather_condition("snow")
 
 func _process(delta):
 	pass
@@ -34,7 +33,9 @@ func set_weather_condition(weather_data):
 
 		"snow":
 			environment.volumetric_fog_enabled = true
-			environment.volumetric_fog_density = 0.15
+			environment.volumetric_fog_density = 0.05
+			weather.start_snow()
+			weather.set_snow_intensity(1000)
 
 		"clear":
 			environment.volumetric_fog_enabled = false
