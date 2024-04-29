@@ -1,0 +1,107 @@
+[gd_scene load_steps=13 format=3 uid="uid://bfy1dib6amqkf"]
+
+[ext_resource type="Script" path="res://scripts/environment/weather.gd" id="1_rn8mp"]
+
+[sub_resource type="Curve" id="Curve_rkc8h"]
+_data = [Vector2(0.508314, 1), 0.0, -2.21228, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_lhxd2"]
+curve = SubResource("Curve_rkc8h")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ug68j"]
+emission_shape_offset = Vector3(0, 20, 0)
+emission_shape_scale = Vector3(10, 1, 10)
+emission_shape = 3
+emission_box_extents = Vector3(1, 1, 1)
+direction = Vector3(0, -1, 0)
+initial_velocity_min = 2.0
+initial_velocity_max = 2.0
+linear_accel_min = -8.0
+tangential_accel_min = -2.0
+damping_min = 4.0
+damping_max = 4.0
+scale_min = 0.2
+scale_max = 0.2
+scale_curve = SubResource("CurveTexture_lhxd2")
+color = Color(0.639638, 0.727814, 0.820302, 1)
+collision_mode = 1
+collision_friction = 0.2
+collision_bounce = 0.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6mylq"]
+shading_mode = 0
+
+[sub_resource type="SphereMesh" id="SphereMesh_22kx4"]
+material = SubResource("StandardMaterial3D_6mylq")
+
+[sub_resource type="Curve" id="Curve_oliy4"]
+_data = [Vector2(1e-05, 0.988278), 0.0, 0.0, 0, 0, Vector2(0.218527, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_h4olo"]
+curve = SubResource("Curve_oliy4")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_om4u6"]
+emission_shape_offset = Vector3(0, 20, 0)
+emission_shape_scale = Vector3(10, 1, 10)
+emission_shape = 3
+emission_box_extents = Vector3(1, 1, 1)
+direction = Vector3(0, -1, 0)
+initial_velocity_max = 1.0
+scale_min = 0.5
+scale_max = 0.5
+scale_curve = SubResource("CurveTexture_h4olo")
+color = Color(0.702997, 0.968299, 1, 1)
+
+[sub_resource type="Curve" id="Curve_c8heb"]
+max_value = 0.1
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.0764706, 0.0516483), 0.411947, 0.411947, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kiem4"]
+transparency = 1
+cull_mode = 2
+shading_mode = 0
+vertex_color_use_as_albedo = true
+use_particle_trails = true
+
+[sub_resource type="RibbonTrailMesh" id="RibbonTrailMesh_wjw2j"]
+material = SubResource("StandardMaterial3D_kiem4")
+size = 2.0
+curve = SubResource("Curve_c8heb")
+
+[node name="weather" type="Node3D"]
+script = ExtResource("1_rn8mp")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(10, 0, 0, 0, 1, 0, 0, 0, 10, 0, -2, 0)
+visible = false
+
+[node name="GPUParticlesCollisionBox3D" type="GPUParticlesCollisionBox3D" parent="CSGBox3D"]
+visible = false
+size = Vector3(1, 1, 1)
+
+[node name="SnowParticles" type="GPUParticles3D" parent="."]
+transform = Transform3D(2, 0, 0, 0, 1, 0, 0, 0, 2, 0, 0, 0)
+visible = false
+cast_shadow = 0
+amount = 300
+lifetime = 5.0
+randomness = 0.5
+visibility_aabb = AABB(-10, 0, -10, 20, 20, 20)
+trail_lifetime = 0.1
+process_material = SubResource("ParticleProcessMaterial_ug68j")
+draw_pass_1 = SubResource("SphereMesh_22kx4")
+
+[node name="RainParticles" type="GPUParticles3D" parent="."]
+transform = Transform3D(2, 0, 0, 0, 1, 0, 0, 0, 2, 0, 0, 0)
+amount = 200
+lifetime = 5.0
+speed_scale = 2.0
+randomness = 0.5
+visibility_aabb = AABB(-10, 0, -10, 20, 20, 20)
+trail_enabled = true
+trail_lifetime = 0.1
+process_material = SubResource("ParticleProcessMaterial_om4u6")
+draw_pass_1 = SubResource("RibbonTrailMesh_wjw2j")

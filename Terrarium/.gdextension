@@ -1,0 +1,14 @@
+[configuration]
+entry_symbol = "gdext_rust_init"
+compatibility_minimum = 4.1
+reloadable = true
+
+[libraries]
+linux.debug.x86_64 =     "res://../terrarium_crate/target/debug/libterrarium_crate.so"
+linux.release.x86_64 =   "res://../terrarium_crate/target/release/libterrarium_crate.so"
+windows.debug.x86_64 =   "res://../terrarium_crate/target/debug/terrarium_crate.dll"
+windows.release.x86_64 = "res://../terrarium_crate/target/release/terrarium_crate.dll"
+macos.debug =            "res://../terrarium_crate/target/debug/libterrarium_crate.dylib"
+macos.release =          "res://../terrarium_crate/target/release/libterrarium_crate.dylib"
+macos.debug.arm64 =      "res://../terrarium_crate/target/debug/libterrarium_crate.dylib"
+macos.release.arm64 =    "res://../terrarium_crate/target/release/libterrarium_crate.dylib"
