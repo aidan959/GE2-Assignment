@@ -1,0 +1,88 @@
+[gd_scene load_steps=13 format=3 uid="uid://b5w6wthj6ida4"]
+
+[ext_resource type="Script" path="res://scripts/EnvController.gd" id="1_od8gl"]
+[ext_resource type="PackedScene" uid="uid://bfy1dib6amqkf" path="res://scenes/weather.tscn" id="2_byges"]
+
+[sub_resource type="Gradient" id="Gradient_b8bap"]
+colors = PackedColorArray(0.151527, 0.170545, 0.937935, 1, 0.051971, 0.051971, 0.051971, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_wkmxw"]
+gradient = SubResource("Gradient_b8bap")
+fill_from = Vector2(1, 0.505495)
+
+[sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_7cvy7"]
+night_sky = SubResource("GradientTexture2D_wkmxw")
+
+[sub_resource type="Sky" id="Sky_7xe4r"]
+sky_material = SubResource("PhysicalSkyMaterial_7cvy7")
+
+[sub_resource type="Environment" id="Environment_w6b1l"]
+background_mode = 2
+sky = SubResource("Sky_7xe4r")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8alqt"]
+albedo_color = Color(0, 0.481029, 4.81307e-07, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_5j7w0"]
+
+[sub_resource type="Animation" id="Animation_6x545"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DirectionalLight3D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_fpt53"]
+resource_name = "day_night"
+length = 300.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DirectionalLight3D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 300),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(6.28319, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qp84w"]
+_data = {
+"RESET": SubResource("Animation_6x545"),
+"day_night": SubResource("Animation_fpt53")
+}
+
+[node name="EnvironmentController" type="Node3D"]
+script = ExtResource("1_od8gl")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_w6b1l")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="WorldEnvironment"]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, -0.0220375, 0.000406265, -0.0226982)
+material_override = SubResource("StandardMaterial3D_8alqt")
+mesh = SubResource("PlaneMesh_5j7w0")
+
+[node name="GPUParticlesCollisionBox3D" type="GPUParticlesCollisionBox3D" parent="WorldEnvironment/MeshInstance3D"]
+size = Vector3(2, 0, 2)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="WorldEnvironment"]
+libraries = {
+"": SubResource("AnimationLibrary_qp84w")
+}
+autoplay = "day_night"
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment"]
+
+[node name="weather" parent="." instance=ExtResource("2_byges")]

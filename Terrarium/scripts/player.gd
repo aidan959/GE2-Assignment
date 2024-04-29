@@ -23,6 +23,7 @@ var jump_vel: Vector3 # Jumping velocity
 
 func _ready() -> void:
 	capture_mouse()
+	
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:

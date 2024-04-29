@@ -1,16 +1,28 @@
-[gd_scene load_steps=8 format=3 uid="uid://dh52fxfx2rten"]
+[gd_scene load_steps=11 format=3 uid="uid://dh52fxfx2rten"]
 
 [ext_resource type="PackedScene" uid="uid://c2nwkj3tahlxg" path="res://scenes/grass.tscn" id="1_8n11t"]
-[ext_resource type="Script" path="res://scripts/world.gd" id="1_hqvga"]
+[ext_resource type="Script" path="res://scenes/main.gd" id="1_hqvga"]
 [ext_resource type="PackedScene" uid="uid://blg3yr70eue5y" path="res://scenes/sheep.tscn" id="2_cbkbv"]
 [ext_resource type="Script" path="res://scripts/Flock.gd" id="2_qkdbf"]
 [ext_resource type="PackedScene" uid="uid://be8abksxbl3jb" path="res://scenes/Player.tscn" id="4_mbjog"]
-[ext_resource type="PackedScene" uid="uid://b5w6wthj6ida4" path="res://scenes/env_controller.tscn" id="6_usu0l"]
+[ext_resource type="PackedScene" uid="uid://bfy1dib6amqkf" path="res://scenes/weather.tscn" id="6_4nw1f"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_10af3"]
+sky_top_color = Color(0.332803, 0.446749, 0.659768, 1)
+sky_horizon_color = Color(0.753003, 0.63014, 0.510938, 1)
+
+[sub_resource type="Sky" id="Sky_5ra1q"]
+sky_material = SubResource("ProceduralSkyMaterial_10af3")
+
+[sub_resource type="Environment" id="Environment_aijpb"]
+background_mode = 2
+sky = SubResource("Sky_5ra1q")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_8n2mg"]
 size = Vector3(25.0152, 0.0605469, 24.9951)
 
 [node name="Main" type="Node3D"]
+script = ExtResource("1_hqvga")
 
 [node name="Ground" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0785122, 0.0586605, -0.0539837)
@@ -19,24 +31,25 @@ size = Vector3(25, 0.001, 25)
 [node name="Grass" parent="." instance=ExtResource("1_8n11t")]
 transform = Transform3D(0.498282, 0.00411509, -0.867005, -0.004245, 0.999988, 0.00230659, 0.867005, 0.00253109, 0.498293, 8.24336, 0.417116, 2.50571)
 
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_aijpb")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment"]
+transform = Transform3D(1, 0, 0, 0, -0.937312, 0.34849, 0, -0.34849, -0.937312, 0, 0, 0)
+
 [node name="Flock" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.19638, 0)
 script = ExtResource("2_qkdbf")
 sheep_scene = ExtResource("2_cbkbv")
 count = 50
 radius = 10
-neighbor_distance = 50
-avoid_distance = 1
 max_neighbors = 15
 cell_size = 20
 grid_size = 100
-partition = false
 center_path = NodePath("../World Center")
-metadata/_edit_group_ = true
 
 [node name="World Center" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0785122, 1.65177, -0.0539837)
-script = ExtResource("1_hqvga")
 
 [node name="Player" parent="." instance=ExtResource("4_mbjog")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.68523, 1.18654, 6.07644)
@@ -47,5 +60,4 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.68523, 1.18654, 6.07644)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0638123, 0.0283203, -0.0484314)
 shape = SubResource("BoxShape3D_8n2mg")
 
-[node name="EnvironmentController" parent="." instance=ExtResource("6_usu0l")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0178843, 2.38419e-07, -0.00143909)
+[node name="WeatherEnvironment" parent="." instance=ExtResource("6_4nw1f")]
