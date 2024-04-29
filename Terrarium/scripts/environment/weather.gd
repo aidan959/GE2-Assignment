@@ -60,7 +60,6 @@ func update_weather_status() -> void:
 	update_snow_status()
 
 func update_rain_status() -> void:
-	print("is_raining", is_raining)
 	rain_particles.emitting = is_raining
 	if is_raining:
 		rain_particles.amount = rain_intensity
