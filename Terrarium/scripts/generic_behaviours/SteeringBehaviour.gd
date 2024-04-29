@@ -3,7 +3,7 @@ class_name SteeringBehavior extends Node
 @export var weight = 1.0
 @export var draw_gizmos = true
 
-var boid
+var boid : Sheep
 
 @export var enabled = true: get = is_enabled, set = set_enabled
 

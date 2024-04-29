@@ -39,9 +39,10 @@ func _ready():
 	randomize()
 	center = get_node(center_path)
 	for node in get_parent().get_children():
-		var potential_pred =node.find_child("Preadator", true)
-		if potential_pred !=  null:
-			predators.push_back(potential_pred)
+		var potential_pred =node.find_child("Predator", true)
+		if potential_pred != null:
+			
+			predators.push_back(potential_pred.get_parent())
 	for i in count:
 		var sheep = sheep_scene.instantiate()		
 		var pos = Utils.random_point_in_unit_sphere() * radius
@@ -51,13 +52,12 @@ func _ready():
 		sheep.global_rotation = Vector3(0, randf_range(0, PI * 2.0),  0)
 
 		var boid : Sheep = sheep
-		if boids.size() == 0:
-			boid.draw_gizmos_propagate(draw_gizmos)
-			pass
-		boids.push_back(boid)		
+		
+		boid.draw_gizmos_propagate(draw_gizmos)
 		boid.hunger = randf_range(0.5, 0.99)
 		boid.metabolism = randf_range(0.001, 0.005)
 		
+		boids.push_back(boid)		
 		var constrain = boid.get_node("Constrain")
 		if constrain:
 			# constrain.center_path = center_path

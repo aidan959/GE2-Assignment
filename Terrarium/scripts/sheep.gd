@@ -12,7 +12,10 @@ class_name Sheep extends CharacterBody3D
 @export var damping = 0.1
 @export var max_force : float = 10.0
 
+@onready var ground_detector : Node3D = find_child("GroundDetector")
 
+
+@export var ground_ray_depth = 100.0
 @export var draw_gizmos = true
 @export var pause = false
 var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
@@ -89,7 +92,7 @@ func _ready():
 		child.set_process(child.enabled) 
 	# enable_all(false)
 func update_nearest_grass():
-	if grass.size() == 0: push_warning("No instances of grass found.")
+	if flock.grasses.size() == 0: push_warning("No instances of grass found.")
 	var temp_nearest_distance : float = INF
 	var me_pos : Vector3 = global_position
 	for grass : Grass in flock.grasses:
@@ -101,10 +104,15 @@ func update_nearest_grass():
 			nearest_grass = grass
 	
 func _gravity(delta: float) -> Vector3:
-	return Vector3.ZERO if is_on_floor() else grav_vel.move_toward(Vector3(0, velocity.y - gravity, 0), gravity * delta)
+	if not is_on_floor():
+		grav_vel += Vector3(0, -gravity, 0) * delta
+	else:
+		grav_vel = Vector3.ZERO
+	return grav_vel
 func _physics_process(delta):
 	if pause:
 		return
+	adjust_to_terrain()
 	count_neighbors_simple()
 	update_nearest_grass()
 	if max_speed == 0:
@@ -116,6 +124,7 @@ func _physics_process(delta):
 	force = lerp(force, new_force, delta)
 
 
+	force += _gravity(delta)
 	acceleration = force / mass
 	velocity += acceleration * delta
 	speed = velocity.length()
@@ -244,3 +253,14 @@ func _process(delta):
 		on_draw_gizmos()
 		
 			
+
+func adjust_to_terrain():
+	var ray_end = global_transform.origin - Vector3.UP * ground_ray_depth
+	var space_state = get_world_3d().direct_space_state
+	var query = PhysicsRayQueryParameters3D.create(ground_detector.global_position, ray_end)
+	var result = space_state.intersect_ray(query)
+
+	if result:
+		global_transform.origin.y = result.position.y
+	else:
+		pass

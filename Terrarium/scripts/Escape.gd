@@ -1,7 +1,7 @@
 class_name Escape extends SteeringBehavior
 
 var force = Vector3.ZERO
-@export var softness : float = 10.0
+@export var softness : float = 10000.0
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	boid = get_parent()
@@ -21,9 +21,9 @@ func inv_square(distance: float) -> float:
 
 func calculate():
 	force = Vector3.ZERO
-	if boid.predators.size() == 0 : return Vector3.ZERO
-	var diff = boid.global_position - boid.flock.predators[0]
-	(diff/diff.length()) * inv_square(diff.length)
+	if boid.flock.predators.size() == 0 : return Vector3.ZERO
+	var diff = boid.global_position - boid.flock.predators[0].global_position
+	force = (diff/diff.length()) * inv_square(diff.length())
 	
 	return force
 	

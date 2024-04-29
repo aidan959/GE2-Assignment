@@ -16,4 +16,4 @@ shape = SubResource("CapsuleShape3D_t4vqa")
 [node name="Camera" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.61863, 0)
 
-[node name="Preadator" type="Node" parent="."]
+[node name="Predator" type="Node" parent="."]

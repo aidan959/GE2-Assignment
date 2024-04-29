@@ -19,8 +19,7 @@ depth = 0.5
 size = Vector3(0.60084, 0.91084, 1.39185)
 
 [node name="Boid" type="CharacterBody3D"]
-collision_layer = 256
-collision_mask = 0
+collision_layer = 257
 script = ExtResource("1_47l58")
 max_speed = 5.0
 draw_gizmos = false
@@ -36,6 +35,10 @@ mesh = SubResource("TextMesh_hbalk")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0451426, 0.454725, 0.0760498)
 shape = SubResource("BoxShape3D_ggkxb")
+
+[node name="Escape" type="Node" parent="."]
+script = ExtResource("9_y856e")
+softness = 10.0
 
 [node name="Cohesion" type="Node" parent="."]
 script = ExtResource("3_isb34")
@@ -61,9 +64,8 @@ radius = 5.0
 weight = 0.1
 draw_gizmos = false
 
-[node name="Escape" type="Node" parent="."]
-script = ExtResource("9_y856e")
-weight = 2.0
-
 [node name="Sheep" parent="." instance=ExtResource("8_xtb2k")]
 transform = Transform3D(-2.18557e-08, 0, -0.5, 0, 0.5, 0, 0.5, 0, -2.18557e-08, 0, -0.00519189, 0)
+
+[node name="GroundDetector" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.00872263, 0)

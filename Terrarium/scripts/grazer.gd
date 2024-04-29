@@ -24,7 +24,7 @@ func calculate():
 	if boid.nearest_grass == null: return Vector3.ZERO
 	
 	if draw_gizmos:
-		DebugDraw3D.draw_line(boid.global_position, boid.nearest_grass.global_position, Color.BLUE_VIOLET, 10.0)
+		DebugDraw3D.draw_line(boid.global_position, boid.nearest_grass.global_position, Color.BLUE_VIOLET)
 	
 	var center_of_mass : Vector3 = boid.nearest_grass.global_position
 
