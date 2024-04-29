@@ -1,12 +1,14 @@
 [gd_scene load_steps=11 format=3 uid="uid://blg3yr70eue5y"]
 
 [ext_resource type="Script" path="res://scripts/sheep.gd" id="1_47l58"]
+
 [ext_resource type="PackedScene" uid="uid://c83v5ntlr0m0p" path="res://scripts/generic_behaviours/Grazer.tscn" id="2_4chqj"]
 [ext_resource type="Script" path="res://scripts/generic_behaviours/Alignment.gd" id="2_c5dl5"]
 [ext_resource type="Script" path="res://scripts/generic_behaviours/Avoidance.gd" id="3_a0rhm"]
 [ext_resource type="Script" path="res://scripts/generic_behaviours/Cohesion.gd" id="3_isb34"]
 [ext_resource type="Script" path="res://scripts/generic_behaviours/Constrain.gd" id="5_mgo6i"]
 [ext_resource type="Script" path="res://scripts/generic_behaviours/Wander.gd" id="7_tx6mo"]
+anges
 [ext_resource type="PackedScene" uid="uid://dwnmhlbibq8rx" path="res://models/gltf/Sheep.glb" id="8_xtb2k"]
 
 [sub_resource type="TextMesh" id="TextMesh_hbalk"]
@@ -25,6 +27,7 @@ max_speed = 5.0
 draw_gizmos = false
 
 [node name="SheepBody" type="CSGBox3D" parent="."]
+
 visible = false
 layers = 256
 
