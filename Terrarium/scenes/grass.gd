@@ -1,4 +1,4 @@
-extends Area3D
+class_name Grass extends Area3D
 
 @export_range (0,10) var max_num_grazers : int = 5
 var current_num_grazers = 0

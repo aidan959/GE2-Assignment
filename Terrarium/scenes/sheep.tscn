@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://blg3yr70eue5y"]
+[gd_scene load_steps=12 format=3 uid="uid://blg3yr70eue5y"]
 
 [ext_resource type="Script" path="res://scripts/sheep.gd" id="1_47l58"]
 [ext_resource type="PackedScene" uid="uid://c83v5ntlr0m0p" path="res://scripts/generic_behaviours/Grazer.tscn" id="2_4chqj"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://scripts/generic_behaviours/Constrain.gd" id="5_mgo6i"]
 [ext_resource type="Script" path="res://scripts/generic_behaviours/Wander.gd" id="7_tx6mo"]
 [ext_resource type="PackedScene" uid="uid://dwnmhlbibq8rx" path="res://models/gltf/Sheep.glb" id="8_xtb2k"]
+[ext_resource type="Script" path="res://scripts/Escape.gd" id="9_y856e"]
 
 [sub_resource type="TextMesh" id="TextMesh_hbalk"]
 text = "SHEEP"
@@ -49,7 +50,6 @@ weight = 0.8
 
 [node name="Constrain" type="Node" parent="."]
 script = ExtResource("5_mgo6i")
-weight = 0.0
 draw_gizmos = false
 
 [node name="Grazer" parent="." instance=ExtResource("2_4chqj")]
@@ -59,6 +59,11 @@ script = ExtResource("7_tx6mo")
 distance = 10.0
 radius = 5.0
 weight = 0.1
+draw_gizmos = false
+
+[node name="Escape" type="Node" parent="."]
+script = ExtResource("9_y856e")
+weight = 2.0
 
 [node name="Sheep" parent="." instance=ExtResource("8_xtb2k")]
 transform = Transform3D(-2.18557e-08, 0, -0.5, 0, 0.5, 0, 0.5, 0, -2.18557e-08, 0, -0.00519189, 0)

@@ -30,8 +30,8 @@ func calculate():
 		var diff = me_pos - other_pos
 		var distance = diff.length()
 		force += (diff/distance) * inv_square(distance)
-
-		DebugDraw3D.draw_line(boid.global_position, boid.global_position + force, Color.BLACK, 1)
+		if draw_gizmos:
+			DebugDraw3D.draw_line(boid.global_position, boid.global_position + force, Color.BLACK)
 			
 	return force
 

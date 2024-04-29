@@ -17,7 +17,12 @@ class_name Sheep extends CharacterBody3D
 @export var pause = false
 var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 var count_neighbors = false
+
+var nearest_grass : Grass = null
+
 var neighbors = [] 
+var grass = [] 
+
 
 var flock = null
 var new_force = Vector3.ZERO
@@ -34,7 +39,6 @@ var grav_vel: Vector3 # Gravity velocity
 
 @export_range(0, 60.0) var tick_rate : int = 1 # abstract this to director  
 
-@onready var grazer: Grazer = get_node("Grazer")
 
 var tick_counter :int = 0# abstract this to director 
 
@@ -73,7 +77,7 @@ func think():
 func _ready():
 	randomize()
 		# Check for a variable
-	if "partition" in get_parent():
+	if get_parent() is Flock:
 		flock = get_parent()
 	
 	for i in get_child_count():
@@ -84,13 +88,25 @@ func _ready():
 		child.draw_gizmos = draw_gizmos
 		child.set_process(child.enabled) 
 	# enable_all(false)
-
+func update_nearest_grass():
+	if grass.size() == 0: push_warning("No instances of grass found.")
+	var temp_nearest_distance : float = INF
+	var me_pos : Vector3 = global_position
+	for grass : Grass in flock.grasses:
+		if grass.is_full():
+			continue
+		var temp_distance = me_pos.distance_to(grass.global_position)
+		if temp_distance < temp_nearest_distance:
+			temp_nearest_distance = temp_distance
+			nearest_grass = grass
+	
 func _gravity(delta: float) -> Vector3:
 	return Vector3.ZERO if is_on_floor() else grav_vel.move_toward(Vector3(0, velocity.y - gravity, 0), gravity * delta)
 func _physics_process(delta):
 	if pause:
 		return
 	count_neighbors_simple()
+	update_nearest_grass()
 	if max_speed == 0:
 		push_warning("max_speed is 0")
 	# lerp in the new forces
@@ -103,6 +119,11 @@ func _physics_process(delta):
 	acceleration = force / mass
 	velocity += acceleration * delta
 	speed = velocity.length()
+	if health == 0.0:
+		velocity = Vector3.ZERO
+		move_and_slide()
+		look_at(Vector3(0,-1000000, 0), Vector3.UP)
+		return
 	if speed > 0:		
 		
 		velocity = velocity.limit_length(max_speed)
@@ -117,7 +138,7 @@ func _physics_process(delta):
 		# https://www.cs.toronto.edu/~dt/siggraph97-course/cwr87/
 		var temp_up = global_transform.basis.y.lerp(Vector3.UP + (acceleration * banking), delta * 5.0)
 		look_at(global_transform.origin - velocity.normalized(), temp_up)
-	return
+
 	if tick_counter % tick_rate == 0:
 		hunger += metabolism * randf_range(0,0.01)
 		hunger = clamp(hunger, 0.0, 1.0)
@@ -127,20 +148,9 @@ func _physics_process(delta):
 		health = clamp(health, 0, 100.0)
 		if(is_equal_approx(health, 0.0)):
 			change_state(states.DEAD)
-		#print(hunger)
-		#print(health)
 		
 	tick_counter+= 1
 	
-	match current_state:
-		
-		states.ROAMING:
-			pass#print("roaming about")
-		states.EATING:
-			pass#print("eating")
-		states.DEAD:
-			pass#print("DEAD - need to implement mechanism to clean up or decompose bodies")
-
 func change_state(state : states):
 	current_state = state
 
@@ -154,6 +164,7 @@ func count_neighbors_simple():
 			if neighbors.size() == flock.max_neighbors:
 				break
 	return neighbors.size()
+	
 
 func _input(event):
 	if event is InputEventKey and event.keycode == KEY_P and event.pressed:

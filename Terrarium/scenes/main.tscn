@@ -16,21 +16,17 @@ size = Vector3(25.0152, 0.0605469, 24.9951)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0785122, 0.0586605, -0.0539837)
 size = Vector3(25, 0.001, 25)
 
-[node name="Grass" parent="." instance=ExtResource("1_8n11t")]
-transform = Transform3D(0.498282, 0.00411509, -0.867005, -0.004245, 0.999988, 0.00230659, 0.867005, 0.00253109, 0.498293, 8.24336, 0.417116, 2.50571)
-
 [node name="Flock" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.19638, 0)
 script = ExtResource("2_qkdbf")
 sheep_scene = ExtResource("2_cbkbv")
+grass_scene = ExtResource("1_8n11t")
 count = 50
-radius = 10
+radius = 20
 neighbor_distance = 50
 avoid_distance = 1
 max_neighbors = 15
-cell_size = 20
-grid_size = 100
-partition = false
+draw_gizmos = true
 center_path = NodePath("../World Center")
 metadata/_edit_group_ = true
 

@@ -1,8 +1,12 @@
 class_name Flock extends Node
 
 @export var sheep_scene:PackedScene
+@export var grass_scene:PackedScene
+
 
 @export var count = 5
+@export var grass_count = 5
+
 
 @export var radius = 100
 
@@ -11,40 +15,20 @@ class_name Flock extends Node
 
 @export var max_neighbors = 10
 
-var boids = []
+var boids : Array[Sheep] = []
+var grasses : Array[Grass] = []
+var predators : Array[Node3D] = []
+
+
 @export var draw_gizmos : bool = false
-@export var cell_size = 10
-@export var grid_size = 10000
-@export var partition = true
 var cells = {}
 
 @export var center_path:NodePath
 var center
 
 func do_draw_gizmos():
-	var size = 200
-	var sub_divisions = size / cell_size
-	DebugDraw3D.draw_grid(Vector3.ZERO, Vector3.RIGHT * size, Vector3.BACK * size, Vector2(sub_divisions, sub_divisions), Color.AQUAMARINE)
-	# DebugDraw.draw_grid(Vector3.ZERO, Vector3.UP * size, Vector3.BACK * size, Vector2(sub_divisions, sub_divisions), Color.aquamarine)
+	pass
 
-
-func position_to_cell(p): 
-	# Get rid of negatives!
-	var pos = p + Vector3(10000, 10000, 10000)
-	var f = floor(pos.x / cell_size)       
-	var r = floor(pos.x / cell_size) + (floor(pos.y / cell_size) * grid_size) + (floor(pos.z / cell_size) * grid_size * grid_size)
-	return r
-	
-func cell_to_position(cell):
-	var z = floor(cell / (grid_size * grid_size))
-	var y = floor((cell - (z * grid_size * grid_size)) / grid_size)
-	var x = cell - (y * grid_size + (z * grid_size * grid_size)) 
-	
-	
-	var p = Vector3(x, y, z) * cell_size
-	p -= Vector3(10000, 10000, 10000) 
-	return p
-	
 
 func _process(delta):
 	if draw_gizmos: do_draw_gizmos()
@@ -54,7 +38,10 @@ func _process(delta):
 func _ready():
 	randomize()
 	center = get_node(center_path)
-
+	for node in get_parent().get_children():
+		var potential_pred =node.find_child("Preadator", true)
+		if potential_pred !=  null:
+			predators.push_back(potential_pred)
 	for i in count:
 		var sheep = sheep_scene.instantiate()		
 		var pos = Utils.random_point_in_unit_sphere() * radius
@@ -68,11 +55,21 @@ func _ready():
 			boid.draw_gizmos_propagate(draw_gizmos)
 			pass
 		boids.push_back(boid)		
+		boid.hunger = randf_range(0.5, 0.99)
+		boid.metabolism = randf_range(0.001, 0.005)
 		
 		var constrain = boid.get_node("Constrain")
 		if constrain:
 			# constrain.center_path = center_path
 			constrain.center = center
 			constrain.radius = radius
-		
+	for i in grass_count:
+		var grass = grass_scene.instantiate()
+		var pos = Utils.random_point_in_unit_sphere() * radius
+		pos.y = 0.0
+		add_child(grass)
+		grass.global_position = pos
+		var grass_instance : Grass = grass
+		grasses.push_back(grass)
+
 
