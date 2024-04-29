@@ -14,7 +14,7 @@ size = Vector3(25.0152, 0.0605469, 24.9951)
 
 [node name="Ground" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0785122, 0.0586605, -0.0539837)
-size = Vector3(25, 0.001, 25)
+size = Vector3(100, 0.001, 100)
 
 [node name="Flock" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.19638, 0)
