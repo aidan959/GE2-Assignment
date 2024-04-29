@@ -1,42 +1,33 @@
-[gd_scene load_steps=10 format=3 uid="uid://dh52fxfx2rten"]
+[gd_scene load_steps=9 format=3 uid="uid://dh52fxfx2rten"]
 
-[ext_resource type="Shader" path="res://shaders/moss_shader.gdshader" id="1_8fgs3"]
-[ext_resource type="Texture2D" uid="uid://cj3vob6b3xju8" path="res://shaders/dirt1_normal.png" id="2_lyjn1"]
-[ext_resource type="Texture2D" uid="uid://cbblhxbokckte" path="res://textures/dirt1.png" id="2_m1ghf"]
-[ext_resource type="Texture2D" uid="uid://bf5r2lkwaxguk" path="res://textures/moss1.png" id="3_kcun4"]
-[ext_resource type="Texture2D" uid="uid://cgefufbfp1t6w" path="res://shaders/moss1_normal.png" id="4_jilt8"]
+[ext_resource type="PackedScene" uid="uid://c2nwkj3tahlxg" path="res://scenes/grass.tscn" id="1_8n11t"]
+[ext_resource type="PackedScene" uid="uid://blg3yr70eue5y" path="res://scenes/sheep.tscn" id="2_cbkbv"]
+[ext_resource type="Script" path="res://scripts/Flock.gd" id="2_qkdbf"]
+[ext_resource type="PackedScene" uid="uid://be8abksxbl3jb" path="res://scenes/Player.tscn" id="4_mbjog"]
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_moybj"]
-seed = 405
-frequency = 0.0001
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_10af3"]
+sky_top_color = Color(0.332803, 0.446749, 0.659768, 1)
+sky_horizon_color = Color(0.753003, 0.63014, 0.510938, 1)
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_myoja"]
-width = 2048
-height = 2048
-noise = SubResource("FastNoiseLite_moybj")
+[sub_resource type="Sky" id="Sky_5ra1q"]
+sky_material = SubResource("ProceduralSkyMaterial_10af3")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_oscqt"]
-render_priority = 0
-shader = ExtResource("1_8fgs3")
-shader_parameter/blend_strength = null
-shader_parameter/dirt_texture = ExtResource("2_m1ghf")
-shader_parameter/dirt_normal_texture = ExtResource("2_lyjn1")
-shader_parameter/moss_texture = ExtResource("3_kcun4")
-shader_parameter/moss_normal_texture = ExtResource("4_jilt8")
-shader_parameter/noise_texture = SubResource("NoiseTexture2D_myoja")
+[sub_resource type="Environment" id="Environment_aijpb"]
+background_mode = 2
+sky = SubResource("Sky_5ra1q")
 
-[sub_resource type="SphereMesh" id="SphereMesh_f8l0t"]
-material = SubResource("ShaderMaterial_oscqt")
+[sub_resource type="BoxShape3D" id="BoxShape3D_8n2mg"]
+size = Vector3(25.0152, 0.0605469, 24.9951)
 
 [node name="Main" type="Node3D"]
 
-<<<<<<< Updated upstream
+
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("SphereMesh_f8l0t")
-=======
 [node name="Ground" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.2497, 0.0586605, -3.22793)
 size = Vector3(47.1992, 0.001, 58.6731)
+
 
 [node name="Grass" parent="." instance=ExtResource("1_8n11t")]
 transform = Transform3D(0.498282, 0.00411509, -0.867005, -0.004245, 0.999988, 0.00230659, 0.867005, 0.00253109, 0.498293, 8.24336, 0.417116, 2.50571)
@@ -73,4 +64,4 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.68523, 1.18654, 6.07644)
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0638123, 0.0283203, -0.0484314)
 shape = SubResource("BoxShape3D_8n2mg")
->>>>>>> Stashed changes
+
