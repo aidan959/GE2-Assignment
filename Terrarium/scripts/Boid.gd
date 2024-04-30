@@ -33,7 +33,7 @@ enum BoidStates {
 	GRAZING,
 	DEAD
 } 
-var flock : Flock = null
+var flock : BoidController = null
 
 var tick_counter :int = 0 
 var count_neighbours = false
@@ -42,7 +42,7 @@ var new_force = Vector3.ZERO
 var should_calculate = false
 var current_state : BoidStates
 func initialize_flock():
-	if not get_parent() is Flock:
+	if not get_parent() is BoidController:
 		push_error("Boid spawned outside of BoidManager node.")	
 	flock = get_parent()
 	if flock.grasses.size() == 0: push_warning("No instances of grass found.")

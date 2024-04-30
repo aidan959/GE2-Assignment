@@ -1,4 +1,4 @@
-class_name Flock extends Node
+class_name BoidController extends Node
 
 @export var sheep_scene:PackedScene
 @export var grass_scene:PackedScene
@@ -52,24 +52,26 @@ func _ready():
 		var grass_instance : Grass = grass
 		grasses.push_back(grass_instance)
 	for i in count:
-		var sheep = sheep_scene.instantiate()		
+		var sheep : Sheep = sheep_scene.instantiate()		
 		var pos = Utils.random_point_in_unit_sphere() * radius
 		pos.y = 0.0
 		add_child(sheep)
 		sheep.global_position = pos
 		sheep.global_rotation = Vector3(0, randf_range(0, PI * 2.0),  0)
+		
+		if not Sheep in boids:
+			boids[Sheep] = []
 
-		var boid : Sheep = sheep
+
+		sheep.draw_gizmos_propagate(draw_gizmos)
+		sheep.hunger = randf_range(0.5, 0.8)
+		sheep.metabolism = randf_range(0.1, 0.5)
+		sheep.name = get_random_unique_name()
 		
-		boid.draw_gizmos_propagate(draw_gizmos)
-		boid.hunger = randf_range(0.5, 0.8)
-		boid.metabolism = randf_range(0.1, 0.5)
-		boid.name = get_random_unique_name()
+		boids[Sheep].push_back(sheep)
 		
-		boids.push_back(boid)		
-		var constrain = boid.get_node("Constrain")
+		var constrain = sheep.get_node("Constrain")
 		if constrain:
-			# constrain.center_path = center_path
 			constrain.center = center
 			constrain.radius = radius
 
