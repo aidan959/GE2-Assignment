@@ -15,7 +15,7 @@ class_name Flock extends Node
 
 @export var max_neighbors = 10
 @export var environment_controller : EnvironmentController
-var boids : Array[Sheep] = []
+var boids : Dictionary = {}
 var grasses : Array[Grass] = []
 var predators : Array[Node3D] = []
 
