@@ -1,0 +1,125 @@
+[gd_scene load_steps=16 format=3 uid="uid://bfy1dib6amqkf"]
+
+[ext_resource type="Script" path="res://scripts/weather.gd" id="1_rn8mp"]
+
+[sub_resource type="Gradient" id="Gradient_afvtw"]
+colors = PackedColorArray(0.151527, 0.170545, 0.937935, 1, 0.051971, 0.051971, 0.051971, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_wkmxw"]
+gradient = SubResource("Gradient_afvtw")
+fill_from = Vector2(1, 0.505495)
+
+[sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_jtu4c"]
+night_sky = SubResource("GradientTexture2D_wkmxw")
+
+[sub_resource type="Sky" id="Sky_7xe4r"]
+sky_material = SubResource("PhysicalSkyMaterial_jtu4c")
+
+[sub_resource type="Environment" id="Environment_xsjcw"]
+background_mode = 2
+sky = SubResource("Sky_7xe4r")
+volumetric_fog_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3rt8q"]
+albedo_color = Color(0, 0.481029, 4.81307e-07, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_qu34l"]
+
+[sub_resource type="Animation" id="Animation_fpt53"]
+resource_name = "day_night"
+length = 300.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DirectionalLight3D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 300),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(6.28319, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_6x545"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DirectionalLight3D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qp84w"]
+_data = {
+"RESET": SubResource("Animation_6x545"),
+"day_night": SubResource("Animation_fpt53")
+}
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ug68j"]
+emission_shape_offset = Vector3(0, 5, 0)
+emission_shape_scale = Vector3(10, 1, 10)
+emission_shape = 3
+emission_box_extents = Vector3(1, 1, 1)
+direction = Vector3(0, -1, 0)
+spread = 5.0
+initial_velocity_min = 15.0
+initial_velocity_max = 15.0
+color = Color(0.639638, 0.727814, 0.820302, 1)
+collision_mode = 1
+collision_friction = 0.0
+collision_bounce = 0.0
+
+[sub_resource type="Curve" id="Curve_c8heb"]
+max_value = 0.1
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.0764706, 0.0516483), 0.411947, 0.411947, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kiem4"]
+transparency = 1
+cull_mode = 2
+shading_mode = 0
+vertex_color_use_as_albedo = true
+use_particle_trails = true
+
+[sub_resource type="RibbonTrailMesh" id="RibbonTrailMesh_wjw2j"]
+material = SubResource("StandardMaterial3D_kiem4")
+curve = SubResource("Curve_c8heb")
+
+[node name="weather" type="Node3D"]
+script = ExtResource("1_rn8mp")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_xsjcw")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="WorldEnvironment"]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, -0.0220375, 0.000406265, -0.0226982)
+material_override = SubResource("StandardMaterial3D_3rt8q")
+mesh = SubResource("PlaneMesh_qu34l")
+
+[node name="GPUParticlesCollisionBox3D" type="GPUParticlesCollisionBox3D" parent="WorldEnvironment/MeshInstance3D"]
+size = Vector3(2, 0, 2)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_qp84w")
+}
+autoplay = "day_night"
+
+[node name="RainParticles" type="GPUParticles3D" parent="."]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, -0.0458198, 0.00204849, 0.0236015)
+amount = 200
+randomness = 0.5
+trail_enabled = true
+trail_lifetime = 0.1
+process_material = SubResource("ParticleProcessMaterial_ug68j")
+draw_pass_1 = SubResource("RibbonTrailMesh_wjw2j")
