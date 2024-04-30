@@ -27,9 +27,7 @@ grass_count = 1
 radius = 25
 neighbour_distance = 10
 avoid_distance = 1
-max_neighbours = null
 environment_controller = NodePath("../EnvironmentController")
-draw_gizmos = null
 center_path = NodePath("../World Center")
 metadata/_edit_group_ = true
 

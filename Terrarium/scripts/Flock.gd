@@ -1,6 +1,10 @@
 class_name BoidController extends Node
 
 @export var sheep_scene:PackedScene
+@export var spawners: Dictionary  = {
+	Sheep: 0.3,
+}
+
 @export var grass_scene:PackedScene
 
 
@@ -15,6 +19,7 @@ class_name BoidController extends Node
 
 @export var max_neighbours = 10
 @export var environment_controller : EnvironmentController
+
 var boids : Dictionary = {}
 var grasses : Array[Grass] = []
 var predators : Array[Node3D] = []
