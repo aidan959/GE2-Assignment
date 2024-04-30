@@ -1,14 +1,14 @@
 [gd_scene load_steps=12 format=3 uid="uid://blg3yr70eue5y"]
 
-[ext_resource type="Script" path="res://scripts/sheep.gd" id="1_47l58"]
-[ext_resource type="PackedScene" uid="uid://c83v5ntlr0m0p" path="res://scripts/generic_behaviours/Grazer.tscn" id="2_4chqj"]
-[ext_resource type="Script" path="res://scripts/generic_behaviours/Alignment.gd" id="2_c5dl5"]
-[ext_resource type="Script" path="res://scripts/generic_behaviours/Avoidance.gd" id="3_a0rhm"]
-[ext_resource type="Script" path="res://scripts/generic_behaviours/Cohesion.gd" id="3_isb34"]
-[ext_resource type="Script" path="res://scripts/generic_behaviours/Constrain.gd" id="5_mgo6i"]
-[ext_resource type="Script" path="res://scripts/generic_behaviours/Wander.gd" id="7_tx6mo"]
-[ext_resource type="PackedScene" uid="uid://8ac3umk67bfo" path="res://SheepModel.tscn" id="9_x3ku4"]
-[ext_resource type="Script" path="res://scripts/Escape.gd" id="9_y856e"]
+[ext_resource type="Script" path="res://scripts/Boids/Sheep.gd" id="1_k0npw"]
+[ext_resource type="Script" path="res://scripts/Boids/Behaviours/Escape.gd" id="1_pslmd"]
+[ext_resource type="Script" path="res://scripts/Boids/Behaviours/Cohesion.gd" id="2_3285g"]
+[ext_resource type="Script" path="res://scripts/Boids/Behaviours/Alignment.gd" id="3_xtapx"]
+[ext_resource type="Script" path="res://scripts/Boids/Behaviours/Avoidance.gd" id="4_art8r"]
+[ext_resource type="Script" path="res://scripts/Boids/Behaviours/Constrain.gd" id="5_5hxyb"]
+[ext_resource type="PackedScene" uid="uid://c83v5ntlr0m0p" path="res://scripts/Boids/Behaviours/Grazer.tscn" id="6_85b7r"]
+[ext_resource type="Script" path="res://scripts/Boids/Behaviours/Wander.gd" id="7_eurwo"]
+[ext_resource type="PackedScene" uid="uid://8ac3umk67bfo" path="res://SheepModel.tscn" id="8_nycs1"]
 
 [sub_resource type="TextMesh" id="TextMesh_hbalk"]
 text = "SHEEP"
@@ -21,7 +21,7 @@ size = Vector3(0.60084, 0.91084, 1.39185)
 [node name="Boid" type="CharacterBody3D"]
 collision_layer = 257
 collision_mask = 2
-script = ExtResource("1_47l58")
+script = ExtResource("1_k0npw")
 escape_distance = 5.0
 draw_gizmos = false
 hunger = 1.0
@@ -41,29 +41,29 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0451426, 0.454725, 0.076049
 shape = SubResource("BoxShape3D_ggkxb")
 
 [node name="Escape" type="Node" parent="."]
-script = ExtResource("9_y856e")
+script = ExtResource("1_pslmd")
 weight = 10.0
 
 [node name="Cohesion" type="Node" parent="."]
-script = ExtResource("3_isb34")
+script = ExtResource("2_3285g")
 
 [node name="Alignment" type="Node" parent="."]
-script = ExtResource("2_c5dl5")
+script = ExtResource("3_xtapx")
 
 [node name="Avoidance" type="Node" parent="."]
-script = ExtResource("3_a0rhm")
+script = ExtResource("4_art8r")
 softness = 1.0
 weight = 1.5
 
 [node name="Constrain" type="Node" parent="."]
-script = ExtResource("5_mgo6i")
+script = ExtResource("5_5hxyb")
 draw_gizmos = false
 
-[node name="Grazer" parent="." instance=ExtResource("2_4chqj")]
+[node name="Grazer" parent="." instance=ExtResource("6_85b7r")]
 weight = 1.5
 
 [node name="Wander" type="Node" parent="."]
-script = ExtResource("7_tx6mo")
+script = ExtResource("7_eurwo")
 distance = 10.0
 radius = 5.0
 weight = 0.1
@@ -86,5 +86,5 @@ distance_fade_enabled = true
 spot_range = 30.0
 spot_angle = 16.1695
 
-[node name="Sheep" parent="." instance=ExtResource("9_x3ku4")]
+[node name="Sheep" parent="." instance=ExtResource("8_nycs1")]
 transform = Transform3D(-2.18557e-08, 0, -0.5, 0, 0.5, 0, 0.5, 0, -2.18557e-08, 0, 0, 0)

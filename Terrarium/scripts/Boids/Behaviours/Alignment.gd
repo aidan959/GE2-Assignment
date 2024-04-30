@@ -19,5 +19,5 @@ func calculate():
 		desired += other_boid.velocity
 	desired /= boid.neighbours.size()
 	force = desired.normalized() - boid.velocity
-	return force
+	return force.normalized()
 	

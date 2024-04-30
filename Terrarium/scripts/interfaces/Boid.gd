@@ -23,6 +23,7 @@ class_name Boid extends CharacterBody3D
 @export_range(0.001,1.0) var metabolism : float = 0.001
 @export_range(0, 60.0) var tick_rate : int = 1 # abstract this to director  
 @export var is_currently_eating = false
+@export var spawn_location : SpawnLocations = SpawnLocations.LAND
 
 @export var foods_liked : Array[Variant] = [Food]
 
@@ -30,6 +31,11 @@ var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 var grav_vel: Vector3
 @export var current_state : BoidStates
+enum SpawnLocations {
+	WATER,
+	LAND,
+	AMBHIBIOUS
+}
 
 enum BoidStates {
 	ROAMING,
@@ -76,6 +82,7 @@ func process_gravity(delta: float) -> Vector3:
 		grav_vel += Vector3(0, -gravity, 0) * delta
 	else:
 		grav_vel = Vector3.ZERO
+	print(grav_vel)
 	return grav_vel
 
 

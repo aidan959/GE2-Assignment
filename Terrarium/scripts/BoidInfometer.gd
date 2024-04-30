@@ -27,7 +27,7 @@ func _ready():
 	if !boid_detector:
 		push_warning("Boid detector has not been set.")
 		
-var saved_boid : Sheep = null
+var saved_boid : Boid = null
 
 func _process(_delta):
 	if Input.is_action_pressed("target_boid"):

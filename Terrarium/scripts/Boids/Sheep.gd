@@ -80,12 +80,7 @@ func _physics_process(delta):
 		velocity *= delta * 0.1
 	else:
 		velocity -= velocity * delta * damping
-		
-	
-	
-	
 	velocity = velocity.limit_length(max_speed)
-	
 
 	move_and_slide()
 	if is_zero_approx(velocity.length()) or  is_currently_eating:

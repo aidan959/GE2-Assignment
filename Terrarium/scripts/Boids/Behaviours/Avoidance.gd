@@ -38,7 +38,7 @@ func calculate():
 			if draw_gizmos:
 				DebugDraw3D.draw_line(boid.global_position, boid.global_position + avoidance_force, Color.BLACK)
 
-	return force
+	return force.normalized()
 
 func _ready():
 	boid = get_parent()
