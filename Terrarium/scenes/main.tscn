@@ -38,6 +38,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0785122, 1.65177, -0.053983
 [node name="Player" parent="." instance=ExtResource("4_mbjog")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.68523, 1.18654, 6.07644)
 
+[node name="EnvironmentController" parent="Player" instance=ExtResource("6_usu0l")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.66735, -1.18654, -6.07788)
+
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 collision_layer = 3
 collision_mask = 0

@@ -480,6 +480,8 @@ static func get_aabb_from_transforms(transforms : Array) -> AABB:
 	for t in transforms:
 		aabb = aabb.expand(t.origin)
 	return aabb
+<<<<<<< HEAD
+=======
 
 
 static func set_visibility_layers(node: Node, layers: int) -> void:
@@ -487,3 +489,4 @@ static func set_visibility_layers(node: Node, layers: int) -> void:
 		node.layers = layers
 	for child in node.get_children():
 		set_visibility_layers(child, layers)
+>>>>>>> main

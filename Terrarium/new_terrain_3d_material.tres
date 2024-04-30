@@ -443,8 +443,8 @@ _shader_parameters = {
 "auto_base_texture": 1,
 "auto_height_reduction": null,
 "auto_overlay_texture": 0,
-"auto_slope": 1.0,
-"blend_sharpness": 0.864,
+"auto_slope": 0.835,
+"blend_sharpness": 0.379,
 "dual_scale_far": null,
 "dual_scale_near": null,
 "dual_scale_reduction": null,
@@ -454,21 +454,13 @@ _shader_parameters = {
 "macro_variation2": null,
 "noise1_angle": null,
 "noise1_offset": null,
-"noise1_scale": null,
+"noise1_scale": 0.001,
 "noise2_scale": null,
 "noise3_scale": null,
 "noise_texture": SubResource("NoiseTexture2D_7w6va"),
-"tri_scale_reduction": null,
-"world_noise_blend_far": null,
-"world_noise_blend_near": null,
-"world_noise_height": 41.3,
-"world_noise_lod_distance": null,
-"world_noise_max_octaves": null,
-"world_noise_min_octaves": null,
-"world_noise_offset": null,
-"world_noise_scale": 8.1
+"tri_scale_reduction": null
 }
-world_background = 2
+world_background = 0
 auto_shader = true
 dual_scaling = true
 shader_override = SubResource("Shader_eq3t6")

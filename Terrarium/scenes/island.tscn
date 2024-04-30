@@ -1,17 +1,8 @@
-[gd_scene load_steps=24 format=3 uid="uid://dp276413u6prv"]
+[gd_scene load_steps=8 format=3 uid="uid://dp276413u6prv"]
 
 [ext_resource type="Shader" path="res://shaders/water.gdshader" id="1_o3odg"]
-[ext_resource type="Script" path="res://addons/proton_scatter/src/scatter.gd" id="2_up8mp"]
 [ext_resource type="PackedScene" uid="uid://be8abksxbl3jb" path="res://scenes/Player.tscn" id="2_wvtwb"]
 [ext_resource type="PackedScene" uid="uid://b5w6wthj6ida4" path="res://scenes/env_controller.tscn" id="3_bvv37"]
-[ext_resource type="Script" path="res://addons/proton_scatter/src/stack/modifier_stack.gd" id="3_nshxt"]
-[ext_resource type="Script" path="res://addons/proton_scatter/src/modifiers/create_inside_random.gd" id="4_tbww7"]
-[ext_resource type="Script" path="res://addons/proton_scatter/src/modifiers/randomize_transforms.gd" id="5_0c0ep"]
-[ext_resource type="Script" path="res://addons/proton_scatter/src/modifiers/relax.gd" id="6_ftxo3"]
-[ext_resource type="Script" path="res://addons/proton_scatter/src/modifiers/project_on_geometry.gd" id="7_vqip6"]
-[ext_resource type="Script" path="res://addons/proton_scatter/src/scatter_item.gd" id="8_8msl4"]
-[ext_resource type="Script" path="res://addons/proton_scatter/src/scatter_shape.gd" id="9_kmg8k"]
-[ext_resource type="Script" path="res://addons/proton_scatter/src/shapes/sphere_shape.gd" id="10_gbuyg"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_yb3uy"]
 render_priority = 0
@@ -31,67 +22,9 @@ size = Vector2(150, 150)
 subdivide_width = 75
 subdivide_depth = 75
 
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ce2ju"]
-
 [sub_resource type="BoxShape3D" id="BoxShape3D_jogcq"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_w2sqp"]
-
-[sub_resource type="Resource" id="Resource_gsygq"]
-script = ExtResource("4_tbww7")
-amount = 20
-enabled = true
-override_global_seed = false
-custom_seed = 0
-restrict_height = true
-reference_frame = 1
-
-[sub_resource type="Resource" id="Resource_gchkg"]
-script = ExtResource("5_0c0ep")
-position = Vector3(0.15, 0.15, 0.15)
-rotation = Vector3(20, 360, 20)
-scale = Vector3(0.1, 0.1, 0.1)
-enabled = false
-override_global_seed = false
-custom_seed = 0
-restrict_height = false
-reference_frame = 2
-
-[sub_resource type="Resource" id="Resource_tloi8"]
-script = ExtResource("6_ftxo3")
-iterations = 3
-offset_step = 0.2
-consecutive_step_multiplier = 0.75
-use_computeshader = true
-enabled = true
-override_global_seed = false
-custom_seed = 0
-restrict_height = true
-reference_frame = 0
-
-[sub_resource type="Resource" id="Resource_p22wc"]
-script = ExtResource("7_vqip6")
-ray_direction = Vector3(0, -1, 0)
-ray_length = 5.0
-ray_offset = 5.0
-remove_points_on_miss = false
-align_with_collision_normal = false
-max_slope = 90.0
-collision_mask = 1
-exclude_mask = 0
-enabled = true
-override_global_seed = false
-custom_seed = 0
-restrict_height = false
-reference_frame = 0
-
-[sub_resource type="Resource" id="Resource_kkxmr"]
-script = ExtResource("3_nshxt")
-stack = Array[Resource("res://addons/proton_scatter/src/modifiers/base_modifier.gd")]([SubResource("Resource_gsygq"), SubResource("Resource_gchkg"), SubResource("Resource_tloi8"), SubResource("Resource_p22wc")])
-
-[sub_resource type="Resource" id="Resource_g8bsm"]
-script = ExtResource("10_gbuyg")
-radius = 0.670051
 
 [node name="Island" type="Node3D"]
 
@@ -101,40 +34,17 @@ radius = 0.670051
 mesh = SubResource("PlaneMesh_wjghp")
 
 [node name="Plane" type="StaticBody3D" parent="Water"]
-transform = Transform3D(75, 0, 0, 0, 75, 0, 0, 0, 75, 0, -34.5546, 0)
-physics_material_override = SubResource("PhysicsMaterial_ce2ju")
+transform = Transform3D(75, 0, 0, 0, 1, 0, 0, 0, 75, 0, 0, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Water/Plane"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 shape = SubResource("BoxShape3D_jogcq")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="Water/Plane/CollisionShape3D"]
 mesh = SubResource("BoxMesh_w2sqp")
 skeleton = NodePath("../../..")
 
-[node name="CSGBox3D" type="CSGBox3D" parent="Water/Plane/CollisionShape3D/MeshInstance3D2"]
-
-[node name="ProtonScatter" type="Node3D" parent="Water/Plane/CollisionShape3D/MeshInstance3D2/CSGBox3D"]
-transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0.566007, 0)
-script = ExtResource("2_up8mp")
-enabled = false
-modifier_stack = SubResource("Resource_kkxmr")
-Performance/use_chunks = true
-Performance/chunk_dimensions = Vector3(15, 15, 15)
-
-[node name="ScatterItem" type="Node3D" parent="Water/Plane/CollisionShape3D/MeshInstance3D2/CSGBox3D/ProtonScatter"]
-script = ExtResource("8_8msl4")
-path = "res://addons/proton_scatter/demos/assets/brick.tscn"
-
-[node name="ScatterShape" type="Node3D" parent="Water/Plane/CollisionShape3D/MeshInstance3D2/CSGBox3D/ProtonScatter"]
-transform = Transform3D(1, 0, -2.98023e-08, 0, 1, 0, 2.98023e-08, 0, 1, 0, 0, 0)
-script = ExtResource("9_kmg8k")
-shape = SubResource("Resource_g8bsm")
-
 [node name="Player" parent="." instance=ExtResource("2_wvtwb")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.92857, 13.0605, 2.33627)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.92857, 0.540577, 2.33627)
 
 [node name="EnvironmentController" parent="Player" instance=ExtResource("3_bvv37")]
-
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.854459, 0.519519, 0, -0.519519, 0.854459, 0.311865, 44.6239, -96.9581)
+visible = false
