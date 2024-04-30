@@ -39,7 +39,7 @@ func _process(_delta):
 func _physics_process(_delta):
 	if !boid_detector:
 		return
-	var focus_boid : Sheep = null
+	var focus_boid : Boid = null
 	if saved_boid: # TODO WHAT if sheep died + despawned?
 		focus_boid = saved_boid
 

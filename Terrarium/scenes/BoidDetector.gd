@@ -1,6 +1,6 @@
 class_name BoidDetector extends RayCast3D
 
-var detected_boid :Sheep = null
+var detected_boid : Boid = null
 
 
 func _physics_process(_delta):
@@ -9,5 +9,5 @@ func _physics_process(_delta):
 		detected_boid = null
 		return
 	var collider = get_collider()
-	if collider is Sheep:
+	if collider is Boid:
 		detected_boid = collider

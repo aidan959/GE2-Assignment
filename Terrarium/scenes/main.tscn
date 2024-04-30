@@ -23,10 +23,13 @@ script = ExtResource("2_qkdbf")
 sheep_scene = ExtResource("2_cbkbv")
 grass_scene = ExtResource("1_8n11t")
 count = 100
+grass_count = null
 radius = 25
 neighbor_distance = 10
 avoid_distance = 1
+max_neighbors = null
 environment_controller = NodePath("../EnvironmentController")
+draw_gizmos = null
 center_path = NodePath("../World Center")
 metadata/_edit_group_ = true
 

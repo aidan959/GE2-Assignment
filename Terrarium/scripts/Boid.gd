@@ -22,11 +22,12 @@ class_name Boid extends CharacterBody3D
 @export_range(0.0,1.0) var hunger : float = 0.0
 @export_range(0.001,1.0) var metabolism : float = 0.001
 @export_range(0, 60.0) var tick_rate : int = 1 # abstract this to director  
-
+@export var is_currently_eating = false
 
 var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 var grav_vel: Vector3
+@export var current_state : BoidStates
 
 enum BoidStates {
 	ROAMING,
@@ -40,7 +41,6 @@ var count_neighbours = false
 var neighbours = [] 
 var new_force = Vector3.ZERO
 var should_calculate = false
-var current_state : BoidStates
 func initialize_flock():
 	if not get_parent() is BoidController:
 		push_error("Boid spawned outside of BoidManager node.")	
@@ -68,7 +68,7 @@ func draw_gizmos_propagate(dg):
 		if not child is SteeringBehavior: continue
 		child.draw_gizmos = draw_gizmos
 
-func _gravity(delta: float) -> Vector3:
+func process_gravity(delta: float) -> Vector3:
 	if not is_on_floor():
 		grav_vel += Vector3(0, -gravity, 0) * delta
 	else:
@@ -76,9 +76,11 @@ func _gravity(delta: float) -> Vector3:
 	return grav_vel
 
 
-func count_neighbours_simple():
+func count_neighbours_simple(type: Variant):
 	neighbours.clear()
-	for boid in flock.boids[get_script()]:
+	if type not in flock.boids:
+		return 0
+	for boid in flock.boids[type]:
 		if boid != self and !boid.is_dead() and global_position.distance_to(global_position) < flock.neighbor_distance:
 			neighbours.push_back(boid)
 			if neighbours.size() == flock.max_neighbours:
@@ -99,12 +101,11 @@ func on_draw_gizmos():
 	DebugDraw3D.draw_arrow(global_transform.origin,  global_transform.origin + transform.basis.x * 10.0 , Color(1, 0, 0), 0.1)
 	DebugDraw3D.draw_arrow(global_transform.origin,  global_transform.origin + transform.basis.y * 10.0 , Color(0, 1, 0), 0.1)
 	DebugDraw3D.draw_arrow(global_transform.origin,  global_transform.origin + force, Color(1, 1, 0), 0.1)
-	
-	if school and count_neighbours:
-		DebugDraw3D.draw_sphere(global_transform.origin, school.neighbor_distance, Color.WEB_PURPLE)
-		for neighbor in neighbours:
-			DebugDraw3D.draw_sphere(neighbor.global_transform.origin, 3, Color.WEB_PURPLE)
-			
+	if flock and count_neighbours:
+		DebugDraw3D.draw_sphere(global_transform.origin, flock.neighbor_distance, Color.WEB_PURPLE)
+		for neighbour in neighbours:
+			DebugDraw3D.draw_sphere(neighbour.global_transform.origin, 3, Color.WEB_PURPLE)
+		
 func seek_force(target: Vector3):	
 	var toTarget = target - global_transform.origin
 	toTarget = toTarget.normalized()
@@ -157,21 +158,41 @@ func calculate(_delta):
 	return force_acc
 
 
-func _process(delta):
+func _process(_delta):
 	should_calculate = true
-	if draw_gizmos:
-		on_draw_gizmos()
-	if school and count_neighbours:
-		if school.partition:
-			count_neighbours_partitioned()
-		else:
-			count_neighbours_simple()
-			
+	if draw_gizmos: on_draw_gizmos()
+
+
+func kill():
+	health = 0.0
+	current_state = BoidStates.DEAD
+
+func is_dead() -> bool:
+	return current_state == BoidStates.DEAD
+
+func change_state(state : BoidStates):
+	current_state = state
+
+func update_stats():
+	if is_currently_eating:
+		hunger -= metabolism * randf_range(0.5,5.0)
+		return
+	hunger += metabolism * randf_range(0,0.5)
+	hunger = clamp(hunger, 0.0, 1.0)
+	if (is_equal_approx(hunger, 1.0)):
+		health -= 10.0 * randf_range(0.01,1.0)
+	health = clamp(health, 0, 100.0)
+	if(is_equal_approx(health, 0.0) and !is_dead()):
+		kill()
+	
+func do_be_dead(_delta):
+	pass
+	
 func _physics_process(delta):
 	# pause = true
 	# lerp in the new forces
 	if should_calculate:
-		new_force = calculate()
+		new_force = calculate(delta)
 		should_calculate = false		
 	force = lerp(force, new_force, delta)
 	if ! pause:
