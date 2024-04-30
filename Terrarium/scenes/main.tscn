@@ -1,4 +1,5 @@
-[gd_scene load_steps=9 format=3 uid="uid://dh52fxfx2rten"]
+[gd_scene load_steps=11 format=3 uid="uid://dh52fxfx2rten"]
+
 
 [ext_resource type="PackedScene" uid="uid://c2nwkj3tahlxg" path="res://scenes/grass.tscn" id="1_8n11t"]
 [ext_resource type="PackedScene" uid="uid://blg3yr70eue5y" path="res://scenes/Boids/Sheep.tscn" id="2_cbkbv"]
@@ -7,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://b5w6wthj6ida4" path="res://scenes/env_controller.tscn" id="6_usu0l"]
 [ext_resource type="Script" path="res://scripts/BoidInfometer.gd" id="7_cgsf7"]
 [ext_resource type="Script" path="res://scenes/Follower.gd" id="8_cwjm7"]
+[ext_resource type="PackedScene" uid="uid://db1i4dc4t020u" path="res://models/blender/terrain.glb" id="9_wvx6d"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_8n2mg"]
 size = Vector3(100.223, 0.0605469, 100.073)
@@ -142,3 +144,6 @@ offset_top = -27.0
 grow_horizontal = 2
 grow_vertical = 0
 max_value = 1.0
+
+[node name="terrain" parent="." instance=ExtResource("9_wvx6d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.9581, -51.4737, -38.6941)
