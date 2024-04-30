@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://dwnmhlbibq8rx"
-path="res://.godot/imported/Sheep.glb-d14c1a10cfb2d1b79c161d3f53393883.scn"
+uid="uid://db1i4dc4t020u"
+path="res://.godot/imported/terrain.glb-c43be7d90236d7514d6f8f1480426c81.scn"
 
 [deps]
 
-source_file="res://models/gltf/Sheep.glb"
-dest_files=["res://.godot/imported/Sheep.glb-d14c1a10cfb2d1b79c161d3f53393883.scn"]
+source_file="res://models/blender/terrain.glb"
+dest_files=["res://.godot/imported/terrain.glb-c43be7d90236d7514d6f8f1480426c81.scn"]
 
 [params]
 
