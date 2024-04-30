@@ -1,0 +1,64 @@
+[gd_scene load_steps=10 format=3 uid="uid://dpeacs7yvvax0"]
+
+[ext_resource type="Script" path="res://scripts/Boids/Frog.gd" id="1_qoeb4"]
+[ext_resource type="Script" path="res://scripts/Boids/Behaviours/Cohesion.gd" id="2_2i5ub"]
+[ext_resource type="Script" path="res://scripts/Boids/Behaviours/AntiSocial.gd" id="2_x5ec6"]
+[ext_resource type="Script" path="res://scripts/Boids/Behaviours/Alignment.gd" id="3_pf0tc"]
+[ext_resource type="Script" path="res://scripts/Boids/Behaviours/Avoidance.gd" id="4_xmbte"]
+[ext_resource type="Script" path="res://scripts/Boids/Behaviours/Constrain.gd" id="5_7s8lr"]
+[ext_resource type="Script" path="res://scripts/Boids/Behaviours/Wander.gd" id="7_8r1nx"]
+
+[sub_resource type="TextMesh" id="TextMesh_hbalk"]
+text = "FROG"
+pixel_size = 0.05
+depth = 0.5
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ggkxb"]
+size = Vector3(2.05329, 0.630579, 0.511017)
+
+[node name="Boid" type="CharacterBody3D"]
+collision_layer = 257
+collision_mask = 2
+script = ExtResource("1_qoeb4")
+draw_gizmos = false
+hunger = 1.0
+metabolism = 1.0
+tick_rate = 60
+spawn_location = 0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3725, 0)
+mesh = SubResource("TextMesh_hbalk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00293794, 0.384065, 0.0161909)
+shape = SubResource("BoxShape3D_ggkxb")
+
+[node name="AntiSocial" type="Node" parent="."]
+script = ExtResource("2_x5ec6")
+softness = 1.0
+
+[node name="Cohesion" type="Node" parent="."]
+script = ExtResource("2_2i5ub")
+
+[node name="Alignment" type="Node" parent="."]
+script = ExtResource("3_pf0tc")
+enabled = false
+
+[node name="Avoidance" type="Node" parent="."]
+script = ExtResource("4_xmbte")
+softness = 1.0
+weight = 3.0
+enabled = false
+
+[node name="Constrain" type="Node" parent="."]
+script = ExtResource("5_7s8lr")
+draw_gizmos = false
+enabled = false
+
+[node name="Wander" type="Node" parent="."]
+script = ExtResource("7_8r1nx")
+distance = 10.0
+radius = 5.0
+weight = 0.1
+draw_gizmos = false

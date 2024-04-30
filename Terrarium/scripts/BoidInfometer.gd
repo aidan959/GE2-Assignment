@@ -20,14 +20,13 @@ func _ready():
 		push_warning("Viewport has not been set.")
 	else: 
 		viewport.world_3d = viewport.find_world_3d()
-		print(viewport.world_3d)
 		viewport_camera = viewport.get_camera_3d()
 		#sheep_cam. = viewport_texture
 
 	if !boid_detector:
 		push_warning("Boid detector has not been set.")
 		
-var saved_boid : Sheep = null
+var saved_boid : Boid = null
 
 func _process(_delta):
 	if Input.is_action_pressed("target_boid"):
@@ -39,7 +38,7 @@ func _process(_delta):
 func _physics_process(_delta):
 	if !boid_detector:
 		return
-	var focus_boid : Sheep = null
+	var focus_boid : Boid = null
 	if saved_boid: # TODO WHAT if sheep died + despawned?
 		focus_boid = saved_boid
 
@@ -58,6 +57,6 @@ func _physics_process(_delta):
 	health_bar.value = focus_boid.health
 	hunger_bar.value = focus_boid.hunger
 	name_tag.text = "[center]" + focus_boid.name + "[/center]"
-	state_tag.text = "[center]" + focus_boid.states.keys()[focus_boid.current_state] + "[/center]"
+	state_tag.text = "[center]" + focus_boid.BoidStates.keys()[focus_boid.current_state] + "[/center]"
 
 

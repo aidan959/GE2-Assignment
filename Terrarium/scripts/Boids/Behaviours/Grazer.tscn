@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://c83v5ntlr0m0p"]
 
-[ext_resource type="Script" path="res://scripts/grazer.gd" id="1_fimpn"]
+[ext_resource type="Script" path="res://scripts/Boids/Behaviours/Grazer.gd" id="1_fimpn"]
 
 [node name="Grazer" type="Node"]
 script = ExtResource("1_fimpn")

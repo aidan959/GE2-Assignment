@@ -4,7 +4,9 @@ class_name EnvironmentController extends Node
 @onready var weather = get_node("weather")
 @onready var weather_timer: Timer = $WeatherTimer
 @onready var heat_mesh = $HeatMesh
-@onready var player_cam = get_parent().get_node("Camera")
+@export var player : Player
+
+@onready var player_cam = player.find_child("Camera")
 
 @export var day_length = 120.0  # Full day in seconds
 @export var current_time = 0.0  # Current time in the cycle
@@ -52,7 +54,6 @@ func change_weather():
 			1:
 				set_weather_condition("snow", intensity)
 				print("snow weather")
-				
 			2:
 				set_is_heat(true)
 				print("hot weather")
@@ -87,11 +88,6 @@ func set_weather_condition(weather_data, intensity = 1000):
 
 func set_is_heat(val : bool):
 	is_heat = val
-	#if is_heat:
-		#heat_mesh.show()
-	#else:
-		#heat_mesh.hide()
-	
 
 func position_heat_mesh():
 	var distance = 50.0  # Distance from the camera
@@ -100,7 +96,3 @@ func position_heat_mesh():
 	heat_mesh.global_transform.origin = heat_mesh_position
 	heat_mesh.look_at(player_cam.global_transform.origin, Vector3.UP)
 	heat_mesh.show()  # Make sure the mesh is visible
-	
-
-
-

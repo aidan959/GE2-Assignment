@@ -65,7 +65,6 @@ script = ExtResource("1_od8gl")
 [node name="weather" parent="." node_paths=PackedStringArray("world_environment") instance=ExtResource("2_byges")]
 world_environment = NodePath("../DayNightCycle/WorldEnvironment")
 
-
 [node name="DayNightCycle" type="Node3D" parent="."]
 script = ExtResource("3_ufogt")
 top_sky_colour = SubResource("Gradient_ubya2")
@@ -92,4 +91,4 @@ material_override = SubResource("ShaderMaterial_7hj4x")
 mesh = SubResource("QuadMesh_2r5pa")
 surface_material_override/0 = SubResource("StandardMaterial3D_ydxv5")
 
-[connection signal="timeout" from="WeatherTimer" to="." method="_on_weather_timer_timeout"]
+[node name="WeatherTimer" type="Timer" parent="."]
