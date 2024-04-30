@@ -53,7 +53,8 @@ const ScatterUtil := preload('./common/scatter_util.gd')
 		override_cast_shadow = val
 		ScatterUtil.request_parent_to_rebuild(self) # TODO - Only change the multimesh flag instead
 
-@export_group("Visibility range", "visibility_range_")
+@export_group("Visibility", "visibility")
+@export_flags_3d_render var visibility_layers: int = 1
 @export var visibility_range_begin : float = 0
 @export var visibility_range_begin_margin : float = 0
 @export var visibility_range_end : float = 0
@@ -117,6 +118,10 @@ func get_item() -> Node3D:
 	if source == 0 and has_node(path):
 		node = get_node(path).duplicate() # Never expose the original node
 	elif source == 1:
+<<<<<<< HEAD
+=======
+		node = _target_scene.instantiate()
+>>>>>>> main
 
 	if node:
 		_save_source_data(node)

@@ -1,15 +1,26 @@
-[gd_scene load_steps=5 format=3 uid="uid://dvhddvxdbbc5j"]
+[gd_scene load_steps=7 format=3 uid="uid://dvhddvxdbbc5j"]
 
 [sub_resource type="TubeTrailMesh" id="TubeTrailMesh_gvfls"]
 
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_6nu6o"]
+frequency = 0.1825
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_wfxdp"]
+seamless = true
+noise = SubResource("FastNoiseLite_6nu6o")
+
 [sub_resource type="ORMMaterial3D" id="ORMMaterial3D_h8ev3"]
-transparency = 1
-albedo_color = Color(1, 1, 1, 0.0509804)
+transparency = 4
+albedo_color = Color(0, 1, 1, 0)
 emission_enabled = true
 emission = Color(1, 1, 1, 1)
 emission_energy_multiplier = 0.0
 refraction_enabled = true
-refraction_scale = 0.82
+refraction_scale = 1.0
+refraction_texture = SubResource("NoiseTexture2D_wfxdp")
+refraction_texture_channel = 4
+proximity_fade_enabled = true
+distance_fade_max_distance = 15.95
 
 [sub_resource type="SphereMesh" id="SphereMesh_njfw2"]
 
@@ -20,7 +31,7 @@ albedo_color = Color(1, 0, 0, 1)
 [node name="RefractiveGlass" type="Node3D"]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.356849, 0, 0, 0, 0.356849, 0, 0, 0, 0.356849, 0, 0, 0)
+transform = Transform3D(0.356849, 0, 0, 0, 1.07661, 0, 0, 0, 2.0314, -2.49234, -0.0077662, -0.0337898)
 mesh = SubResource("TubeTrailMesh_gvfls")
 surface_material_override/0 = SubResource("ORMMaterial3D_h8ev3")
 

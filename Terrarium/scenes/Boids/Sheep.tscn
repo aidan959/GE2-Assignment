@@ -1,0 +1,90 @@
+[gd_scene load_steps=12 format=3 uid="uid://blg3yr70eue5y"]
+
+[ext_resource type="Script" path="res://scripts/Boids/Sheep.gd" id="1_k0npw"]
+[ext_resource type="Script" path="res://scripts/Boids/Behaviours/Escape.gd" id="1_pslmd"]
+[ext_resource type="Script" path="res://scripts/Boids/Behaviours/Cohesion.gd" id="2_3285g"]
+[ext_resource type="Script" path="res://scripts/Boids/Behaviours/Alignment.gd" id="3_xtapx"]
+[ext_resource type="Script" path="res://scripts/Boids/Behaviours/Avoidance.gd" id="4_art8r"]
+[ext_resource type="Script" path="res://scripts/Boids/Behaviours/Constrain.gd" id="5_5hxyb"]
+[ext_resource type="PackedScene" uid="uid://c83v5ntlr0m0p" path="res://scripts/Boids/Behaviours/Grazer.tscn" id="6_85b7r"]
+[ext_resource type="Script" path="res://scripts/Boids/Behaviours/Wander.gd" id="7_eurwo"]
+[ext_resource type="PackedScene" uid="uid://8ac3umk67bfo" path="res://SheepModel.tscn" id="8_nycs1"]
+
+[sub_resource type="TextMesh" id="TextMesh_hbalk"]
+text = "SHEEP"
+pixel_size = 0.05
+depth = 0.5
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ggkxb"]
+size = Vector3(0.60084, 0.91084, 1.39185)
+
+[node name="Boid" type="CharacterBody3D"]
+collision_layer = 257
+collision_mask = 2
+script = ExtResource("1_k0npw")
+escape_distance = 5.0
+draw_gizmos = false
+hunger = 1.0
+metabolism = 1.0
+tick_rate = 60
+
+[node name="SheepBody" type="CSGBox3D" parent="."]
+visible = false
+layers = 256
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+visible = false
+mesh = SubResource("TextMesh_hbalk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0451426, 0.454725, 0.0760498)
+shape = SubResource("BoxShape3D_ggkxb")
+
+[node name="Escape" type="Node" parent="."]
+script = ExtResource("1_pslmd")
+weight = 10.0
+
+[node name="Cohesion" type="Node" parent="."]
+script = ExtResource("2_3285g")
+
+[node name="Alignment" type="Node" parent="."]
+script = ExtResource("3_xtapx")
+
+[node name="Avoidance" type="Node" parent="."]
+script = ExtResource("4_art8r")
+softness = 1.0
+weight = 1.5
+
+[node name="Constrain" type="Node" parent="."]
+script = ExtResource("5_5hxyb")
+draw_gizmos = false
+
+[node name="Grazer" parent="." instance=ExtResource("6_85b7r")]
+weight = 1.5
+
+[node name="Wander" type="Node" parent="."]
+script = ExtResource("7_eurwo")
+distance = 10.0
+radius = 5.0
+weight = 0.1
+draw_gizmos = false
+
+[node name="GroundDetector" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.00872263, 0)
+
+[node name="AscensionLight" type="SpotLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 9.03658, 0)
+visible = false
+light_color = Color(1, 1, 0.513726, 1)
+light_indirect_energy = 3.214
+light_volumetric_fog_energy = 20.03
+light_size = 178.81
+light_specular = 16.0
+shadow_enabled = true
+shadow_blur = 5.14
+distance_fade_enabled = true
+spot_range = 30.0
+spot_angle = 16.1695
+
+[node name="Sheep" parent="." instance=ExtResource("8_nycs1")]
+transform = Transform3D(-2.18557e-08, 0, -0.5, 0, 0.5, 0, 0.5, 0, -2.18557e-08, 0, 0, 0)

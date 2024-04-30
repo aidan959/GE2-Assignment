@@ -150,11 +150,13 @@ func _ready() -> void:
 
 
 func _exit_tree():
-	_clear_collision_data()
-
+	enabled = false
 	if is_thread_running():
-		await _thread.wait_to_finish()
+		modifier_stack.stop_update()
+		_thread.wait_to_finish()
 		_thread = null
+	
+	_clear_collision_data()
 
 
 func _get_property_list() -> Array:
@@ -274,7 +276,8 @@ func _clear_collision_data() -> void:
 		_body_rid = RID()
 
 	for rid in _collision_shapes:
-		PhysicsServer3D.free_rid(rid)
+		if rid.is_valid():
+			PhysicsServer3D.free_rid(rid)
 
 	_collision_shapes.clear()
 
@@ -292,7 +295,7 @@ func full_rebuild():
 	if is_thread_running():
 		await _thread.wait_to_finish()
 		_thread = null
-
+	
 	clear_output()
 	_rebuild(true)
 
@@ -304,7 +307,7 @@ func full_rebuild():
 func rebuild(force_discover := false) -> void:
 	update_gizmos()
 
-	if not is_inside_tree():
+	if not is_inside_tree() or not is_ready:
 		return
 
 	if is_thread_running():
@@ -423,6 +426,9 @@ func _update_split_multimeshes() -> void:
 
 	for item in items:
 		var root: Node3D = ProtonScatterUtil.get_or_create_item_root(item)
+		if not is_instance_valid(root):
+			continue
+		
 		# use count number of transforms for this item
 		var count = int(round(float(item.proportion) / total_item_proportion * transforms_count))
 
@@ -510,6 +516,7 @@ func _update_duplicates() -> void:
 
 			var t: Transform3D = item.process_transform(transforms.list[offset + i])
 			instance.transform = t
+			ProtonScatterUtil.set_visibility_layers(instance, item.visibility_layers)
 
 		# Delete the unused instances left in the pool if any
 		if count < child_count:
@@ -677,10 +684,10 @@ func _perform_sanity_check() -> void:
 	scatter_parent = scatter_parent
 
 
+# Remove output coming from the source node to avoid linked multimeshes or
+# other unwanted side effects
 func _on_node_duplicated() -> void:
-	# Force a full rebuild (which clears the existing outputs), otherwise we get
-	# linked multimeshes or other unwanted side effects
-	full_rebuild.call_deferred()
+	clear_output()
 
 
 func _on_child_exiting_tree(node: Node) -> void:
@@ -722,9 +729,7 @@ func _on_transforms_ready(new_transforms: ProtonScatterTransformList) -> void:
 	update_gizmos()
 	build_version += 1
 	
-	if not is_inside_tree():
-		return
-	
-	await get_tree().process_frame
+	if is_inside_tree():
+		await get_tree().process_frame
 
 	build_completed.emit()

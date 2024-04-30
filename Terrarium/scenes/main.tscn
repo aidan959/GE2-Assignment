@@ -1,37 +1,39 @@
-[gd_scene load_steps=8 format=3 uid="uid://dh52fxfx2rten"]
+[gd_scene load_steps=11 format=3 uid="uid://dh52fxfx2rten"]
+
 
 [ext_resource type="PackedScene" uid="uid://c2nwkj3tahlxg" path="res://scenes/grass.tscn" id="1_8n11t"]
-[ext_resource type="Script" path="res://scripts/world.gd" id="1_hqvga"]
-[ext_resource type="PackedScene" uid="uid://blg3yr70eue5y" path="res://scenes/sheep.tscn" id="2_cbkbv"]
-[ext_resource type="Script" path="res://scripts/Flock.gd" id="2_qkdbf"]
+[ext_resource type="PackedScene" uid="uid://blg3yr70eue5y" path="res://scenes/Boids/Sheep.tscn" id="2_cbkbv"]
+[ext_resource type="Script" path="res://scripts/BoidController.gd" id="2_qkdbf"]
 [ext_resource type="PackedScene" uid="uid://be8abksxbl3jb" path="res://scenes/Player.tscn" id="4_mbjog"]
 [ext_resource type="PackedScene" uid="uid://b5w6wthj6ida4" path="res://scenes/env_controller.tscn" id="6_usu0l"]
+[ext_resource type="Script" path="res://scripts/BoidInfometer.gd" id="7_cgsf7"]
+[ext_resource type="Script" path="res://scenes/Follower.gd" id="8_cwjm7"]
+[ext_resource type="PackedScene" uid="uid://db1i4dc4t020u" path="res://models/blender/terrain.glb" id="9_wvx6d"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_8n2mg"]
-size = Vector3(25.0152, 0.0605469, 24.9951)
+size = Vector3(100.223, 0.0605469, 100.073)
 
 [node name="Main" type="Node3D"]
 
 [node name="Ground" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0785122, 0.0586605, -0.0539837)
-size = Vector3(25, 0.001, 25)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0785122, -28.9413, -0.0539837)
+size = Vector3(100, 0.001, 100)
 
-[node name="Flock" type="Node3D" parent="."]
+[node name="BoidController" type="Node3D" parent="." node_paths=PackedStringArray("environment_controller")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.19638, 0)
 script = ExtResource("2_qkdbf")
 sheep_scene = ExtResource("2_cbkbv")
 grass_scene = ExtResource("1_8n11t")
-radius = 3
-neighbor_distance = 50
+grass_count = 1
+radius = 25
+neighbour_distance = 10
 avoid_distance = 1
-max_neighbors = 15
-draw_gizmos = true
+environment_controller = NodePath("../EnvironmentController")
 center_path = NodePath("../World Center")
 metadata/_edit_group_ = true
 
 [node name="World Center" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0785122, 1.65177, -0.0539837)
-script = ExtResource("1_hqvga")
 
 [node name="Player" parent="." instance=ExtResource("4_mbjog")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.68523, 1.18654, 6.07644)
@@ -40,7 +42,111 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.68523, 1.18654, 6.07644)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.66735, -1.18654, -6.07788)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
+collision_layer = 3
+collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0638123, 0.0283203, -0.0484314)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.153099, 0.0283203, -0.29355)
 shape = SubResource("BoxShape3D_8n2mg")
+
+[node name="EnvironmentController" parent="." node_paths=PackedStringArray("player") instance=ExtResource("6_usu0l")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0178843, 2.38419e-07, -0.00143909)
+player = NodePath("../Player")
+
+[node name="BoidInfometer" type="Control" parent="." node_paths=PackedStringArray("player", "viewport")]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+mouse_filter = 2
+script = ExtResource("7_cgsf7")
+player = NodePath("../Player")
+viewport = NodePath("SheepData/SheepViewport/SheepCamera/UIViewport")
+
+[node name="SheepData" type="Panel" parent="BoidInfometer"]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 24.0
+offset_right = 224.0
+offset_bottom = 301.0
+
+[node name="SheepViewport" type="Panel" parent="BoidInfometer/SheepData"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.05
+anchor_top = 0.05
+anchor_right = 0.95
+anchor_bottom = 0.65
+grow_horizontal = 2
+
+[node name="SheepCamera" type="SubViewportContainer" parent="BoidInfometer/SheepData/SheepViewport"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="UIViewport" type="SubViewport" parent="BoidInfometer/SheepData/SheepViewport/SheepCamera"]
+handle_input_locally = false
+use_occlusion_culling = true
+size = Vector2i(180, 170)
+render_target_update_mode = 4
+
+[node name="Follower" type="Camera3D" parent="BoidInfometer/SheepData/SheepViewport/SheepCamera/UIViewport"]
+transform = Transform3D(-0.450504, 0, 0.892775, 0, 1, 0, -0.892775, 0, -0.450504, 0, 3, 0)
+current = true
+fov = 50.0
+near = 0.095
+script = ExtResource("8_cwjm7")
+orbit_height = 3.0
+
+[node name="Stats" type="Panel" parent="BoidInfometer/SheepData"]
+layout_direction = 2
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.7
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="NameTag" type="RichTextLabel" parent="BoidInfometer/SheepData/Stats"]
+custom_minimum_size = Vector2(100.22, 27.415)
+layout_mode = 1
+offset_right = 1.0
+offset_bottom = 27.415
+bbcode_enabled = true
+
+[node name="StateTag" type="RichTextLabel" parent="BoidInfometer/SheepData/Stats"]
+custom_minimum_size = Vector2(100.22, 27.415)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -100.22
+offset_bottom = 27.415
+grow_horizontal = 0
+bbcode_enabled = true
+
+[node name="HealthBar" type="ProgressBar" parent="BoidInfometer/SheepData/Stats"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -13.5
+offset_bottom = 13.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HungerBar" type="ProgressBar" parent="BoidInfometer/SheepData/Stats"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -27.0
+grow_horizontal = 2
+grow_vertical = 0
+max_value = 1.0
+
+[node name="terrain" parent="." instance=ExtResource("9_wvx6d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.9581, -51.4737, -38.6941)

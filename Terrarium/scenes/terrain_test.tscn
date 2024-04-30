@@ -20,11 +20,6 @@ name = "Rock"
 texture_id = 1
 albedo_color = Color(1.3, 1.3, 1.3, 1)
 albedo_texture = ExtResource("5_enxbn")
-normal_texture = ExtResource("6_sp22l")
-
-[sub_resource type="Terrain3DTextureList" id="Terrain3DTextureList_8guc7"]
-textures = Array[Terrain3DTexture]([SubResource("Terrain3DTexture_1w4kl"), SubResource("Terrain3DTexture_8m4jf")])
-
 [node name="Terrarium" type="Node3D"]
 
 [node name="Terrain3D" type="Terrain3D" parent="."]
