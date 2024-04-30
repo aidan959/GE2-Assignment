@@ -1,4 +1,4 @@
-class_name Grass extends Area3D
+class_name GrassFood extends Area3D
 
 @export_range (0,10) var max_num_grazers : int = 5
 var current_num_grazers = 0
@@ -10,13 +10,13 @@ func _ready():
 func _on_body_entered(body : Node3D):
 	if body is Sheep:
 		current_num_grazers += 1
-		body.can_graze = true
+		body.can_eat = true
 		
 
 func _on_body_exit(body: Node3D):
 	if body is Sheep:
 		current_num_grazers -= 1
-		body.can_graze= false
+		body.can_eat= false
 
 func is_full() -> bool:
 	return current_num_grazers >= max_num_grazers

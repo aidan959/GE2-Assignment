@@ -1,8 +1,9 @@
-[gd_scene load_steps=13 format=3 uid="uid://b5w6wthj6ida4"]
+[gd_scene load_steps=18 format=3 uid="uid://b5w6wthj6ida4"]
 
 [ext_resource type="Script" path="res://scripts/environment/EnvController.gd" id="1_od8gl"]
 [ext_resource type="PackedScene" uid="uid://bfy1dib6amqkf" path="res://scenes/weather.tscn" id="2_byges"]
 [ext_resource type="Script" path="res://scripts/environment/DayNightCycle.gd" id="3_ufogt"]
+[ext_resource type="Shader" path="res://shaders/heat.gdshader" id="4_wku4n"]
 
 [sub_resource type="Gradient" id="Gradient_ubya2"]
 offsets = PackedFloat32Array(0.1, 0.4, 0.6, 0.903371)
@@ -15,6 +16,9 @@ colors = PackedColorArray(0.192157, 0.301961, 0.67451, 1, 0.87451, 0.521569, 0.4
 [sub_resource type="Gradient" id="Gradient_svvyr"]
 offsets = PackedFloat32Array(0, 0.5, 1)
 colors = PackedColorArray(1, 0.584314, 0.262745, 1, 0.980392, 0.94902, 0.894118, 1, 1, 0.584314, 0.262745, 1)
+
+[sub_resource type="Gradient" id="Gradient_kub1w"]
+colors = PackedColorArray(0.921569, 0.352941, 0, 1, 0.921569, 0.352941, 0, 1)
 
 [sub_resource type="Curve" id="Curve_75mln"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.352577, 1), 0.0, 0.0, 0, 0, Vector2(0.501031, 1), 0.0, 0.0, 0, 0, Vector2(0.653608, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -41,28 +45,50 @@ sky_material = SubResource("ProceduralSkyMaterial_k4xkr")
 background_mode = 2
 sky = SubResource("Sky_7xe4r")
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7hj4x"]
+render_priority = 0
+shader = ExtResource("4_wku4n")
+shader_parameter/max_shift = 2.5
+shader_parameter/speed = 0.03
+shader_parameter/min_heathaze_dist = 0.99
+
+[sub_resource type="QuadMesh" id="QuadMesh_2r5pa"]
+flip_faces = true
+size = Vector2(100, 50)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ydxv5"]
+albedo_color = Color(0, 0, 1, 1)
+
 [node name="EnvironmentController" type="Node3D"]
 script = ExtResource("1_od8gl")
 
-[node name="weather" parent="." instance=ExtResource("2_byges")]
-
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.829905, 0.557904, 0, -0.557904, 0.829905, 0, 1.64251, 2.76801)
-visible = false
+[node name="weather" parent="." node_paths=PackedStringArray("world_environment") instance=ExtResource("2_byges")]
+world_environment = NodePath("../DayNightCycle/WorldEnvironment")
 
 [node name="DayNightCycle" type="Node3D" parent="."]
 script = ExtResource("3_ufogt")
 top_sky_colour = SubResource("Gradient_ubya2")
 horizon_sky_colour = SubResource("Gradient_t8y4m")
 sun_colour = SubResource("Gradient_svvyr")
+heat_colour = SubResource("Gradient_kub1w")
 sun_intensity = SubResource("Curve_75mln")
 moon_colour = SubResource("Gradient_xpsdw")
 moon_intensity = SubResource("Curve_j7fs4")
 
 [node name="Sun" type="DirectionalLight3D" parent="DayNightCycle"]
+light_energy = 2.0
+shadow_enabled = true
+
+[node name="Moon" type="DirectionalLight3D" parent="DayNightCycle"]
+sky_mode = 1
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="DayNightCycle"]
 environment = SubResource("Environment_w6b1l")
 
-[node name="Moon" type="DirectionalLight3D" parent="DayNightCycle"]
-sky_mode = 1
+[node name="HeatMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 25, -146.981)
+material_override = SubResource("ShaderMaterial_7hj4x")
+mesh = SubResource("QuadMesh_2r5pa")
+surface_material_override/0 = SubResource("StandardMaterial3D_ydxv5")
+
+[node name="WeatherTimer" type="Timer" parent="."]

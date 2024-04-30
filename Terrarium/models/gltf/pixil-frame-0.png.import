@@ -7,22 +7,27 @@ path.s3tc="res://.godot/imported/pixil-frame-0.png-73c61724a7c5b65e2e20b16d9a930
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
+
 }
 
 [deps]
 
 source_file="res://models/gltf/pixil-frame-0.png"
+
 dest_files=["res://.godot/imported/pixil-frame-0.png-73c61724a7c5b65e2e20b16d9a930535.s3tc.ctex"]
 
 [params]
 
 compress/mode=2
+
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
+
 mipmaps/generate=true
+
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""

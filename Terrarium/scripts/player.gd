@@ -12,12 +12,12 @@ var mouse_captured: bool = false
 
 var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 
-var move_dir: Vector2 # Input direction for movement
-var look_dir: Vector2 # Input direction for look/aim
+var move_dir: Vector2
+var look_dir: Vector2
 
-var walk_vel: Vector3 # Walking velocity 
-var grav_vel: Vector3 # Gravity velocity 
-var jump_vel: Vector3 # Jumping velocity
+var walk_vel: Vector3 
+var grav_vel: Vector3  
+var jump_vel: Vector3 
 
 @onready var camera: Camera3D = $Camera
 
