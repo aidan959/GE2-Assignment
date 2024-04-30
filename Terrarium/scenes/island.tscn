@@ -34,7 +34,7 @@ subdivide_depth = 75
 mesh = SubResource("PlaneMesh_wjghp")
 
 [node name="Plane" type="StaticBody3D" parent="Water"]
-transform = Transform3D(20, 0, 0, 0, 1, 0, 0, 0, 20, 0, 0, 0)
+transform = Transform3D(75, 0, 0, 0, 1, 0, 0, 0, 75, 0, 0, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Water/Plane"]
 shape = SubResource("BoxShape3D_jogcq")
