@@ -12,7 +12,7 @@ func on_draw_gizmos():
 	
 func calculate():
 	desired = Vector3.ZERO
-	if boid.neighbors.size() < 0:
+	if boid.neighbors.size() == 0:
 		return desired
 	
 	for other_boid in boid.neighbors:

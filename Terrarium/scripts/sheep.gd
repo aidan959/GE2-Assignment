@@ -10,7 +10,7 @@ class_name Sheep extends CharacterBody3D
 @export var behaviours : Array[SteeringBehavior] = [] 
 @export var banking = 0.1
 @export var damping = 0.1
-@export var max_force : float = 10.0
+@export var max_force : float = 15.0
 
 @onready var ground_detector : Node3D = find_child("GroundDetector")
 
@@ -26,10 +26,12 @@ var nearest_grass : Grass = null
 var neighbors = [] 
 var grass = [] 
 
-
+var can_graze = false
 var flock = null
 var new_force = Vector3.ZERO
 var should_calculate = false
+
+var ascension_light : SpotLight3D = null
 
 var grav_vel: Vector3 # Gravity velocity 
 
@@ -43,13 +45,19 @@ var grav_vel: Vector3 # Gravity velocity
 @export_range(0, 60.0) var tick_rate : int = 1 # abstract this to director  
 
 
+@export var ui_camera : Camera3D
+
+
+@export_category("Escape")
+@export_range(0.0, 15.0) var escape_distance :float = 10.0
+
 var tick_counter :int = 0# abstract this to director 
 
 var hunger_threshold = 0.3
 var excessive_eating_chance : int = 1000 # 1/value chance of eating randomly
 enum states {
 	ROAMING,
-	EATING,
+	GRAZING,
 	STARING,	# when player is 10-20 m away
 	EVADING,		# when player is running 10-20 m away or closer than 10m
 	DEAD 			# when it starves to death
@@ -65,24 +73,14 @@ func draw_gizmos_propagate(dg):
 		child.draw_gizmos = draw_gizmos
 
 var current_state : states
-func think():
-	# if hungry + on grass + not too near other entities
-	if hunger <= 0.0:
-		#dead!
-		pass
-	elif hunger > 0.1 and randi() % excessive_eating_chance == 0:
-		# random eating
-		change_state(states.EATING)
-	elif hunger > 0.7:
-		# eat if we arent evading
-		change_state(states.EATING)
+
 
 func _ready():
 	randomize()
 		# Check for a variable
 	if get_parent() is Flock:
 		flock = get_parent()
-	
+	ascension_light = find_child("AscensionLight")
 	for i in get_child_count():
 		var child = get_child(i)
 		if not child is SteeringBehavior:
@@ -112,42 +110,7 @@ func _gravity(delta: float) -> Vector3:
 func _physics_process(delta):
 	if pause:
 		return
-	adjust_to_terrain()
-	count_neighbors_simple()
-	update_nearest_grass()
-	if max_speed == 0:
-		push_warning("max_speed is 0")
-	# lerp in the new forces
-	if should_calculate:
-		new_force = calculate()
-		should_calculate = false		
-	force = lerp(force, new_force, delta)
-
-
-	force += _gravity(delta)
-	acceleration = force / mass
-	velocity += acceleration * delta
-	speed = velocity.length()
-	if health == 0.0:
-		velocity = Vector3.ZERO
-		move_and_slide()
-		look_at(Vector3(0,-1000000, 0), Vector3.UP)
-		return
-	if speed > 0:		
-		
-		velocity = velocity.limit_length(max_speed)
-		
-		# Damping
-		velocity -= velocity * delta * damping
-		
-		
-		move_and_slide()
-		
-		# Implement Banking as described:
-		# https://www.cs.toronto.edu/~dt/siggraph97-course/cwr87/
-		var temp_up = global_transform.basis.y.lerp(Vector3.UP + (acceleration * banking), delta * 5.0)
-		look_at(global_transform.origin - velocity.normalized(), temp_up)
-
+	tick_counter+= 1	
 	if tick_counter % tick_rate == 0:
 		hunger += metabolism * randf_range(0,0.01)
 		hunger = clamp(hunger, 0.0, 1.0)
@@ -155,21 +118,59 @@ func _physics_process(delta):
 			health -= 1.0 * randf_range(0.001,0.5)
 			
 		health = clamp(health, 0, 100.0)
-		if(is_equal_approx(health, 0.0)):
-			change_state(states.DEAD)
+		if(is_equal_approx(health, 0.0) and !is_dead()):
+			kill()
+	if is_dead():
+		ascension(delta)
+		look_at(global_transform.origin + Vector3(0, -1, 0), Vector3.BACK)
+		move_and_slide()
+		return
+	if hunger > 0.5 and current_state != states.GRAZING:
+		change_state(states.GRAZING)
+	elif hunger <= 0.1 and current_state == states.GRAZING:
+		change_state(states.ROAMING) 
+	
+	#adjust_to_terrain()
+	count_neighbors_simple()
+	if max_speed == 0:
+		push_warning("max_speed is 0")
+	# lerp in the new forces
+	if should_calculate:
+		new_force = calculate(delta)
+		should_calculate = false
+	#force = lerp(force, new_force, delta)
+	force = new_force
+
+	force += _gravity(delta)
+	acceleration = force / mass
+	velocity += acceleration * delta
+
+	if velocity.length() > 0:		
 		
-	tick_counter+= 1
+		velocity = velocity.limit_length(max_speed)
+		
+		# Damping
+		velocity -= velocity * delta * damping
+		move_and_slide()
+		if velocity.length() == 0:
+			return
+		# Implement Banking as described:
+		# https://www.cs.toronto.edu/~dt/siggraph97-course/cwr87/
+		var temp_up = global_transform.basis.y.lerp(Vector3.UP + (acceleration * banking), delta * 5.0)
+		look_at(global_transform.origin - velocity.normalized(), temp_up)
+
+	
 	
 func change_state(state : states):
 	current_state = state
-
+func is_dead() -> bool:
+	return current_state == states.DEAD
 	
 func count_neighbors_simple():
 	neighbors.clear()
-	for i in flock.boids.size():
-		var boid = flock.boids[i]
-		if boid != self and global_transform.origin.distance_to(boid.global_transform.origin) < flock.neighbor_distance:
-			neighbors.push_back(boid)
+	for sheep in flock.boids:
+		if sheep != self and !sheep.is_dead() and global_transform.origin.distance_to(sheep.global_transform.origin) < flock.neighbor_distance:
+			neighbors.push_back(sheep)
 			if neighbors.size() == flock.max_neighbors:
 				break
 	return neighbors.size()
@@ -225,25 +226,31 @@ func update_weights(weights):
 		if b: 
 			b.weight = weights[behavior]
 
-func calculate():
+func calculate(delta):
 	var force_acc : Vector3 = Vector3.ZERO
 	var behaviors_active = ""
-	for i in behaviours.size():
-		if not behaviours[i].enabled:
+	if current_state == states.GRAZING:
+		update_nearest_grass()
+			
+	for behaviour in behaviours:
+		if not behaviour.enabled:
 			continue
-
-		var f = behaviours[i].calculate() * behaviours[i].weight
+		if current_state == states.GRAZING:
+			if not behaviour is Grazer and not behaviour is Escape:
+				continue
+		
+		var f = behaviour.calculate().normalized() * behaviour.weight
 
 		if is_nan(f.x) or is_nan(f.y) or is_nan(f.z):
-			push_error(str(behaviours[i]) + " is NAN")
+			push_error(str(behaviour) + " is NAN")
 			f = Vector3.ZERO
-		behaviors_active += behaviours[i].name + ": " + str(round(f.length())) + " "
+		behaviors_active += behaviour.name + ": " + str(round(f.length())) + " "
 		force_acc += f 
-		force_acc.limit_length(max_force)
 
 	if draw_gizmos:
 		DebugDraw2D.set_text(name, behaviors_active)
 
+	force_acc.limit_length(max_force)
 	return force_acc
 
 
@@ -255,6 +262,7 @@ func _process(delta):
 			
 
 func adjust_to_terrain():
+	return
 	var ray_end = global_transform.origin - Vector3.UP * ground_ray_depth
 	var space_state = get_world_3d().direct_space_state
 	var query = PhysicsRayQueryParameters3D.create(ground_detector.global_position, ray_end)
@@ -262,5 +270,31 @@ func adjust_to_terrain():
 
 	if result:
 		global_transform.origin.y = result.position.y
-	else:
-		pass
+
+@export_group("Ascension")
+@export var ascension_rate: float = 0.2
+@export var ascension_shake_intensity: float = 0.5  
+@export var max_ascension_velocity: float = 30.0
+var ascension_velocity: Vector3 = Vector3.ZERO
+
+var ascension_acceleration: float = 0.01
+
+func ascension(delta):
+	ascension_acceleration += ascension_rate * delta
+	ascension_velocity.y += ascension_acceleration * delta
+	global_transform.origin += ascension_velocity * delta + get_shake_vector(delta)
+	ascension_light.global_transform.origin = global_transform.origin
+	ascension_light.global_transform.origin.y += 10.0
+	ascension_light.look_at(global_position, Vector3.BACK)
+	
+func get_shake_vector(delta: float) -> Vector3:
+	var shake_vector = Vector3(randf_range(-ascension_shake_intensity, ascension_shake_intensity), 0, randf_range(-ascension_shake_intensity, ascension_shake_intensity))
+	return shake_vector * delta
+
+func kill():
+	if ascension_light:
+		ascension_light.visible = true
+	health = 0.0
+	change_state(states.DEAD)
+	print("dead")
+	

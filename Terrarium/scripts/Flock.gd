@@ -40,7 +40,7 @@ func _ready():
 	center = get_node(center_path)
 	for node in get_parent().get_children():
 		var potential_pred =node.find_child("Predator", true)
-		if potential_pred != null:
+		if potential_pred:
 			
 			predators.push_back(potential_pred.get_parent())
 	for i in count:
@@ -54,7 +54,7 @@ func _ready():
 		var boid : Sheep = sheep
 		
 		boid.draw_gizmos_propagate(draw_gizmos)
-		boid.hunger = randf_range(0.5, 0.99)
+		boid.hunger = randf_range(0.1, 0.4)
 		boid.metabolism = randf_range(0.001, 0.005)
 		
 		boids.push_back(boid)		
@@ -66,7 +66,7 @@ func _ready():
 	for i in grass_count:
 		var grass = grass_scene.instantiate()
 		var pos = Utils.random_point_in_unit_sphere() * radius
-		pos.y = 0.0
+		pos.y = 0.3
 		add_child(grass)
 		grass.global_position = pos
 		var grass_instance : Grass = grass

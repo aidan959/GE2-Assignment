@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://be8abksxbl3jb"]
+[gd_scene load_steps=4 format=3 uid="uid://be8abksxbl3jb"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_khdcl"]
+[ext_resource type="Script" path="res://scenes/BoidDetector.gd" id="2_3jdk1"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_t4vqa"]
 radius = 0.3
@@ -15,5 +16,14 @@ shape = SubResource("CapsuleShape3D_t4vqa")
 
 [node name="Camera" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.61863, 0)
+current = true
+
+[node name="BoidDetector" type="RayCast3D" parent="Camera"]
+transform = Transform3D(1, 0, 0, 0, 1.19249e-08, -1, 0, 1, 1.19249e-08, 0, 0, 0)
+target_position = Vector3(0, -20, 0)
+collision_mask = 256
+debug_shape_custom_color = Color(1, 1, 1, 1)
+debug_shape_thickness = 1
+script = ExtResource("2_3jdk1")
 
 [node name="Predator" type="Node" parent="."]

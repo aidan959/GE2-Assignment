@@ -20,9 +20,10 @@ size = Vector3(0.60084, 0.91084, 1.39185)
 
 [node name="Boid" type="CharacterBody3D"]
 collision_layer = 257
+collision_mask = 2
 script = ExtResource("1_47l58")
-max_speed = 5.0
 draw_gizmos = false
+metabolism = 1.0
 
 [node name="SheepBody" type="CSGBox3D" parent="."]
 visible = false
@@ -38,7 +39,7 @@ shape = SubResource("BoxShape3D_ggkxb")
 
 [node name="Escape" type="Node" parent="."]
 script = ExtResource("9_y856e")
-softness = 10.0
+weight = 10.0
 
 [node name="Cohesion" type="Node" parent="."]
 script = ExtResource("3_isb34")
@@ -49,13 +50,13 @@ script = ExtResource("2_c5dl5")
 [node name="Avoidance" type="Node" parent="."]
 script = ExtResource("3_a0rhm")
 softness = 1.0
-weight = 0.8
 
 [node name="Constrain" type="Node" parent="."]
 script = ExtResource("5_mgo6i")
 draw_gizmos = false
 
 [node name="Grazer" parent="." instance=ExtResource("2_4chqj")]
+weight = 1.5
 
 [node name="Wander" type="Node" parent="."]
 script = ExtResource("7_tx6mo")
@@ -65,7 +66,24 @@ weight = 0.1
 draw_gizmos = false
 
 [node name="Sheep" parent="." instance=ExtResource("8_xtb2k")]
+process_thread_group = 2
+process_thread_group_order = 0
+process_thread_messages = 3
 transform = Transform3D(-2.18557e-08, 0, -0.5, 0, 0.5, 0, 0.5, 0, -2.18557e-08, 0, -0.00519189, 0)
 
 [node name="GroundDetector" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.00872263, 0)
+
+[node name="AscensionLight" type="SpotLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 9.03658, 0)
+visible = false
+light_color = Color(1, 1, 0.513726, 1)
+light_indirect_energy = 3.214
+light_volumetric_fog_energy = 20.03
+light_size = 178.81
+light_specular = 16.0
+shadow_enabled = true
+shadow_blur = 5.14
+distance_fade_enabled = true
+spot_range = 30.0
+spot_angle = 16.1695
