@@ -74,17 +74,8 @@ curve = SubResource("Curve_c8heb")
 [node name="weather" type="Node3D"]
 script = ExtResource("1_rn8mp")
 
-[node name="CSGBox3D" type="CSGBox3D" parent="."]
-transform = Transform3D(10, 0, 0, 0, 1, 0, 0, 0, 10, 0, -2, 0)
-visible = false
-
-[node name="GPUParticlesCollisionBox3D" type="GPUParticlesCollisionBox3D" parent="CSGBox3D"]
-visible = false
-size = Vector3(1, 1, 1)
-
 [node name="SnowParticles" type="GPUParticles3D" parent="."]
 transform = Transform3D(2, 0, 0, 0, 1, 0, 0, 0, 2, 0, 0, 0)
-visible = false
 cast_shadow = 0
 amount = 300
 lifetime = 5.0

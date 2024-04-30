@@ -10,6 +10,7 @@ class_name Weather extends Node3D
 @onready var snow_particles: GPUParticles3D = $SnowParticles
 @onready var world_environment: WorldEnvironment = $WorldEnvironment
 
+var player : Player
 
 # Rain Methods
 func set_is_raining(value: bool) -> void:
@@ -51,8 +52,12 @@ func adjust_snow_intensity(intensity: float) -> void:
 	set_snow_intensity(intensity)
 	
 
+func _process(delta):
+	if player:
+		global_transform.origin = player.global_transform.origin
 
 func _ready() -> void:
+	player = get_parent().get_node("Player")
 	update_weather_status()
 
 func update_weather_status() -> void:

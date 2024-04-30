@@ -46,10 +46,6 @@ script = ExtResource("1_od8gl")
 
 [node name="weather" parent="." instance=ExtResource("2_byges")]
 
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.829905, 0.557904, 0, -0.557904, 0.829905, 0, 1.64251, 2.76801)
-visible = false
-
 [node name="DayNightCycle" type="Node3D" parent="."]
 script = ExtResource("3_ufogt")
 top_sky_colour = SubResource("Gradient_ubya2")
@@ -60,9 +56,11 @@ moon_colour = SubResource("Gradient_xpsdw")
 moon_intensity = SubResource("Curve_j7fs4")
 
 [node name="Sun" type="DirectionalLight3D" parent="DayNightCycle"]
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="DayNightCycle"]
-environment = SubResource("Environment_w6b1l")
+light_energy = 2.0
+shadow_enabled = true
 
 [node name="Moon" type="DirectionalLight3D" parent="DayNightCycle"]
 sky_mode = 1
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="DayNightCycle"]
+environment = SubResource("Environment_w6b1l")
