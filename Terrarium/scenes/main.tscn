@@ -36,11 +36,11 @@ script = ExtResource("1_hqvga")
 [node name="Player" parent="." instance=ExtResource("4_mbjog")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.68523, 1.18654, 6.07644)
 
+[node name="EnvironmentController" parent="Player" instance=ExtResource("6_usu0l")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.66735, -1.18654, -6.07788)
+
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0638123, 0.0283203, -0.0484314)
 shape = SubResource("BoxShape3D_8n2mg")
-
-[node name="EnvironmentController" parent="." instance=ExtResource("6_usu0l")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0178843, 2.38419e-07, -0.00143909)

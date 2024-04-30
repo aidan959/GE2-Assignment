@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://cp3spalspc1pl"]
+[gd_scene load_steps=12 format=3 uid="uid://cp3spalspc1pl"]
 
 [ext_resource type="Terrain3DStorage" uid="uid://ix2b28ekjl31" path="res://new_terrain_3d_storage.res" id="1_voqga"]
 [ext_resource type="Terrain3DMaterial" uid="uid://b76edgxwriihq" path="res://new_terrain_3d_material.tres" id="2_48i7d"]
@@ -6,21 +6,12 @@
 [ext_resource type="Texture2D" uid="uid://c1ots7w6i0i1q" path="res://textures/ground037_nrm_rgh.png" id="4_w1vav"]
 [ext_resource type="Texture2D" uid="uid://br7bfxcxh60df" path="res://textures/rock030_alb_ht.png" id="5_enxbn"]
 [ext_resource type="Texture2D" uid="uid://cr72kjil43vgj" path="res://textures/rock030_nrm_rgh.png" id="6_sp22l"]
-[ext_resource type="Script" path="res://addons/proton_scatter/src/scatter.gd" id="7_3j5bc"]
-[ext_resource type="Script" path="res://addons/proton_scatter/src/stack/modifier_stack.gd" id="8_klyyo"]
 [ext_resource type="PackedScene" uid="uid://be8abksxbl3jb" path="res://scenes/Player.tscn" id="8_kpnm6"]
-[ext_resource type="Script" path="res://addons/proton_scatter/src/modifiers/create_inside_random.gd" id="9_5xuvg"]
-[ext_resource type="Script" path="res://addons/proton_scatter/src/modifiers/randomize_transforms.gd" id="10_o0doa"]
-[ext_resource type="Script" path="res://addons/proton_scatter/src/modifiers/relax.gd" id="11_yirsn"]
-[ext_resource type="Script" path="res://addons/proton_scatter/src/modifiers/project_on_terrain3d.gd" id="12_bam1i"]
-[ext_resource type="Script" path="res://addons/proton_scatter/src/scatter_item.gd" id="13_2b4u1"]
-[ext_resource type="Script" path="res://addons/proton_scatter/src/scatter_shape.gd" id="14_o7syv"]
-[ext_resource type="Script" path="res://addons/proton_scatter/src/shapes/sphere_shape.gd" id="15_uvawl"]
 [ext_resource type="PackedScene" uid="uid://b5w6wthj6ida4" path="res://scenes/env_controller.tscn" id="17_dwhq4"]
 
 [sub_resource type="Terrain3DTexture" id="Terrain3DTexture_1w4kl"]
 name = "Grass"
-albedo_color = Color(0.550873, 0.675817, 0.462572, 1)
+albedo_color = Color(0.194954, 0.680532, 0.372898, 1)
 albedo_texture = ExtResource("3_ky71r")
 normal_texture = ExtResource("4_w1vav")
 
@@ -34,57 +25,7 @@ normal_texture = ExtResource("6_sp22l")
 [sub_resource type="Terrain3DTextureList" id="Terrain3DTextureList_8guc7"]
 textures = Array[Terrain3DTexture]([SubResource("Terrain3DTexture_1w4kl"), SubResource("Terrain3DTexture_8m4jf")])
 
-[sub_resource type="Resource" id="Resource_ah0k2"]
-script = ExtResource("9_5xuvg")
-amount = 75
-enabled = true
-override_global_seed = false
-custom_seed = 0
-restrict_height = true
-reference_frame = 1
-
-[sub_resource type="Resource" id="Resource_ds0f6"]
-script = ExtResource("10_o0doa")
-position = Vector3(0.15, 0.15, 0.15)
-rotation = Vector3(20, 360, 20)
-scale = Vector3(0.1, 0.1, 0.1)
-enabled = false
-override_global_seed = false
-custom_seed = 0
-restrict_height = false
-reference_frame = 2
-
-[sub_resource type="Resource" id="Resource_ag74p"]
-script = ExtResource("11_yirsn")
-iterations = 3
-offset_step = 0.2
-consecutive_step_multiplier = 0.75
-use_computeshader = true
-enabled = true
-override_global_seed = false
-custom_seed = 0
-restrict_height = true
-reference_frame = 0
-
-[sub_resource type="Resource" id="Resource_v5qai"]
-script = ExtResource("12_bam1i")
-terrain_node = NodePath("..")
-align_with_collision_normal = false
-enabled = true
-override_global_seed = false
-custom_seed = 0
-restrict_height = false
-reference_frame = 0
-
-[sub_resource type="Resource" id="Resource_pjgcr"]
-script = ExtResource("8_klyyo")
-stack = Array[Resource("res://addons/proton_scatter/src/modifiers/base_modifier.gd")]([SubResource("Resource_ah0k2"), SubResource("Resource_ds0f6"), SubResource("Resource_ag74p"), SubResource("Resource_v5qai")])
-
-[sub_resource type="Resource" id="Resource_g8bsm"]
-script = ExtResource("15_uvawl")
-radius = 33.097
-
-[node name="Node3D" type="Node3D"]
+[node name="Terrarium" type="Node3D"]
 
 [node name="Terrain3D" type="Terrain3D" parent="."]
 storage = ExtResource("1_voqga")
@@ -94,27 +35,8 @@ debug_level = 1
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="Terrain3D"]
 transform = Transform3D(0.919822, -0.236114, -0.313334, 0, -0.798636, 0.601815, -0.392337, -0.553562, -0.734602, 0, 0, 0)
-visible = false
-
-[node name="ProtonScatter" type="Node3D" parent="Terrain3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 74.761, 13.9451, 90.165)
-script = ExtResource("7_3j5bc")
-modifier_stack = SubResource("Resource_pjgcr")
-Performance/use_chunks = true
-Performance/chunk_dimensions = Vector3(15, 15, 15)
-
-[node name="ScatterItem" type="Node3D" parent="Terrain3D/ProtonScatter"]
-script = ExtResource("13_2b4u1")
-proportion = 200
-source_scale_multiplier = 200.0
-path = "res://models/flora/Lowpoly_tree_sample.gltf"
-
-[node name="ScatterShape" type="Node3D" parent="Terrain3D/ProtonScatter"]
-transform = Transform3D(1, 0, -2.98023e-08, 0, 1, 0, 2.98023e-08, 0, 1, 0, 0, 0)
-script = ExtResource("14_o7syv")
-shape = SubResource("Resource_g8bsm")
 
 [node name="Player" parent="Terrain3D" instance=ExtResource("8_kpnm6")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 59.325, 25.4146, 74.7552)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.4148, 5.49199, 31.1978)
 
 [node name="EnvironmentController" parent="Terrain3D/Player" instance=ExtResource("17_dwhq4")]

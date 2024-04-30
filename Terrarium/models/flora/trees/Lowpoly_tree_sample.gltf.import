@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://b67odcrttpq3u"
-path="res://.godot/imported/Lowpoly_tree_sample.gltf-d4cc8b57fe5105792b99a0eee0201451.scn"
+path="res://.godot/imported/Lowpoly_tree_sample.gltf-6d725157a9e24825e237e27b17faccc6.scn"
 
 [deps]
 
-source_file="res://models/flora/Lowpoly_tree_sample.gltf"
-dest_files=["res://.godot/imported/Lowpoly_tree_sample.gltf-d4cc8b57fe5105792b99a0eee0201451.scn"]
+source_file="res://models/flora/trees/Lowpoly_tree_sample.gltf"
+dest_files=["res://.godot/imported/Lowpoly_tree_sample.gltf-6d725157a9e24825e237e27b17faccc6.scn"]
 
 [params]
 

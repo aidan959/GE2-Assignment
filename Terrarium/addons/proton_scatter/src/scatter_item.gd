@@ -117,7 +117,6 @@ func get_item() -> Node3D:
 	if source == 0 and has_node(path):
 		node = get_node(path).duplicate() # Never expose the original node
 	elif source == 1:
-		node = _target_scene.instantiate()
 
 	if node:
 		_save_source_data(node)
