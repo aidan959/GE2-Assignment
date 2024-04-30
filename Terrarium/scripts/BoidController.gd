@@ -29,7 +29,7 @@ var spawn_amount : Dictionary = {
 @export var environment_controller : EnvironmentController
 
 var boids : Dictionary = {}
-var grasses : Array[Grass] = []
+var grasses : Array[GrassFood] = []
 var predators : Array[Node3D] = []
 
 
@@ -62,7 +62,7 @@ func _ready():
 		pos.y = 0.3
 		add_child(grass)
 		grass.global_position = pos
-		var grass_instance : Grass = grass
+		var grass_instance : GrassFood = grass
 		grasses.push_back(grass_instance)
 	var total_rate :float = 0
 	

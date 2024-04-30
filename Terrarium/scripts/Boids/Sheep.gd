@@ -1,6 +1,6 @@
 class_name Sheep extends Boid
 
-var nearest_grass : Grass = null
+var nearest_grass : GrassFood = null
 var grass = [] 
 var is_currently_escaping = false
 
@@ -34,7 +34,7 @@ func _ready():
 func update_nearest_grass():
 	var temp_nearest_distance : float = INF
 	var me_pos : Vector3 = global_position
-	for grass_entity : Grass in flock.grasses:
+	for grass_entity : GrassFood in flock.grasses:
 		if grass_entity.is_full():
 			continue
 		var temp_distance = me_pos.distance_to(grass_entity.global_position)

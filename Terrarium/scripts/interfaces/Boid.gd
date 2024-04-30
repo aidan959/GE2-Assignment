@@ -82,7 +82,6 @@ func process_gravity(delta: float) -> Vector3:
 		grav_vel += Vector3(0, -gravity, 0) * delta
 	else:
 		grav_vel = Vector3.ZERO
-	print(grav_vel)
 	return grav_vel
 
 

@@ -24,7 +24,7 @@ func _ready():
 	foods_liked = [Grass]
 
 	
-func do_be_dead(delta):
+func do_be_dead(_delta):
 	look_at(global_transform.origin + Vector3(0, -1, 0), Vector3.BACK)
 
 
@@ -58,7 +58,7 @@ func _physics_process(delta):
 	velocity = velocity.limit_length(max_speed)
 
 	move_and_slide()
-	if is_zero_approx(velocity.length()) or  is_currently_eating:
+	if is_zero_approx(velocity.length()) or is_currently_eating:
 		global_rotation.x = 0.0
 		return
 	# Implement Banking as described:
@@ -94,7 +94,7 @@ func update_weights(weights):
 		if b: 
 			b.weight = weights[behavior]
 
-func calculate(delta):
+func calculate(_delta):
 	var force_acc = Vector3.ZERO	
 	var behaviours_active = ""
 	for i in behaviours.size():

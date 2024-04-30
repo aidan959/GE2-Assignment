@@ -5,7 +5,7 @@ class_name Weather extends Node3D
 @export var is_raining: bool = false : set = set_is_raining
 @export var snow_intensity: float = 1000 : set = set_snow_intensity
 @export var is_snowing: bool = false : set = set_is_snowing
-
+@export var player: Player
 @export var world_environment: WorldEnvironment 
 @onready var rain_particles: GPUParticles3D = $RainParticles
 @onready var snow_particles: GPUParticles3D = $SnowParticles
@@ -51,9 +51,11 @@ func adjust_snow_intensity(intensity: float) -> void:
 	set_snow_intensity(intensity)
 	
 
+func _process(delta):
+	if player:
+		global_transform.origin = player.global_transform.origin
 
 func _ready() -> void:
-	if world_environment == null: push_error("World environment is not set.")
 	update_weather_status()
 
 func update_weather_status() -> void:

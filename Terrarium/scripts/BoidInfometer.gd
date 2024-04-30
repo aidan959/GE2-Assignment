@@ -20,7 +20,6 @@ func _ready():
 		push_warning("Viewport has not been set.")
 	else: 
 		viewport.world_3d = viewport.find_world_3d()
-		print(viewport.world_3d)
 		viewport_camera = viewport.get_camera_3d()
 		#sheep_cam. = viewport_texture
 

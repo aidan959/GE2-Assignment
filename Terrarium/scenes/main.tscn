@@ -17,7 +17,7 @@ size = Vector3(100.223, 0.0605469, 100.073)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0785122, -28.9413, -0.0539837)
 size = Vector3(100, 0.001, 100)
 
-[node name="Flock" type="Node3D" parent="." node_paths=PackedStringArray("environment_controller")]
+[node name="BoidController" type="Node3D" parent="." node_paths=PackedStringArray("environment_controller")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.19638, 0)
 script = ExtResource("2_qkdbf")
 sheep_scene = ExtResource("2_cbkbv")
@@ -44,8 +44,9 @@ collision_mask = 0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.153099, 0.0283203, -0.29355)
 shape = SubResource("BoxShape3D_8n2mg")
 
-[node name="EnvironmentController" parent="." instance=ExtResource("6_usu0l")]
+[node name="EnvironmentController" parent="." node_paths=PackedStringArray("player") instance=ExtResource("6_usu0l")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0178843, 2.38419e-07, -0.00143909)
+player = NodePath("../Player")
 
 [node name="BoidInfometer" type="Control" parent="." node_paths=PackedStringArray("player", "viewport")]
 layout_mode = 3
