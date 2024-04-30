@@ -1,85 +1,96 @@
 class_name Flock extends Node
 
 @export var sheep_scene:PackedScene
+@export var grass_scene:PackedScene
+
 
 @export var count = 5
+@export var grass_count = 5
+
 
 @export var radius = 100
 
 @export var neighbor_distance = 20
-@export var max_neighbors = 10
+@export var avoid_distance = 20
 
-var boids = []
+@export var max_neighbors = 10
+@export var environment_controller : EnvironmentController
+var boids : Dictionary = {}
+var grasses : Array[Grass] = []
+var predators : Array[Node3D] = []
+
+
 @export var draw_gizmos : bool = false
-@export var cell_size = 10
-@export var grid_size = 10000
-@export var partition = true
 var cells = {}
 
 @export var center_path:NodePath
 var center
 
 func do_draw_gizmos():
-	var size = 200
-	var sub_divisions = size / cell_size
-	DebugDraw3D.draw_grid(Vector3.ZERO, Vector3.RIGHT * size, Vector3.BACK * size, Vector2(sub_divisions, sub_divisions), Color.AQUAMARINE)
-	# DebugDraw.draw_grid(Vector3.ZERO, Vector3.UP * size, Vector3.BACK * size, Vector2(sub_divisions, sub_divisions), Color.aquamarine)
+	pass
 
 
-func position_to_cell(p): 
-	# Get rid of negatives!
-	var pos = p + Vector3(10000, 10000, 10000)
-	var f = floor(pos.x / cell_size)       
-	var r = floor(pos.x / cell_size) + (floor(pos.y / cell_size) * grid_size) + (floor(pos.z / cell_size) * grid_size * grid_size)
-	return r
-	
-func cell_to_position(cell):
-	var z = floor(cell / (grid_size * grid_size))
-	var y = floor((cell - (z * grid_size * grid_size)) / grid_size)
-	var x = cell - (y * grid_size + (z * grid_size * grid_size)) 
-	
-	
-	var p = Vector3(x, y, z) * cell_size
-	p -= Vector3(10000, 10000, 10000) 
-	return p
-	
-func do_partition():
-	cells.clear()	
-	for boid in boids:
-		var key = position_to_cell(boid.transform.origin)
-		if ! cells.has(key):
-			cells[key] = []	
-		cells[key].push_back(boid)
-
-func _process(delta):
+func _process(_delta):
 	if draw_gizmos: do_draw_gizmos()
-	if partition:
-		do_partition()
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
+	load_names()
 	randomize()
 	center = get_node(center_path)
-	var cell = position_to_cell(Vector3(-60, 59, 80))
-	var p = cell_to_position(cell)
+	for node in get_parent().get_children():
+		var potential_pred =node.find_child("Predator", true)
+		if potential_pred:
+			
+			predators.push_back(potential_pred.get_parent())
+			
+	for i in grass_count:
+		var grass = grass_scene.instantiate()
+		var pos = Utils.random_point_in_unit_sphere() * radius
+		pos.y = 0.3
+		add_child(grass)
+		grass.global_position = pos
+		var grass_instance : Grass = grass
+		grasses.push_back(grass_instance)
 	for i in count:
 		var sheep = sheep_scene.instantiate()		
 		var pos = Utils.random_point_in_unit_sphere() * radius
-		pos.y = 1.0
+		pos.y = 0.0
 		add_child(sheep)
 		sheep.global_position = pos
 		sheep.global_rotation = Vector3(0, randf_range(0, PI * 2.0),  0)
 
 		var boid : Sheep = sheep
-		if boids.size() == 0:
-			boid.draw_gizmos_propagate(draw_gizmos)
-			pass
-		boids.push_back(boid)		
 		
+		boid.draw_gizmos_propagate(draw_gizmos)
+		boid.hunger = randf_range(0.5, 0.8)
+		boid.metabolism = randf_range(0.1, 0.5)
+		boid.name = get_random_unique_name()
+		
+		boids.push_back(boid)		
 		var constrain = boid.get_node("Constrain")
 		if constrain:
 			# constrain.center_path = center_path
 			constrain.center = center
 			constrain.radius = radius
-		
+
+
+var names = []
+
+func load_names():
+	var file = FileAccess.open("res://data/sheep_names.txt",FileAccess.READ)
+	
+	while not file.eof_reached():
+		var sheep_name = file.get_line().capitalize()
+		if sheep_name != "":
+			names.append(sheep_name)
+
+func get_random_unique_name():
+	if names.size() == 0:
+		push_error("No more unique names available.")
+		return ""
+	
+	var index = randi() % names.size()
+	var sheep_name = names[index]
+	names.remove_at(index) 
+	return sheep_name
 

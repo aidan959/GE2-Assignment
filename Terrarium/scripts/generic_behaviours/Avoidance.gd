@@ -5,7 +5,7 @@ class_name Avoidance extends SteeringBehavior
 # var b = "text"
 
 enum ForceDirection {Normal, Incident, Up, Braking}
-@export var softness : float = 10
+@export var softness : float = 1000
 var fake_zero : float = 0.0001
 var force = Vector3.ZERO
 var feelers = []
@@ -20,25 +20,24 @@ func inv_square(dist: float) -> float:
 
 
 func on_draw_gizmos():
-	for i in feelers.size():
-		var feeler = feelers[i]		
-		
-		if feeler.hit and draw_gizmos:
-			DebugDraw3D.draw_line(boid.global_transform.origin, feeler.hit_target, Color.CHARTREUSE)
-			DebugDraw3D.draw_arrow(feeler.hit_target, feeler.hit_target + feeler.normal, Color.BLUE, 0.1)
-			DebugDraw3D.draw_arrow(feeler.hit_target, feeler.hit_target + feeler.force * weight, Color.RED, 0.1)			
-		elif draw_gizmos:
-			DebugDraw3D.draw_line(boid.global_transform.origin, feeler.end, Color.CHARTREUSE)
+	pass
 
 func calculate():
-	var me = boid.global_position
+	var me_pos = boid.global_position
 	force = Vector3.ZERO
-	for i in boid.neighbors.size():
-			var other= boid.neighbors[i]
-			var other_pos = other.global_position
-			var diff = me - other_pos
-			force += (diff/diff.length()) * inv_square(diff.length())
-			
+
+	for other_boid in boid.neighbors:
+		var other_pos = other_boid.global_position
+		var diff = me_pos - other_pos
+		var distance = diff.length()
+
+		
+		if distance >= 0: 
+			var avoidance_force = (diff / distance) * inv_square(distance)
+			force += avoidance_force
+			if draw_gizmos:
+				DebugDraw3D.draw_line(boid.global_position, boid.global_position + avoidance_force, Color.BLACK)
+
 	return force
 
 func _ready():

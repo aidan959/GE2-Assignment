@@ -62,11 +62,9 @@ albedo_color = Color(0, 0, 1, 1)
 [node name="EnvironmentController" type="Node3D"]
 script = ExtResource("1_od8gl")
 
-[node name="WeatherTimer" type="Timer" parent="."]
-one_shot = true
+[node name="weather" parent="." node_paths=PackedStringArray("world_environment") instance=ExtResource("2_byges")]
+world_environment = NodePath("../DayNightCycle/WorldEnvironment")
 
-[node name="weather" parent="." instance=ExtResource("2_byges")]
-visible = false
 
 [node name="DayNightCycle" type="Node3D" parent="."]
 script = ExtResource("3_ufogt")

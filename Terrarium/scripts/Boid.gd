@@ -1,107 +1,117 @@
 class_name Boid extends CharacterBody3D
-
+@export_category("Steering")
 @export var mass = 1
 @export var force = Vector3.ZERO
 @export var acceleration = Vector3.ZERO
 @export var vel = Vector3.ZERO
 @export var speed:float
 @export var max_speed: float = 10.0
-
-var behaviors = [] 
 @export var max_force = 10
 @export var banking = 0.1
 @export var damping = 0.1
+@export_range(0.0,50.0) var neighbor_distance = 10.0
 
+@export var behaviours : Array[SteeringBehavior] = [] 
+
+@export_category("Debug")
 @export var draw_gizmos = true
 @export var pause = false
 
-var count_neighbors = false
-var neighbors = [] 
+@export_category("Vitals")
+@export_range(0.0,100.0) var health : float = 100.0
+@export_range(0.0,1.0) var hunger : float = 0.0
+@export_range(0.001,1.0) var metabolism : float = 0.001
+@export_range(0, 60.0) var tick_rate : int = 1 # abstract this to director  
 
-var school = null
+
+var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
+
+var grav_vel: Vector3
+
+enum BoidStates {
+	ROAMING,
+	GRAZING,
+	DEAD
+} 
+var flock : Flock = null
+
+var tick_counter :int = 0 
+var count_neighbours = false
+var neighbours = [] 
 var new_force = Vector3.ZERO
 var should_calculate = false
+var current_state : BoidStates
+func initialize_flock():
+	if not get_parent() is Flock:
+		push_error("Boid spawned outside of BoidManager node.")	
+	flock = get_parent()
+	if flock.grasses.size() == 0: push_warning("No instances of grass found.")
 
-func draw_gizmos_recursive(dg):
+func initialize_behaviours():
+	for i in get_child_count():
+		var child = get_child(i)
+		if not child is SteeringBehavior:
+			continue
+		behaviours.push_back(child)
+		child.draw_gizmos = draw_gizmos
+		child.set_process(child.enabled)
+ 
+func _ready():
+	randomize()
+	initialize_flock()
+	initialize_behaviours()
+
+func draw_gizmos_propagate(dg):
 	draw_gizmos = dg
 	var children = get_children()
 	for child in children:
-		if child is SteeringBehavior:
-			child.draw_gizmos = dg
+		if not child is SteeringBehavior: continue
+		child.draw_gizmos = draw_gizmos
+
+func _gravity(delta: float) -> Vector3:
+	if not is_on_floor():
+		grav_vel += Vector3(0, -gravity, 0) * delta
+	else:
+		grav_vel = Vector3.ZERO
+	return grav_vel
 
 
-func count_neighbors_partitioned():
-	neighbors.clear()
-
-	# var cells_around = 1
-	var my_cell = school.position_to_cell(transform.origin)
-		
-	if draw_gizmos:
-		var a = school.cell_to_position(my_cell)
-		var b = a + Vector3(school.cell_size, school.cell_size, school.cell_size)
-		DebugDraw3D.draw_aabb_ab(a, b, Color.CYAN)
-						
-	# Check center cell first!
-	for slice in [0, -1, 1]:
-		for row in [0, -1, 1]:
-			for col in [0, -1, 1]:
-				var pos = global_transform.origin + Vector3(col * school.cell_size, row * school.cell_size, slice * school.cell_size)
-				var key = school.position_to_cell(pos)
-				
-				if draw_gizmos:
-					var a = school.cell_to_position(key)
-					var b = a + Vector3(school.cell_size, school.cell_size, school.cell_size)
-					DebugDraw3D.draw_aabb_ab(a, b, Color.CYAN)
-				
-				if school.cells.has(key):
-					var cell = school.cells[key]
-					# print(key)
-					for boid in cell:
-						if draw_gizmos:
-							if boid != self:
-								DebugDraw3D.draw_box(boid.global_transform.origin, Quaternion.IDENTITY,  Vector3(3, 3, 3), Color.DARK_GOLDENROD, true)
-						if boid != self and boid.global_transform.origin.distance_to(global_transform.origin) < school.neighbor_distance:
-							neighbors.push_back(boid)
-							if neighbors.size() == school.max_neighbors:
-								return neighbors.size()					
-	return neighbors.size()
-	
-func count_neighbors_simple():
-	neighbors.clear()
-	for i in school.boids.size():
-		var boid = school.boids[i]
-		if boid != self and global_transform.origin.distance_to(boid.global_transform.origin) < school.neighbor_distance:
-			neighbors.push_back(boid)
-			if neighbors.size() == school.max_neighbors:
+func count_neighbours_simple():
+	neighbours.clear()
+	for boid in flock.boids[get_script()]:
+		if boid != self and !boid.is_dead() and global_position.distance_to(global_position) < flock.neighbor_distance:
+			neighbours.push_back(boid)
+			if neighbours.size() == flock.max_neighbours:
 				break
-	return neighbors.size()
+	return neighbours.size()
 
 func _input(event):
 	if event is InputEventKey and event.keycode == KEY_P and event.pressed:
 		pause = ! pause
 		
-func set_enabled(behavior, enabled):
-	behavior.enabled = enabled
-	behavior.set_process(enabled)
+func set_enabled(behaviour, enabled):
+	behaviour.enabled = enabled
+	behaviour.set_process(enabled)
 
 
 func on_draw_gizmos():
-
 	DebugDraw3D.draw_arrow(global_transform.origin,  global_transform.origin + transform.basis.z * 10.0 , Color(0, 0, 1), 0.1)
 	DebugDraw3D.draw_arrow(global_transform.origin,  global_transform.origin + transform.basis.x * 10.0 , Color(1, 0, 0), 0.1)
 	DebugDraw3D.draw_arrow(global_transform.origin,  global_transform.origin + transform.basis.y * 10.0 , Color(0, 1, 0), 0.1)
 	DebugDraw3D.draw_arrow(global_transform.origin,  global_transform.origin + force, Color(1, 1, 0), 0.1)
 	
-	if school and count_neighbors:
+	if school and count_neighbours:
 		DebugDraw3D.draw_sphere(global_transform.origin, school.neighbor_distance, Color.WEB_PURPLE)
-		for neighbor in neighbors:
+		for neighbor in neighbours:
 			DebugDraw3D.draw_sphere(neighbor.global_transform.origin, 3, Color.WEB_PURPLE)
 			
 func seek_force(target: Vector3):	
 	var toTarget = target - global_transform.origin
 	toTarget = toTarget.normalized()
 	var desired = toTarget * max_speed
-	return desired - vel
+	var output = desired - vel
+	output.y = 0.0 # todo why?
+	return output
 	
 func arrive_force(target:Vector3, slowingDistance:float):
 	var toTarget = target - global_transform.origin
@@ -115,46 +125,35 @@ func arrive_force(target:Vector3, slowingDistance:float):
 	var desired = (toTarget * limit_length) / dist 
 	return desired - vel
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	# Check for a variable
-	if "partition" in get_parent():
-		school = get_parent()
-	
-	for i in get_child_count():
-		var child = get_child(i)
-		if child.has_method("calculate"):
-			behaviors.push_back(child)
-			child.set_process(child.enabled) 
-	# enable_all(false)
+
 	
 func set_enabled_all(enabled):
-	for i in behaviors.size():
-		behaviors[i].enabled = enabled
+	for i in behaviours.size():
+		behaviours[i].enabled = enabled
 		
 func update_weights(weights):
-	for behavior in weights:
-		var b = get_node(behavior)
+	for behaviour in weights:
+		var b = get_node(behaviour)
 		if b: 
-			b.weight = weights[behavior]
+			b.weight = weights[behaviour]
 
-func calculate():
+func calculate(_delta):
 	var force_acc = Vector3.ZERO	
-	var behaviors_active = ""
-	for i in behaviors.size():
-		if behaviors[i].enabled:
-			var f = behaviors[i].calculate() * behaviors[i].weight
+	var behaviours_active = ""
+	for i in behaviours.size():
+		if behaviours[i].enabled:
+			var f = behaviours[i].calculate() * behaviours[i].weight
 			if is_nan(f.x) or is_nan(f.y) or is_nan(f.z):
-				print(str(behaviors[i]) + " is NAN")
+				print(str(behaviours[i]) + " is NAN")
 				f = Vector3.ZERO
-			behaviors_active += behaviors[i].name + ": " + str(round(f.length())) + " "
+			behaviours_active += behaviours[i].name + ": " + str(round(f.length())) + " "
 			force_acc += f 
 			if force_acc.length() > max_force:
 				force_acc = force_acc.limit_length(max_force)
-				behaviors_active += " Limiting force"
+				behaviours_active += " Limiting force"
 				break
 	if draw_gizmos:
-		DebugDraw2D.set_text(name, behaviors_active)
+		DebugDraw2D.set_text(name, behaviours_active)
 	return force_acc
 
 
@@ -162,11 +161,11 @@ func _process(delta):
 	should_calculate = true
 	if draw_gizmos:
 		on_draw_gizmos()
-	if school and count_neighbors:
+	if school and count_neighbours:
 		if school.partition:
-			count_neighbors_partitioned()
+			count_neighbours_partitioned()
 		else:
-			count_neighbors_simple()
+			count_neighbours_simple()
 			
 func _physics_process(delta):
 	# pause = true

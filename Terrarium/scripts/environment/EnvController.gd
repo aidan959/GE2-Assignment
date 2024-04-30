@@ -1,4 +1,4 @@
-extends Node
+class_name EnvironmentController extends Node
 
 @onready var world_environment: WorldEnvironment = $DayNightCycle/WorldEnvironment
 @onready var weather = get_node("weather")
