@@ -10,10 +10,10 @@ class_name BoidController extends Node
 
 @export var radius = 100
 
-@export var neighbor_distance = 20
+@export var neighbour_distance = 20
 @export var avoid_distance = 20
 
-@export var max_neighbors = 10
+@export var max_neighbours = 10
 @export var environment_controller : EnvironmentController
 var boids : Dictionary = {}
 var grasses : Array[Grass] = []

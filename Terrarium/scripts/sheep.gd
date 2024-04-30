@@ -2,7 +2,6 @@ class_name Sheep extends Boid
 
 var nearest_grass : Grass = null
 var grass = [] 
-var can_eat = false
 var is_currently_escaping = false
 
 @onready var animator : AnimationPlayer = $Sheep/AnimationPlayer
@@ -29,6 +28,7 @@ func draw_gizmos_propagate(dg):
 
 func _ready():
 	super._ready()
+	foods_liked = [Grass]
 	ascension_light = find_child("AscensionLight")
 
 func update_nearest_grass():

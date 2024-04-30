@@ -26,7 +26,7 @@ func calculate():
 	var me_pos = boid.global_position
 	force = Vector3.ZERO
 
-	for other_boid in boid.neighbors:
+	for other_boid in boid.neighbours:
 		var other_pos = other_boid.global_position
 		var diff = me_pos - other_pos
 		var distance = diff.length()

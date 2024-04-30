@@ -58,6 +58,6 @@ func _physics_process(_delta):
 	health_bar.value = focus_boid.health
 	hunger_bar.value = focus_boid.hunger
 	name_tag.text = "[center]" + focus_boid.name + "[/center]"
-	state_tag.text = "[center]" + focus_boid.states.keys()[focus_boid.current_state] + "[/center]"
+	state_tag.text = "[center]" + focus_boid.BoidStates.keys()[focus_boid.current_state] + "[/center]"
 
 

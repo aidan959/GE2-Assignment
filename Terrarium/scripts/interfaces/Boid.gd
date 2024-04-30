@@ -9,7 +9,7 @@ class_name Boid extends CharacterBody3D
 @export var max_force = 10
 @export var banking = 0.1
 @export var damping = 0.1
-@export_range(0.0,50.0) var neighbor_distance = 10.0
+@export_range(0.0,50.0) var neighbour_distance = 10.0
 
 @export var behaviours : Array[SteeringBehavior] = [] 
 
@@ -24,6 +24,8 @@ class_name Boid extends CharacterBody3D
 @export_range(0, 60.0) var tick_rate : int = 1 # abstract this to director  
 @export var is_currently_eating = false
 
+@export var foods_liked : Array[Variant] = [Food]
+
 var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 var grav_vel: Vector3
@@ -35,6 +37,7 @@ enum BoidStates {
 	DEAD
 } 
 var flock : BoidController = null
+var can_eat = false
 
 var tick_counter :int = 0 
 var count_neighbours = false
@@ -81,7 +84,7 @@ func count_neighbours_simple(type: Variant):
 	if type not in flock.boids:
 		return 0
 	for boid in flock.boids[type]:
-		if boid != self and !boid.is_dead() and global_position.distance_to(global_position) < flock.neighbor_distance:
+		if boid != self and !boid.is_dead() and global_position.distance_to(global_position) < flock.neighbour_distance:
 			neighbours.push_back(boid)
 			if neighbours.size() == flock.max_neighbours:
 				break
@@ -102,7 +105,7 @@ func on_draw_gizmos():
 	DebugDraw3D.draw_arrow(global_transform.origin,  global_transform.origin + transform.basis.y * 10.0 , Color(0, 1, 0), 0.1)
 	DebugDraw3D.draw_arrow(global_transform.origin,  global_transform.origin + force, Color(1, 1, 0), 0.1)
 	if flock and count_neighbours:
-		DebugDraw3D.draw_sphere(global_transform.origin, flock.neighbor_distance, Color.WEB_PURPLE)
+		DebugDraw3D.draw_sphere(global_transform.origin, flock.neighbour_distance, Color.WEB_PURPLE)
 		for neighbour in neighbours:
 			DebugDraw3D.draw_sphere(neighbour.global_transform.origin, 3, Color.WEB_PURPLE)
 		

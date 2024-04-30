@@ -19,11 +19,11 @@ class_name SheepBackup extends CharacterBody3D
 @export var draw_gizmos = true
 @export var pause = false
 var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
-var count_neighbors = false
+var count_neighbours = false
 
 var nearest_grass : Grass = null
 
-var neighbors = [] 
+var neighbours = [] 
 var grass = [] 
 
 var can_graze = false
@@ -136,7 +136,7 @@ func _physics_process(delta):
 		change_state(states.GRAZING)
 	elif hunger <= 0.1 and current_state == states.GRAZING:
 		change_state(states.ROAMING) 
-	count_neighbors_simple()
+	count_neighbours_simple()
 	if max_speed == 0:
 		push_warning("max_speed is 0")
 	# lerp in the new forces
@@ -179,14 +179,14 @@ func change_state(state : states):
 func is_dead() -> bool:
 	return current_state == states.DEAD
 	
-func count_neighbors_simple():
-	neighbors.clear()
+func count_neighbours_simple():
+	neighbours.clear()
 	for sheep in flock.boids:
-		if sheep != self and !sheep.is_dead() and global_transform.origin.distance_to(sheep.global_transform.origin) < flock.neighbor_distance:
-			neighbors.push_back(sheep)
-			if neighbors.size() == flock.max_neighbors:
+		if sheep != self and !sheep.is_dead() and global_transform.origin.distance_to(sheep.global_transform.origin) < flock.neighbour_distance:
+			neighbours.push_back(sheep)
+			if neighbours.size() == flock.max_neighbours:
 				break
-	return neighbors.size()
+	return neighbours.size()
 	
 
 func _input(event):
@@ -203,10 +203,10 @@ func on_draw_gizmos():
 	DebugDraw3D.draw_arrow(global_transform.origin,  global_transform.origin + transform.basis.x * 10.0 , Color(1, 0, 0), 0.1)
 	DebugDraw3D.draw_arrow(global_transform.origin,  global_transform.origin + transform.basis.y * 10.0 , Color(0, 1, 0), 0.1)
 	DebugDraw3D.draw_arrow(global_transform.origin,  global_transform.origin + force, Color(1, 1, 0), 0.1)
-	if flock and count_neighbors:
-		DebugDraw3D.draw_sphere(global_transform.origin, flock.neighbor_distance, Color.WEB_PURPLE)
-		for neighbor in neighbors:
-			DebugDraw3D.draw_sphere(neighbor.global_transform.origin, 3, Color.WEB_PURPLE)
+	if flock and count_neighbours:
+		DebugDraw3D.draw_sphere(global_transform.origin, flock.neighbour_distance, Color.WEB_PURPLE)
+		for neighbour in neighbours:
+			DebugDraw3D.draw_sphere(neighbour.global_transform.origin, 3, Color.WEB_PURPLE)
 			
 func seek_force(target: Vector3):	
 	var toTarget = target - global_transform.origin
