@@ -44,7 +44,8 @@ sky = SubResource("Sky_7xe4r")
 [node name="EnvironmentController" type="Node3D"]
 script = ExtResource("1_od8gl")
 
-[node name="weather" parent="." instance=ExtResource("2_byges")]
+[node name="weather" parent="." node_paths=PackedStringArray("world_environment") instance=ExtResource("2_byges")]
+world_environment = NodePath("../DayNightCycle/WorldEnvironment")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.829905, 0.557904, 0, -0.557904, 0.829905, 0, 1.64251, 2.76801)

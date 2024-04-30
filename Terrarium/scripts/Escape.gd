@@ -6,10 +6,6 @@ var force = Vector3.ZERO
 func _ready():
 	boid = get_parent()
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
-
 
 func inv_square(distance: float) -> float:
 	var e : float = 0.0

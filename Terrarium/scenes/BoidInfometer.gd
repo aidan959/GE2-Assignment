@@ -36,7 +36,7 @@ func _process(_delta):
 		else:
 			saved_boid =boid_detector.detected_boid
 		
-func _physics_process(delta):
+func _physics_process(_delta):
 	if !boid_detector:
 		return
 	var focus_boid : Sheep = null

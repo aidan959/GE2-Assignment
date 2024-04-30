@@ -10,7 +10,7 @@ static func random_point_in_unit_sphere() -> Vector3:
 	var z = r * cos(phi)
 	return Vector3(x, y, z)
 
-static func random_flat_point_in_unit_sphere(origin: Vector3) -> Vector3:
+static func random_flat_point_in_unit_sphere(_origin: Vector3) -> Vector3:
 	var theta = randf_range(0, 2 * PI)
 	var phi = randf_range(0, PI)
 	var r = pow(randf_range(0, 1), 1.0/3.0)  # Cube root for uniform distribution

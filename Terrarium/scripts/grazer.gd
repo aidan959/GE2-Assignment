@@ -2,11 +2,9 @@ class_name Grazer extends SteeringBehavior
 
 var force = Vector3.ZERO
 @export var softness : float = 10.0
-# Called when the node enters the scene tree for the first time.
+
 func _ready():
 	boid = get_parent()
-
-
 
 
 func inv_square(hunger: float) -> float:

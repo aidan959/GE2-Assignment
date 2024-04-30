@@ -1,7 +1,6 @@
-[gd_scene load_steps=10 format=3 uid="uid://dh52fxfx2rten"]
+[gd_scene load_steps=9 format=3 uid="uid://dh52fxfx2rten"]
 
 [ext_resource type="PackedScene" uid="uid://c2nwkj3tahlxg" path="res://scenes/grass.tscn" id="1_8n11t"]
-[ext_resource type="Script" path="res://scripts/world.gd" id="1_hqvga"]
 [ext_resource type="PackedScene" uid="uid://blg3yr70eue5y" path="res://scenes/sheep.tscn" id="2_cbkbv"]
 [ext_resource type="Script" path="res://scripts/Flock.gd" id="2_qkdbf"]
 [ext_resource type="PackedScene" uid="uid://be8abksxbl3jb" path="res://scenes/Player.tscn" id="4_mbjog"]
@@ -18,22 +17,21 @@ size = Vector3(100.223, 0.0605469, 100.073)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0785122, 0.0586605, -0.0539837)
 size = Vector3(100, 0.001, 100)
 
-[node name="Flock" type="Node3D" parent="."]
+[node name="Flock" type="Node3D" parent="." node_paths=PackedStringArray("environment_controller")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.19638, 0)
 script = ExtResource("2_qkdbf")
 sheep_scene = ExtResource("2_cbkbv")
 grass_scene = ExtResource("1_8n11t")
-count = 10
-grass_count = 0
-radius = 10
+count = 100
+radius = 25
 neighbor_distance = 10
 avoid_distance = 1
+environment_controller = NodePath("../EnvironmentController")
 center_path = NodePath("../World Center")
 metadata/_edit_group_ = true
 
 [node name="World Center" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0785122, 1.65177, -0.0539837)
-script = ExtResource("1_hqvga")
 
 [node name="Player" parent="." instance=ExtResource("4_mbjog")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.68523, 1.18654, 6.07644)

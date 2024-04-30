@@ -14,7 +14,7 @@ class_name Flock extends Node
 @export var avoid_distance = 20
 
 @export var max_neighbors = 10
-
+@export var environment_controller : EnvironmentController
 var boids : Array[Sheep] = []
 var grasses : Array[Grass] = []
 var predators : Array[Node3D] = []
@@ -30,7 +30,7 @@ func do_draw_gizmos():
 	pass
 
 
-func _process(delta):
+func _process(_delta):
 	if draw_gizmos: do_draw_gizmos()
 
 func _ready():
@@ -42,6 +42,15 @@ func _ready():
 		if potential_pred:
 			
 			predators.push_back(potential_pred.get_parent())
+			
+	for i in grass_count:
+		var grass = grass_scene.instantiate()
+		var pos = Utils.random_point_in_unit_sphere() * radius
+		pos.y = 0.3
+		add_child(grass)
+		grass.global_position = pos
+		var grass_instance : Grass = grass
+		grasses.push_back(grass_instance)
 	for i in count:
 		var sheep = sheep_scene.instantiate()		
 		var pos = Utils.random_point_in_unit_sphere() * radius
@@ -54,7 +63,7 @@ func _ready():
 		
 		boid.draw_gizmos_propagate(draw_gizmos)
 		boid.hunger = randf_range(0.5, 0.8)
-		boid.metabolism = randf_range(0.001, 0.005)
+		boid.metabolism = randf_range(0.1, 0.5)
 		boid.name = get_random_unique_name()
 		
 		boids.push_back(boid)		
@@ -63,14 +72,7 @@ func _ready():
 			# constrain.center_path = center_path
 			constrain.center = center
 			constrain.radius = radius
-	for i in grass_count:
-		var grass = grass_scene.instantiate()
-		var pos = Utils.random_point_in_unit_sphere() * radius
-		pos.y = 0.3
-		add_child(grass)
-		grass.global_position = pos
-		var grass_instance : Grass = grass
-		grasses.push_back(grass_instance)
+
 
 var names = []
 
@@ -78,9 +80,9 @@ func load_names():
 	var file = FileAccess.open("res://data/sheep_names.txt",FileAccess.READ)
 	
 	while not file.eof_reached():
-		var name = file.get_line().capitalize()
-		if name != "":
-			names.append(name)
+		var sheep_name = file.get_line().capitalize()
+		if sheep_name != "":
+			names.append(sheep_name)
 
 func get_random_unique_name():
 	if names.size() == 0:
@@ -88,7 +90,7 @@ func get_random_unique_name():
 		return ""
 	
 	var index = randi() % names.size()
-	var name = names[index]
+	var sheep_name = names[index]
 	names.remove_at(index) 
-	return name
+	return sheep_name
 

@@ -6,9 +6,9 @@ class_name Weather extends Node3D
 @export var snow_intensity: float = 1000 : set = set_snow_intensity
 @export var is_snowing: bool = false : set = set_is_snowing
 
+@export var world_environment: WorldEnvironment 
 @onready var rain_particles: GPUParticles3D = $RainParticles
 @onready var snow_particles: GPUParticles3D = $SnowParticles
-@onready var world_environment: WorldEnvironment = $WorldEnvironment
 
 
 # Rain Methods
@@ -25,7 +25,7 @@ func stop_rain() -> void:
 func set_rain_intensity(value: float) -> void:
 	rain_intensity = value
 	if is_raining:
-		rain_particles.amount = rain_intensity
+		rain_particles.amount = roundi(rain_intensity)
 
 func adjust_rain_intensity(intensity: float) -> void:
 	set_rain_intensity(intensity)
@@ -45,7 +45,7 @@ func stop_snow() -> void:
 func set_snow_intensity(value: float) -> void:
 	snow_intensity = value
 	if is_snowing:
-		snow_particles.amount = snow_intensity
+		snow_particles.amount = roundi(snow_intensity)
 
 func adjust_snow_intensity(intensity: float) -> void:
 	set_snow_intensity(intensity)
@@ -53,6 +53,7 @@ func adjust_snow_intensity(intensity: float) -> void:
 
 
 func _ready() -> void:
+	if world_environment == null: push_error("World environment is not set.")
 	update_weather_status()
 
 func update_weather_status() -> void:
@@ -62,12 +63,12 @@ func update_weather_status() -> void:
 func update_rain_status() -> void:
 	rain_particles.emitting = is_raining
 	if is_raining:
-		rain_particles.amount = rain_intensity
+		rain_particles.amount = roundi(rain_intensity)
 
 func update_snow_status() -> void:
 	snow_particles.emitting = is_snowing
 	if is_snowing:
-		snow_particles.amount = snow_intensity
+		snow_particles.amount = roundi(snow_intensity)
 
 
 

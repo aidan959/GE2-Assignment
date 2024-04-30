@@ -27,6 +27,10 @@ var neighbors = []
 var grass = [] 
 
 var can_graze = false
+var is_currently_grazing = false
+var is_currently_escaping = false
+
+@onready var sheep_animator : AnimationPlayer = $Sheep/AnimationPlayer
 var flock = null
 var new_force = Vector3.ZERO
 var should_calculate = false
@@ -63,7 +67,13 @@ enum states {
 	DEAD 			# when it starves to death
 } 
 
+enum AnimationStates{
+	WALKING,
+	STARTING_GRAZING,
+	GRAZING
+}
 
+var current_animation_state : AnimationStates= AnimationStates.WALKING
 func draw_gizmos_propagate(dg):
 	draw_gizmos = dg
 	var children = get_children()
@@ -95,13 +105,13 @@ func _ready():
 func update_nearest_grass():
 	var temp_nearest_distance : float = INF
 	var me_pos : Vector3 = global_position
-	for grass : Grass in flock.grasses:
-		if grass.is_full():
+	for grass_entity : Grass in flock.grasses:
+		if grass_entity.is_full():
 			continue
-		var temp_distance = me_pos.distance_to(grass.global_position)
+		var temp_distance = me_pos.distance_to(grass_entity.global_position)
 		if temp_distance < temp_nearest_distance:
 			temp_nearest_distance = temp_distance
-			nearest_grass = grass
+			nearest_grass = grass_entity
 	
 func _gravity(delta: float) -> Vector3:
 	if not is_on_floor():
@@ -113,55 +123,54 @@ func _physics_process(delta):
 	if pause:
 		return
 	if is_dead():
-		
 		ascension(delta)
 		look_at(global_transform.origin + Vector3(0, -1, 0), Vector3.BACK)
 		move_and_slide()
+		print("dead")
 		return
-	tick_counter+= 1
-	if tick_counter % tick_rate == 0:
-		hunger += metabolism * randf_range(0,1.0)
-		hunger = clamp(hunger, 0.0, 1.0)
-		if (is_equal_approx(hunger, 1.0)):
-			health -= 1.0 * randf_range(0.001,0.5)
-			
-		health = clamp(health, 0, 100.0)
-		if(is_equal_approx(health, 0.0) and !is_dead()):
-			kill()
-			return
+	else:
+		tick_counter+= 1
+		if tick_counter % tick_rate == 0: update_stats()	
 	
 	if hunger > 0.5 and current_state != states.GRAZING:
 		change_state(states.GRAZING)
 	elif hunger <= 0.1 and current_state == states.GRAZING:
 		change_state(states.ROAMING) 
-	
 	count_neighbors_simple()
 	if max_speed == 0:
 		push_warning("max_speed is 0")
 	# lerp in the new forces
 	if should_calculate:
-		new_force = calculate(delta)
+		force = calculate(delta)
 		should_calculate = false
 	#force = lerp(force, new_force, delta)
-	force = new_force
 
 	force += _gravity(delta)
 	acceleration = force / mass
 	velocity += acceleration * delta
 
-	if velocity.length() > 0:		
-		
-		velocity = velocity.limit_length(max_speed)
-		
-		# Damping
+
+	if is_currently_grazing:
+		velocity *= delta * 0.1
+	else:
 		velocity -= velocity * delta * damping
-		move_and_slide()
-		if velocity.length() == 0:
-			return
-		# Implement Banking as described:
-		# https://www.cs.toronto.edu/~dt/siggraph97-course/cwr87/
-		var temp_up = global_transform.basis.y.lerp(Vector3.UP + (acceleration * banking), delta * 5.0)
-		look_at(global_transform.origin - velocity.normalized(), temp_up)
+		
+	
+	
+	
+	velocity = velocity.limit_length(max_speed)
+	
+
+	move_and_slide()
+	if is_zero_approx(velocity.length()) or  is_currently_grazing:
+		global_rotation.x = 0.0
+		return
+	# Implement Banking as described:
+	# https://www.cs.toronto.edu/~dt/siggraph97-course/cwr87/
+	var temp_up = global_transform.basis.y.lerp(Vector3.UP + (acceleration * banking), delta * 5.0)
+
+	look_at(global_transform.origin - velocity.normalized(), temp_up)
+
 
 	
 	
@@ -233,23 +242,29 @@ func update_weights(weights):
 func calculate(_delta):
 	var force_acc : Vector3 = Vector3.ZERO
 	var behaviors_active = ""
-	if current_state == states.GRAZING:
+	if current_state == states.GRAZING and not is_currently_grazing:
 		update_nearest_grass()
-			
+	is_currently_escaping = false
+	var behaviour_forces = {}
 	for behaviour in behaviours:
 		if not behaviour.enabled:
 			continue
-		if current_state == states.GRAZING:
-			if not behaviour is Grazer and not behaviour is Escape:
-				continue
-		
+		if current_state == states.GRAZING and (not behaviour is Grazer and not behaviour is Escape):
+			continue
+		 
 		var f = behaviour.calculate().normalized() * behaviour.weight
-
-		if is_nan(f.x) or is_nan(f.y) or is_nan(f.z):
-			push_error(str(behaviour) + " is NAN")
-			f = Vector3.ZERO
+		if f.length() == 0.0: continue
+		if behaviour is Escape: is_currently_escaping = true
+		behaviour_forces[behaviour] = f
+	if current_state == states.GRAZING and can_graze and not is_currently_escaping:
+		is_currently_grazing = true
+		return -force/2
+		
+	is_currently_grazing = false
+	for behaviour in behaviour_forces:
+		var f = behaviour_forces[behaviour]
 		behaviors_active += behaviour.name + ": " + str(round(f.length())) + " "
-		force_acc += f 
+		force_acc += f
 
 	if draw_gizmos:
 		DebugDraw2D.set_text(name, behaviors_active)
@@ -260,10 +275,9 @@ func calculate(_delta):
 
 func _process(_delta):
 	should_calculate = true
-	if draw_gizmos:
-		on_draw_gizmos()
-		
-
+	if draw_gizmos: on_draw_gizmos()
+	update_animation()
+	
 
 @export_group("Ascension")
 @export var ascension_rate: float = 0.2
@@ -292,4 +306,42 @@ func kill():
 	current_state = states.DEAD
 
 
-	
+
+func update_stats():
+	if is_currently_grazing:
+		hunger -= metabolism * randf_range(0.5,5.0)
+		return
+	hunger += metabolism * randf_range(0,0.5)
+	hunger = clamp(hunger, 0.0, 1.0)
+	if (is_equal_approx(hunger, 1.0)):
+		health -= 10.0 * randf_range(0.01,1.0)
+	health = clamp(health, 0, 100.0)
+	if(is_equal_approx(health, 0.0) and !is_dead()):
+
+		kill()
+
+
+func change_animation(new_animation: String):
+	sheep_animator.play(new_animation, -1, 1.0, true)
+
+func update_animation():
+	match current_state:
+		states.ROAMING:
+			if current_animation_state != AnimationStates.WALKING:
+				current_animation_state = AnimationStates.WALKING
+				change_animation("Walking_001")
+		states.GRAZING:
+			if is_currently_grazing == false:
+				change_animation("Walking_001")
+				current_animation_state = AnimationStates.WALKING
+				
+			elif current_animation_state == AnimationStates.WALKING:
+
+				current_animation_state = AnimationStates.STARTING_GRAZING
+				change_animation("startEat_001")
+			elif current_animation_state == AnimationStates.STARTING_GRAZING and sheep_animator.current_animation == "startEat_001" and sheep_animator.is_playing() == false:
+
+				current_animation_state = AnimationStates.GRAZING
+				change_animation("Eating_002")  
+		states.DEAD:
+			sheep_animator.stop()
