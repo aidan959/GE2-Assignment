@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://bnxxlmbg1vo0o"
-path="res://.godot/imported/terrain+Jar.gltf-f452e4421570211c298bf4448abb8b21.scn"
+path="res://.godot/imported/terrain+Jar.gltf-792b4a578283e2ea6f4232264bb081dd.scn"
 
 [deps]
 
-source_file="res://models/blender/terrain+Jar.gltf"
-dest_files=["res://.godot/imported/terrain+Jar.gltf-f452e4421570211c298bf4448abb8b21.scn"]
+source_file="res://models/gltf/terrain+Jar.gltf"
+dest_files=["res://.godot/imported/terrain+Jar.gltf-792b4a578283e2ea6f4232264bb081dd.scn"]
 
 [params]
 
