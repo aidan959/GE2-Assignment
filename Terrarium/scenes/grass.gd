@@ -6,9 +6,7 @@ var current_num_grazers = 0
 func _ready():
 	pass
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
+
 func _on_body_entered(body : Node3D):
 	if body is Sheep:
 		current_num_grazers += 1

@@ -78,8 +78,11 @@ var current_state : states
 func _ready():
 	randomize()
 		# Check for a variable
-	if get_parent() is Flock:
-		flock = get_parent()
+	if not  get_parent() is Flock:
+		push_error("Sheep spawned outside of Flock node.")	
+	flock = get_parent()
+	if flock.grasses.size() == 0: push_warning("No instances of grass found.")	
+		
 	ascension_light = find_child("AscensionLight")
 	for i in get_child_count():
 		var child = get_child(i)
@@ -90,7 +93,6 @@ func _ready():
 		child.set_process(child.enabled) 
 	# enable_all(false)
 func update_nearest_grass():
-	if flock.grasses.size() == 0: push_warning("No instances of grass found.")
 	var temp_nearest_distance : float = INF
 	var me_pos : Vector3 = global_position
 	for grass : Grass in flock.grasses:
@@ -110,9 +112,15 @@ func _gravity(delta: float) -> Vector3:
 func _physics_process(delta):
 	if pause:
 		return
-	tick_counter+= 1	
+	if is_dead():
+		
+		ascension(delta)
+		look_at(global_transform.origin + Vector3(0, -1, 0), Vector3.BACK)
+		move_and_slide()
+		return
+	tick_counter+= 1
 	if tick_counter % tick_rate == 0:
-		hunger += metabolism * randf_range(0,0.01)
+		hunger += metabolism * randf_range(0,1.0)
 		hunger = clamp(hunger, 0.0, 1.0)
 		if (is_equal_approx(hunger, 1.0)):
 			health -= 1.0 * randf_range(0.001,0.5)
@@ -120,17 +128,13 @@ func _physics_process(delta):
 		health = clamp(health, 0, 100.0)
 		if(is_equal_approx(health, 0.0) and !is_dead()):
 			kill()
-	if is_dead():
-		ascension(delta)
-		look_at(global_transform.origin + Vector3(0, -1, 0), Vector3.BACK)
-		move_and_slide()
-		return
+			return
+	
 	if hunger > 0.5 and current_state != states.GRAZING:
 		change_state(states.GRAZING)
 	elif hunger <= 0.1 and current_state == states.GRAZING:
 		change_state(states.ROAMING) 
 	
-	#adjust_to_terrain()
 	count_neighbors_simple()
 	if max_speed == 0:
 		push_warning("max_speed is 0")
@@ -226,7 +230,7 @@ func update_weights(weights):
 		if b: 
 			b.weight = weights[behavior]
 
-func calculate(delta):
+func calculate(_delta):
 	var force_acc : Vector3 = Vector3.ZERO
 	var behaviors_active = ""
 	if current_state == states.GRAZING:
@@ -254,22 +258,12 @@ func calculate(delta):
 	return force_acc
 
 
-func _process(delta):
+func _process(_delta):
 	should_calculate = true
 	if draw_gizmos:
 		on_draw_gizmos()
 		
-			
 
-func adjust_to_terrain():
-	return
-	var ray_end = global_transform.origin - Vector3.UP * ground_ray_depth
-	var space_state = get_world_3d().direct_space_state
-	var query = PhysicsRayQueryParameters3D.create(ground_detector.global_position, ray_end)
-	var result = space_state.intersect_ray(query)
-
-	if result:
-		global_transform.origin.y = result.position.y
 
 @export_group("Ascension")
 @export var ascension_rate: float = 0.2
@@ -277,7 +271,7 @@ func adjust_to_terrain():
 @export var max_ascension_velocity: float = 30.0
 var ascension_velocity: Vector3 = Vector3.ZERO
 
-var ascension_acceleration: float = 0.01
+var ascension_acceleration: float = 0.05
 
 func ascension(delta):
 	ascension_acceleration += ascension_rate * delta
@@ -295,6 +289,7 @@ func kill():
 	if ascension_light:
 		ascension_light.visible = true
 	health = 0.0
-	change_state(states.DEAD)
-	print("dead")
+	current_state = states.DEAD
+
+
 	

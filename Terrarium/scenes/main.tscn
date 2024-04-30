@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dh52fxfx2rten"]
+[gd_scene load_steps=10 format=3 uid="uid://dh52fxfx2rten"]
 
 [ext_resource type="PackedScene" uid="uid://c2nwkj3tahlxg" path="res://scenes/grass.tscn" id="1_8n11t"]
 [ext_resource type="Script" path="res://scripts/world.gd" id="1_hqvga"]
@@ -12,9 +12,6 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_8n2mg"]
 size = Vector3(100.223, 0.0605469, 100.073)
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_by6k0"]
-viewport_path = NodePath("UIViewport")
-
 [node name="Main" type="Node3D"]
 
 [node name="Ground" type="CSGBox3D" parent="."]
@@ -27,6 +24,7 @@ script = ExtResource("2_qkdbf")
 sheep_scene = ExtResource("2_cbkbv")
 grass_scene = ExtResource("1_8n11t")
 count = 10
+grass_count = 0
 radius = 10
 neighbor_distance = 10
 avoid_distance = 1
@@ -59,16 +57,16 @@ offset_bottom = 648.0
 mouse_filter = 2
 script = ExtResource("7_cgsf7")
 player = NodePath("../Player")
-viewport = NodePath("../UIViewport")
+viewport = NodePath("SheepData/SheepViewport/SheepCamera/UIViewport")
 
-[node name="Panel" type="Panel" parent="BoidInfometer"]
+[node name="SheepData" type="Panel" parent="BoidInfometer"]
 layout_mode = 0
 offset_left = 24.0
 offset_top = 24.0
 offset_right = 224.0
 offset_bottom = 301.0
 
-[node name="SheepViewport" type="Panel" parent="BoidInfometer/Panel"]
+[node name="SheepViewport" type="Panel" parent="BoidInfometer/SheepData"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.05
@@ -77,18 +75,26 @@ anchor_right = 0.95
 anchor_bottom = 0.65
 grow_horizontal = 2
 
-[node name="SheepCamera" type="TextureRect" parent="BoidInfometer/Panel/SheepViewport"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = SubResource("ViewportTexture_by6k0")
-expand_mode = 2
-metadata/_edit_use_anchors_ = true
+[node name="SheepCamera" type="SubViewportContainer" parent="BoidInfometer/SheepData/SheepViewport"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
 
-[node name="Stats" type="Panel" parent="BoidInfometer/Panel"]
+[node name="UIViewport" type="SubViewport" parent="BoidInfometer/SheepData/SheepViewport/SheepCamera"]
+handle_input_locally = false
+use_occlusion_culling = true
+size = Vector2i(180, 170)
+render_target_update_mode = 4
+
+[node name="Follower" type="Camera3D" parent="BoidInfometer/SheepData/SheepViewport/SheepCamera/UIViewport"]
+transform = Transform3D(-0.450504, 0, 0.892775, 0, 1, 0, -0.892775, 0, -0.450504, 0, 3, 0)
+current = true
+fov = 50.0
+near = 0.095
+script = ExtResource("8_cwjm7")
+orbit_height = 3.0
+
+[node name="Stats" type="Panel" parent="BoidInfometer/SheepData"]
 layout_direction = 2
 layout_mode = 1
 anchors_preset = -1
@@ -98,14 +104,25 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="HealthBar" type="ProgressBar" parent="BoidInfometer/Panel/Stats"]
+[node name="NameTag" type="RichTextLabel" parent="BoidInfometer/SheepData/Stats"]
+custom_minimum_size = Vector2(100.22, 27.415)
 layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_bottom = 27.0
-grow_horizontal = 2
+offset_right = 1.0
+offset_bottom = 27.415
+bbcode_enabled = true
 
-[node name="HungerBar" type="ProgressBar" parent="BoidInfometer/Panel/Stats"]
+[node name="StateTag" type="RichTextLabel" parent="BoidInfometer/SheepData/Stats"]
+custom_minimum_size = Vector2(100.22, 27.415)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -100.22
+offset_bottom = 27.415
+grow_horizontal = 0
+bbcode_enabled = true
+
+[node name="HealthBar" type="ProgressBar" parent="BoidInfometer/SheepData/Stats"]
 layout_mode = 1
 anchors_preset = 14
 anchor_top = 0.5
@@ -115,10 +132,14 @@ offset_top = -13.5
 offset_bottom = 13.5
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="HungerBar" type="ProgressBar" parent="BoidInfometer/SheepData/Stats"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -27.0
+grow_horizontal = 2
+grow_vertical = 0
 max_value = 1.0
-
-[node name="UIViewport" type="SubViewport" parent="."]
-size = Vector2i(256, 256)
-
-[node name="Follower" type="Camera3D" parent="UIViewport"]
-script = ExtResource("8_cwjm7")

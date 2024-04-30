@@ -33,9 +33,8 @@ func do_draw_gizmos():
 func _process(delta):
 	if draw_gizmos: do_draw_gizmos()
 
-
-# Called when the node enters the scene tree for the first time.
 func _ready():
+	load_names()
 	randomize()
 	center = get_node(center_path)
 	for node in get_parent().get_children():
@@ -54,8 +53,9 @@ func _ready():
 		var boid : Sheep = sheep
 		
 		boid.draw_gizmos_propagate(draw_gizmos)
-		boid.hunger = randf_range(0.1, 0.4)
+		boid.hunger = randf_range(0.5, 0.8)
 		boid.metabolism = randf_range(0.001, 0.005)
+		boid.name = get_random_unique_name()
 		
 		boids.push_back(boid)		
 		var constrain = boid.get_node("Constrain")
@@ -70,6 +70,25 @@ func _ready():
 		add_child(grass)
 		grass.global_position = pos
 		var grass_instance : Grass = grass
-		grasses.push_back(grass)
+		grasses.push_back(grass_instance)
 
+var names = []
+
+func load_names():
+	var file = FileAccess.open("res://data/sheep_names.txt",FileAccess.READ)
+	
+	while not file.eof_reached():
+		var name = file.get_line().capitalize()
+		if name != "":
+			names.append(name)
+
+func get_random_unique_name():
+	if names.size() == 0:
+		push_error("No more unique names available.")
+		return ""
+	
+	var index = randi() % names.size()
+	var name = names[index]
+	names.remove_at(index) 
+	return name
 

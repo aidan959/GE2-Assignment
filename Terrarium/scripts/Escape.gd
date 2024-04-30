@@ -23,7 +23,7 @@ func calculate():
 	var diff = boid.global_position - boid.flock.predators[0].global_position
 	force = (diff/diff.length()) * inv_square(diff.length())
 	
-	DebugDraw3D.draw_arrow(boid.global_position, boid.flock.predators[0].global_position, Color.AQUA, clamp(force.length(),0.0, 10.0), true)
+	if draw_gizmos: DebugDraw3D.draw_arrow(boid.global_position, boid.flock.predators[0].global_position, Color.AQUA, clamp(force.length(),0.0, 10.0), true)
 	return force
 	
 	
