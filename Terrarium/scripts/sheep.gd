@@ -2,7 +2,7 @@ class_name Sheep extends Boid
 
 var nearest_grass : Grass = null
 var grass = [] 
-var can_graze = false
+var can_eat = false
 var is_currently_escaping = false
 
 @onready var animator : AnimationPlayer = $Sheep/AnimationPlayer
@@ -145,7 +145,7 @@ func calculate(_delta):
 		if f.length() == 0.0: continue
 		if behaviour is Escape: is_currently_escaping = true
 		behaviour_forces[behaviour] = f
-	if current_state == BoidStates.GRAZING and can_graze and not is_currently_escaping:
+	if current_state == BoidStates.GRAZING and can_eat and not is_currently_escaping:
 		is_currently_eating = true
 		return -force/2
 		
@@ -197,18 +197,7 @@ func kill():
 
 
 func update_stats():
-	if is_currently_eating:
-		hunger -= metabolism * randf_range(0.5,5.0)
-		return
-	hunger += metabolism * randf_range(0,0.5)
-	hunger = clamp(hunger, 0.0, 1.0)
-	if (is_equal_approx(hunger, 1.0)):
-		health -= 10.0 * randf_range(0.01,1.0)
-	health = clamp(health, 0, 100.0)
-	if(is_equal_approx(health, 0.0) and !is_dead()):
-
-		kill()
-
+	super.update_stats()
 
 func change_animation(new_animation: String):
 	animator.play(new_animation, -1, 1.0, true)

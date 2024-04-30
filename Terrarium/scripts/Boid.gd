@@ -149,10 +149,7 @@ func calculate(_delta):
 				f = Vector3.ZERO
 			behaviours_active += behaviours[i].name + ": " + str(round(f.length())) + " "
 			force_acc += f 
-			if force_acc.length() > max_force:
-				force_acc = force_acc.limit_length(max_force)
-				behaviours_active += " Limiting force"
-				break
+	force_acc = force_acc.limit_length(max_force)
 	if draw_gizmos:
 		DebugDraw2D.set_text(name, behaviours_active)
 	return force_acc
