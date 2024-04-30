@@ -52,10 +52,13 @@ func adjust_snow_intensity(intensity: float) -> void:
 	set_snow_intensity(intensity)
 	
 
+<<<<<<< Updated upstream
 func _process(delta):
 	if player:
 		global_transform.origin = player.global_transform.origin
 
+=======
+>>>>>>> Stashed changes
 func _ready() -> void:
 	player = get_parent().get_node("Player")
 	update_weather_status()

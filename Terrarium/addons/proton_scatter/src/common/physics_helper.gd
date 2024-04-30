@@ -26,9 +26,22 @@ func _ready() -> void:
 	_is_ready = true
 
 
+func _exit_tree():
+	if _job_in_progress:
+		_job_in_progress = false
+		job_completed.emit()
+
+
 func execute(queries: Array) -> Array[Dictionary]:
 	if not _is_ready:
 		printerr("ProtonScatter error: Calling execute on a PhysicsHelper before it's ready, this should not happen.")
+		return []
+
+	# Don't execute physics queries, if the node is not inside the tree.
+	# This avoids infinite loops, because the _physics_process will never be executed.
+	# This happens when the Scatter node is removed, while it perform a rebuild with a Thread.
+	if not is_inside_tree():
+		printerr("ProtonScatter error: Calling execute on a PhysicsHelper while the node is not inside the tree.")
 		return []
 
 	# Clear previous job if any
@@ -86,3 +99,5 @@ func _until(s: Signal, callable: Callable, physics := false) -> void:
 
 	while callable.call():
 		OS.delay_msec(delay)
+		if not is_inside_tree():
+			return

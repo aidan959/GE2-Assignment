@@ -99,6 +99,7 @@ static func get_or_create_multimesh(item: ProtonScatterItem, count: int) -> Mult
 	mmi.visibility_range_end 			= item.visibility_range_end
 	mmi.visibility_range_end_margin 	= item.visibility_range_end_margin
 	mmi.visibility_range_fade_mode 		= item.visibility_range_fade_mode
+	mmi.layers = item.visibility_layers
 
 	mmi.multimesh.instance_count = count
 
@@ -142,7 +143,8 @@ static func get_or_create_multimesh_chunk(item: ProtonScatterItem,
 	mmi.visibility_range_end 			= item.visibility_range_end
 	mmi.visibility_range_end_margin 	= item.visibility_range_end_margin
 	mmi.visibility_range_fade_mode 		= item.visibility_range_fade_mode
-
+	mmi.layers = item.visibility_layers
+	
 	mmi.multimesh.instance_count = count
 
 	return mmi
@@ -167,6 +169,7 @@ static func get_or_create_particles(item: ProtonScatterItem) -> GPUParticles3D:
 	particles.set_draw_pass_mesh(0, mesh_instance.mesh)
 	particles.position = Vector3.ZERO
 	particles.local_coords = true
+	particles.layers = item.visibility_layers
 
 	# Use the user provided material if it exists.
 	var process_material: Material = item.override_process_material
@@ -477,3 +480,10 @@ static func get_aabb_from_transforms(transforms : Array) -> AABB:
 	for t in transforms:
 		aabb = aabb.expand(t.origin)
 	return aabb
+
+
+static func set_visibility_layers(node: Node, layers: int) -> void:
+	if node is VisualInstance3D:
+		node.layers = layers
+	for child in node.get_children():
+		set_visibility_layers(child, layers)

@@ -140,6 +140,7 @@ func create_ui_for(modifier) -> void:
 			parameter_ui.set_parameter_name(property.name.capitalize())
 			parameter_ui.set_value(modifier.get(property.name))
 			parameter_ui.set_hint_string(property.hint_string)
+			parameter_ui.set_scatter(_scatter)
 			parameter_ui.value_changed.connect(_on_parameter_value_changed.bind(property.name, parameter_ui))
 
 	_expand.button_pressed = _modifier.expanded
