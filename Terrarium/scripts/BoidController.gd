@@ -3,17 +3,20 @@ class_name BoidController extends Node
 @export var sheep_scene:PackedScene
 @export var spawners: Dictionary  = {
 	Sheep: 0.3,
+	Shark: 0.1
 }
 
 var boid_types : Dictionary = {
 	"Sheep": preload("res://scenes/Boids/Sheep.tscn"),
-	"Frog": preload("res://scenes/Boids/Frog.tscn")
+	"Frog": preload("res://scenes/Boids/Frog.tscn"),
+	"Shark": preload("res://scenes/Boids/Shark.tscn")
 }
 
 
 var spawn_amount : Dictionary = {
 	"Sheep": 70,
-	"Frog": 30
+	"Frog": 30,
+	"Shark": 5
 }
 
 @export var grass_scene:PackedScene
@@ -51,7 +54,7 @@ func _ready():
 	randomize()
 	center = get_node(center_path)
 	for node in get_parent().get_children():
-		var potential_pred =node.find_child("Predator", true)
+		var potential_pred = node.find_child("Predator", true)
 		if potential_pred:
 			
 			predators.push_back(potential_pred.get_parent())
