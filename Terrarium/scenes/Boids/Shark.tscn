@@ -1,7 +1,6 @@
-[gd_scene load_steps=10 format=3 uid="uid://do7aea6ie87y"]
+[gd_scene load_steps=9 format=3 uid="uid://do7aea6ie87y"]
 
-[ext_resource type="Script" path="res://scripts/Boids/Frog.gd" id="1_hjm71"]
-[ext_resource type="Script" path="res://scripts/Boids/Behaviours/AntiSocial.gd" id="2_3edrc"]
+[ext_resource type="Script" path="res://scripts/Boids/Shark.gd" id="1_1dv3b"]
 [ext_resource type="Script" path="res://scripts/Boids/Behaviours/Cohesion.gd" id="3_1nmjh"]
 [ext_resource type="Script" path="res://scripts/Boids/Behaviours/Alignment.gd" id="4_rramw"]
 [ext_resource type="Script" path="res://scripts/Boids/Behaviours/Avoidance.gd" id="5_c2f3j"]
@@ -10,43 +9,32 @@
 [ext_resource type="PackedScene" uid="uid://b1vprshi6ha4e" path="res://models/gltf/SHARK.gltf" id="8_kwnw1"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ggkxb"]
-size = Vector3(5.44312, 1.89593, 0.511017)
+size = Vector3(5.41844, 1.90493, 2.7298)
 
 [node name="Boid" type="CharacterBody3D"]
 collision_layer = 257
 collision_mask = 2
-script = ExtResource("1_hjm71")
-draw_gizmos = false
-hunger = 1.0
-metabolism = 1.0
-tick_rate = 60
+script = ExtResource("1_1dv3b")
 spawn_location = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.564562, -0.161136, 0.0161909)
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 2.4795e-08, -0.169384, -0.567243)
 shape = SubResource("BoxShape3D_ggkxb")
-
-[node name="AntiSocial" type="Node" parent="."]
-script = ExtResource("2_3edrc")
-softness = 1.0
 
 [node name="Cohesion" type="Node" parent="."]
 script = ExtResource("3_1nmjh")
 
 [node name="Alignment" type="Node" parent="."]
 script = ExtResource("4_rramw")
-enabled = false
 
 [node name="Avoidance" type="Node" parent="."]
 script = ExtResource("5_c2f3j")
 softness = 1.0
 weight = 3.0
-enabled = false
 
 [node name="Constrain" type="Node" parent="."]
 script = ExtResource("6_6psgg")
 draw_gizmos = false
-enabled = false
 
 [node name="Wander" type="Node" parent="."]
 script = ExtResource("7_hc27p")
@@ -56,3 +44,4 @@ weight = 0.1
 draw_gizmos = false
 
 [node name="SHARK" parent="." instance=ExtResource("8_kwnw1")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
