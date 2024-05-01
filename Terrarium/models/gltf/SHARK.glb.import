@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://xa2n5j7g60ej"
-path="res://.godot/imported/Sheep.gltf-879d12f1b564c95acbba16f620ef9635.scn"
+uid="uid://bn0p8l1pa2ns2"
+path="res://.godot/imported/SHARK.glb-0ce13bb4daea3e54b5ca15e3836d6076.scn"
 
 [deps]
 
-source_file="res://models/gltf/Sheep.gltf"
-dest_files=["res://.godot/imported/Sheep.gltf-879d12f1b564c95acbba16f620ef9635.scn"]
+source_file="res://models/gltf/SHARK.glb"
+dest_files=["res://.godot/imported/SHARK.glb-0ce13bb4daea3e54b5ca15e3836d6076.scn"]
 
 [params]
 
