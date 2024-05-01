@@ -1,14 +1,17 @@
-[gd_scene load_steps=12 format=3 uid="uid://blg3yr70eue5y"]
+[gd_scene load_steps=15 format=3 uid="uid://blg3yr70eue5y"]
 
 [ext_resource type="Script" path="res://scripts/Boids/Sheep.gd" id="1_k0npw"]
 [ext_resource type="Script" path="res://scripts/Boids/Behaviours/Escape.gd" id="1_pslmd"]
 [ext_resource type="Script" path="res://scripts/Boids/Behaviours/Cohesion.gd" id="2_3285g"]
+[ext_resource type="AudioStream" uid="uid://c8dvh5en5w7h" path="res://sounds/test_sounds/Escape.mp3" id="3_jlbw6"]
 [ext_resource type="Script" path="res://scripts/Boids/Behaviours/Alignment.gd" id="3_xtapx"]
 [ext_resource type="Script" path="res://scripts/Boids/Behaviours/Avoidance.gd" id="4_art8r"]
 [ext_resource type="Script" path="res://scripts/Boids/Behaviours/Constrain.gd" id="5_5hxyb"]
+[ext_resource type="AudioStream" uid="uid://dfty4fywj5ryk" path="res://sounds/test_sounds/Cohesion.mp3" id="5_oudvs"]
 [ext_resource type="PackedScene" uid="uid://c83v5ntlr0m0p" path="res://scripts/Boids/Behaviours/Grazer.tscn" id="6_85b7r"]
 [ext_resource type="Script" path="res://scripts/Boids/Behaviours/Wander.gd" id="7_eurwo"]
 [ext_resource type="PackedScene" uid="uid://8ac3umk67bfo" path="res://SheepModel.tscn" id="8_nycs1"]
+[ext_resource type="Script" path="res://scripts/BoidSoundPlayer.gd" id="12_k3lcw"]
 
 [sub_resource type="TextMesh" id="TextMesh_hbalk"]
 text = "SHEEP"
@@ -19,6 +22,9 @@ depth = 0.5
 size = Vector3(0.60084, 0.91084, 1.39185)
 
 [node name="Boid" type="CharacterBody3D"]
+process_thread_group = 1
+process_thread_group_order = 0
+process_thread_messages = 3
 collision_layer = 257
 collision_mask = 2
 script = ExtResource("1_k0npw")
@@ -29,6 +35,9 @@ metabolism = 1.0
 tick_rate = 60
 
 [node name="SheepBody" type="CSGBox3D" parent="."]
+process_thread_group = 2
+process_thread_group_order = 0
+process_thread_messages = 3
 visible = false
 layers = 256
 
@@ -43,9 +52,11 @@ shape = SubResource("BoxShape3D_ggkxb")
 [node name="Escape" type="Node" parent="."]
 script = ExtResource("1_pslmd")
 weight = 10.0
+behaviour_sounds = Array[AudioStream]([ExtResource("3_jlbw6")])
 
 [node name="Cohesion" type="Node" parent="."]
 script = ExtResource("2_3285g")
+behaviour_sounds = Array[AudioStream]([ExtResource("5_oudvs")])
 
 [node name="Alignment" type="Node" parent="."]
 script = ExtResource("3_xtapx")
@@ -88,3 +99,10 @@ spot_angle = 16.1695
 
 [node name="Sheep" parent="." instance=ExtResource("8_nycs1")]
 transform = Transform3D(-2.18557e-08, 0, -0.5, 0, 0.5, 0, 0.5, 0, -2.18557e-08, 0, 0, 0)
+
+[node name="SoundPlayer" type="AudioStreamPlayer3D" parent="." node_paths=PackedStringArray("boid")]
+process_thread_group = 1
+process_thread_group_order = 1
+process_thread_messages = 2
+script = ExtResource("12_k3lcw")
+boid = NodePath("..")

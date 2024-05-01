@@ -10,8 +10,10 @@ class_name Boid extends CharacterBody3D
 @export var banking = 0.1
 @export var damping = 0.1
 @export_range(0.0,50.0) var neighbour_distance = 10.0
-
 @export var behaviours : Array[SteeringBehavior] = [] 
+
+@export_category("Audio")
+@export var boid_sound_player: BoidSoundPlayer
 
 @export_category("Debug")
 @export var draw_gizmos = true
@@ -55,6 +57,13 @@ func initialize_flock():
 		push_error("Boid spawned outside of BoidManager node.")	
 	flock = get_parent()
 	if flock.grasses.size() == 0: push_warning("No instances of grass found.")
+func initalize_sound_player():
+	if boid_sound_player: return
+	var children = get_children()	
+	for child in children:
+		if not child is BoidSoundPlayer: continue
+		boid_sound_player = child
+		
 
 func initialize_behaviours():
 	for i in get_child_count():
@@ -63,10 +72,11 @@ func initialize_behaviours():
 			continue
 		behaviours.push_back(child)
 		child.draw_gizmos = draw_gizmos
-		child.set_process(child.enabled)
+		#child.set_process(child.enabled)
  
 func _ready():
 	randomize()
+	initalize_sound_player()
 	initialize_flock()
 	initialize_behaviours()
 
@@ -221,3 +231,7 @@ func _physics_process(delta):
 			# https://www.cs.toronto.edu/~dt/siggraph97-course/cwr87/
 			var temp_up = global_transform.basis.y.lerp(Vector3.UP + (acceleration * banking), delta * 5.0)
 			look_at(global_transform.origin - vel.normalized(), temp_up)
+
+
+
+

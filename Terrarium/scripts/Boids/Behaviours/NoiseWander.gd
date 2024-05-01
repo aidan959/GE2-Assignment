@@ -60,5 +60,5 @@ func calculate():
 	
 	world_target = boid.global_transform.origin + (projected * local_target)	
 	theta += frequency * delta * PI * 2.0
-
-	return boid.seek_force(world_target)
+	force = boid.seek_force(world_target) 
+	return force

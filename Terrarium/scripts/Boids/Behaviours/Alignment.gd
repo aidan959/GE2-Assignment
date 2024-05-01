@@ -1,6 +1,5 @@
 class_name Alignment extends SteeringBehavior
 
-var force = Vector3.ZERO
 var desired = Vector3.ZERO
 
 func _ready():
