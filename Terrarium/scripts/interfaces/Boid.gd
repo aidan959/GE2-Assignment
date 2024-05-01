@@ -72,7 +72,9 @@ func initialize_behaviours():
 			continue
 		behaviours.push_back(child)
 		child.draw_gizmos = draw_gizmos
-		#child.set_process(child.enabled)
+		child.set_process(child.enabled)
+		if boid_sound_player and child.has_sounds():
+			boid_sound_player.add_behaviour_with_sound(child)
  
 func _ready():
 	randomize()
@@ -218,7 +220,7 @@ func _physics_process(delta):
 		speed = vel.length()
 		if speed > 0:
 			if max_speed == 0:
-				print("max_speed is 0")
+				push_warning("max_speed is 0")
 			vel = vel.limit_length(max_speed)
 			
 			# Damping

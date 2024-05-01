@@ -18,7 +18,7 @@ var boid_types : Dictionary = {
 	"Frog": 30,
 	"Shark": 5
 }
-
+ 
 @export var grass_scene:PackedScene
 @export var grass_count = 5
 
