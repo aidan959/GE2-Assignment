@@ -12,8 +12,8 @@ var boid_types : Dictionary = {
 
 
 var spawn_amount : Dictionary = {
-	"Sheep": 25,
-	"Frog": 10
+	"Sheep": 70,
+	"Frog": 30
 }
 
 @export var grass_scene:PackedScene

@@ -44,19 +44,17 @@ func update_nearest_grass():
 	
 func do_be_dead(delta):
 	ascension(delta)
+	move_and_slide()
 	look_at(global_transform.origin + Vector3(0, -1, 0), Vector3.BACK)
-func change_state(state : BoidStates):
-	current_state = state
-func is_dead() -> bool:
-	return current_state == BoidStates.DEAD
+
 func _physics_process(delta):
 	if pause: return
+	tick_counter+= 1
+	if tick_counter % tick_rate == 0: update_stats()	
 	if is_dead():
 		do_be_dead(delta)
-		move_and_slide()
-	else:
-		tick_counter+= 1
-		if tick_counter % tick_rate == 0: update_stats()	
+		return
+		
 	
 	if hunger > 0.5 and current_state != BoidStates.GRAZING:
 		change_state(BoidStates.GRAZING)
@@ -172,6 +170,7 @@ var ascension_velocity: Vector3 = Vector3.ZERO
 var ascension_acceleration: float = 0.05
 
 func ascension(delta):
+
 	ascension_acceleration += ascension_rate * delta
 	ascension_velocity.y += ascension_acceleration * delta
 	global_transform.origin += ascension_velocity * delta + get_shake_vector(delta)

@@ -78,11 +78,11 @@ moon_intensity = SubResource("Curve_j7fs4")
 [node name="Sun" type="DirectionalLight3D" parent="DayNightCycle"]
 
 [node name="Moon" type="DirectionalLight3D" parent="DayNightCycle"]
-sky_mode = 1
 light_energy = 2.0
 shadow_enabled = true
+sky_mode = 1
 
-[node name="Moon" type="DirectionalLight3D" parent="DayNightCycle"]
+[node name="Moon2" type="DirectionalLight3D" parent="DayNightCycle"]
 sky_mode = 1
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="DayNightCycle"]
