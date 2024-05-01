@@ -64,7 +64,7 @@ func _physics_process(delta):
 	elif hunger > 0.5 and current_state != BoidStates.GRAZING:
 		change_state(BoidStates.GRAZING)
 		
-	count_neighbours_simple(get_script())
+	count_neighbours_simple(Sheep)
 	
 	if max_speed == 0:
 		push_warning("max_speed is 0")

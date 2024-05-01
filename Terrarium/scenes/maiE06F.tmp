@@ -27,7 +27,6 @@ grass_scene = ExtResource("1_8n11t")
 radius = 25
 neighbour_distance = 10
 avoid_distance = 1
-draw_gizmos = true
 center_path = NodePath("../World Center")
 metadata/_edit_group_ = true
 

@@ -10,7 +10,6 @@ var boid_types : Dictionary = {
 	"Frog": preload("res://scenes/Boids/Frog.tscn")
 }
 
-
 var spawn_amount : Dictionary = {
 	"Sheep": 20,
 	#"Frog": 30
