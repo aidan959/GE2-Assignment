@@ -7,7 +7,7 @@ class_name Avoidance extends SteeringBehavior
 enum ForceDirection {Normal, Incident, Up, Braking}
 @export var softness : float = 1000
 var fake_zero : float = 0.0001
-var force = Vector3.ZERO
+
 var feelers = []
 var space_state
 var needs_updating = true
