@@ -1,6 +1,5 @@
 class_name BoidController extends Node
 
-@export var sheep_scene:PackedScene
 @export var spawners: Dictionary  = {
 	Sheep: 0.3,
 	Shark: 0.1
@@ -8,14 +7,12 @@ class_name BoidController extends Node
 
 var boid_types : Dictionary = {
 	"Sheep": preload("res://scenes/Boids/Sheep.tscn"),
-	"Frog": preload("res://scenes/Boids/Frog.tscn"),
-	"Shark": preload("res://scenes/Boids/Shark.tscn")
+	"Shark": preload("res://scenes/Boids/Shark2.tscn")
 }
 
 
 @export var spawn_amount : Dictionary = {
 	"Sheep": 70,
-	"Frog": 30,
 	"Shark": 5
 }
  

@@ -10,7 +10,7 @@
 [ext_resource type="AudioStream" uid="uid://dfty4fywj5ryk" path="res://sounds/test_sounds/Cohesion.mp3" id="5_oudvs"]
 [ext_resource type="PackedScene" uid="uid://c83v5ntlr0m0p" path="res://scripts/Boids/Behaviours/Grazer.tscn" id="6_85b7r"]
 [ext_resource type="Script" path="res://scripts/Boids/Behaviours/Wander.gd" id="7_eurwo"]
-[ext_resource type="PackedScene" uid="uid://8ac3umk67bfo" path="res://SheepModel.tscn" id="8_nycs1"]
+[ext_resource type="PackedScene" uid="uid://df0848ht838wj" path="res://SheepModel.tscn" id="8_nycs1"]
 [ext_resource type="AudioStream" uid="uid://c485c2e08igui" path="res://sounds/test_sounds/Avoidance.mp3" id="8_yb4k3"]
 [ext_resource type="AudioStream" uid="uid://inl8wq6vnkh4" path="res://sounds/test_sounds/Constrain.mp3" id="9_g4fbp"]
 [ext_resource type="AudioStream" uid="uid://oe63b0a3skib" path="res://sounds/test_sounds/Grazing.mp3" id="9_y1emy"]

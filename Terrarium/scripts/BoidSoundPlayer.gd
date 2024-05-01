@@ -6,6 +6,8 @@ var sound_enabled_behaviours : Dictionary= {}
 @export_range(0.0, 30.0) var min_sound_interval: float = 5
 @export var dead_music: AudioStream
 @export var funny_dead_music: AudioStream
+var funny_dead_music_chance = 0.01
+
 
 @export var kill_sound: AudioStream
 var has_died = false
@@ -41,8 +43,9 @@ func _physics_process(_delta):
 		
 	if has_died:
 		if dead_music == null: return
-		
-		stream = dead_music
+		var random_chance = randf()
+		var dead_m = dead_music if random_chance > funny_dead_music_chance else funny_dead_music
+		stream = dead_m
 		play()
 		return
 	var current_time = Time.get_ticks_msec()/1000.0
@@ -74,7 +77,7 @@ func _physics_process(_delta):
 	
 	if chosen_sound != null:
 		stream = chosen_sound
-		pitch_scale = randf_range(0.6, 1.3)
+		pitch_scale = randf_range(0.7, 1.2)
 		volume_db = randf_range(0.3, 0.8)
 		play()
 

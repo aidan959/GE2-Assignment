@@ -1,7 +1,5 @@
 [gd_scene load_steps=15 format=3 uid="uid://dh52fxfx2rten"]
 
-
-[ext_resource type="PackedScene" uid="uid://blg3yr70eue5y" path="res://scenes/Boids/Sheep.tscn" id="2_cbkbv"]
 [ext_resource type="Script" path="res://scripts/BoidController.gd" id="2_qkdbf"]
 [ext_resource type="Script" path="res://scenes/grass.gd" id="3_l3wkh"]
 [ext_resource type="Texture2D" uid="uid://bf5r2lkwaxguk" path="res://textures/moss1.png" id="4_4bhah"]
@@ -49,11 +47,7 @@ size = Vector3(100, 0.001, 100)
 [node name="BoidController" type="Node3D" parent="." node_paths=PackedStringArray("environment_controller")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.15405, 1.91234, 5.04409)
 script = ExtResource("2_qkdbf")
-sheep_scene = ExtResource("2_cbkbv")
-
 grass_scene = SubResource("PackedScene_kxt68")
-grass_count = 1
-
 radius = 25
 neighbour_distance = 10
 avoid_distance = 1
