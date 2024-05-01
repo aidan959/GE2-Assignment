@@ -1,0 +1,15 @@
+[gd_scene load_steps=5 format=3 uid="uid://dn43u1jd5gbam"]
+
+[ext_resource type="Script" path="res://scenes/GodCloud.gd" id="1_wuek3"]
+[ext_resource type="PackedScene" uid="uid://bm5s5l2mqur4q" path="res://models/gltf/GodCloud.glb" id="1_x4hup"]
+[ext_resource type="PackedScene" uid="uid://dthrgiv7b8efg" path="res://models/gltf/GodHead.glb" id="3_rvmkv"]
+[ext_resource type="Script" path="res://models/gltf/GodHead.gd" id="4_b6ueu"]
+
+[node name="Node3D" type="Node3D"]
+script = ExtResource("1_wuek3")
+
+[node name="GodCloud" parent="." instance=ExtResource("1_x4hup")]
+
+[node name="GodHead" parent="." instance=ExtResource("3_rvmkv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.483, 3.08628, 0)
+script = ExtResource("4_b6ueu")
