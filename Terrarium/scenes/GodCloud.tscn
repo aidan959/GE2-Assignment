@@ -5,6 +5,7 @@
 [ext_resource type="Script" path="res://models/gltf/GodHead.gd" id="4_b6ueu"]
 
 [node name="GodCloud" type="Node3D"]
+transform = Transform3D(-0.0106986, 0, 0.999943, 0, 1, 0, -0.999943, 0, -0.0106986, 0, 0, 0)
 
 [node name="GodCloud" parent="." instance=ExtResource("1_x4hup")]
 
