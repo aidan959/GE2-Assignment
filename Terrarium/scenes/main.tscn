@@ -47,11 +47,16 @@ size = Vector3(100, 0.001, 100)
 [node name="BoidController" type="Node3D" parent="." node_paths=PackedStringArray("environment_controller")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.15405, 1.91234, 5.04409)
 script = ExtResource("2_qkdbf")
+spawn_amount = {
+"Shark": 0,
+"Sheep": 10
+}
 grass_scene = SubResource("PackedScene_kxt68")
 radius = 25
-neighbour_distance = 10
+neighbour_distance = 15
 avoid_distance = 1
 environment_controller = NodePath("../EnvironmentController")
+draw_gizmos = true
 center_path = NodePath("../World Center")
 metadata/_edit_group_ = true
 

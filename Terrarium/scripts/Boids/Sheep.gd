@@ -63,10 +63,9 @@ func _physics_process(delta):
 		change_state(BoidStates.ROAMING)
 
 	elif hunger > 0.5 and current_state != BoidStates.GRAZING:
-
 		change_state(BoidStates.GRAZING)
 		
-	count_neighbours_simple(get_script())
+	count_neighbours_simple(Sheep)
 	
 	if max_speed == 0:
 		push_warning("max_speed is 0")
@@ -142,7 +141,6 @@ func calculate(_delta):
 			continue
 		if current_state == BoidStates.GRAZING and (not behaviour is Grazer and not behaviour is Escape):
 			continue
-		 
 		var f = behaviour.calculate().normalized() * behaviour.weight
 		if f.length() == 0.0: continue
 		if behaviour is Escape: is_currently_escaping = true

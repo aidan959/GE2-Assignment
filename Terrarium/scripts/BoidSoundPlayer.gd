@@ -3,11 +3,11 @@ class_name BoidSoundPlayer extends AudioStreamPlayer3D
 @export var boid: Boid = null
 @export var enabled: bool = true : set = _set_enabled 
 var sound_enabled_behaviours : Dictionary= {}
-@export_range(0.0, 30.0) var min_sound_interval: float = 5
+@export_range(0.0, 30.0) var min_sound_interval: float = 10
 @export var dead_music: AudioStream
 @export var funny_dead_music: AudioStream
-var funny_dead_music_chance = 0.01
-
+var funny_dead_music_chance = 0.1
+var sound_cooldown_time: float = 0.0
 
 @export var kill_sound: AudioStream
 var has_died = false
@@ -15,6 +15,7 @@ var last_sound_played_time: float = -1
 
 func _ready():
 	enabled = enabled
+	sound_cooldown_time = randf_range(0, min_sound_interval)
 
 func _set_enabled(new_value: bool):
 	if not boid:
@@ -45,12 +46,13 @@ func _physics_process(_delta):
 		if dead_music == null: return
 		var random_chance = randf()
 		var dead_m = dead_music if random_chance > funny_dead_music_chance else funny_dead_music
+		volume_db = -10.0
 		stream = dead_m
 		play()
 		return
-	var current_time = Time.get_ticks_msec()/1000.0
-	var time_since_last_sound = current_time - last_sound_played_time
-	if time_since_last_sound >= min_sound_interval: return
+	if sound_cooldown_time > 0.0:
+		sound_cooldown_time -= _delta
+		return
 	var sound_weight_acc : float = 0.0
 	var behavior_sound_weights = {}
 	for behaviour in sound_enabled_behaviours:
@@ -69,19 +71,20 @@ func _physics_process(_delta):
 		var sound_weight = behavior_sound_weights[behaviour]
 		var probability = sound_weight / sound_weight_acc
 		cumulative_probability += probability
-
-		if random_value <= cumulative_probability:
+		
+		if random_value * 50.0 <= (cumulative_probability):
 			
-			chosen_sound = behaviour.sounds[0]
+			chosen_sound = behaviour.get_random_sound()
 			break
-	
+
 	if chosen_sound != null:
 		stream = chosen_sound
 		pitch_scale = randf_range(0.7, 1.2)
-		volume_db = randf_range(0.3, 0.8)
+		volume_db = randf_range(-15, -10)
 		play()
+		sound_cooldown_time = min_sound_interval
+	
 
-	last_sound_played_time = current_time
 func add_behaviour_with_sound(behaviour: SteeringBehavior):
 	if not behaviour.has_sounds(): return
 	sound_enabled_behaviours[behaviour] = null

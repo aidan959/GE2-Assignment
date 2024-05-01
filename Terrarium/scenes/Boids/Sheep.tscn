@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://blg3yr70eue5y"]
+[gd_scene load_steps=24 format=3 uid="uid://blg3yr70eue5y"]
 
 [ext_resource type="Script" path="res://scripts/Boids/Sheep.gd" id="1_k0npw"]
 [ext_resource type="Script" path="res://scripts/Boids/Behaviours/Escape.gd" id="1_pslmd"]
@@ -20,6 +20,7 @@
 [ext_resource type="AudioStream" uid="uid://bqfmy75spoa8b" path="res://sounds/sheep/sheep-baa5.wav" id="16_kn1al"]
 [ext_resource type="AudioStream" uid="uid://c6evphj760jlv" path="res://sounds/music/angel_sound_effect.mp3" id="19_od7wj"]
 [ext_resource type="AudioStream" uid="uid://ct5x1ilvrit2k" path="res://sounds/music/bring_me_life.mp3" id="20_enw0f"]
+[ext_resource type="AudioStream" uid="uid://df1wqtoojvfvp" path="res://sounds/sheep/sheep-baa-GOD.mp3" id="21_1phdk"]
 
 [sub_resource type="TextMesh" id="TextMesh_hbalk"]
 text = "SHEEP"
@@ -37,6 +38,7 @@ collision_layer = 257
 collision_mask = 2
 script = ExtResource("1_k0npw")
 escape_distance = 5.0
+neighbour_distance = 15.0
 draw_gizmos = false
 hunger = 1.0
 metabolism = 1.0
@@ -65,15 +67,18 @@ sound_weight = 1.0
 
 [node name="Cohesion" type="Node" parent="."]
 script = ExtResource("2_3285g")
+weight = 1.5
 sounds = Array[AudioStream]([ExtResource("5_oudvs")])
+sound_weight = 0.195
 
 [node name="Alignment" type="Node" parent="."]
 script = ExtResource("3_xtapx")
+weight = 1.5
 
 [node name="Avoidance" type="Node" parent="."]
 script = ExtResource("4_art8r")
 softness = 1.0
-weight = 1.5
+weight = 0.5
 sounds = Array[AudioStream]([ExtResource("8_yb4k3")])
 
 [node name="Constrain" type="Node" parent="."]
@@ -85,6 +90,7 @@ sounds = Array[AudioStream]([ExtResource("9_g4fbp")])
 weight = 1.5
 sounds = Array[AudioStream]([ExtResource("9_y1emy")])
 sound_weight = 0.445
+enabled = false
 
 [node name="Wander" type="Node" parent="."]
 script = ExtResource("7_eurwo")
@@ -120,9 +126,14 @@ process_thread_group = 1
 process_thread_group_order = 2
 process_thread_messages = 3
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.895964, 0.666691)
+attenuation_model = 2
 emission_angle_enabled = true
+emission_angle_degrees = 30.1
+attenuation_filter_cutoff_hz = 8980.0
+doppler_tracking = 2
 script = ExtResource("12_k3lcw")
 boid = NodePath("..")
-min_sound_interval = 10.0
+min_sound_interval = 5.0
 dead_music = ExtResource("19_od7wj")
 funny_dead_music = ExtResource("20_enw0f")
+kill_sound = ExtResource("21_1phdk")
