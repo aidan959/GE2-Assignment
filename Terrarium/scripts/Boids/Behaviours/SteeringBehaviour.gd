@@ -3,7 +3,7 @@ class_name SteeringBehavior extends Node
 @export var weight = 1.0
 @export var draw_gizmos = true
 
-@export var behaviour_sounds : Array[AudioStream] = []
+@export var sounds : Array[AudioStream] = []
 @export_range(0.0, 1.0) var sound_weight : float = 0.5
 @export_range(0.0, 1.0) var sound_volume : float = 1.0
 
@@ -28,4 +28,7 @@ func _process(_delta):
 		on_draw_gizmos()
 
 func has_sounds() -> bool:
-	return not behaviour_sounds.is_empty()
+	return not sounds.is_empty()
+	
+func get_random_sound() -> AudioStream:
+	return sounds.pick_random()

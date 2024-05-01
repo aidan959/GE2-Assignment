@@ -51,7 +51,7 @@ func adjust_snow_intensity(intensity: float) -> void:
 	set_snow_intensity(intensity)
 	
 
-func _process(delta):
+func _physics_process(_delta):
 	if player:
 		global_transform.origin = player.global_transform.origin
 

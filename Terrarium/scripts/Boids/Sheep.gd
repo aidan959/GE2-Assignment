@@ -127,9 +127,7 @@ func calculate(_delta):
 		update_nearest_grass()
 	is_currently_escaping = false
 	var behaviour_forces = {}
-	var sound_weight_acc : float = 0.0  
 
-	var behavior_sound_weights = {}
 	for behaviour in behaviours:
 		if not behaviour.enabled:
 			continue
