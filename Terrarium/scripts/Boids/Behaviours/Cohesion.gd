@@ -1,7 +1,4 @@
 class_name Cohesion extends SteeringBehavior
-
-
-var force = Vector3.ZERO
 var center_of_mass = Vector3.ZERO
 # Called when the node enters the scene tree for the first time.
 func _ready():

@@ -18,9 +18,9 @@ func on_draw_gizmos():
 	pass
 
 func calculate():
-	var me_pos = boid.global_position
+	var _me_pos = boid.global_position
 	var center_of_mass : Vector3 = Vector3.ZERO
-	var force = Vector3.ZERO
+	force = Vector3.ZERO
 	if boid.neighbours.size() <= 3:
 		return Vector3.ZERO
 	for other_boid in boid.neighbours:

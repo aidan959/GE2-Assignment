@@ -1,6 +1,5 @@
 class_name Grazer extends SteeringBehavior
 
-var force = Vector3.ZERO
 @export var softness : float = 10.0
 
 func _ready():

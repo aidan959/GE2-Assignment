@@ -57,11 +57,13 @@ func _physics_process(delta):
 	if is_dead():
 		do_be_dead(delta)
 		return
+
 		
 	if hunger <= 0.1 or nearest_grass == null:
 		change_state(BoidStates.ROAMING)
 
 	elif hunger > 0.5 and current_state != BoidStates.GRAZING:
+
 		change_state(BoidStates.GRAZING)
 		
 	count_neighbours_simple(get_script())
@@ -125,14 +127,16 @@ func update_weights(weights):
 		var b = get_node(behavior)
 		if b: 
 			b.weight = weights[behavior]
-
+var behavior_sound_weights = {}
 func calculate(_delta):
+	behavior_sound_weights = {}
 	var force_acc : Vector3 = Vector3.ZERO
 	var behaviors_active = ""
 	if not is_currently_eating:
 		update_nearest_grass()
 	is_currently_escaping = false
 	var behaviour_forces = {}
+
 	for behaviour in behaviours:
 		if not behaviour.enabled:
 			continue
@@ -152,6 +156,10 @@ func calculate(_delta):
 		var f = behaviour_forces[behaviour]
 		behaviors_active += behaviour.name + ": " + str(round(f.length())) + " "
 		force_acc += f
+		# Calculate sound weight for the behavior
+		var sound_weight = f.length() * behaviour.sound_weight
+		
+		behavior_sound_weights[behaviour] = sound_weight
 
 	if draw_gizmos:
 		DebugDraw2D.set_text(name, behaviors_active)
@@ -191,9 +199,6 @@ func kill():
 	super.kill()
 	if ascension_light:
 		ascension_light.visible = true
-	
-
-
 
 func update_stats():
 	super.update_stats()

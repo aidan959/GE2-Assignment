@@ -3,19 +3,22 @@ class_name BoidController extends Node
 @export var sheep_scene:PackedScene
 @export var spawners: Dictionary  = {
 	Sheep: 0.3,
+	Shark: 0.1
 }
 
 var boid_types : Dictionary = {
 	"Sheep": preload("res://scenes/Boids/Sheep.tscn"),
-	"Frog": preload("res://scenes/Boids/Frog.tscn")
+	"Frog": preload("res://scenes/Boids/Frog.tscn"),
+	"Shark": preload("res://scenes/Boids/Shark.tscn")
 }
 
 
-var spawn_amount : Dictionary = {
-	"Sheep": 20,
-	#"Frog": 30
+@export var spawn_amount : Dictionary = {
+	"Sheep": 70,
+	"Frog": 30,
+	"Shark": 5
 }
-
+ 
 @export var grass_scene:PackedScene
 @export var grass_count = 1
 
@@ -63,11 +66,10 @@ func _ready():
 		grass.global_position = pos
 		var grass_instance : GrassFood = grass
 		grasses.push_back(grass_instance)
-	var total_rate :float = 0
 	
 	for type in spawn_amount:
 		for i in spawn_amount[type]:
-			var amount = spawn_amount[type]
+			var _amount = spawn_amount[type]
 
 			var boid = boid_types[type].instantiate()
 
@@ -78,12 +80,13 @@ func _ready():
 			boid.global_rotation = Vector3(0, randf_range(0, PI * 2.0),  0)
 
 			if not typeof(boid) in boids:
+				
 				boids[typeof(boid)] = []
 
 
 			boid.draw_gizmos_propagate(draw_gizmos)
-			boid.hunger = randf_range(0.5, 0.8)
-			boid.metabolism = randf_range(0.1, 0.5)
+			boid.hunger = randf_range(0.0, 0.1)
+			boid.metabolism = randf_range(0.01, 0.05)
 			boid.name = get_random_unique_name()
 			
 			boids[typeof(boid)].push_back(boid)
