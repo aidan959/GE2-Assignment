@@ -1,5 +1,6 @@
 [gd_scene load_steps=15 format=3 uid="uid://dh52fxfx2rten"]
 
+
 [ext_resource type="PackedScene" uid="uid://blg3yr70eue5y" path="res://scenes/Boids/Sheep.tscn" id="2_cbkbv"]
 [ext_resource type="Script" path="res://scripts/BoidController.gd" id="2_qkdbf"]
 [ext_resource type="Script" path="res://scenes/grass.gd" id="3_l3wkh"]
@@ -8,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://b5w6wthj6ida4" path="res://scenes/env_controller.tscn" id="6_usu0l"]
 [ext_resource type="Script" path="res://scripts/BoidInfometer.gd" id="7_cgsf7"]
 [ext_resource type="Script" path="res://scenes/Follower.gd" id="8_cwjm7"]
+[ext_resource type="PackedScene" uid="uid://dp276413u6prv" path="res://scenes/island.tscn" id="9_jggms"]
 [ext_resource type="PackedScene" uid="uid://db1i4dc4t020u" path="res://models/gltf/terrain.glb" id="9_wvx6d"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5tj4n"]
@@ -45,11 +47,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0785122, -28.9413, -0.05398
 size = Vector3(100, 0.001, 100)
 
 [node name="BoidController" type="Node3D" parent="." node_paths=PackedStringArray("environment_controller")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.19638, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.15405, 1.91234, 5.04409)
 script = ExtResource("2_qkdbf")
 sheep_scene = ExtResource("2_cbkbv")
+
 grass_scene = SubResource("PackedScene_kxt68")
 grass_count = 1
+
 radius = 25
 neighbour_distance = 10
 avoid_distance = 1
@@ -172,3 +176,6 @@ max_value = 1.0
 
 [node name="terrain" parent="." instance=ExtResource("9_wvx6d")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.9581, -51.4737, -38.6941)
+
+[node name="Island" parent="terrain" instance=ExtResource("9_jggms")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 45.383, 0)

@@ -4,12 +4,12 @@ shader_type spatial;
 
 uniform float metallic = 0.6;
 uniform float specular = 0.5;
-uniform float roughness = 0.2;
-uniform float amount = 0.7;
+uniform float roughness = 0.3;
+uniform float amount = 0.9;
 uniform float speed = 1.0;
 // Water color
 uniform vec4 out_color: source_color = vec4(0.0, 0.2, 1.0, 1.0);
-uniform float depth_factor = 0.9;
+uniform float depth_factor = 0.1;
 
 // Vertex shader variables
 varying vec2 vertex_uv;
@@ -24,10 +24,10 @@ float generateOffset(float x, float z, float val1, float val2, float time) {
 }
 
 vec3 applyDistortion(vec3 vertex, float time) {
-	float xd = generateOffset(vertex.x, vertex.z, 0.2, 0.1, time);
-	float yd = generateOffset(vertex.x, vertex.z, 0.1, 0.3, time);
-	float zd = generateOffset(vertex.x, vertex.z, 0.15, 0.2, time);
-	return vertex + vec3(xd, yd, zd);
+	float xd = generateOffset(vertex.x, vertex.z, 0.3, 0.15, time);
+    float yd = generateOffset(vertex.x, vertex.z, 0.15, 0.45, time);
+    float zd = generateOffset(vertex.x, vertex.z, 0.225, 0.3, time); 
+    return vertex + vec3(xd, yd, zd);
 }
 
 void vertex(){
@@ -52,6 +52,6 @@ void fragment() {
 	depth = PROJECTION_MATRIX[3][2] / (depth + PROJECTION_MATRIX[2][2]);
 	depth = depth + VERTEX.z;
 
-	depth = exp(-depth * depth_factor);
-	ALPHA = clamp(1.0 - depth, 0.0, 1.0);
+	float linear_depth = clamp(1.0 - depth, 0.0, 1.0);
+	ALPHA = clamp(1.0 - linear_depth * depth_factor, 0.0, 1.0); 
 }

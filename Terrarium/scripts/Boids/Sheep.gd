@@ -35,12 +35,15 @@ func update_nearest_grass():
 	var temp_nearest_distance : float = INF
 	var me_pos : Vector3 = global_position
 	for grass_entity : GrassFood in flock.grasses:
-		if grass_entity.is_full():
+		#print(grass_entity.fullness)
+		if grass_entity.is_full() or grass_entity.fullness == 0:
+			nearest_grass = null
 			continue
 		var temp_distance = me_pos.distance_to(grass_entity.global_position)
 		if temp_distance < temp_nearest_distance:
 			temp_nearest_distance = temp_distance
 			nearest_grass = grass_entity
+			#print(nearest_grass)
 	
 func do_be_dead(delta):
 	ascension(delta)
@@ -54,11 +57,17 @@ func _physics_process(delta):
 	if is_dead():
 		do_be_dead(delta)
 		return
-	if hunger > 0.5 and current_state != BoidStates.GRAZING:
+
+		
+	if hunger <= 0.1 or nearest_grass == null:
+		change_state(BoidStates.ROAMING)
+
+	elif hunger > 0.5 and current_state != BoidStates.GRAZING:
+
 		change_state(BoidStates.GRAZING)
-	elif hunger <= 0.1 and current_state == BoidStates.GRAZING:
-		change_state(BoidStates.ROAMING) 
+		
 	count_neighbours_simple(get_script())
+	
 	if max_speed == 0:
 		push_warning("max_speed is 0")
 	# lerp in the new forces
@@ -123,7 +132,7 @@ func calculate(_delta):
 	behavior_sound_weights = {}
 	var force_acc : Vector3 = Vector3.ZERO
 	var behaviors_active = ""
-	if current_state == BoidStates.GRAZING and not is_currently_eating:
+	if not is_currently_eating:
 		update_nearest_grass()
 	is_currently_escaping = false
 	var behaviour_forces = {}

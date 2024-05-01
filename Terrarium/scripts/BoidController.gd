@@ -20,7 +20,7 @@ var boid_types : Dictionary = {
 }
  
 @export var grass_scene:PackedScene
-@export var grass_count = 5
+@export var grass_count = 1
 
 
 @export var radius = 100
@@ -56,7 +56,6 @@ func _ready():
 	for node in get_parent().get_children():
 		var potential_pred = node.find_child("Predator", true)
 		if potential_pred:
-			
 			predators.push_back(potential_pred.get_parent())
 			
 	for i in grass_count:
