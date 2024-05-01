@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://b3x24nkuha3br"]
+
+[ext_resource type="Script" path="res://scripts/spawn_zone.gd" id="1_8bxps"]
+
+[sub_resource type="Curve3D" id="Curve3D_tgt43"]
+
+[node name="Test" type="Node2D"]
+
+[node name="SheepSpawn" type="Path3D" parent="."]
+curve = SubResource("Curve3D_tgt43")
+script = ExtResource("1_8bxps")
+spawnable_boids = Array[String](["Sheep"])
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]

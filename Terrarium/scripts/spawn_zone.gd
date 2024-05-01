@@ -1,11 +1,11 @@
-extends Area3D
+class_name SpawnPath extends Path3D
 
-
-# Called when the node enters the scene tree for the first time.
+@export var spawnable_boids : Array[String] = []
+@export_dir var boid_path : String = "res://scenes/Boids/"
+var boid_scenes :Array[PackedScene] = []
 func _ready():
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
+	for spawnable_boid in spawnable_boids:
+		var sheep_path = boid_path + spawnable_boid + ".tscn"
+		var boid = load(boid_path + spawnable_boid + ".tscn")
+		boid_scenes.push_back(boid)
+	

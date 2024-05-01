@@ -64,11 +64,10 @@ func _ready():
 		grass.global_position = pos
 		var grass_instance : GrassFood = grass
 		grasses.push_back(grass_instance)
-	var total_rate :float = 0
 	
 	for type in spawn_amount:
 		for i in spawn_amount[type]:
-			var amount = spawn_amount[type]
+			var _amount = spawn_amount[type]
 
 			var boid = boid_types[type].instantiate()
 
@@ -79,6 +78,7 @@ func _ready():
 			boid.global_rotation = Vector3(0, randf_range(0, PI * 2.0),  0)
 
 			if not typeof(boid) in boids:
+				
 				boids[typeof(boid)] = []
 
 
