@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://dum7sci0lbft8"]
+
+[ext_resource type="PackedScene" uid="uid://bn0p8l1pa2ns2" path="res://models/gltf/SHARK.glb" id="1_thwnr"]
+
+[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_xcq7c"]
+albedo_color = Color(0.0705882, 0.945098, 0.180392, 1)
+
+[node name="SHARK" instance=ExtResource("1_thwnr")]
+
+[node name="Skeleton3D" parent="Armature" index="0"]
+bones/0/rotation = Quaternion(-0.501321, 0.498676, 0.501321, 0.498676)
+bones/0/scale = Vector3(1, 1, 1)
+bones/1/rotation = Quaternion(-0.000366534, -3.42264e-08, -2.58892e-11, 1)
+bones/1/scale = Vector3(1, 1, 1)
+bones/2/rotation = Quaternion(0.00862965, 4.14393e-08, 6.97293e-10, 0.999963)
+bones/2/scale = Vector3(1, 1, 1)
+bones/4/rotation = Quaternion(-0.258459, 0.429729, 0.858232, 0.109407)
+bones/4/scale = Vector3(1, 1, 1)
+bones/5/rotation = Quaternion(0.860066, -0.115768, -0.269499, -0.417438)
+bones/6/rotation = Quaternion(-7.6671e-08, 1.47444e-08, -0.703597, 0.710599)
+
+[node name="Plane" parent="Armature/Skeleton3D" index="0"]
+surface_material_override/0 = SubResource("ORMMaterial3D_xcq7c")

@@ -1,62 +1,58 @@
-[gd_scene load_steps=11 format=3 uid="uid://cu6wua0hu4a74"]
+[gd_scene load_steps=10 format=3 uid="uid://do7aea6ie87y"]
 
-[ext_resource type="PackedScene" uid="uid://bn0p8l1pa2ns2" path="res://models/gltf/SHARK.glb" id="2_dw3mv"]
-[ext_resource type="Script" path="res://scripts/Boids/Behaviours/AntiSocial.gd" id="2_tbife"]
-[ext_resource type="Script" path="res://scripts/Boids/Behaviours/Cohesion.gd" id="3_bsvyp"]
-[ext_resource type="Script" path="res://scripts/Boids/Shark.gd" id="3_jqjdj"]
-[ext_resource type="Script" path="res://scripts/Boids/Behaviours/Alignment.gd" id="4_7uj5u"]
-[ext_resource type="Script" path="res://scripts/Boids/Behaviours/Avoidance.gd" id="5_qvlph"]
-[ext_resource type="Script" path="res://scripts/Boids/Behaviours/Constrain.gd" id="6_w3l1f"]
-[ext_resource type="Script" path="res://scripts/Boids/Behaviours/Wander.gd" id="7_rgrye"]
-
-[sub_resource type="TextMesh" id="TextMesh_48gaa"]
-text = "SHARK"
-font_size = 62
+[ext_resource type="Script" path="res://scripts/Boids/Frog.gd" id="1_hjm71"]
+[ext_resource type="Script" path="res://scripts/Boids/Behaviours/AntiSocial.gd" id="2_3edrc"]
+[ext_resource type="Script" path="res://scripts/Boids/Behaviours/Cohesion.gd" id="3_1nmjh"]
+[ext_resource type="Script" path="res://scripts/Boids/Behaviours/Alignment.gd" id="4_rramw"]
+[ext_resource type="Script" path="res://scripts/Boids/Behaviours/Avoidance.gd" id="5_c2f3j"]
+[ext_resource type="Script" path="res://scripts/Boids/Behaviours/Constrain.gd" id="6_6psgg"]
+[ext_resource type="Script" path="res://scripts/Boids/Behaviours/Wander.gd" id="7_hc27p"]
+[ext_resource type="PackedScene" uid="uid://b1vprshi6ha4e" path="res://models/gltf/SHARK.gltf" id="8_kwnw1"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ggkxb"]
-size = Vector3(5.44972, 1.98458, 2.67525)
+size = Vector3(5.44312, 1.89593, 0.511017)
 
 [node name="Boid" type="CharacterBody3D"]
 collision_layer = 257
 collision_mask = 2
-script = ExtResource("3_jqjdj")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3725, 0)
-visible = false
-mesh = SubResource("TextMesh_48gaa")
-
-[node name="Shark" parent="." instance=ExtResource("2_dw3mv")]
+script = ExtResource("1_hjm71")
+draw_gizmos = false
+hunger = 1.0
+metabolism = 1.0
+tick_rate = 60
+spawn_location = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.548571, -0.190779, -0.0223176)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.564562, -0.161136, 0.0161909)
 shape = SubResource("BoxShape3D_ggkxb")
 
 [node name="AntiSocial" type="Node" parent="."]
-script = ExtResource("2_tbife")
+script = ExtResource("2_3edrc")
 softness = 1.0
 
 [node name="Cohesion" type="Node" parent="."]
-script = ExtResource("3_bsvyp")
+script = ExtResource("3_1nmjh")
 
 [node name="Alignment" type="Node" parent="."]
-script = ExtResource("4_7uj5u")
+script = ExtResource("4_rramw")
 enabled = false
 
 [node name="Avoidance" type="Node" parent="."]
-script = ExtResource("5_qvlph")
+script = ExtResource("5_c2f3j")
 softness = 1.0
 weight = 3.0
 enabled = false
 
 [node name="Constrain" type="Node" parent="."]
-script = ExtResource("6_w3l1f")
+script = ExtResource("6_6psgg")
 draw_gizmos = false
 enabled = false
 
 [node name="Wander" type="Node" parent="."]
-script = ExtResource("7_rgrye")
+script = ExtResource("7_hc27p")
 distance = 10.0
 radius = 5.0
 weight = 0.1
 draw_gizmos = false
+
+[node name="SHARK" parent="." instance=ExtResource("8_kwnw1")]

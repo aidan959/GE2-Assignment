@@ -37,7 +37,7 @@ func _physics_process(delta):
 		return
 	else:
 		tick_counter+= 1
-		if tick_counter % tick_rate == 0: update_stats()	
+		#if tick_counter % tick_rate == 0: update_stats()	
 	
 	count_neighbours_simple(get_script())
 	if max_speed == 0:
@@ -46,7 +46,7 @@ func _physics_process(delta):
 	if should_calculate:
 		force = calculate(delta)
 		should_calculate = false
-	force += process_gravity(delta)
+	#force += process_gravity(delta)
 	acceleration = force / mass
 	velocity += acceleration * delta
 

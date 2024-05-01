@@ -13,7 +13,7 @@ var boid_types : Dictionary = {
 }
 
 
-var spawn_amount : Dictionary = {
+@export var spawn_amount : Dictionary = {
 	"Sheep": 70,
 	"Frog": 30,
 	"Shark": 5
@@ -86,8 +86,8 @@ func _ready():
 
 
 			boid.draw_gizmos_propagate(draw_gizmos)
-			boid.hunger = randf_range(0.5, 0.8)
-			boid.metabolism = randf_range(0.1, 0.5)
+			boid.hunger = randf_range(0.0, 0.1)
+			boid.metabolism = randf_range(0.01, 0.05)
 			boid.name = get_random_unique_name()
 			
 			boids[typeof(boid)].push_back(boid)
