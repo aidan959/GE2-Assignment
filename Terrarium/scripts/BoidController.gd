@@ -31,7 +31,7 @@ var boid_types : Dictionary = {
 var boids : Dictionary = {}
 var grasses : Array[GrassFood] = []
 var predators : Array[Node3D] = []
-
+@export var spawn_on_ready : bool = false
 
 @export var draw_gizmos : bool = false
 var cells = {}
@@ -54,7 +54,10 @@ func _ready():
 		var potential_pred = node.find_child("Predator", true)
 		if potential_pred:
 			predators.push_back(potential_pred.get_parent())
-			
+	if spawn_on_ready:
+		_spawn_boids()
+
+func _spawn_boids():
 	for i in grass_count:
 		var grass = grass_scene.instantiate()
 		var pos = Utils.random_point_in_unit_sphere() * radius
@@ -92,8 +95,6 @@ func _ready():
 			if constrain:
 				constrain.center = center
 				constrain.radius = radius
-
-
 var names = []
 
 func load_names():
