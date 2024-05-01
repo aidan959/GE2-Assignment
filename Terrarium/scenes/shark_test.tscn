@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://c1tm8y033y77h"]
+
+[ext_resource type="Script" path="res://scripts/BoidController.gd" id="1_idi5i"]
+[ext_resource type="PackedScene" uid="uid://be8abksxbl3jb" path="res://scenes/Player.tscn" id="2_inug3"]
+
+[node name="SharkTest" type="Node3D"]
+
+[node name="BoidController" type="Node" parent="."]
+script = ExtResource("1_idi5i")
+
+[node name="Player" parent="." instance=ExtResource("2_inug3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.68523, -21.9661, 6.07644)
+
+[node name="Ground" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0785122, -28.9413, -0.0539837)
+size = Vector3(100, 0.001, 100)
+
+[node name="World Center" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0785122, 1.65177, -0.0539837)

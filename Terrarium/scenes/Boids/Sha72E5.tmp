@@ -20,6 +20,25 @@ size = Vector3(5.44972, 1.98458, 2.67525)
 collision_layer = 257
 collision_mask = 2
 script = ExtResource("3_jqjdj")
+mass = null
+force = null
+acceleration = null
+vel = null
+speed = null
+max_speed = null
+max_force = null
+banking = null
+damping = null
+neighbour_distance = null
+draw_gizmos = null
+pause = null
+health = null
+hunger = null
+metabolism = null
+tick_rate = null
+is_currently_eating = null
+spawn_location = null
+current_state = null
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3725, 0)
