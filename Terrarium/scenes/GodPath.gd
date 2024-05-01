@@ -1,12 +1,14 @@
 extends Path3D
 
+var move_allowed = true  # Controls whether movement along the path is allowed
+const path_speed = 2
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	pass  # Replace with function body if necessary.
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	const move_speed := 0
-	$PathFollow3D.progress += move_speed * delta
+	if move_allowed:
+		$PathFollow3D.progress += path_speed * delta
+
+func set_movement_allowed(is_allowed):
+	move_allowed = is_allowed
