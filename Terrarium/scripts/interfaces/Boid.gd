@@ -172,6 +172,7 @@ func _process(_delta):
 func kill():
 	health = 0.0
 	current_state = BoidStates.DEAD
+	print(name +  " is Dead")
 
 func is_dead() -> bool:
 	return current_state == BoidStates.DEAD

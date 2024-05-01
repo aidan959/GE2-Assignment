@@ -6,7 +6,7 @@ class_name EnvironmentController extends Node
 @onready var heat_mesh = $HeatMesh
 @export var player : Player
 
-@onready var player_cam = player.find_child("Camera")
+var player_cam = null
 
 @export var day_length = 120.0  # Full day in seconds
 @export var current_time = 0.0  # Current time in the cycle
@@ -15,6 +15,7 @@ var is_heat : bool : set = set_is_heat
 
 func _ready():
 	set_weather_condition("clear")
+	player_cam = player.find_child("Camera")
 
 func _process(delta):
 	current_time += delta

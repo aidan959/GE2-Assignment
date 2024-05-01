@@ -34,6 +34,7 @@ func _physics_process(delta):
 	if is_dead():
 		do_be_dead(delta)
 		move_and_slide()
+		return
 	else:
 		tick_counter+= 1
 		if tick_counter % tick_rate == 0: update_stats()	
