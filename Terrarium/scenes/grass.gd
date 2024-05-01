@@ -19,7 +19,6 @@ func _process(delta):
 
 func update_grass_state():
 	if fullness == 0:
-		emit_signal("grass_depleted")  # Optionally handle this with a signal
 		for sheep in get_overlapping_bodies():
 			if sheep is Sheep:
 				sheep.can_eat = false

@@ -58,18 +58,14 @@ func _physics_process(delta):
 		do_be_dead(delta)
 		return
 		
-	if nearest_grass == null:
-		print("no nearest_grass")
-		
 	if hunger <= 0.1 or nearest_grass == null:
 		change_state(BoidStates.ROAMING)
 
 	elif hunger > 0.5 and current_state != BoidStates.GRAZING:
 		change_state(BoidStates.GRAZING)
 		
-	#elif hunger <= 0.1 and current_state == BoidStates.GRAZING:
-		#change_state(BoidStates.ROAMING) 
 	count_neighbours_simple(get_script())
+	
 	if max_speed == 0:
 		push_warning("max_speed is 0")
 	# lerp in the new forces
