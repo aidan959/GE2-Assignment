@@ -8,7 +8,7 @@ class_name EnvironmentController extends Node
 
 var player_cam = null
 
-@export var day_length = 120.0  # Full day in seconds
+@export var day_length = 360.0  # Full day in seconds
 @export var current_time = 0.0  # Current time in the cycle
 var weather_event_occurred : bool = false
 var is_heat : bool : set = set_is_heat
@@ -18,6 +18,7 @@ func _ready():
 	player_cam = player.find_child("Camera")
 
 func _process(delta):
+	#print(weather_timer.time_left)
 	current_time += delta
 	if current_time >= day_length:
 		current_time = 0  # Reset the day cycle
@@ -34,9 +35,9 @@ func _process(delta):
 		
 func consider_changing_weather():
 	print("Weather Considered")
-	#if randi() % 3 == 0:  # 1/3 chance to trigger a weather change
-	change_weather()
-	weather_timer.start(60)  # The weather effect lasts 60 seconds
+	if randi() % 3 == 0:  # 1/3 chance to trigger a weather change
+		change_weather()
+		weather_timer.start(60)  # The weather effect lasts 60 seconds
 
 func _on_weather_timer_timeout():
 	print("Weather Stop")
