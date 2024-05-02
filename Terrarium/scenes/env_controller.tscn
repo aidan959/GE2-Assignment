@@ -81,12 +81,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.619, 0)
 material_override = SubResource("ShaderMaterial_0a7vj")
 mesh = SubResource("CylinderMesh_dqnpp")
 
-[node name="weather" parent="." node_paths=PackedStringArray("world_environment") instance=ExtResource("2_byges")]
-rain_intensity = null
-is_raining = null
-snow_intensity = null
-is_snowing = null
-world_environment = NodePath("../DayNightCycle/WorldEnvironment")
+[node name="weather" parent="." instance=ExtResource("2_byges")]
 
 [node name="DayNightCycle" type="Node3D" parent="."]
 script = ExtResource("3_ufogt")
