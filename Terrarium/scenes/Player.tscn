@@ -61,4 +61,3 @@ stream = ExtResource("3_21wkv")
 volume_db = -3.0
 autoplay = true
 
-[node name="Env Test" parent="." instance=ExtResource("4_2e7vp")]

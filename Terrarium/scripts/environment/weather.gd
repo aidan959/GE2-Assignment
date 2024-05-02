@@ -39,7 +39,9 @@ func snow(intensity : float):
 	is_fog = true
 	
 func heat():
+	world_environment.environment.volumetric_fog_density = 0.0
 	heat_mesh.show()
+	
 	
 func toggle_fog(do_fog : bool):
 	is_fog = do_fog
@@ -49,5 +51,6 @@ func toggle_fog(do_fog : bool):
 		target_fog_density = 0.01
 
 func _physics_process(delta):
-	world_environment.environment.volumetric_fog_density = lerp(world_environment.environment.volumetric_fog_density, target_fog_density, 0.005)
+	if not heat_mesh.visible:
+		world_environment.environment.volumetric_fog_density = lerp(world_environment.environment.volumetric_fog_density, target_fog_density, 0.005)
 		

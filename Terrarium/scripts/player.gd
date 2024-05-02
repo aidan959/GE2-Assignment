@@ -27,7 +27,6 @@ var jump_vel: Vector3
 var last_bob_time: float = 0.0
 
 
-
 func apply_bob(delta: float):
 	if move_dir.length() > 0 and is_on_floor():
 		last_bob_time += delta * BOB_SPEED
