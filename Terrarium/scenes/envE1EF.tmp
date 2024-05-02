@@ -1,0 +1,84 @@
+[gd_scene load_steps=15 format=3 uid="uid://cfgb6gp0q3mdj"]
+
+[ext_resource type="Script" path="res://Test_env.gd" id="1_1hbfu"]
+[ext_resource type="PackedScene" uid="uid://bfy1dib6amqkf" path="res://scenes/weather.tscn" id="1_w743o"]
+[ext_resource type="PackedScene" uid="uid://be8abksxbl3jb" path="res://scenes/Player.tscn" id="3_2uwuq"]
+
+[sub_resource type="Gradient" id="Gradient_ubya2"]
+offsets = PackedFloat32Array(0.1, 0.4, 0.6, 0.903371)
+colors = PackedColorArray(0.203809, 0.316612, 0.700164, 1, 0.439216, 0.709804, 0.968627, 1, 0.438934, 0.711433, 0.968046, 1, 0.203922, 0.317647, 0.701961, 1)
+
+[sub_resource type="Gradient" id="Gradient_t8y4m"]
+offsets = PackedFloat32Array(0.0873362, 0.222707, 0.371179, 0.628821, 0.781659, 0.912664)
+colors = PackedColorArray(0.203922, 0.317647, 0.701961, 1, 0.87451, 0.521569, 0.403922, 1, 0.552941, 0.772549, 0.984314, 1, 0.552941, 0.772549, 0.984314, 1, 0.87451, 0.521569, 0.403922, 1, 0.203922, 0.317647, 0.701961, 1)
+
+[sub_resource type="Gradient" id="Gradient_svvyr"]
+offsets = PackedFloat32Array(0, 0.379913, 0.631004, 1)
+colors = PackedColorArray(1, 0.584314, 0.262745, 1, 1, 0.799706, 0.666171, 1, 1, 0.807843, 0.682353, 1, 1, 0.584314, 0.262745, 1)
+
+[sub_resource type="Gradient" id="Gradient_xpsdw"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0.123888, 0.097673, 0.374687, 1)
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_sgdwc"]
+sky_top_color = Color(0.21503, 0.456231, 0.726075, 1)
+sky_horizon_color = Color(0.498303, 0.67322, 0.850528, 1)
+ground_bottom_color = Color(0.215686, 0.454902, 0.72549, 1)
+ground_horizon_color = Color(0.498039, 0.67451, 0.85098, 1)
+
+[sub_resource type="Sky" id="Sky_7xe4r"]
+sky_material = SubResource("ProceduralSkyMaterial_sgdwc")
+
+[sub_resource type="Environment" id="Environment_sha78"]
+background_mode = 2
+sky = SubResource("Sky_7xe4r")
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_xdyt2"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_deebh"]
+size = Vector3(100.223, 100, 100.073)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8u4a1"]
+albedo_color = Color(0, 1, 1, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_dwc5c"]
+
+[node name="Env Test" type="Node3D"]
+script = ExtResource("1_1hbfu")
+top_sky = SubResource("Gradient_ubya2")
+horizon_sky = SubResource("Gradient_t8y4m")
+sun_colour = SubResource("Gradient_svvyr")
+moon_colour = SubResource("Gradient_xpsdw")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_sha78")
+
+[node name="Weather" parent="WorldEnvironment" instance=ExtResource("1_w743o")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 59.1154, 0)
+
+[node name="SunMoon" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -103.953)
+
+[node name="MoonLight" type="DirectionalLight3D" parent="SunMoon"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+shadow_enabled = true
+
+[node name="SunLight" type="DirectionalLight3D" parent="SunMoon"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+
+[node name="Player" parent="." instance=ExtResource("3_2uwuq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 73.216, 15.8408)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+collision_layer = 3
+collision_mask = 0
+physics_material_override = SubResource("PhysicsMaterial_xdyt2")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.153099, 0.0283203, -0.29355)
+shape = SubResource("BoxShape3D_deebh")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D/CollisionShape3D"]
+transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_8u4a1")
+mesh = SubResource("BoxMesh_dwc5c")
