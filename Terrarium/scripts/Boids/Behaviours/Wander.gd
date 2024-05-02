@@ -31,5 +31,5 @@ func calculate():
 	var local_target = (Vector3.BACK * distance) + wander_target
 
 	world_target = boid.global_transform * (local_target)
-	
-	return boid.seek_force(world_target)
+	force = boid.seek_force(world_target)
+	return force

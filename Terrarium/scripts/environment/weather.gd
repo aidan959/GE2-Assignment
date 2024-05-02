@@ -13,8 +13,6 @@ var is_fog : bool : set = toggle_fog
 var is_reset_fog : bool = false
 var target_fog_density : float = 0.01
 
-
-
 func start_timer(time : float):
 	weather_timer.start(time)
 	fog_time = time
@@ -23,7 +21,6 @@ func _on_weather_timer_timeout():
 	clear_weather()
 	is_fog = false
 
-	
 func clear_weather():
 	rain_particles.emitting = false
 	snow_particles.emitting = false

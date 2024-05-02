@@ -23,3 +23,5 @@ Cargo.lock
 !*.dll
 !*.so
 !*.dylib
+
+~*.dll

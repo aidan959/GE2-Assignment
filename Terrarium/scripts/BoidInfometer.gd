@@ -59,4 +59,3 @@ func _physics_process(_delta):
 	name_tag.text = "[center]" + focus_boid.name + "[/center]"
 	state_tag.text = "[center]" + focus_boid.BoidStates.keys()[focus_boid.current_state] + "[/center]"
 
-

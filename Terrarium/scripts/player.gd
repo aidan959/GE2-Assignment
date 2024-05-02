@@ -6,11 +6,14 @@ class_name Player extends CharacterBody3D
 
 @export_range(0.1, 3.0, 0.1) var jump_height: float = 1 # m
 @export_range(0.1, 3.0, 0.1, "or_greater") var camera_sens: float = 1
+@export var crosshair:  Panel 
+@export var music_player:  AudioStreamPlayer
 
 var jumping: bool = false
 var mouse_captured: bool = false
 
 var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
+@export var crosshair_visible : bool = false : set = _enable_crosshair
 
 var move_dir: Vector2
 var look_dir: Vector2
@@ -20,9 +23,13 @@ var grav_vel: Vector3
 var jump_vel: Vector3 
 
 @onready var camera: Camera3D = $Camera
-
+func _enable_crosshair(value: bool):
+	crosshair_visible = value
+	if crosshair:
+		crosshair.visible = crosshair_visible
 func _ready() -> void:
-	capture_mouse()
+	crosshair_visible = false
+
 	
 
 func _unhandled_input(event: InputEvent) -> void:

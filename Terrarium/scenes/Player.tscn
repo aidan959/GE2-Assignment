@@ -1,14 +1,17 @@
-[gd_scene load_steps=4 format=3 uid="uid://be8abksxbl3jb"]
+[gd_scene load_steps=5 format=3 uid="uid://be8abksxbl3jb"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_khdcl"]
 [ext_resource type="Script" path="res://scripts/BoidDetector.gd" id="2_3jdk1"]
+[ext_resource type="AudioStream" uid="uid://dpniofcytnny2" path="res://sounds/music/sheep song.mp3" id="3_21wkv"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_t4vqa"]
 radius = 0.3
 height = 1.8
 
-[node name="Player" type="CharacterBody3D"]
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("crosshair", "music_player")]
 script = ExtResource("1_khdcl")
+crosshair = NodePath("PlayerHUD/CenterContainer/Panel")
+music_player = NodePath("MusicPlayer")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.904236, 0)
@@ -49,3 +52,8 @@ grow_vertical = 2
 custom_minimum_size = Vector2(10, 10)
 layout_mode = 2
 mouse_filter = 2
+
+[node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_21wkv")
+volume_db = -3.0
+autoplay = true

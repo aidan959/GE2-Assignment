@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dpniofcytnny2"
+path="res://.godot/imported/sheep song.mp3-74ea2e4d5aa46a268675944e0c5bdc91.mp3str"
+
+[deps]
+
+source_file="res://sounds/music/sheep song.mp3"
+dest_files=["res://.godot/imported/sheep song.mp3-74ea2e4d5aa46a268675944e0c5bdc91.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

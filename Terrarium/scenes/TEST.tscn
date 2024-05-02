@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://b3x24nkuha3br"]
+
+[ext_resource type="Script" path="res://scripts/BoidController.gd" id="1_qvn1o"]
+
+[node name="Test" type="Node3D"]
+
+[node name="Node3D" type="Node3D" parent="."]
+script = ExtResource("1_qvn1o")
