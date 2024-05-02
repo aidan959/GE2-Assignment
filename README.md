@@ -9,3 +9,4 @@ NOTE:  Addons are not included in the repo and must be installed manually to run
 
 # Sound Sources
 Evanescence (Cover by @gemmaljohnston) - Bring Me To Life
+Halo Theme Song Notes - William Joseph & Lindsey Stirling
