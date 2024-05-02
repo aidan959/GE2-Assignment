@@ -8,8 +8,10 @@
 radius = 0.3
 height = 1.8
 
-[node name="Player" type="CharacterBody3D"]
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("crosshair", "music_player")]
 script = ExtResource("1_khdcl")
+crosshair = NodePath("PlayerHUD/CenterContainer/Panel")
+music_player = NodePath("MusicPlayer")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.904236, 0)
@@ -51,6 +53,7 @@ custom_minimum_size = Vector2(10, 10)
 layout_mode = 2
 mouse_filter = 2
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+[node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_21wkv")
+volume_db = -3.0
 autoplay = true

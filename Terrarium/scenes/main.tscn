@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://dh52fxfx2rten"]
+[gd_scene load_steps=18 format=3 uid="uid://dh52fxfx2rten"]
 
 [ext_resource type="Script" path="res://scripts/BoidController.gd" id="2_qkdbf"]
 [ext_resource type="Script" path="res://scenes/grass.gd" id="3_l3wkh"]
@@ -9,6 +9,9 @@
 [ext_resource type="Script" path="res://scenes/Follower.gd" id="8_cwjm7"]
 [ext_resource type="PackedScene" uid="uid://dp276413u6prv" path="res://scenes/island.tscn" id="9_jggms"]
 [ext_resource type="PackedScene" uid="uid://db1i4dc4t020u" path="res://models/gltf/terrain.glb" id="9_wvx6d"]
+[ext_resource type="Script" path="res://scripts/MainMenu.gd" id="10_6yboc"]
+[ext_resource type="AudioStream" uid="uid://dpniofcytnny2" path="res://sounds/music/sheep song.mp3" id="11_5pvwx"]
+[ext_resource type="AudioStream" uid="uid://cf3o7h3vc534a" path="res://sounds/music/sheep_music.mp3" id="12_dunkj"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5tj4n"]
 albedo_texture = ExtResource("4_4bhah")
@@ -56,7 +59,6 @@ radius = 25
 neighbour_distance = 15
 avoid_distance = 1
 environment_controller = NodePath("../EnvironmentController")
-draw_gizmos = true
 center_path = NodePath("../World Center")
 metadata/_edit_group_ = true
 
@@ -79,6 +81,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0178843, 2.38419e-07, -0.0
 player = NodePath("../Player")
 
 [node name="BoidInfometer" type="Control" parent="." node_paths=PackedStringArray("player", "viewport")]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 1152.0
@@ -113,7 +116,7 @@ offset_bottom = 40.0
 handle_input_locally = false
 use_occlusion_culling = true
 size = Vector2i(180, 170)
-render_target_update_mode = 4
+render_target_update_mode = 0
 
 [node name="Follower" type="Camera3D" parent="BoidInfometer/SheepData/SheepViewport/SheepCamera/UIViewport"]
 transform = Transform3D(-0.450504, 0, 0.892775, 0, 1, 0, -0.892775, 0, -0.450504, 0, 3, 0)
@@ -178,3 +181,61 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.9581, -51.4737, -38.6941)
 
 [node name="Island" parent="terrain" instance=ExtResource("9_jggms")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 45.383, 0)
+
+[node name="MenuCamera" type="Camera3D" parent="." node_paths=PackedStringArray("sheep_target")]
+current = true
+script = ExtResource("8_cwjm7")
+orbit_speed = 0.1
+orbit_radius = 200.0
+orbit_height = 200.0
+sheep_target = NodePath("../terrain/Island")
+do_lerp = true
+lerp_amount = 0.001
+
+[node name="Main Menu" type="Control" parent="." node_paths=PackedStringArray("player", "menu_camera", "boid_controller")]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("10_6yboc")
+player = NodePath("../Player")
+menu_camera = NodePath("../MenuCamera")
+boid_controller = NodePath("../BoidController")
+menu_music = ExtResource("11_5pvwx")
+game_music = ExtResource("12_dunkj")
+target_menu_music_volume = 0.7
+target_game_music_volume = 0.5
+
+[node name="CenterContainer" type="CenterContainer" parent="Main Menu"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 535.0
+offset_bottom = 613.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="Main Menu/CenterContainer"]
+custom_minimum_size = Vector2(256, 512)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Main Menu/CenterContainer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Main Menu/CenterContainer/Panel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 90)
+layout_mode = 2
+
+[node name="Button" type="Button" parent="Main Menu/CenterContainer/Panel/VBoxContainer/MarginContainer"]
+layout_mode = 2
+text = "Start Game
+"
+
+[connection signal="pressed" from="Main Menu/CenterContainer/Panel/VBoxContainer/MarginContainer/Button" to="Main Menu" method="_on_button_pressed"]
