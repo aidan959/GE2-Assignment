@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://blg3yr70eue5y" path="res://scenes/Boids/Sheep.tscn" id="2_cbkbv"]
 [ext_resource type="Script" path="res://scripts/BoidController.gd" id="2_qkdbf"]
 [ext_resource type="PackedScene" uid="uid://be8abksxbl3jb" path="res://scenes/Player.tscn" id="4_mbjog"]
-[ext_resource type="PackedScene" uid="uid://cfgb6gp0q3mdj" path="res://scenes/env_test.tscn" id="5_b8h41"]
+[ext_resource type="PackedScene" uid="uid://b5w6wthj6ida4" path="res://scenes/env_controller.tscn" id="6_usu0l"]
 [ext_resource type="Script" path="res://scripts/BoidInfometer.gd" id="7_cgsf7"]
 [ext_resource type="Script" path="res://scenes/Follower.gd" id="8_cwjm7"]
 [ext_resource type="Script" path="res://scenes/GodPath.gd" id="9_0wymx"]
@@ -29,14 +29,13 @@ size = Vector3(100, 0.001, 100)
 
 [node name="BoidController" type="Node3D" parent="." node_paths=PackedStringArray("environment_controller")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.19638, 0)
-
 script = ExtResource("2_qkdbf")
 sheep_scene = ExtResource("2_cbkbv")
 grass_scene = ExtResource("1_8n11t")
 radius = 25
 neighbour_distance = 10
 avoid_distance = 1
-draw_gizmos = true
+environment_controller = NodePath("../EnvironmentController")
 center_path = NodePath("../World Center")
 metadata/_edit_group_ = true
 
@@ -44,9 +43,7 @@ metadata/_edit_group_ = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0785122, 1.65177, -0.0539837)
 
 [node name="Player" parent="." instance=ExtResource("4_mbjog")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.68523, 4.29082, 6.07644)
-
-[node name="Env Test" parent="Player" instance=ExtResource("5_b8h41")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.68523, 1.18654, 6.07644)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 collision_layer = 3
@@ -55,6 +52,10 @@ collision_mask = 0
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.153099, 0.0283203, -0.29355)
 shape = SubResource("BoxShape3D_8n2mg")
+
+[node name="EnvironmentController" parent="." node_paths=PackedStringArray("player") instance=ExtResource("6_usu0l")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0178843, 2.38419e-07, -0.00143909)
+player = NodePath("../Player")
 
 [node name="BoidInfometer" type="Control" parent="." node_paths=PackedStringArray("player", "viewport")]
 layout_mode = 3
@@ -160,7 +161,7 @@ curve = SubResource("Curve3D_1gprq")
 script = ExtResource("9_0wymx")
 
 [node name="PathFollow3D" type="PathFollow3D" parent="Path3D"]
-transform = Transform3D(0.753806, 0.656343, 0.0311744, -0.654045, 0.74491, 0.131583, 0.0631417, -0.119577, 0.990814, -19.8749, 0, 0.000548742)
+transform = Transform3D(0.0476689, -0.0896488, 0.994837, -0.72338, 0.683692, 0.0962747, -0.68879, -0.72423, -0.0322601, 1.52376, 0.153112, 19.9837)
+progress = 93.5626
 
 [node name="GodCloud" parent="Path3D/PathFollow3D" instance=ExtResource("10_hnulm")]
-transform = Transform3D(0.488982, -0.864566, 0.115855, 0.871501, 0.48987, -0.0226454, -0.0371751, 0.112041, 0.993008, 0, 0, 0)
