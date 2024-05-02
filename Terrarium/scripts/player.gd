@@ -22,15 +22,31 @@ var walk_vel: Vector3
 var grav_vel: Vector3  
 var jump_vel: Vector3 
 
+@export var BOB_SPEED: float = 10.0 
+@export var view_bob : bool = true
+var last_bob_time: float = 0.0
+
+
+
+func apply_bob(delta: float):
+	if move_dir.length() > 0 and is_on_floor():
+		last_bob_time += delta * BOB_SPEED
+		if last_bob_time > 2.0 * PI:
+			last_bob_time -= 2.0 * PI  
+		
+		var bob_phase = last_bob_time
+		var new_y_position = camera.position.y + sin(bob_phase) * 0.02  
+		camera.position = Vector3(camera.position.x, new_y_position, camera.position.z)
+
 @onready var camera: Camera3D = $Camera
 func _enable_crosshair(value: bool):
 	crosshair_visible = value
 	if crosshair:
 		crosshair.visible = crosshair_visible
+		
+		
 func _ready() -> void:
 	crosshair_visible = false
-
-	
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
@@ -43,6 +59,7 @@ func _physics_process(delta: float) -> void:
 	if mouse_captured: _handle_joypad_camera_rotation(delta)
 	velocity = _walk(delta) + _gravity(delta) + _jump(delta)
 	move_and_slide()
+	if view_bob: apply_bob(delta)
 
 func capture_mouse() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)

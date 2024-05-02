@@ -34,7 +34,7 @@ sky = SubResource("Sky_7xe4r")
 volumetric_fog_enabled = true
 volumetric_fog_density = 0.01
 
-[node name="Env Test" type="Node3D"]
+[node name="Environment Controller" type="Node3D"]
 script = ExtResource("1_1hbfu")
 top_sky = SubResource("Gradient_ubya2")
 horizon_sky = SubResource("Gradient_t8y4m")

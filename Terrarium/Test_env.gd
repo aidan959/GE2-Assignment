@@ -58,7 +58,7 @@ func change_weather():
 		var intensity = randf_range(500, 1500) 
 		weather_controller.start_timer(weather_duration)
 		weather_occured = true
-		rand_choice = 0
+		rand_choice = 2
 		match rand_choice:
 			0:
 				weather_controller.rain(2000)
