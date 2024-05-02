@@ -9,6 +9,7 @@ var start_position = null
 var neck_parts = []
 var movement_path = []
 var movement_transforms = [] 
+var pick_sheep = false
 var boid_controller_path = "../../../../BoidController"
 @export var boid_controller: BoidController
 var total_time = 0.0 
@@ -27,9 +28,10 @@ func _process(delta):
 			path3d.call("set_movement_allowed", true)
 	else:
 		print("Path3D node not found")
-
-	if target_sheep == null:
-		target_sheep = get_random_sheep_child()
+	
+	if pick_sheep == true:
+		if target_sheep == null:
+			target_sheep = get_random_sheep_child()
 
 func get_random_sheep_child():
 	var boid_controller = get_node_or_null(boid_controller_path)
