@@ -1,4 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://df0848ht838wj"]
+[gd_scene load_steps=2 format=3 uid="uid://c210s82j3dkwd"]
 
 [ext_resource type="PackedScene" uid="uid://dwnmhlbibq8rx" path="res://models/gltf/Sheep.glb" id="1_3nv5v"]
 
