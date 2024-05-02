@@ -57,3 +57,8 @@ mouse_filter = 2
 stream = ExtResource("3_21wkv")
 volume_db = -3.0
 autoplay = true
+<<<<<<< Updated upstream
+=======
+
+[node name="Environment Controller" parent="." instance=ExtResource("4_2e7vp")]
+>>>>>>> Stashed changes

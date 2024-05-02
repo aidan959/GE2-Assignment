@@ -81,11 +81,10 @@ shader_parameter/min_heathaze_dist = 0.99
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_dxgdc"]
 flip_faces = true
-top_radius = 10.0
-bottom_radius = 10.0
-height = 4.0
+top_radius = 5.0
+bottom_radius = 5.0
+height = 8.0
 cap_top = false
-cap_bottom = false
 
 [node name="weather" type="Node3D"]
 script = ExtResource("1_rn8mp")
@@ -104,6 +103,7 @@ draw_pass_1 = SubResource("SphereMesh_22kx4")
 
 [node name="RainParticles" type="GPUParticles3D" parent="."]
 transform = Transform3D(4, 0, 0, 0, 2, 0, 0, 0, 4, 0, 0, 0)
+emitting = false
 amount = 200
 lifetime = 5.0
 speed_scale = 2.0
@@ -115,9 +115,11 @@ process_material = SubResource("ParticleProcessMaterial_om4u6")
 draw_pass_1 = SubResource("RibbonTrailMesh_wjw2j")
 
 [node name="HeatMesh" type="MeshInstance3D" parent="."]
+visible = false
 material_override = SubResource("ShaderMaterial_bpta5")
 mesh = SubResource("CylinderMesh_dxgdc")
 
 [node name="WeatherTimer" type="Timer" parent="."]
+one_shot = true
 
 [connection signal="timeout" from="WeatherTimer" to="." method="_on_weather_timer_timeout"]

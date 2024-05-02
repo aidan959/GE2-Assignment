@@ -20,7 +20,7 @@ offsets = PackedFloat32Array(0)
 colors = PackedColorArray(0.123888, 0.097673, 0.374687, 1)
 
 [sub_resource type="Gradient" id="Gradient_kub1w"]
-colors = PackedColorArray(1, 0.470588, 0.513726, 1, 1, 0.470588, 0.513726, 1)
+colors = PackedColorArray(1, 0.709804, 0.513726, 1, 1, 0.709804, 0.513726, 1)
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_sgdwc"]
 sky_top_color = Color(0.21503, 0.456231, 0.726075, 1)
