@@ -1,25 +1,41 @@
-[gd_scene load_steps=13 format=3 uid="uid://dh52fxfx2rten"]
+[gd_scene load_steps=16 format=3 uid="uid://dh52fxfx2rten"]
 
-[ext_resource type="PackedScene" uid="uid://c2nwkj3tahlxg" path="res://scenes/grass.tscn" id="1_8n11t"]
-[ext_resource type="PackedScene" uid="uid://blg3yr70eue5y" path="res://scenes/Boids/Sheep.tscn" id="2_cbkbv"]
 [ext_resource type="Script" path="res://scripts/BoidController.gd" id="2_qkdbf"]
+[ext_resource type="Script" path="res://scenes/grass.gd" id="3_l3wkh"]
+[ext_resource type="Texture2D" uid="uid://bf5r2lkwaxguk" path="res://textures/moss1.png" id="4_4bhah"]
 [ext_resource type="PackedScene" uid="uid://be8abksxbl3jb" path="res://scenes/Player.tscn" id="4_mbjog"]
-[ext_resource type="PackedScene" uid="uid://cfgb6gp0q3mdj" path="res://scenes/env_test.tscn" id="5_b8h41"]
 [ext_resource type="Script" path="res://scripts/BoidInfometer.gd" id="7_cgsf7"]
+[ext_resource type="PackedScene" uid="uid://cdc1p35m2yavw" path="res://scenes/TerrainModel.tscn" id="7_mpobr"]
 [ext_resource type="Script" path="res://scenes/Follower.gd" id="8_cwjm7"]
-[ext_resource type="Script" path="res://scenes/GodPath.gd" id="9_0wymx"]
-[ext_resource type="PackedScene" uid="uid://db1i4dc4t020u" path="res://models/gltf/terrain.glb" id="9_wvx6d"]
-[ext_resource type="PackedScene" uid="uid://dn43u1jd5gbam" path="res://scenes/GodCloud.tscn" id="10_hnulm"]
+[ext_resource type="PackedScene" uid="uid://dp276413u6prv" path="res://scenes/island.tscn" id="9_jggms"]
+[ext_resource type="Script" path="res://scripts/MainMenu.gd" id="10_6yboc"]
+[ext_resource type="AudioStream" uid="uid://dpniofcytnny2" path="res://sounds/music/sheep song.mp3" id="11_5pvwx"]
+[ext_resource type="AudioStream" uid="uid://cf3o7h3vc534a" path="res://sounds/music/sheep_music.mp3" id="12_dunkj"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_8n2mg"]
-size = Vector3(100.223, 0.0605469, 100.073)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5tj4n"]
+albedo_texture = ExtResource("4_4bhah")
 
-[sub_resource type="Curve3D" id="Curve3D_1gprq"]
-_data = {
-"points": PackedVector3Array(0.245348, 1.03558, 7.79788, -0.245348, -1.03558, -7.79788, -19.8749, 0, 0.000548742, -14.503, -0.0462646, 0.471403, 14.503, 0.0462646, -0.471403, 0.0218761, 0, -19.6954, -0.610832, 0.774069, -7.97773, 0.610832, -0.774069, 7.97773, 19.8693, 0, -0.0741023, 17.386, 1.86001, 0.184378, -17.386, -1.86001, -0.184378, 0.0218761, 0, 19.9995, -0.311323, 0.0196777, 4.717, 0.311323, -0.0196777, -4.717, -19.8749, 0, 0.000548742),
-"tilts": PackedFloat32Array(-0.720535, -0.77341, -0.658368, -0.791062, -0.782672)
+[sub_resource type="TextMesh" id="TextMesh_5sns6"]
+material = SubResource("StandardMaterial3D_5tj4n")
+text = "GRASS"
+pixel_size = 0.05
+depth = 0.5
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_gi46d"]
+size = Vector3(7, 1, 7)
+
+[sub_resource type="PackedScene" id="PackedScene_kxt68"]
+_bundled = {
+"conn_count": 2,
+"conns": PackedInt32Array(1073741827, 1073741826, 13, 12, 2, 0, 0, 1073741829, 1073741828, 15, 14, 2, 0, 0),
+"editable_instances": [],
+"names": PackedStringArray("Grass", "Area3D", "collision_layer", "collision_mask", "script", "GrassMesh", "MeshInstance3D", "mesh", "GrassCollision", "CollisionShape3D", "transform", "shape", "_on_body_entered", "body_entered", "_on_body_exit", "body_exited"),
+"node_count": 3,
+"node_paths": [NodePath("."), NodePath("."), NodePath("."), NodePath("."), NodePath("."), NodePath(".")],
+"nodes": PackedInt32Array(-1, -1, 1, 0, -1, 3, 2, 0, 3, 1, 4, 2, 0, 1073741824, 0, 6, 5, -1, 1, 7, 3, 0, 1073741825, 0, 9, 8, -1, 2, 10, 4, 11, 5, 0),
+"variants": [0, 256, ExtResource("3_l3wkh"), SubResource("TextMesh_5sns6"), Transform3D(1, 6.46044e-05, -3.04385e-05, -6.46044e-05, 1, -7.65898e-05, 3.04385e-05, 7.65898e-05, 1, 0, 0, 0), SubResource("BoxShape3D_gi46d")],
+"version": 3
 }
-point_count = 5
 
 [node name="Main" type="Node3D"]
 
@@ -27,16 +43,17 @@ point_count = 5
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0785122, -28.9413, -0.0539837)
 size = Vector3(100, 0.001, 100)
 
-[node name="BoidController" type="Node3D" parent="." node_paths=PackedStringArray("environment_controller")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.19638, 0)
-
+[node name="BoidController" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.15405, 1.91234, 5.04409)
 script = ExtResource("2_qkdbf")
-sheep_scene = ExtResource("2_cbkbv")
-grass_scene = ExtResource("1_8n11t")
+spawn_amount = {
+"Shark": 0,
+"Sheep": 10
+}
+grass_scene = SubResource("PackedScene_kxt68")
 radius = 25
-neighbour_distance = 10
+neighbour_distance = 15
 avoid_distance = 1
-draw_gizmos = true
 center_path = NodePath("../World Center")
 metadata/_edit_group_ = true
 
@@ -44,19 +61,10 @@ metadata/_edit_group_ = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0785122, 1.65177, -0.0539837)
 
 [node name="Player" parent="." instance=ExtResource("4_mbjog")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.68523, 4.29082, 6.07644)
-
-[node name="Env Test" parent="Player" instance=ExtResource("5_b8h41")]
-
-[node name="StaticBody3D" type="StaticBody3D" parent="."]
-collision_layer = 3
-collision_mask = 0
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.153099, 0.0283203, -0.29355)
-shape = SubResource("BoxShape3D_8n2mg")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.68523, 1.18654, 6.07644)
 
 [node name="BoidInfometer" type="Control" parent="." node_paths=PackedStringArray("player", "viewport")]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 1152.0
@@ -91,7 +99,7 @@ offset_bottom = 40.0
 handle_input_locally = false
 use_occlusion_culling = true
 size = Vector2i(180, 170)
-render_target_update_mode = 4
+render_target_update_mode = 0
 
 [node name="Follower" type="Camera3D" parent="BoidInfometer/SheepData/SheepViewport/SheepCamera/UIViewport"]
 transform = Transform3D(-0.450504, 0, 0.892775, 0, 1, 0, -0.892775, 0, -0.450504, 0, 3, 0)
@@ -151,16 +159,67 @@ grow_horizontal = 2
 grow_vertical = 0
 max_value = 1.0
 
-[node name="terrain" parent="." instance=ExtResource("9_wvx6d")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -51.7238, 0)
+[node name="terrain2" parent="." instance=ExtResource("7_mpobr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.9581, -51.4737, -38.6941)
 
-[node name="Path3D" type="Path3D" parent="."]
-transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 109.03, 0)
-curve = SubResource("Curve3D_1gprq")
-script = ExtResource("9_0wymx")
+[node name="Island" parent="terrain2" instance=ExtResource("9_jggms")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 43.4179, 0)
 
-[node name="PathFollow3D" type="PathFollow3D" parent="Path3D"]
-transform = Transform3D(0.753806, 0.656343, 0.0311744, -0.654045, 0.74491, 0.131583, 0.0631417, -0.119577, 0.990814, -19.8749, 0, 0.000548742)
+[node name="MenuCamera" type="Camera3D" parent="." node_paths=PackedStringArray("sheep_target")]
+current = true
+script = ExtResource("8_cwjm7")
+orbit_speed = 0.1
+orbit_radius = 200.0
+orbit_height = 200.0
+sheep_target = NodePath("../terrain2/Island")
+do_lerp = true
+lerp_amount = 0.001
 
-[node name="GodCloud" parent="Path3D/PathFollow3D" instance=ExtResource("10_hnulm")]
-transform = Transform3D(0.488982, -0.864566, 0.115855, 0.871501, 0.48987, -0.0226454, -0.0371751, 0.112041, 0.993008, 0, 0, 0)
+[node name="Main Menu" type="Control" parent="." node_paths=PackedStringArray("player", "menu_camera", "boid_controller")]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("10_6yboc")
+player = NodePath("../Player")
+menu_camera = NodePath("../MenuCamera")
+boid_controller = NodePath("../BoidController")
+transition_duration = 0.1
+menu_music = ExtResource("11_5pvwx")
+game_music = ExtResource("12_dunkj")
+target_menu_music_volume = 0.7
+target_game_music_volume = 0.5
+
+[node name="CenterContainer" type="CenterContainer" parent="Main Menu"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 535.0
+offset_bottom = 613.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="Main Menu/CenterContainer"]
+custom_minimum_size = Vector2(256, 512)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Main Menu/CenterContainer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Main Menu/CenterContainer/Panel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 90)
+layout_mode = 2
+
+[node name="Button" type="Button" parent="Main Menu/CenterContainer/Panel/VBoxContainer/MarginContainer"]
+layout_mode = 2
+text = "Start Game
+"
+
+[connection signal="pressed" from="Main Menu/CenterContainer/Panel/VBoxContainer/MarginContainer/Button" to="Main Menu" method="_on_button_pressed"]

@@ -12,8 +12,8 @@ dest_files=["res://.godot/imported/sheep_music.mp3-a7706b73293c35bed3c96dc2239de
 
 [params]
 
-loop=false
+loop=true
 loop_offset=4.0
 bpm=109.0
-beat_count=88
+beat_count=384
 bar_beats=4
