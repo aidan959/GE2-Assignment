@@ -57,7 +57,10 @@ func _physics_process(delta):
 	if is_dead():
 		do_be_dead(delta)
 		return
-
+		
+	if nearest_grass == null:
+		#print("no nearest_grass")
+		pass
 		
 	if hunger <= 0.1 or nearest_grass == null:
 		change_state(BoidStates.ROAMING)
