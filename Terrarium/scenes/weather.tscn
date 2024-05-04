@@ -1,6 +1,7 @@
-[gd_scene load_steps=13 format=3 uid="uid://bfy1dib6amqkf"]
+[gd_scene load_steps=16 format=3 uid="uid://bfy1dib6amqkf"]
 
 [ext_resource type="Script" path="res://scripts/environment/weather.gd" id="1_rn8mp"]
+[ext_resource type="Shader" path="res://shaders/heat.gdshader" id="2_wxd20"]
 
 [sub_resource type="Curve" id="Curve_rkc8h"]
 _data = [Vector2(0.795082, 1), 0.0, -2.21228, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -71,6 +72,20 @@ material = SubResource("StandardMaterial3D_kiem4")
 size = 2.0
 curve = SubResource("Curve_c8heb")
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bpta5"]
+render_priority = 0
+shader = ExtResource("2_wxd20")
+shader_parameter/max_shift = 2.5
+shader_parameter/speed = 0.03
+shader_parameter/min_heathaze_dist = 0.99
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_dxgdc"]
+flip_faces = true
+top_radius = 5.0
+bottom_radius = 5.0
+height = 8.0
+cap_top = false
+
 [node name="weather" type="Node3D"]
 script = ExtResource("1_rn8mp")
 
@@ -99,6 +114,12 @@ trail_lifetime = 0.1
 process_material = SubResource("ParticleProcessMaterial_om4u6")
 draw_pass_1 = SubResource("RibbonTrailMesh_wjw2j")
 
+[node name="HeatMesh" type="MeshInstance3D" parent="."]
+visible = false
+material_override = SubResource("ShaderMaterial_bpta5")
+mesh = SubResource("CylinderMesh_dxgdc")
+
 [node name="WeatherTimer" type="Timer" parent="."]
+one_shot = true
 
 [connection signal="timeout" from="WeatherTimer" to="." method="_on_weather_timer_timeout"]

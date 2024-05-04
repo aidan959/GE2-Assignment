@@ -4,6 +4,7 @@ class_name Weather extends Node3D
 @onready var rain_particles: GPUParticles3D = $RainParticles
 @onready var snow_particles: GPUParticles3D = $SnowParticles
 @onready var weather_timer: Timer = $WeatherTimer
+@onready var heat_mesh: MeshInstance3D = $HeatMesh
 
 @export var fog_density_curve : Curve
 @export var fog_color_gradient : Gradient
@@ -24,6 +25,7 @@ func _on_weather_timer_timeout():
 func clear_weather():
 	rain_particles.emitting = false
 	snow_particles.emitting = false
+	heat_mesh.hide()
 	target_fog_density = 0.01
 	
 func rain(intensity : float):
@@ -36,6 +38,11 @@ func snow(intensity : float):
 	snow_particles.amount = intensity
 	is_fog = true
 	
+func heat():
+	world_environment.environment.volumetric_fog_density = 0.0
+	heat_mesh.show()
+	
+	
 func toggle_fog(do_fog : bool):
 	is_fog = do_fog
 	if is_fog:
@@ -44,5 +51,6 @@ func toggle_fog(do_fog : bool):
 		target_fog_density = 0.01
 
 func _physics_process(delta):
-	world_environment.environment.volumetric_fog_density = lerp(world_environment.environment.volumetric_fog_density, target_fog_density, 0.005)
+	if not heat_mesh.visible:
+		world_environment.environment.volumetric_fog_density = lerp(world_environment.environment.volumetric_fog_density, target_fog_density, 0.005)
 		
