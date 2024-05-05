@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://dh52fxfx2rten"]
+[gd_scene load_steps=21 format=3 uid="uid://dh52fxfx2rten"]
 
 [ext_resource type="Script" path="res://scripts/BoidController.gd" id="2_qkdbf"]
 [ext_resource type="Script" path="res://scenes/grass.gd" id="3_l3wkh"]
@@ -11,7 +11,6 @@
 [ext_resource type="PackedScene" uid="uid://dp276413u6prv" path="res://scenes/water.tscn" id="9_jggms"]
 [ext_resource type="Script" path="res://scripts/MainMenu.gd" id="10_6yboc"]
 [ext_resource type="AudioStream" uid="uid://dpniofcytnny2" path="res://sounds/music/sheep song.mp3" id="11_5pvwx"]
-[ext_resource type="Shader" path="res://scenes/psy.gdshader" id="12_5snk5"]
 [ext_resource type="AudioStream" uid="uid://cf3o7h3vc534a" path="res://sounds/music/sheep_music.mp3" id="12_dunkj"]
 [ext_resource type="PackedScene" uid="uid://qd8lu6e8lj03" path="res://jar.tscn" id="13_pv3wt"]
 
@@ -44,20 +43,8 @@ _bundled = {
 "version": 3
 }
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_fh235"]
-render_priority = 0
-shader = ExtResource("12_5snk5")
-shader_parameter/intensity = 0.5
-shader_parameter/speed = 1.0
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_pkco7"]
-flip_faces = true
-top_radius = 2.0
-bottom_radius = 2.0
-height = 38.837
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_1exk6"]
-size = Vector3(10, 1, 83.1982)
+[sub_resource type="BoxShape3D" id="BoxShape3D_78eg5"]
+size = Vector3(100, 1, 20)
 
 [node name="Main" type="Node3D"]
 
@@ -81,7 +68,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.15405, 1.91234, 5.04409)
 script = ExtResource("2_qkdbf")
 spawn_amount = {
 "Shark": 0,
-"Sheep": 10
+"Sheep": 100
 }
 grass_scene = SubResource("PackedScene_kxt68")
 radius = 25
@@ -94,6 +81,8 @@ metadata/_edit_group_ = true
 [node name="SpawnableZones" type="Node3D" parent="BoidController"]
 
 [node name="SpawnZone" parent="BoidController/SpawnableZones" instance=ExtResource("4_4csqi")]
+spawn_type = 1
+override_shape = SubResource("BoxShape3D_78eg5")
 
 [node name="World Center" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0785122, 1.65177, -0.0539837)

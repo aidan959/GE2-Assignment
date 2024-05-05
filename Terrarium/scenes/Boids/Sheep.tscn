@@ -1,9 +1,8 @@
-[gd_scene load_steps=24 format=3 uid="uid://blg3yr70eue5y"]
+[gd_scene load_steps=23 format=3 uid="uid://blg3yr70eue5y"]
 
 [ext_resource type="Script" path="res://scripts/Boids/Sheep.gd" id="1_k0npw"]
 [ext_resource type="Script" path="res://scripts/Boids/Behaviours/Escape.gd" id="1_pslmd"]
 [ext_resource type="Script" path="res://scripts/Boids/Behaviours/Cohesion.gd" id="2_3285g"]
-[ext_resource type="AudioStream" uid="uid://c8dvh5en5w7h" path="res://sounds/test_sounds/Escape.mp3" id="3_jlbw6"]
 [ext_resource type="Script" path="res://scripts/Boids/Behaviours/Alignment.gd" id="3_xtapx"]
 [ext_resource type="Script" path="res://scripts/Boids/Behaviours/Avoidance.gd" id="4_art8r"]
 [ext_resource type="Script" path="res://scripts/Boids/Behaviours/Constrain.gd" id="5_5hxyb"]
@@ -37,10 +36,6 @@ process_thread_messages = 3
 collision_layer = 769
 script = ExtResource("1_k0npw")
 escape_distance = 5.0
-neighbour_distance = 15.0
-draw_gizmos = false
-hunger = 1.0
-metabolism = 1.0
 tick_rate = 60
 
 [node name="SheepBody" type="CSGBox3D" parent="."]
@@ -60,9 +55,7 @@ shape = SubResource("BoxShape3D_ggkxb")
 
 [node name="Escape" type="Node" parent="."]
 script = ExtResource("1_pslmd")
-weight = 10.0
-sounds = Array[AudioStream]([ExtResource("3_jlbw6")])
-sound_weight = 1.0
+weight = 17.025
 
 [node name="Cohesion" type="Node" parent="."]
 script = ExtResource("2_3285g")

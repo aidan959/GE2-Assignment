@@ -1,9 +1,5 @@
 class_name BoidController extends Node
 
-@export var spawners: Dictionary  = {
-	Sheep: 0.3,
-	Shark: 0.1
-}
 
 var boid_types : Dictionary = {
 	"Sheep": preload("res://scenes/Boids/Sheep.tscn"),
@@ -93,7 +89,7 @@ func _spawn_boids():
 			if not boid.spawn_location in spawnable_zones:
 				pos= get_spawn_position(boid)
 			else:
-				pos = spawnable_zones[boid.spawn_location].get_spawn_location()
+				pos = spawnable_zones[boid.spawn_location].pick_random().get_spawn_location()
 			add_child(boid)
 			boid.global_position = pos
 			boid.global_rotation = Vector3(0, randf_range(0, PI * 2.0),  0)
@@ -113,6 +109,7 @@ func _spawn_boids():
 			if constrain:
 				constrain.center = center
 				constrain.radius = radius
+			print(i)
 var names = []
 
 func load_names():
