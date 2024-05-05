@@ -26,6 +26,13 @@ var jump_vel: Vector3
 @export var view_bob : bool = true
 var last_bob_time: float = 0.0
 
+enum movement_states {
+	MOVE,
+	SWIM
+}
+
+var current_movement_state = movement_states.MOVE
+
 
 func apply_bob(delta: float):
 	if move_dir.length() > 0 and is_on_floor():
@@ -56,7 +63,14 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func _physics_process(delta: float) -> void:
 	if mouse_captured: _handle_joypad_camera_rotation(delta)
-	velocity = _walk(delta) + _gravity(delta) + _jump(delta)
+	match current_movement_state:
+		movement_states.MOVE:
+			velocity = _walk(delta) + _gravity(delta) + _jump(delta)
+			
+		movement_states.SWIM:
+			velocity = (_walk(delta) * 0.5) 
+			velocity.y = 0
+	
 	move_and_slide()
 	if view_bob: apply_bob(delta)
 
@@ -87,7 +101,7 @@ func _walk(delta: float) -> Vector3:
 	return walk_vel
 
 func _gravity(delta: float) -> Vector3:
-	grav_vel = Vector3.ZERO if is_on_floor() else grav_vel.move_toward(Vector3(0, velocity.y - gravity, 0), gravity * delta)
+	grav_vel = Vector3.ZERO if is_on_floor() else grav_vel.move_toward(Vector3(0, velocity.y - gravity, 0), abs(gravity * delta))
 	return grav_vel
 
 func _jump(delta: float) -> Vector3:

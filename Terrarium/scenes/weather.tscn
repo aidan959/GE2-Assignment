@@ -72,7 +72,7 @@ material = SubResource("StandardMaterial3D_kiem4")
 size = 2.0
 curve = SubResource("Curve_c8heb")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_bpta5"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ok4v1"]
 render_priority = 0
 shader = ExtResource("2_wxd20")
 shader_parameter/max_shift = 2.5
@@ -87,6 +87,7 @@ height = 8.0
 cap_top = false
 
 [node name="weather" type="Node3D"]
+visible = false
 script = ExtResource("1_rn8mp")
 
 [node name="SnowParticles" type="GPUParticles3D" parent="."]
@@ -116,7 +117,7 @@ draw_pass_1 = SubResource("RibbonTrailMesh_wjw2j")
 
 [node name="HeatMesh" type="MeshInstance3D" parent="."]
 visible = false
-material_override = SubResource("ShaderMaterial_bpta5")
+material_override = SubResource("ShaderMaterial_ok4v1")
 mesh = SubResource("CylinderMesh_dxgdc")
 
 [node name="WeatherTimer" type="Timer" parent="."]
