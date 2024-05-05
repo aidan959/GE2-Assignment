@@ -1,11 +1,14 @@
-class_name SpawnPath extends Path3D
+class_name SpawnPath extends Area3D
 
-@export var spawnable_boids : Array[String] = []
-@export_dir var boid_path : String = "res://scenes/Boids/"
+
+@export var spawn_type : Boid.SpawnLocations = Boid.SpawnLocations.LAND
+@export var override_shape : BoxShape3D
+@onready var collision_area : CollisionShape3D = $CollisionArea
+
 var boid_scenes :Array[PackedScene] = []
 func _ready():
-	for spawnable_boid in spawnable_boids:
-		var sheep_path = boid_path + spawnable_boid + ".tscn"
-		var boid = load(boid_path + spawnable_boid + ".tscn")
-		boid_scenes.push_back(boid)
-	
+	if override_shape:
+		collision_area.shape = override_shape
+
+func get_point():
+	pass
