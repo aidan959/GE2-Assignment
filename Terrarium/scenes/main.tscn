@@ -8,11 +8,16 @@
 [ext_resource type="Script" path="res://scripts/BoidInfometer.gd" id="7_cgsf7"]
 [ext_resource type="PackedScene" uid="uid://cdc1p35m2yavw" path="res://scenes/TerrainModel.tscn" id="7_mpobr"]
 [ext_resource type="Script" path="res://scenes/Follower.gd" id="8_cwjm7"]
-[ext_resource type="PackedScene" uid="uid://dp276413u6prv" path="res://scenes/island.tscn" id="9_jggms"]
+[ext_resource type="PackedScene" uid="uid://dp276413u6prv" path="res://scenes/water.tscn" id="9_jggms"]
 [ext_resource type="Script" path="res://scripts/MainMenu.gd" id="10_6yboc"]
 [ext_resource type="AudioStream" uid="uid://dpniofcytnny2" path="res://sounds/music/sheep song.mp3" id="11_5pvwx"]
+[ext_resource type="Shader" path="res://scenes/psy.gdshader" id="12_5snk5"]
 [ext_resource type="AudioStream" uid="uid://cf3o7h3vc534a" path="res://sounds/music/sheep_music.mp3" id="12_dunkj"]
 [ext_resource type="PackedScene" uid="uid://qd8lu6e8lj03" path="res://jar.tscn" id="13_pv3wt"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3nacf"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_6qn1q"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5tj4n"]
 albedo_texture = ExtResource("4_4bhah")
@@ -39,7 +44,33 @@ _bundled = {
 "version": 3
 }
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fh235"]
+render_priority = 0
+shader = ExtResource("12_5snk5")
+shader_parameter/intensity = 0.5
+shader_parameter/speed = 1.0
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_pkco7"]
+flip_faces = true
+top_radius = 2.0
+bottom_radius = 2.0
+height = 38.837
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1exk6"]
+size = Vector3(10, 1, 83.1982)
+
 [node name="Main" type="Node3D"]
+
+[node name="RigidBody3D" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.77253, 9.08541, 70.6684)
+collision_layer = 769
+collision_mask = 769
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+shape = SubResource("BoxShape3D_3nacf")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D"]
+mesh = SubResource("BoxMesh_6qn1q")
 
 [node name="Ground" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0785122, -28.9413, -0.0539837)
@@ -169,7 +200,7 @@ max_value = 1.0
 [node name="terrain2" parent="." instance=ExtResource("7_mpobr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.9581, -51.4737, -38.6941)
 
-[node name="Island" parent="terrain2" instance=ExtResource("9_jggms")]
+[node name="Water" parent="terrain2" instance=ExtResource("9_jggms")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 43.4179, 0)
 
 [node name="MenuCamera" type="Camera3D" parent="." node_paths=PackedStringArray("sheep_target")]
@@ -178,7 +209,7 @@ script = ExtResource("8_cwjm7")
 orbit_speed = 0.1
 orbit_radius = 200.0
 orbit_height = 200.0
-sheep_target = NodePath("../terrain2/Island")
+sheep_target = NodePath("../terrain2/Water")
 do_lerp = true
 lerp_amount = 0.001
 

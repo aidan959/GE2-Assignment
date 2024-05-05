@@ -3,7 +3,6 @@ class_name Boid extends CharacterBody3D
 @export var mass = 1
 @export var force = Vector3.ZERO
 @export var acceleration = Vector3.ZERO
-@export var vel = Vector3.ZERO
 @export var speed:float
 @export var max_speed: float = 10.0
 @export var max_force = 10
@@ -33,6 +32,9 @@ var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 var grav_vel: Vector3
 @export var current_state : BoidStates
+
+var is_in_water : bool = false
+
 enum SpawnLocations {
 	WATER,
 	LAND,
@@ -131,7 +133,7 @@ func seek_force(target: Vector3):
 	var toTarget = target - global_transform.origin
 	toTarget = toTarget.normalized()
 	var desired = toTarget * max_speed
-	var output = desired - vel
+	var output = desired - velocity
 	output.y = 0.0 # todo why?
 	return output
 	
@@ -145,7 +147,7 @@ func arrive_force(target:Vector3, slowingDistance:float):
 	var ramped = (dist / slowingDistance) * max_speed
 	var limit_length = min(max_speed, ramped)
 	var desired = (toTarget * limit_length) / dist 
-	return desired - vel
+	return desired - velocity
 
 
 	
@@ -216,23 +218,23 @@ func _physics_process(delta):
 	force = lerp(force, new_force, delta)
 	if ! pause:
 		acceleration = force / mass
-		vel += acceleration * delta
-		speed = vel.length()
+		velocity += acceleration * delta
+		speed = velocity.length()
 		if speed > 0:
 			if max_speed == 0:
 				push_warning("max_speed is 0")
-			vel = vel.limit_length(max_speed)
+			velocity = velocity.limit_length(max_speed)
 			
 			# Damping
-			vel -= vel * delta * damping
+			velocity -= velocity * delta * damping
 			
-			set_velocity(vel)
+			set_velocity(velocity)
 			move_and_slide()
 			
 			# Implement Banking as described:
 			# https://www.cs.toronto.edu/~dt/siggraph97-course/cwr87/
 			var temp_up = global_transform.basis.y.lerp(Vector3.UP + (acceleration * banking), delta * 5.0)
-			look_at(global_transform.origin - vel.normalized(), temp_up)
+			look_at(global_transform.origin - velocity.normalized(), temp_up)
 
 
 
