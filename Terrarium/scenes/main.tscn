@@ -1,8 +1,9 @@
-[gd_scene load_steps=17 format=3 uid="uid://dh52fxfx2rten"]
+[gd_scene load_steps=18 format=3 uid="uid://dh52fxfx2rten"]
 
 [ext_resource type="Script" path="res://scripts/BoidController.gd" id="2_qkdbf"]
 [ext_resource type="Script" path="res://scenes/grass.gd" id="3_l3wkh"]
 [ext_resource type="Texture2D" uid="uid://bf5r2lkwaxguk" path="res://textures/moss1.png" id="4_4bhah"]
+[ext_resource type="PackedScene" uid="uid://cpty6hvhjeoq8" path="res://scenes/spawn_zone.tscn" id="4_4csqi"]
 [ext_resource type="PackedScene" uid="uid://be8abksxbl3jb" path="res://scenes/Player.tscn" id="4_mbjog"]
 [ext_resource type="Script" path="res://scripts/BoidInfometer.gd" id="7_cgsf7"]
 [ext_resource type="PackedScene" uid="uid://cdc1p35m2yavw" path="res://scenes/TerrainModel.tscn" id="7_mpobr"]
@@ -44,7 +45,7 @@ _bundled = {
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0785122, -28.9413, -0.0539837)
 size = Vector3(100, 0.001, 100)
 
-[node name="BoidController" type="Node3D" parent="."]
+[node name="BoidController" type="Node3D" parent="." node_paths=PackedStringArray("spawnable_zones_node")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.15405, 1.91234, 5.04409)
 script = ExtResource("2_qkdbf")
 spawn_amount = {
@@ -55,10 +56,13 @@ grass_scene = SubResource("PackedScene_kxt68")
 radius = 25
 neighbour_distance = 15
 avoid_distance = 1
+spawnable_zones_node = NodePath("SpawnableZones")
 center_path = NodePath("../World Center")
 metadata/_edit_group_ = true
 
 [node name="SpawnableZones" type="Node3D" parent="BoidController"]
+
+[node name="SpawnZone" parent="BoidController/SpawnableZones" instance=ExtResource("4_4csqi")]
 
 [node name="World Center" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0785122, 1.65177, -0.0539837)

@@ -1,4 +1,4 @@
-class_name SpawnPath extends Area3D
+class_name SpawnZone extends Area3D
 
 
 @export var spawn_type : Boid.SpawnLocations = Boid.SpawnLocations.LAND
@@ -10,5 +10,7 @@ func _ready():
 	if override_shape:
 		collision_area.shape = override_shape
 
-func get_point():
-	pass
+func get_spawn_location() -> Vector3:
+	print("getting point for: ")
+	print(spawn_type)
+	return Vector3.ZERO
