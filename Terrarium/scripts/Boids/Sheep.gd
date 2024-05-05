@@ -11,6 +11,7 @@ var ascension_light : SpotLight3D = null
 @export_category("Escape")
 @export_range(0.0, 15.0) var escape_distance :float = 10.0
 
+
 enum AnimationStates{
 	WALKING,
 	STARTING_GRAZING,
@@ -77,18 +78,28 @@ func _physics_process(delta):
 		force = calculate(delta)
 		should_calculate = false
 	#force = lerp(force, new_force, delta)
-
-	force += super.process_gravity(delta)
+	
+	if is_in_water:
+		force.y += 0.5
+		
+		
+	else:
+		force += super.process_gravity(delta)
+	
 	acceleration = force / mass
 	velocity += acceleration * delta
 
 
+		
+		
 	if is_currently_eating:
 		velocity *= delta * 0.1
 	else:
+		
 		velocity -= velocity * delta * damping
-	velocity = velocity.limit_length(max_speed)
 
+	velocity = velocity.limit_length(max_speed)
+	
 	move_and_slide()
 	if is_zero_approx(velocity.length()) or  is_currently_eating:
 		global_rotation.x = 0.0
@@ -117,7 +128,7 @@ func arrive_force(target:Vector3, slowingDistance:float):
 	var ramped = (dist / slowingDistance) * max_speed
 	var limit_length = min(max_speed, ramped)
 	var desired = (toTarget * limit_length) / dist 
-	return desired - vel
+	return desired - velocity
 
 	
 func set_enabled_all(enabled):
