@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://dh52fxfx2rten"]
+[gd_scene load_steps=17 format=3 uid="uid://dh52fxfx2rten"]
 
 [ext_resource type="Script" path="res://scripts/BoidController.gd" id="2_qkdbf"]
 [ext_resource type="Script" path="res://scenes/grass.gd" id="3_l3wkh"]
@@ -11,6 +11,7 @@
 [ext_resource type="Script" path="res://scripts/MainMenu.gd" id="10_6yboc"]
 [ext_resource type="AudioStream" uid="uid://dpniofcytnny2" path="res://sounds/music/sheep song.mp3" id="11_5pvwx"]
 [ext_resource type="AudioStream" uid="uid://cf3o7h3vc534a" path="res://sounds/music/sheep_music.mp3" id="12_dunkj"]
+[ext_resource type="PackedScene" uid="uid://qd8lu6e8lj03" path="res://jar.tscn" id="13_pv3wt"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5tj4n"]
 albedo_texture = ExtResource("4_4bhah")
@@ -56,6 +57,8 @@ neighbour_distance = 15
 avoid_distance = 1
 center_path = NodePath("../World Center")
 metadata/_edit_group_ = true
+
+[node name="SpawnableZones" type="Node3D" parent="BoidController"]
 
 [node name="World Center" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0785122, 1.65177, -0.0539837)
@@ -221,5 +224,8 @@ layout_mode = 2
 layout_mode = 2
 text = "Start Game
 "
+
+[node name="Jar" parent="." instance=ExtResource("13_pv3wt")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, -18.2373, -42.5121, -37.1993)
 
 [connection signal="pressed" from="Main Menu/CenterContainer/Panel/VBoxContainer/MarginContainer/Button" to="Main Menu" method="_on_button_pressed"]
