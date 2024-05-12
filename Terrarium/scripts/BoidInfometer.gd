@@ -23,16 +23,15 @@ func _ready():
 	else: 
 		viewport.world_3d = viewport.find_world_3d()
 		viewport_camera = viewport.get_camera_3d()
-
-
 	if !boid_detector:
 		push_warning("Boid detector has not been set.")
 		
 var saved_boid : Boid = null
 
 func _process(_delta):
-	if Input.is_action_pressed("target_boid"):
+	if Input.is_action_just_pressed("target_boid"):
 		if saved_boid:
+			saved_boid.is_currently_selected = false
 			saved_boid = null
 		else:
 			saved_boid =boid_detector.detected_boid
@@ -52,7 +51,7 @@ func _physics_process(_delta):
 			viewport_camera.sheep_target = null
 		visible = false
 		return
-	
+	focus_boid.is_currently_selected = true
 	if viewport_camera is Follower:
 		viewport_camera.sheep_target = focus_boid
 	visible = true

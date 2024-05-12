@@ -12,11 +12,13 @@ func calculate():
 	force = Vector3.ZERO
 	center_of_mass = Vector3.ZERO
 	if boid.neighbours.size() == 0:
-		return Vector3.ZERO
+		return center_of_mass
+
 	for other_boid in boid.neighbours:
-		center_of_mass += other_boid.global_transform.origin
+		center_of_mass += other_boid.global_position
+
 	center_of_mass /= boid.neighbours.size()
-	force = center_of_mass - boid.global_transform.origin
-	force = force.normalized()
+	force = center_of_mass - boid.global_position
+	#force = force.normalized()
 	return force
 	

@@ -1,4 +1,5 @@
-class_name BoidController extends Node
+@tool
+class_name BoidController extends Node3D
 
 
 var boid_types : Dictionary = {
@@ -41,7 +42,7 @@ var cells = {}
 var center
 
 func do_draw_gizmos():
-	pass
+	DebugDraw3D.draw_sphere(global_position, radius, Color.ORANGE)
 
 
 func _process(_delta):
@@ -79,18 +80,21 @@ func _spawn_boids():
 		grass.global_position = pos
 		var grass_instance : GrassFood = grass
 		grasses.push_back(grass_instance)
-	
+
 	for type in spawn_amount:
 		for i in spawn_amount[type]:
 			var _amount = spawn_amount[type]
 
 			var boid = boid_types[type].instantiate()
 			var pos 
-			if not boid.spawn_location in spawnable_zones:
-				pos= get_spawn_position(boid)
-			else:
+			if boid.spawn_location in spawnable_zones:
 				pos = spawnable_zones[boid.spawn_location].pick_random().get_spawn_location()
+			else:
+				pos= get_spawn_position(boid) # random spawn from center
+				push_error(boid.name +" does not have a spawn zone.")
+
 			add_child(boid)
+			print(pos)
 			boid.global_position = pos
 			boid.global_rotation = Vector3(0, randf_range(0, PI * 2.0),  0)
 
@@ -109,7 +113,6 @@ func _spawn_boids():
 			if constrain:
 				constrain.center = center
 				constrain.radius = radius
-			print(i)
 var names = []
 
 func load_names():

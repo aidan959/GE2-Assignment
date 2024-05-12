@@ -106,11 +106,11 @@ func process_gravity(delta: float) -> Vector3:
 func count_neighbours_simple(type: Variant):
 	neighbours.clear()
 	if typeof(type) not in flock.boids:
-		return 0
+		return neighbours.size()
 	for boid in flock.boids[typeof(type)]:
 		if boid != self and !boid.is_dead() and global_position.distance_to(global_position) < flock.neighbour_distance:
 			neighbours.push_back(boid)
-			if neighbours.size() == flock.max_neighbours:
+			if neighbours.size() >= flock.max_neighbours:
 				break
 	return neighbours.size()
 

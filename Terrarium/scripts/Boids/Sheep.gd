@@ -36,7 +36,6 @@ func update_nearest_grass():
 	var temp_nearest_distance : float = INF
 	var me_pos : Vector3 = global_position
 	for grass_entity : GrassFood in flock.grasses:
-		#print(grass_entity.fullness)
 		if grass_entity.is_full() or grass_entity.fullness == 0:
 			nearest_grass = null
 			continue
@@ -44,7 +43,7 @@ func update_nearest_grass():
 		if temp_distance < temp_nearest_distance:
 			temp_nearest_distance = temp_distance
 			nearest_grass = grass_entity
-			#print(nearest_grass)
+
 	
 func do_be_dead(delta):
 	ascension(delta)
@@ -106,8 +105,14 @@ func _physics_process(delta):
 	# Implement Banking as described:
 	# https://www.cs.toronto.edu/~dt/siggraph97-course/cwr87/
 	var temp_up = global_transform.basis.y.lerp(Vector3.UP + (acceleration * banking), delta * 5.0)
-
-	look_at(global_transform.origin - velocity.normalized(), temp_up)
+	
+	var target : Vector3 = global_transform.origin - velocity.normalized()
+	var target_dot : float = temp_up.dot(target)
+	
+	if not is_equal_approx(target_dot, 1.0):
+	
+		look_at(global_transform.origin - velocity.normalized(), temp_up)
+		
 
 func set_enabled(behavior, enabled):
 	behavior.enabled = enabled
@@ -155,7 +160,7 @@ func calculate(_delta):
 		if current_state == BoidStates.GRAZING and (not behaviour is Grazer and not behaviour is Escape):
 			continue
 			
-		var f = behaviour.calculate().normalized() * behaviour.weight
+		var f = behaviour.calculate() * behaviour.weight
 		if f.length() == 0.0: continue
 		if behaviour is Escape: is_currently_escaping = true
 		behaviour_forces[behaviour] = f
@@ -210,7 +215,8 @@ func ascension(delta):
 	global_transform.origin += ascension_velocity * delta
 	
 	ascension_light.global_transform.origin = global_transform.origin + Vector3(0, 10.0, 0)
-	ascension_light.look_at(global_position, Vector3.UP)
+	if not is_equal_approx(ascension_light.global_position.dot(global_position), 1.0):
+		ascension_light.look_at(global_position, Vector3.UP)
 	if ascension_velocity.length() > 0:
 		look_at(global_transform.origin + ascension_velocity.normalized(), Vector3.DOWN)
 	else:
