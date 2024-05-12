@@ -49,7 +49,7 @@ func update_nearest_grass():
 func do_be_dead(delta):
 	ascension(delta)
 	move_and_slide()
-	look_at(global_transform.origin + Vector3(0, -1, 0), Vector3.BACK)
+	# look_at(global_transform.origin + Vector3(0, -1, 0), Vector3.BACK)
 
 func _physics_process(delta):
 	if pause: return
@@ -190,19 +190,41 @@ func _process(_delta):
 @export var ascension_rate: float = 0.2
 @export var ascension_shake_intensity: float = 0.5  
 @export var max_ascension_velocity: float = 30.0
+@export var explosion_threshold: float = 1.0  # Distance within which explosion triggers
 var ascension_velocity: Vector3 = Vector3.ZERO
-
 var ascension_acceleration: float = 0.05
+var exploded = false  # To ensure the explosion only happens once
 
 func ascension(delta):
-
-	ascension_acceleration += ascension_rate * delta
-	ascension_velocity.y += ascension_acceleration * delta
-	global_transform.origin += ascension_velocity * delta + get_shake_vector(delta)
-	ascension_light.global_transform.origin = global_transform.origin
-	ascension_light.global_transform.origin.y += 10.0
-	ascension_light.look_at(global_position, Vector3.BACK)
+	if exploded:
+		return
 	
+	var godsheep = get_node("../../Path3D/PathFollow3D")
+	var target_position = godsheep.global_transform.origin
+	DebugDraw3D.draw_box(target_position, Quaternion(), Vector3(5, 5, 5), Color.BLUE)
+	var direction_to_target = (target_position - global_transform.origin).normalized()
+	
+	ascension_acceleration += ascension_rate * delta
+	ascension_velocity += direction_to_target * ascension_acceleration * delta
+	ascension_velocity = ascension_velocity.normalized() * min(ascension_velocity.length(), max_ascension_velocity) + get_shake_vector(delta)
+	
+	global_transform.origin += ascension_velocity * delta
+	
+	ascension_light.global_transform.origin = global_transform.origin + Vector3(0, 10.0, 0)
+	ascension_light.look_at(global_position, Vector3.UP)
+	if ascension_velocity.length() > 0:
+		look_at(global_transform.origin + ascension_velocity.normalized(), Vector3.DOWN)
+	else:
+		look_at(global_transform.origin + Vector3(0, 0, 1), Vector3.DOWN)
+	
+	if global_transform.origin.distance_to(target_position) < explosion_threshold:
+		explode()
+
+func explode():
+	$ExplosionParticles.emitting = true
+	queue_free()
+	exploded = true
+
 func get_shake_vector(delta: float) -> Vector3:
 	var shake_vector = Vector3(randf_range(-ascension_shake_intensity, ascension_shake_intensity), 0, randf_range(-ascension_shake_intensity, ascension_shake_intensity))
 	return shake_vector * delta
