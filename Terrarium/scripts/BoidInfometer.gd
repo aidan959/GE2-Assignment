@@ -15,13 +15,15 @@ var viewport_camera: Camera3D = null
 @onready var health_bar :ProgressBar = find_child("HealthBar")
 @onready var hunger_bar :ProgressBar = find_child("HungerBar")
 @onready var sheep_cam :SubViewportContainer = find_child("SheepCamera")
+@onready var weight_list :ItemList = find_child("WeightList")
+
 func _ready():
 	if !viewport:
 		push_warning("Viewport has not been set.")
 	else: 
 		viewport.world_3d = viewport.find_world_3d()
 		viewport_camera = viewport.get_camera_3d()
-		#sheep_cam. = viewport_texture
+
 
 	if !boid_detector:
 		push_warning("Boid detector has not been set.")
@@ -58,4 +60,11 @@ func _physics_process(_delta):
 	hunger_bar.value = focus_boid.hunger
 	name_tag.text = "[center]" + focus_boid.name + "[/center]"
 	state_tag.text = "[center]" + focus_boid.BoidStates.keys()[focus_boid.current_state] + "[/center]"
-
+	weight_list.clear()
+	var ordered_list = []
+	for behaviour_name in focus_boid.influencing_weights:
+		var force_length : float = focus_boid.influencing_weights[behaviour_name].length()
+		ordered_list.push_back([behaviour_name, force_length])
+	ordered_list.sort_custom(func(a, b): return a[1] > b[1])
+	for behaviour_weight in ordered_list:
+		weight_list.add_item(behaviour_weight[0] + ": " + "%.4f" % behaviour_weight[1])

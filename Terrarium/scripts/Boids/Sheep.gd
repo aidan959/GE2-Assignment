@@ -82,7 +82,6 @@ func _physics_process(delta):
 	if is_in_water:
 		force.y += 0.5
 		
-		
 	else:
 		force += super.process_gravity(delta)
 	

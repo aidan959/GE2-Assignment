@@ -188,9 +188,9 @@ func reset_debug_influencing_weight():
 	if is_currently_selected:
 		influencing_weights = {}
 
-func add_debug_influencing_weight(behaviour: SteeringBehavior, force: Vector3):
+func add_debug_influencing_weight(behaviour: SteeringBehavior, f: Vector3):
 	if is_currently_selected:
-		influencing_weights[str(behaviour)] = force
+		influencing_weights[behaviour.name] = f
 func _process(_delta):
 	should_calculate = true
 	if draw_gizmos: on_draw_gizmos()

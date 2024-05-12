@@ -115,7 +115,7 @@ layout_mode = 0
 offset_left = 24.0
 offset_top = 24.0
 offset_right = 224.0
-offset_bottom = 301.0
+offset_bottom = 476.0
 
 [node name="SheepViewport" type="Panel" parent="BoidInfometer/SheepData"]
 layout_mode = 1
@@ -124,6 +124,8 @@ anchor_left = 0.05
 anchor_top = 0.05
 anchor_right = 0.95
 anchor_bottom = 0.65
+offset_top = 0.4
+offset_bottom = -100.8
 grow_horizontal = 2
 
 [node name="SheepCamera" type="SubViewportContainer" parent="BoidInfometer/SheepData/SheepViewport"]
@@ -149,9 +151,12 @@ orbit_height = 3.0
 layout_direction = 2
 layout_mode = 1
 anchors_preset = -1
-anchor_top = 0.7
+anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_top = -24.0
+offset_right = -1.0
+offset_bottom = -166.0
 grow_horizontal = 2
 grow_vertical = 0
 
@@ -194,6 +199,26 @@ offset_top = -27.0
 grow_horizontal = 2
 grow_vertical = 0
 max_value = 1.0
+
+[node name="WeightListGroup" type="Panel" parent="BoidInfometer/SheepData"]
+layout_direction = 2
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 65.0
+offset_right = -1.0
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="WeightList" type="ItemList" parent="BoidInfometer/SheepData/WeightListGroup"]
+layout_mode = 0
+offset_right = 199.0
+offset_bottom = 159.0
+allow_search = false
+auto_height = true
 
 [node name="terrain2" parent="." instance=ExtResource("7_mpobr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.9581, -51.4737, -38.6941)
@@ -267,7 +292,7 @@ curve = SubResource("Curve3D_xb707")
 script = ExtResource("14_2hd0c")
 
 [node name="PathFollow3D" type="PathFollow3D" parent="Path3D"]
-transform = Transform3D(0.0904022, 0.000847177, 0.995895, -0.000543714, 0.999989, -0.000801305, -0.995894, -0.000469048, 0.0904027, -23.8257, 0.0062724, 60.9016)
+transform = Transform3D(0.0904022, 0.000847178, 0.995895, -0.000543715, 0.999989, -0.000801306, -0.995894, -0.000469048, 0.0904027, -23.8257, 0.0062724, 60.9016)
 progress = 318.954
 
 [node name="GodCloud" parent="Path3D/PathFollow3D" instance=ExtResource("14_fhm0n")]
