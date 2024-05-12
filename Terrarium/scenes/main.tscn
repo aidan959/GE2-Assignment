@@ -267,7 +267,7 @@ curve = SubResource("Curve3D_xb707")
 script = ExtResource("14_2hd0c")
 
 [node name="PathFollow3D" type="PathFollow3D" parent="Path3D"]
-transform = Transform3D(0.0903975, 0.000847199, 0.995895, -0.000543686, 0.999989, -0.000801332, -0.995894, -0.000469021, 0.0903981, -23.8253, 0.00627206, 60.9016)
+transform = Transform3D(0.0904022, 0.000847177, 0.995895, -0.000543714, 0.999989, -0.000801305, -0.995894, -0.000469048, 0.0904027, -23.8257, 0.0062724, 60.9016)
 progress = 318.954
 
 [node name="GodCloud" parent="Path3D/PathFollow3D" instance=ExtResource("14_fhm0n")]

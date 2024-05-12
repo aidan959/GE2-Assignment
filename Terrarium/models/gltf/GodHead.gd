@@ -34,7 +34,7 @@ func _process(delta):
 			target_sheep = get_random_sheep_child()
 
 func get_random_sheep_child():
-	var boid_controller = get_node_or_null(boid_controller_path)
+	boid_controller = get_node_or_null(boid_controller_path)
 	if boid_controller:
 		print(boid_controller.boids)
 		var sheep_boids = boid_controller.boids[typeof(Sheep)]

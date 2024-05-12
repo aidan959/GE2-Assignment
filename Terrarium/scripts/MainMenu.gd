@@ -46,7 +46,7 @@ func _on_button_pressed():
 	visible = false
 	var transition_duration = 1.0
 	var distance = (player.camera.global_transform.origin - menu_camera.global_transform.origin).length()
-	var direction = (player.camera.global_transform.origin - menu_camera.global_transform.origin).normalized()
+	# var direction = (player.camera.global_transform.origin - menu_camera.global_transform.origin).normalized()
 	
 	do_transition = true
 	boid_controller._spawn_boids()

@@ -35,6 +35,10 @@ var grav_vel: Vector3
 
 var is_in_water : bool = false
 
+var is_currently_selected = false
+
+var influencing_weights = {}
+
 enum SpawnLocations {
 	WATER,
 	LAND,
@@ -164,20 +168,29 @@ func update_weights(weights):
 func calculate(_delta):
 	var force_acc = Vector3.ZERO	
 	var behaviours_active = ""
-	for i in behaviours.size():
-		if behaviours[i].enabled:
-			var f = behaviours[i].calculate() * behaviours[i].weight
-			if is_nan(f.x) or is_nan(f.y) or is_nan(f.z):
-				print(str(behaviours[i]) + " is NAN")
-				f = Vector3.ZERO
-			behaviours_active += behaviours[i].name + ": " + str(round(f.length())) + " "
-			force_acc += f 
+	reset_debug_influencing_weight()
+	for behaviour in behaviours:
+		if not behaviour.enabled:
+			continue
+		var f = behaviour.calculate() * behaviour.weight
+		if is_nan(f.x) or is_nan(f.y) or is_nan(f.z):
+			print(str(behaviour) + " is NAN")
+			f = Vector3.ZERO			
+		force_acc += f 
+		add_debug_influencing_weight(behaviour, f)
+			
 	force_acc = force_acc.limit_length(max_force)
 	if draw_gizmos:
 		DebugDraw2D.set_text(name, behaviours_active)
 	return force_acc
 
+func reset_debug_influencing_weight():
+	if is_currently_selected:
+		influencing_weights = {}
 
+func add_debug_influencing_weight(behaviour: SteeringBehavior, force: Vector3):
+	if is_currently_selected:
+		influencing_weights[str(behaviour)] = force
 func _process(_delta):
 	should_calculate = true
 	if draw_gizmos: on_draw_gizmos()

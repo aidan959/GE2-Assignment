@@ -149,16 +149,18 @@ func calculate(_delta):
 		update_nearest_grass()
 	is_currently_escaping = false
 	var behaviour_forces = {}
-
+	reset_debug_influencing_weight()
 	for behaviour in behaviours:
 		if not behaviour.enabled:
 			continue
 		if current_state == BoidStates.GRAZING and (not behaviour is Grazer and not behaviour is Escape):
 			continue
+			
 		var f = behaviour.calculate().normalized() * behaviour.weight
 		if f.length() == 0.0: continue
 		if behaviour is Escape: is_currently_escaping = true
 		behaviour_forces[behaviour] = f
+		add_debug_influencing_weight(behaviour, f)
 	if current_state == BoidStates.GRAZING and can_eat and not is_currently_escaping:
 		is_currently_eating = true
 		return -force/2
@@ -166,11 +168,9 @@ func calculate(_delta):
 	is_currently_eating = false
 	for behaviour in behaviour_forces:
 		var f = behaviour_forces[behaviour]
-		behaviors_active += behaviour.name + ": " + str(round(f.length())) + " "
 		force_acc += f
 		# Calculate sound weight for the behavior
 		var sound_weight = f.length() * behaviour.sound_weight
-		
 		behavior_sound_weights[behaviour] = sound_weight
 
 	if draw_gizmos:
