@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://dh52fxfx2rten"]
+[gd_scene load_steps=24 format=3 uid="uid://dh52fxfx2rten"]
 
 [ext_resource type="Script" path="res://scripts/BoidController.gd" id="2_qkdbf"]
 [ext_resource type="Script" path="res://scenes/grass.gd" id="3_l3wkh"]
@@ -13,6 +13,8 @@
 [ext_resource type="AudioStream" uid="uid://dpniofcytnny2" path="res://sounds/music/sheep song.mp3" id="11_5pvwx"]
 [ext_resource type="AudioStream" uid="uid://cf3o7h3vc534a" path="res://sounds/music/sheep_music.mp3" id="12_dunkj"]
 [ext_resource type="PackedScene" uid="uid://qd8lu6e8lj03" path="res://jar.tscn" id="13_pv3wt"]
+[ext_resource type="Script" path="res://scenes/GodPath.gd" id="14_2hd0c"]
+[ext_resource type="PackedScene" uid="uid://dn43u1jd5gbam" path="res://scenes/GodCloud.tscn" id="14_fhm0n"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_3nacf"]
 
@@ -45,6 +47,13 @@ _bundled = {
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_78eg5"]
 size = Vector3(100, 1, 20)
+
+[sub_resource type="Curve3D" id="Curve3D_xb707"]
+_data = {
+"points": PackedVector3Array(-46.573, 0.380249, -0.928314, 46.573, -0.380249, 0.928314, -16.9017, 0, -136.768, -1.31972, 0.138062, -67.5452, 1.31972, -0.138062, 67.5452, 82.5638, 0, -40.5488, 37.3643, -0.0460205, 0.542633, -37.3643, 0.0460205, -0.542633, -17.5972, 0, 61.2353, -0.926514, -0.0460205, 70.9926, 0.926514, 0.0460205, -70.9926, -115.672, 0, -38.9258, -46.9751, 0.117188, 1.26543, 46.9751, -0.117188, -1.26543, -16.9017, 0, -136.768),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0)
+}
+point_count = 5
 
 [node name="Main" type="Node3D"]
 
@@ -251,5 +260,16 @@ text = "Start Game
 
 [node name="Jar" parent="." instance=ExtResource("13_pv3wt")]
 transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, -18.2373, -42.5121, -37.1993)
+
+[node name="Path3D" type="Path3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 56.4785, 0)
+curve = SubResource("Curve3D_xb707")
+script = ExtResource("14_2hd0c")
+
+[node name="PathFollow3D" type="PathFollow3D" parent="Path3D"]
+transform = Transform3D(0.0903975, 0.000847199, 0.995895, -0.000543686, 0.999989, -0.000801332, -0.995894, -0.000469021, 0.0903981, -23.8253, 0.00627206, 60.9016)
+progress = 318.954
+
+[node name="GodCloud" parent="Path3D/PathFollow3D" instance=ExtResource("14_fhm0n")]
 
 [connection signal="pressed" from="Main Menu/CenterContainer/Panel/VBoxContainer/MarginContainer/Button" to="Main Menu" method="_on_button_pressed"]
