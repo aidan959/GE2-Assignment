@@ -1,101 +1,118 @@
-class_name EnvironmentController extends Node
+class_name EnvController extends Node
 
-@onready var world_environment: WorldEnvironment = $DayNightCycle/WorldEnvironment
-@onready var weather = get_node("weather")
-@onready var weather_timer: Timer = $WeatherTimer
-@onready var heat_mesh = $HeatMesh
-@export var player : Player
+@export var sim_time : bool = true
+@export var day_length : float = 240.0
+@export_range(0, 2400, 0.01) var day_time = 120.0
 
-var player_cam = null
+@export var weather_duration : float = 30.0
+@onready var weather_occured : bool = false
 
-@export var day_length = 360.0  # Full day in seconds
-@export var current_time = 0.0  # Current time in the cycle
-var weather_event_occurred : bool = false
-var is_heat : bool : set = set_is_heat
+@onready var sunMoonParent = $SunMoon
+@onready var sun_light : DirectionalLight3D = $SunMoon/SunLight
+@onready var moon_light : DirectionalLight3D = $SunMoon/MoonLight
+@onready var world_environment: WorldEnvironment = $WorldEnvironment
+@onready var environment : WorldEnvironment = $WorldEnvironment
+@onready var weather_controller = $WorldEnvironment/Weather
 
-func _ready():
-	set_weather_condition("clear")
-	player_cam = player.find_child("Camera")
+var rand_choice : int
+@export var do_weather : bool = false
+var is_heat_active : bool = false
+var lerp_progress : float = 0.0
+var original_top_sky_colour : Color
+var original_horizon_sky_colour : Color
+var transition_duration: float = 2.0
 
-func _process(delta):
-	#print(weather_timer.time_left)
-	current_time += delta
-	if current_time >= day_length:
-		current_time = 0  # Reset the day cycle
-		weather_event_occurred = false  # Reset the flag each day
+@export var top_sky: Gradient
+@export var horizon_sky: Gradient
+@export var sun_colour : Gradient
+@export var sun_intensity : Curve
+@export var moon_colour : Gradient
+@export var moon_intensity : Curve
+@export var heat_colour : Gradient
 
-	if current_time >= day_length / 2.0 and not weather_event_occurred:
-		weather_event_occurred = true
-		consider_changing_weather()
-		
-	if is_heat:
-		position_heat_mesh()
+@onready var player = get_parent()
 
-		
-		
+func runDay(delta):
+	if sim_time:
+		day_time += delta
+		if day_time >= day_length:
+			day_time = 0.0
+			weather_occured = false
+ 
+func updateLights(delta):
+	sun_light.rotation_degrees.x = (day_time / day_length) * 360 + 90
+	moon_light.rotation_degrees.x = (day_time / day_length) * 360 + 270
+	sun_light.light_color = sun_colour.sample(day_time / day_length)
+	moon_light.light_color = moon_colour.sample(day_time / day_length)
+
+func updateSkyColors(delta):
+	var top_colour : Color
+	var horizon_colour : Color
+
+	if rand_choice == 2:  # Heat weather
+		if weather_controller.weather_timer.time_left > 0:
+			# Lerp to heat color
+			top_colour = original_top_sky_colour.lerp(heat_colour.sample(day_time / day_length), lerp_progress)
+			horizon_colour = original_horizon_sky_colour.lerp(heat_colour.sample(day_time / day_length), lerp_progress)
+			if is_heat_active: lerp_progress += delta / weather_duration
+			if lerp_progress >= 1.0:
+				is_heat_active = false
+				lerp_progress = 0.0
+				
+				original_top_sky_colour = world_environment.environment.sky.sky_material.get("sky_top_color")
+				original_horizon_sky_colour = world_environment.environment.sky.sky_material.get("sky_horizon_color")
+				
+				
+		else:
+			# Lerp back to original colours
+			#print("here", lerp_progress) 
+			top_colour = original_top_sky_colour.lerp(top_sky.sample(day_time / day_length) ,lerp_progress)
+			horizon_colour = original_horizon_sky_colour.lerp(top_sky.sample(day_time / day_length) ,lerp_progress)
+			lerp_progress += delta /weather_duration
+			if lerp_progress >= 1.0:
+				rand_choice = 0
+				lerp_progress = 0.0 
+			
+			
+		world_environment.environment.sky.sky_material.set("sky_top_color", top_colour)
+		world_environment.environment.sky.sky_material.set("sky_horizon_color", horizon_colour)
+			
+	else:
+		world_environment.environment.sky.sky_material.set("sky_top_color", top_sky.sample(day_time / day_length))
+		world_environment.environment.sky.sky_material.set("sky_horizon_color", horizon_sky.sample(day_time / day_length))
+	
+
 func consider_changing_weather():
-	print("Weather Considered")
-	if randi() % 3 == 0:  # 1/3 chance to trigger a weather change
+	if randi() % 3 == 0:
 		change_weather()
-		weather_timer.start(60)  # The weather effect lasts 60 seconds
-
-func _on_weather_timer_timeout():
-	print("Weather Stop")
-	set_weather_condition("clear")
-
 
 func change_weather():
-		# Randomly decide what weather condition to trigger
-		var rand_choice = randi() % 2  # Random integer 0, 1, or 2
-		var intensity = randf_range(500, 1500) 
-		rand_choice = 2
-		
-		match rand_choice:
-			0:
-				set_weather_condition("rain", intensity)
-				print("rain weather")
-			1:
-				set_weather_condition("snow", intensity)
-				print("snow weather")
-			2:
-				set_is_heat(true)
-				print("hot weather")
+	rand_choice = randi() % 3
+	var intensity = randf_range(500, 1500)
+	weather_controller.start_timer(weather_duration)
+	weather_occured = true
+	match rand_choice:
+		0:
+			weather_controller.rain(intensity)
+			#print("rain weather")
+		1:
+			weather_controller.snow(intensity)
+			#print("snow weather")
+		2:
+			weather_controller.heat()
+			#print("hot weather")
+			lerp_progress = 0.0
+			is_heat_active = true
+			original_top_sky_colour = world_environment.environment.sky.sky_material.get("sky_top_color")
+			original_horizon_sky_colour = world_environment.environment.sky.sky_material.get("sky_horizon_color")
 
+func _process(delta):
+	updateLights(delta)
+	runDay(delta)
+	updateSkyColors(delta)
+	if day_time >= day_length / 2 and not weather_occured and do_weather:
+		consider_changing_weather()
 
-func set_weather_condition(weather_data, intensity = 1000):
-	var environment = world_environment.environment
-	if not environment:
-		return
-
-	match weather_data:
-		"rain":
-			environment.volumetric_fog_enabled = true
-			environment.volumetric_fog_density = 0.01
-			weather.start_rain()
-			weather.adjust_rain_intensity(intensity)
-
-		"snow":
-			environment.volumetric_fog_enabled = true
-			environment.volumetric_fog_density = 0.03
-			weather.start_snow()
-			weather.adjust_snow_intensity(intensity)
-			
-		
-		"clear":
-			environment.volumetric_fog_enabled = false
-			environment.volumetric_fog_density = 0.0
-			weather.stop_rain()
-			weather.stop_snow()
-			set_is_heat(false)
-
-
-func set_is_heat(val : bool):
-	is_heat = val
-
-func position_heat_mesh():
-	var distance = 50.0  # Distance from the camera
-	var forward_direction = player_cam.global_transform.basis.z.normalized()  # Camera's forward direction
-	var heat_mesh_position = player_cam.global_transform.origin - forward_direction * distance
-	heat_mesh.global_transform.origin = heat_mesh_position
-	heat_mesh.look_at(player_cam.global_transform.origin, Vector3.UP)
-	heat_mesh.show()  # Make sure the mesh is visible
+func _physics_process(delta):
+	weather_controller.global_transform = player.global_transform
+ 

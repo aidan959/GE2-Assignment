@@ -3,19 +3,20 @@
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_khdcl"]
 [ext_resource type="Script" path="res://scripts/BoidDetector.gd" id="2_3jdk1"]
 [ext_resource type="AudioStream" uid="uid://dpniofcytnny2" path="res://sounds/music/sheep song.mp3" id="3_21wkv"]
-[ext_resource type="PackedScene" uid="uid://cfgb6gp0q3mdj" path="res://scenes/env_test.tscn" id="4_1mu6t"]
+[ext_resource type="PackedScene" uid="uid://cfgb6gp0q3mdj" path="res://scenes/Environment/env_controller.tscn" id="4_xb8qy"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_t4vqa"]
 radius = 0.3
 height = 1.8
 
-[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("crosshair", "music_player")]
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("crosshair", "music_player", "environment_controller")]
 collision_layer = 513
 wall_min_slide_angle = 1.36834
 floor_max_angle = 3.14159
 script = ExtResource("1_khdcl")
 crosshair = NodePath("PlayerHUD/CenterContainer/Panel")
 music_player = NodePath("MusicPlayer")
+environment_controller = NodePath("Environment Controller")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.904236, 0)
@@ -62,4 +63,4 @@ stream = ExtResource("3_21wkv")
 volume_db = -3.0
 autoplay = true
 
-[node name="Environment Controller" parent="." instance=ExtResource("4_1mu6t")]
+[node name="Environment Controller" parent="." instance=ExtResource("4_xb8qy")]

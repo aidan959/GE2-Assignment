@@ -70,6 +70,7 @@ func _physics_process(delta):
 
 		menu_camera.current = false
 		player.camera.current = true
+		player.environment_controller.do_weather = true
 		player.capture_mouse()
 		
 func get_camera():
