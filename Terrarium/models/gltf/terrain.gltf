@@ -66,15 +66,15 @@
 	"images":[
 		{
 			"mimeType":"image/png",
-			"name":"pixil-frame-0 (1)",
-			"uri":"pixil-frame-0%201.png"
+			"name":"BigTerrain",
+			"uri":"BigTerrain.png"
 		}
 	],
 	"accessors":[
 		{
 			"bufferView":0,
 			"componentType":5126,
-			"count":50964,
+			"count":51224,
 			"max":[
 				1.9015446901321411,
 				0.2826100289821625,
@@ -90,13 +90,13 @@
 		{
 			"bufferView":1,
 			"componentType":5126,
-			"count":50964,
+			"count":51224,
 			"type":"VEC3"
 		},
 		{
 			"bufferView":2,
 			"componentType":5126,
-			"count":50964,
+			"count":51224,
 			"type":"VEC2"
 		},
 		{
@@ -109,38 +109,38 @@
 	"bufferViews":[
 		{
 			"buffer":0,
-			"byteLength":611568,
+			"byteLength":614688,
 			"byteOffset":0,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":611568,
-			"byteOffset":611568,
+			"byteLength":614688,
+			"byteOffset":614688,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":407712,
-			"byteOffset":1223136,
+			"byteLength":409792,
+			"byteOffset":1229376,
 			"target":34962
 		},
 		{
 			"buffer":0,
 			"byteLength":219816,
-			"byteOffset":1630848,
+			"byteOffset":1639168,
 			"target":34963
 		}
 	],
 	"samplers":[
 		{
-			"magFilter":9729,
-			"minFilter":9987
+			"magFilter":9728,
+			"minFilter":9984
 		}
 	],
 	"buffers":[
 		{
-			"byteLength":1850664,
+			"byteLength":1858984,
 			"uri":"terrain.bin"
 		}
 	]
