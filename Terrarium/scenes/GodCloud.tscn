@@ -9,7 +9,7 @@ transform = Transform3D(-0.0106986, 0, 0.999943, 0, 1, 0, -0.999943, 0, -0.01069
 script = ExtResource("4_b6ueu")
 
 [node name="GodCloud" parent="." instance=ExtResource("1_x4hup")]
-transform = Transform3D(-4.37722e-08, 0, -1, 0, 1, 0, 1, 0, -4.37722e-08, -0.00256855, 0, -1.25481)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.24407, 0, -0.0133101)
 
 [node name="GodHead" parent="." instance=ExtResource("3_rvmkv")]
-transform = Transform3D(-4.37722e-08, 0, -1, 0, 1, 0, 1, 0, -4.37722e-08, -0.00256906, 3.08628, 1.22819)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.23893, 3.08628, -0.0133097)
