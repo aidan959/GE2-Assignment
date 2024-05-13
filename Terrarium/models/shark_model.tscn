@@ -9,9 +9,7 @@ albedo_color = Color(0.0705882, 0.945098, 0.180392, 1)
 
 [node name="Skeleton3D" parent="Armature" index="0"]
 bones/0/rotation = Quaternion(-0.501321, 0.498676, 0.501321, 0.498676)
-bones/0/scale = Vector3(1, 1, 1)
 bones/1/rotation = Quaternion(-0.000366534, -3.42264e-08, -2.58892e-11, 1)
-bones/1/scale = Vector3(1, 1, 1)
 bones/2/rotation = Quaternion(0.00862965, 4.14393e-08, 6.97293e-10, 0.999963)
 bones/2/scale = Vector3(1, 1, 1)
 bones/4/rotation = Quaternion(-0.258459, 0.429729, 0.858232, 0.109407)

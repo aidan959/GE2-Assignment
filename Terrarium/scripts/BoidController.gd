@@ -23,7 +23,7 @@ var boid_types : Dictionary = {
 @export var avoid_distance = 20
 
 @export var max_neighbours = 10
-@export var environment_controller : EnvironmentController
+
 @export var boid_infometer : BoidInfometer
 var boids : Dictionary = {}
 var grasses : Array[GrassFood] = []
@@ -46,8 +46,8 @@ var cells = {}
 @export var center_path : NodePath
 
 @export var god_sheep : GodHead
-var center
-var boids_to_despawn : Array[Boid] = [] 
+var center : Node3D
+
 func do_draw_gizmos():
 	if Engine.is_editor_hint():
 		DebugDraw3D.draw_sphere(global_position, radius, Color.ORANGE)
@@ -59,7 +59,9 @@ func _process(_delta):
 func _ready():
 	load_names()
 	randomize()
-	center = get_node(center_path)
+	center = get_node_or_null(center_path)
+	if not center:
+		center = self
 	for node in get_parent().get_children():
 		var potential_pred = node.find_child("Predator", true)
 		if potential_pred:
@@ -86,14 +88,15 @@ func _init_spawn_zones():
 		spawnable_zones[spawn_zone.spawn_type].push_back(spawn_zone)
 
 func _spawn_boids():
-	for i in grass_count:
-		var grass = grass_scene.instantiate()
-		var pos = Utils.random_point_in_unit_sphere() * radius
-		pos.y = 0.3
-		add_child(grass)
-		grass.global_position = pos
-		var grass_instance : GrassFood = grass
-		grasses.push_back(grass_instance)
+	if grass_scene:
+		for i in grass_count:
+			var grass = grass_scene.instantiate()
+			var pos = Utils.random_point_in_unit_sphere() * radius
+			pos.y = 0.3
+			add_child(grass)
+			grass.global_position = pos
+			var grass_instance : GrassFood = grass
+			grasses.push_back(grass_instance)
 
 	for type in spawn_amount:
 		for i in spawn_amount[type]:
