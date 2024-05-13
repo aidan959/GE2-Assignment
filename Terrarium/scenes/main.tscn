@@ -83,7 +83,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.447, 1.91234, -38.6893)
 script = ExtResource("2_qkdbf")
 spawn_amount = {
 "Shark": 0,
-"Sheep": 100
+"Sheep": 1
 }
 grass_scene = SubResource("PackedScene_kxt68")
 radius = 90
@@ -385,10 +385,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 56.4785, 0)
 curve = SubResource("Curve3D_xb707")
 script = ExtResource("14_2hd0c")
 
-[node name="PathFollow3D" type="PathFollow3D" parent="Path3D"]
-transform = Transform3D(0.0904023, 0.000847178, 0.995896, -0.000543715, 0.99999, -0.000801306, -0.995895, -0.000469048, 0.0904028, -23.8257, 0.0062724, 60.9016)
-progress = 318.954
-
-[node name="GodCloud" parent="Path3D/PathFollow3D" instance=ExtResource("14_fhm0n")]
+[node name="GodCloud" parent="Path3D" instance=ExtResource("14_fhm0n")]
+transform = Transform3D(0.0903576, 0.000847389, 0.995899, -0.00054368, 0.99999, -0.000801541, -0.995901, -0.000469029, 0.0903579, -23.8217, 0.0062692, 60.9019)
+progress = 318.95
 
 [connection signal="pressed" from="Main Menu/CenterContainer/Panel/VBoxContainer/MarginContainer2/Button" to="Main Menu" method="_on_button_pressed"]
