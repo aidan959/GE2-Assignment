@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://bbw7c2cly1rnc"]
+[gd_scene load_steps=13 format=3 uid="uid://bbw7c2cly1rnc"]
 
 [ext_resource type="Shader" uid="uid://b4qiskb0eyqkd" path="res://shaders/blood.tres" id="1_sddl6"]
+[ext_resource type="Shader" uid="uid://6xlmjfcyfqri" path="res://shaders/blood_spot.tres" id="2_d7j3e"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_yopj7"]
 render_priority = 0
@@ -20,14 +21,50 @@ linear_accel_min = 4.0
 linear_accel_max = 4.0
 scale_max = 3.0
 scale_curve = SubResource("CurveTexture_tmch5")
+collision_mode = 2
+sub_emitter_mode = 3
+sub_emitter_amount_at_collision = 1
 
 [sub_resource type="QuadMesh" id="QuadMesh_ov3ks"]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5b0b2"]
+render_priority = 0
+shader = ExtResource("2_d7j3e")
+
+[sub_resource type="Curve" id="Curve_8pi6c"]
+_data = [Vector2(0, 0.606352), 0.0, -1.7097, 0, 0, Vector2(0.162455, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_nru8v"]
+curve = SubResource("Curve_8pi6c")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_2maj1"]
+gravity = Vector3(0, 0, 0)
+scale_max = 3.0
+scale_curve = SubResource("CurveTexture_nru8v")
+
+[sub_resource type="QuadMesh" id="QuadMesh_5myra"]
+orientation = 1
+
 [node name="Blood" type="Node3D"]
 
-[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.25915, 0)
+[node name="blood" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 material_override = SubResource("ShaderMaterial_yopj7")
 amount = 100
+sub_emitter = NodePath("../blood_spot")
 process_material = SubResource("ParticleProcessMaterial_nqlgf")
 draw_pass_1 = SubResource("QuadMesh_ov3ks")
+
+[node name="GPUParticlesCollisionBox3D" type="GPUParticlesCollisionBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0777882, 0)
+size = Vector3(2, 0.0800781, 2)
+
+[node name="blood_spot" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.162, 0)
+material_override = SubResource("ShaderMaterial_5b0b2")
+cast_shadow = 0
+amount = 100
+visibility_aabb = AABB(-4, -0.0611041, -4, 8, 0.122208, 8)
+process_material = SubResource("ParticleProcessMaterial_2maj1")
+draw_pass_1 = SubResource("QuadMesh_5myra")
