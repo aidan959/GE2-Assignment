@@ -196,7 +196,7 @@ func _process(_delta):
 @export var ascension_rate: float = 0.2
 @export var ascension_shake_intensity: float = 0.5  
 @export var max_ascension_velocity: float = 30.0
-@export var explosion_threshold: float = 1.0  # Distance within which explosion triggers
+@export var explosion_threshold: float = 5.0  # Distance within which explosion triggers
 var ascension_velocity: Vector3 = Vector3.ZERO
 var ascension_acceleration: float = 0.05
 var exploded = false  # To ensure the explosion only happens once
