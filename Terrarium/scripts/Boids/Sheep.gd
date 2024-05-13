@@ -113,7 +113,6 @@ func _physics_process(delta):
 	var temp_up = global_transform.basis.y.lerp(Vector3.UP + (acceleration * banking), delta * 5.0)
 
 	var target : Vector3 = global_transform.origin - velocity.normalized()
-	var target_dot : float = temp_up.dot(target)
 	
 	look_at(global_transform.origin - velocity.normalized(), temp_up)
 
