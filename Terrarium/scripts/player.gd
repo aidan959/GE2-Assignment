@@ -8,6 +8,7 @@ class_name Player extends CharacterBody3D
 @export_range(0.1, 3.0, 0.1, "or_greater") var camera_sens: float = 1
 @export var crosshair:  Panel 
 @export var music_player:  AudioStreamPlayer
+@export var environment_controller: EnvController
 
 var jumping: bool = false
 var mouse_captured: bool = false
