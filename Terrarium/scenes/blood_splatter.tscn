@@ -1,0 +1,33 @@
+[gd_scene load_steps=7 format=3 uid="uid://bbw7c2cly1rnc"]
+
+[ext_resource type="Shader" uid="uid://b4qiskb0eyqkd" path="res://shaders/blood.tres" id="1_sddl6"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yopj7"]
+render_priority = 0
+shader = ExtResource("1_sddl6")
+
+[sub_resource type="Curve" id="Curve_w6r8d"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.942238, 0.625554), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_tmch5"]
+curve = SubResource("Curve_w6r8d")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_nqlgf"]
+inherit_velocity_ratio = 4.0
+spread = 2.53
+linear_accel_min = 4.0
+linear_accel_max = 4.0
+scale_max = 3.0
+scale_curve = SubResource("CurveTexture_tmch5")
+
+[sub_resource type="QuadMesh" id="QuadMesh_ov3ks"]
+
+[node name="Blood" type="Node3D"]
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.25915, 0)
+material_override = SubResource("ShaderMaterial_yopj7")
+amount = 100
+process_material = SubResource("ParticleProcessMaterial_nqlgf")
+draw_pass_1 = SubResource("QuadMesh_ov3ks")
