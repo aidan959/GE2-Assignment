@@ -178,3 +178,7 @@ func remove_boid(boid: Boid):
 	for boid_a in list_of_boids:
 		index = boid_a.neighbours.find(boid, 0)
 		boid_a.neighbours.remove_at(index)
+	
+	boid.call_deferred("queue_free()")
+	
+

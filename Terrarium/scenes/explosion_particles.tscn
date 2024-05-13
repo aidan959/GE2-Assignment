@@ -1,13 +1,14 @@
-[gd_scene load_steps=9 format=3 uid="uid://dsqev0puyw6fa"]
+[gd_scene load_steps=14 format=3 uid="uid://dsqev0puyw6fa"]
 
 [ext_resource type="Script" path="res://scenes/explosion_particles.gd" id="1_lpjuf"]
 
-[sub_resource type="Curve" id="Curve_0ureg"]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
-point_count = 2
+[sub_resource type="Gradient" id="Gradient_wlcnr"]
+metadata/_snap_enabled = true
+metadata/_snap_count = 19
 
-[sub_resource type="CurveTexture" id="CurveTexture_hypke"]
-curve = SubResource("Curve_0ureg")
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_pyjit"]
+gradient = SubResource("Gradient_wlcnr")
+width = 2560
 
 [sub_resource type="Curve" id="Curve_s0xqk"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.762082), 0.0, 0.0, 0, 0]
@@ -17,22 +18,15 @@ point_count = 2
 width = 2048
 curve = SubResource("Curve_s0xqk")
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_putnl"]
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_aqg8j"]
 spread = 180.0
 initial_velocity_min = 59.67
 initial_velocity_max = 174.11
-gravity = Vector3(0, -9, 0)
 scale_curve = SubResource("CurveTexture_jlm4u")
-hue_variation_min = -1.0
-hue_variation_max = 1.0
-hue_variation_curve = SubResource("CurveTexture_hypke")
-anim_speed_min = 0.9
-anim_speed_max = 2.19
-turbulence_enabled = true
+color = Color(80.933, 12.95, 0.027, 1)
+color_ramp = SubResource("GradientTexture1D_pyjit")
 turbulence_noise_strength = 2.5
 turbulence_noise_scale = 2.275
-sub_emitter_mode = 1
-sub_emitter_frequency = 4.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jrdue"]
 albedo_color = Color(0.443137, 0, 0, 1)
@@ -40,6 +34,32 @@ albedo_color = Color(0.443137, 0, 0, 1)
 [sub_resource type="BoxMesh" id="BoxMesh_rs2er"]
 lightmap_size_hint = Vector2i(14, 21)
 material = SubResource("StandardMaterial3D_jrdue")
+
+[sub_resource type="Curve" id="Curve_od4ep"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.956098, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_1qd3b"]
+curve = SubResource("Curve_od4ep")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_tf21m"]
+spread = 180.0
+initial_velocity_min = 59.67
+initial_velocity_max = 174.11
+gravity = Vector3(0, 0, 0)
+scale_curve = SubResource("CurveTexture_jlm4u")
+color = Color(11.511, 7.194, 0.001, 1)
+emission_curve = SubResource("CurveTexture_1qd3b")
+turbulence_noise_strength = 2.5
+turbulence_noise_scale = 2.275
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q10fg"]
+transparency = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+
+[sub_resource type="SphereMesh" id="SphereMesh_dvyjs"]
+material = SubResource("StandardMaterial3D_q10fg")
 
 [node name="ExplosionParticles" type="Node3D"]
 transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
@@ -50,8 +70,15 @@ amount = 20
 lifetime = 6.64
 explosiveness = 1.0
 randomness = 0.3
-process_material = SubResource("ParticleProcessMaterial_putnl")
+process_material = SubResource("ParticleProcessMaterial_aqg8j")
 draw_pass_1 = SubResource("BoxMesh_rs2er")
+
+[node name="GPUParticles3D2" type="GPUParticles3D" parent="."]
+amount = 100
+lifetime = 1.81
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_tf21m")
+draw_pass_1 = SubResource("SphereMesh_dvyjs")
 
 [node name="Timer" type="Timer" parent="."]
 one_shot = true

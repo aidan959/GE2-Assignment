@@ -8,7 +8,7 @@
 [ext_resource type="Script" path="res://scripts/BoidInfometer.gd" id="7_cgsf7"]
 [ext_resource type="PackedScene" uid="uid://cdc1p35m2yavw" path="res://scenes/TerrainModel.tscn" id="7_mpobr"]
 [ext_resource type="Script" path="res://scenes/Follower.gd" id="8_cwjm7"]
-[ext_resource type="PackedScene" uid="uid://dp276413u6prv" path="res://scenes/water.tscn" id="9_jggms"]
+[ext_resource type="PackedScene" uid="uid://dp276413u6prv" path="res://scenes/Environment/water.tscn" id="9_jggms"]
 [ext_resource type="Script" path="res://scripts/MainMenu.gd" id="10_6yboc"]
 [ext_resource type="AudioStream" uid="uid://dpniofcytnny2" path="res://sounds/music/sheep song.mp3" id="11_5pvwx"]
 [ext_resource type="AudioStream" uid="uid://cf3o7h3vc534a" path="res://sounds/music/sheep_music.mp3" id="12_dunkj"]
@@ -124,7 +124,7 @@ draw_gizmos = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0785122, 1.65177, -0.0539837)
 
 [node name="Player" parent="." instance=ExtResource("4_mbjog")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.68523, 1.18654, 6.07644)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.65612, 1.18654, 6.01328)
 
 [node name="BoidInfometer" type="Control" parent="." node_paths=PackedStringArray("player", "viewport")]
 visible = false
@@ -393,7 +393,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 56.4785, 0)
 curve = SubResource("Curve3D_xb707")
 
 [node name="GodCloud" parent="Path3D" instance=ExtResource("14_fhm0n")]
-transform = Transform3D(0.0903576, 0.000847388, 0.995899, -0.00054368, 0.99999, -0.000801541, -0.995901, -0.000469029, 0.0903578, -23.8217, 0.0062692, 60.9019)
-progress = 318.95
+
+transform = Transform3D(-0.0199283, 0.00816099, -0.999758, -4.65657e-10, 0.999957, 0.0081626, 0.999793, 0.000162669, -0.0199276, -16.9017, 0, -136.768)
 
 [connection signal="pressed" from="Main Menu/CenterContainer/Panel/VBoxContainer/MarginContainer2/Button" to="Main Menu" method="_on_button_pressed"]
