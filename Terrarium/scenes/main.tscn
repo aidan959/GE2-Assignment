@@ -13,7 +13,7 @@
 [ext_resource type="AudioStream" uid="uid://dpniofcytnny2" path="res://sounds/music/sheep song.mp3" id="11_5pvwx"]
 [ext_resource type="AudioStream" uid="uid://cf3o7h3vc534a" path="res://sounds/music/sheep_music.mp3" id="12_dunkj"]
 [ext_resource type="PackedScene" uid="uid://qd8lu6e8lj03" path="res://jar.tscn" id="13_pv3wt"]
-[ext_resource type="Script" path="res://scenes/GodPath.gd" id="14_2hd0c"]
+[ext_resource type="Script" path="res://scripts/GodPath.gd" id="14_2hd0c"]
 [ext_resource type="PackedScene" uid="uid://dn43u1jd5gbam" path="res://scenes/GodCloud.tscn" id="14_fhm0n"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_3nacf"]

@@ -111,7 +111,7 @@ func _spawn_boids():
 
 			
 			boid.hunger = randf_range(0.0, 0.1)
-			boid.metabolism = randf_range(0.01, 0.05)
+			boid.metabolism = randf_range(0.5, 0.9)
 			boid.name = get_random_unique_name()
 			
 			boids[typeof(boid)].push_back(boid)
