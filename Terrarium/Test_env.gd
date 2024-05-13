@@ -38,7 +38,7 @@ func runDay(delta):
 			day_time = 0.0
 			weather_occured = false
  
-func updateLights(delta):
+func updateLights(_delta):
 	sun_light.rotation_degrees.x = (day_time / day_length) * 360 + 90
 	moon_light.rotation_degrees.x = (day_time / day_length) * 360 + 270
 	sun_light.light_color = sun_colour.sample(day_time / day_length)
@@ -113,6 +113,6 @@ func _process(delta):
 	if day_time >= day_length / 2 and not weather_occured:
 		consider_changing_weather()
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	weather_controller.global_transform = player.global_transform
  

@@ -30,12 +30,12 @@ func clear_weather():
 	
 func rain(intensity : float):
 	rain_particles.emitting = true
-	rain_particles.amount = intensity
+	rain_particles.amount = int(intensity)
 	is_fog = true
 
 func snow(intensity : float):
 	snow_particles.emitting = true
-	snow_particles.amount = intensity
+	snow_particles.amount = int(intensity)
 	is_fog = true
 	
 func heat():
@@ -50,7 +50,7 @@ func toggle_fog(do_fog : bool):
 	else:
 		target_fog_density = 0.01
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if not heat_mesh.visible:
 		world_environment.environment.volumetric_fog_density = lerp(world_environment.environment.volumetric_fog_density, target_fog_density, 0.005)
 		

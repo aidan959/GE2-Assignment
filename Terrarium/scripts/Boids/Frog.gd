@@ -82,7 +82,7 @@ func arrive_force(target:Vector3, slowingDistance:float):
 	var ramped = (dist / slowingDistance) * max_speed
 	var limit_length = min(max_speed, ramped)
 	var desired = (toTarget * limit_length) / dist 
-	return desired - vel
+	return desired - velocity
 
 	
 func set_enabled_all(enabled):

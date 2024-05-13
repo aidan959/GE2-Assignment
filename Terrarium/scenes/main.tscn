@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://dh52fxfx2rten"]
+[gd_scene load_steps=23 format=3 uid="uid://dh52fxfx2rten"]
 
 [ext_resource type="Script" path="res://scripts/BoidController.gd" id="2_qkdbf"]
 [ext_resource type="Script" path="res://scenes/grass.gd" id="3_l3wkh"]
@@ -13,12 +13,7 @@
 [ext_resource type="AudioStream" uid="uid://dpniofcytnny2" path="res://sounds/music/sheep song.mp3" id="11_5pvwx"]
 [ext_resource type="AudioStream" uid="uid://cf3o7h3vc534a" path="res://sounds/music/sheep_music.mp3" id="12_dunkj"]
 [ext_resource type="PackedScene" uid="uid://qd8lu6e8lj03" path="res://jar.tscn" id="13_pv3wt"]
-[ext_resource type="Script" path="res://scripts/GodPath.gd" id="14_2hd0c"]
 [ext_resource type="PackedScene" uid="uid://dn43u1jd5gbam" path="res://scenes/GodCloud.tscn" id="14_fhm0n"]
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_3nacf"]
-
-[sub_resource type="BoxMesh" id="BoxMesh_6qn1q"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5tj4n"]
 albedo_texture = ExtResource("4_4bhah")
@@ -45,14 +40,14 @@ _bundled = {
 "version": 3
 }
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_78eg5"]
-size = Vector3(17.03, 2.92, 20.63)
+[sub_resource type="BoxShape3D" id="BoxShape3D_2vlvj"]
+size = Vector3(20, 2.9, 20)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_84lfr"]
-size = Vector3(29.635, 2.92, 20.63)
+[sub_resource type="BoxShape3D" id="BoxShape3D_agdxs"]
+size = Vector3(83.71, 1, 39.8)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_6n7f8"]
-size = Vector3(34.06, 2.92, 35.4)
+[sub_resource type="BoxShape3D" id="BoxShape3D_fa0qh"]
+size = Vector3(12.575, 1, 16.705)
 
 [sub_resource type="Curve3D" id="Curve3D_xb707"]
 _data = {
@@ -63,27 +58,12 @@ point_count = 5
 
 [node name="Main" type="Node3D"]
 
-[node name="RigidBody3D" type="RigidBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.77253, 9.08541, 70.6684)
-collision_layer = 769
-collision_mask = 769
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
-shape = SubResource("BoxShape3D_3nacf")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D"]
-mesh = SubResource("BoxMesh_6qn1q")
-
-[node name="Ground" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0785122, -28.9413, -0.0539837)
-size = Vector3(100, 0.001, 100)
-
-[node name="BoidController" type="Node3D" parent="." node_paths=PackedStringArray("spawnable_zones_node")]
+[node name="BoidController" type="Node3D" parent="." node_paths=PackedStringArray("spawnable_zones_node", "god_sheep")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.447, 1.91234, -38.6893)
 script = ExtResource("2_qkdbf")
 spawn_amount = {
 "Shark": 0,
-"Sheep": 1
+"Sheep": 100
 }
 grass_scene = SubResource("PackedScene_kxt68")
 radius = 90
@@ -93,24 +73,25 @@ max_neighbours = 15
 spawnable_zones_node = NodePath("SpawnableZones")
 draw_gizmos = true
 center_path = NodePath("../World Center")
+god_sheep = NodePath("../Path3D/GodCloud")
 metadata/_edit_group_ = true
 
 [node name="SpawnableZones" type="Node3D" parent="BoidController"]
 
 [node name="SpawnZone" parent="BoidController/SpawnableZones" instance=ExtResource("4_4csqi")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42.9137, 0.319017, 39.0514)
-spawn_type = 1
-override_shape = SubResource("BoxShape3D_78eg5")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 39.0706, 0.319017, 39.363)
+shape = SubResource("BoxShape3D_2vlvj")
+draw_gizmos = true
 
 [node name="SpawnZone2" parent="BoidController/SpawnableZones" instance=ExtResource("4_4csqi")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -48.4042, 4.47087, -15.5775)
-spawn_type = 1
-override_shape = SubResource("BoxShape3D_84lfr")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -33.8219, 5.48205, -1.20824)
+shape = SubResource("BoxShape3D_agdxs")
+draw_gizmos = true
 
 [node name="SpawnZone3" parent="BoidController/SpawnableZones" instance=ExtResource("4_4csqi")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.68737, 2.6908, 6.09567)
-spawn_type = 1
-override_shape = SubResource("BoxShape3D_6n7f8")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.8814, 15.4865, -58.8773)
+shape = SubResource("BoxShape3D_fa0qh")
+draw_gizmos = true
 
 [node name="World Center" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0785122, 1.65177, -0.0539837)
@@ -383,10 +364,9 @@ transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, -18.2373, -42.5121, -37
 [node name="Path3D" type="Path3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 56.4785, 0)
 curve = SubResource("Curve3D_xb707")
-script = ExtResource("14_2hd0c")
 
 [node name="GodCloud" parent="Path3D" instance=ExtResource("14_fhm0n")]
-transform = Transform3D(0.0903576, 0.000847389, 0.995899, -0.00054368, 0.99999, -0.000801541, -0.995901, -0.000469029, 0.0903579, -23.8217, 0.0062692, 60.9019)
+transform = Transform3D(0.0903576, 0.000847388, 0.995899, -0.00054368, 0.99999, -0.000801541, -0.995901, -0.000469029, 0.0903578, -23.8217, 0.0062692, 60.9019)
 progress = 318.95
 
 [connection signal="pressed" from="Main Menu/CenterContainer/Panel/VBoxContainer/MarginContainer2/Button" to="Main Menu" method="_on_button_pressed"]
