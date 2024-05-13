@@ -1,12 +1,13 @@
-[gd_scene load_steps=9 format=3 uid="uid://do7aea6ie87y"]
+[gd_scene load_steps=10 format=3 uid="uid://do7aea6ie87y"]
 
 [ext_resource type="Script" path="res://scripts/Boids/Shark.gd" id="1_1dv3b"]
 [ext_resource type="Script" path="res://scripts/Boids/Behaviours/Cohesion.gd" id="3_1nmjh"]
 [ext_resource type="Script" path="res://scripts/Boids/Behaviours/Alignment.gd" id="4_rramw"]
 [ext_resource type="Script" path="res://scripts/Boids/Behaviours/Avoidance.gd" id="5_c2f3j"]
 [ext_resource type="Script" path="res://scripts/Boids/Behaviours/Constrain.gd" id="6_6psgg"]
+[ext_resource type="Script" path="res://scripts/Boids/Behaviours/SharkConstrain.gd" id="6_uoa04"]
 [ext_resource type="Script" path="res://scripts/Boids/Behaviours/Wander.gd" id="7_hc27p"]
-[ext_resource type="PackedScene" uid="uid://b1vprshi6ha4e" path="res://models/gltf/SHARK.gltf" id="8_kwnw1"]
+[ext_resource type="PackedScene" uid="uid://b1vprshi6ha4e" path="res://scenes/SharkModelScene.tscn" id="8_kwnw1"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ggkxb"]
 size = Vector3(5.41844, 1.90493, 2.7298)
@@ -35,6 +36,12 @@ weight = 3.0
 [node name="Constrain" type="Node" parent="."]
 script = ExtResource("6_6psgg")
 draw_gizmos = false
+enabled = false
+
+[node name="SharkConstrain" type="Node" parent="."]
+script = ExtResource("6_uoa04")
+water_top = -8.623
+water_bottom = -45.033
 
 [node name="Wander" type="Node" parent="."]
 script = ExtResource("7_hc27p")

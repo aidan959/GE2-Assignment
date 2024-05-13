@@ -52,9 +52,9 @@ func _process(delta):
 			progress += path_speed * delta
 
 	if boid_controller:
-		if not typeof(Sheep) in boid_controller.boids: 
+		if not Sheep.get_boid_type() in boid_controller.boids: 
 			return
-		var sheep_boids = boid_controller.boids[typeof(Sheep)]
+		var sheep_boids = boid_controller.boids[Sheep.get_boid_type()]
 		if sheep_boids.size() > 110:
 			pick_sheep = true
 		if sheep_boids.size() < 500:
@@ -65,7 +65,7 @@ func _process(delta):
 
 func get_random_sheep_child() -> Sheep:
 	if boid_controller:
-		var sheep_boids = boid_controller.boids[typeof(Sheep)]
+		var sheep_boids = boid_controller.boids[Sheep.get_boid_type()]
 		if sheep_boids.size() > 0:
 			return sheep_boids.pick_random()
 	return null

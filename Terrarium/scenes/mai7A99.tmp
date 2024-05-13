@@ -76,7 +76,6 @@ spawn_amount = {
 }
 grass_scene = SubResource("PackedScene_kxt68")
 radius = 90
-shark_radius = 120.025
 neighbour_distance = 15
 avoid_distance = 1
 max_neighbours = 15
