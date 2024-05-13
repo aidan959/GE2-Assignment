@@ -19,6 +19,6 @@ func calculate():
 
 	center_of_mass /= boid.neighbours.size()
 	force = center_of_mass - boid.global_position
-	#force = force.normalized()
+	force = force.normalized()
 	return force
 	

@@ -1,4 +1,4 @@
-extends Control
+class_name BoidInfometer extends Control
 
 var capture_mouse = false
 
@@ -16,7 +16,7 @@ var viewport_camera: Camera3D = null
 @onready var hunger_bar :ProgressBar = find_child("HungerBar")
 @onready var sheep_cam :SubViewportContainer = find_child("SheepCamera")
 @onready var weight_list :ItemList = find_child("WeightList")
-
+@export var draw_gizmos : bool = false
 func _ready():
 	if !viewport:
 		push_warning("Viewport has not been set.")
@@ -32,6 +32,7 @@ func _process(_delta):
 	if Input.is_action_just_pressed("target_boid"):
 		if saved_boid:
 			saved_boid.is_currently_selected = false
+			saved_boid.draw_gizmos = false
 			saved_boid = null
 		else:
 			saved_boid =boid_detector.detected_boid
@@ -52,6 +53,8 @@ func _physics_process(_delta):
 		visible = false
 		return
 	focus_boid.is_currently_selected = true
+	if draw_gizmos:
+		focus_boid.draw_gizmos = true
 	if viewport_camera is Follower:
 		viewport_camera.sheep_target = focus_boid
 	visible = true

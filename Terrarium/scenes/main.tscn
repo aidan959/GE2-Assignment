@@ -86,11 +86,12 @@ spawn_amount = {
 "Sheep": 100
 }
 grass_scene = SubResource("PackedScene_kxt68")
-radius = 94
+radius = 90
 neighbour_distance = 15
 avoid_distance = 1
-max_neighbours = 2
+max_neighbours = 15
 spawnable_zones_node = NodePath("SpawnableZones")
+draw_gizmos = true
 center_path = NodePath("../World Center")
 metadata/_edit_group_ = true
 

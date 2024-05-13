@@ -25,7 +25,7 @@ var boid_types : Dictionary = {
 
 @export var max_neighbours = 10
 @export var environment_controller : EnvironmentController
-
+@export var boid_infometer : BoidInfometer
 var boids : Dictionary = {}
 var grasses : Array[GrassFood] = []
 var predators : Array[Node3D] = []
@@ -34,15 +34,22 @@ var predators : Array[Node3D] = []
 var spawnable_zones : Dictionary = {}
 
 @export var spawn_on_ready : bool = false
-
-@export var draw_gizmos : bool = false
+var _draw_gizmos : bool = false
+@export var draw_gizmos : bool  :
+	get:
+		return _draw_gizmos
+	set(value):
+		_draw_gizmos = value
+		if boid_infometer:
+			boid_infometer.draw_gizmos = _draw_gizmos
 var cells = {}
 
 @export var center_path:NodePath
 var center
 
 func do_draw_gizmos():
-	DebugDraw3D.draw_sphere(global_position, radius, Color.ORANGE)
+	if Engine.is_editor_hint():
+		DebugDraw3D.draw_sphere(global_position, radius, Color.ORANGE)
 
 
 func _process(_delta):
@@ -97,12 +104,12 @@ func _spawn_boids():
 			print(pos)
 			boid.global_position = pos
 			boid.global_rotation = Vector3(0, randf_range(0, PI * 2.0),  0)
-
+			boid.draw_gizmos_propagate(false)
 			if not typeof(boid) in boids:
 				boids[typeof(boid)] = []
 
 
-			boid.draw_gizmos_propagate(draw_gizmos)
+			
 			boid.hunger = randf_range(0.0, 0.1)
 			boid.metabolism = randf_range(0.01, 0.05)
 			boid.name = get_random_unique_name()

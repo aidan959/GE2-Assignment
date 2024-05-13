@@ -60,14 +60,12 @@ weight = 10.0
 
 [node name="Cohesion" type="Node" parent="."]
 script = ExtResource("2_3285g")
-weight = 0.5
 draw_gizmos = false
 sounds = Array[AudioStream]([ExtResource("5_oudvs")])
 sound_weight = 0.195
 
 [node name="Alignment" type="Node" parent="."]
 script = ExtResource("3_xtapx")
-weight = 1.5
 
 [node name="Avoidance" type="Node" parent="."]
 script = ExtResource("4_art8r")
@@ -90,7 +88,7 @@ enabled = false
 script = ExtResource("7_eurwo")
 distance = 10.0
 radius = 5.0
-weight = 0.1
+weight = 0.3
 draw_gizmos = false
 sounds = Array[AudioStream]([ExtResource("14_jn2f7"), ExtResource("15_mwu25"), ExtResource("16_kn1al")])
 sound_weight = 0.565

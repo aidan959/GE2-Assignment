@@ -88,7 +88,7 @@ func _ready():
 	initialize_flock()
 	initialize_behaviours()
 
-func draw_gizmos_propagate(dg):
+func draw_gizmos_propagate(dg : bool ):
 	draw_gizmos = dg
 	var children = get_children()
 	for child in children:
