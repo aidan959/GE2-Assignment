@@ -36,15 +36,6 @@ process_thread_messages = 3
 collision_layer = 769
 script = ExtResource("1_k0npw")
 escape_distance = 5.0
-neighbour_distance = 8.851
-tick_rate = 60
-
-[node name="SheepBody" type="CSGBox3D" parent="."]
-process_thread_group = 2
-process_thread_group_order = 0
-process_thread_messages = 3
-visible = false
-layers = 256
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 visible = false
@@ -60,7 +51,6 @@ weight = 10.0
 
 [node name="Cohesion" type="Node" parent="."]
 script = ExtResource("2_3285g")
-draw_gizmos = false
 sounds = Array[AudioStream]([ExtResource("5_oudvs")])
 sound_weight = 0.195
 
@@ -75,7 +65,6 @@ sounds = Array[AudioStream]([ExtResource("8_yb4k3")])
 
 [node name="Constrain" type="Node" parent="."]
 script = ExtResource("5_5hxyb")
-draw_gizmos = false
 sounds = Array[AudioStream]([ExtResource("9_g4fbp")])
 
 [node name="Grazer" parent="." instance=ExtResource("6_85b7r")]

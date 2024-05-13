@@ -5,12 +5,12 @@ var is_currently_escaping = false
 
 
 enum AnimationStates{
-	WALKING,
-	STARTING_GRAZING,
-	GRAZING
+	SWIMMING,
+	STARTING_ATTACKING,
+	ATTACKING
 }
 
-var current_animation_state : AnimationStates= AnimationStates.WALKING
+var current_animation_state : AnimationStates= AnimationStates.SWIMMING
 func draw_gizmos_propagate(dg):
 	draw_gizmos = dg
 	var children = get_children()
@@ -117,3 +117,5 @@ func _process(_delta):
 	
 func update_stats():
 	super.update_stats()
+static func get_boid_type():
+	return "Shark"

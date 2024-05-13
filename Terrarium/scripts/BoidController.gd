@@ -19,6 +19,9 @@ var boid_types : Dictionary = {
 
 @export var radius = 100
 
+@export var shark_radius : float = 100
+
+
 @export var neighbour_distance = 20
 @export var avoid_distance = 20
 
@@ -28,6 +31,7 @@ var boid_types : Dictionary = {
 var boids : Dictionary = {}
 var grasses : Array[GrassFood] = []
 var predators : Array[Node3D] = []
+
 @export var spawnable_zones_node : Node3D
 
 var spawnable_zones : Dictionary = {}
@@ -46,11 +50,13 @@ var cells = {}
 @export var center_path : NodePath
 
 @export var god_sheep : GodHead
-var center
-var boids_to_despawn : Array[Boid] = [] 
+var center : Node3D
+
 func do_draw_gizmos():
 	if Engine.is_editor_hint():
 		DebugDraw3D.draw_sphere(global_position, radius, Color.ORANGE)
+		DebugDraw3D.draw_sphere(global_position, shark_radius, Color.RED)
+		
 
 
 func _process(_delta):
@@ -59,7 +65,9 @@ func _process(_delta):
 func _ready():
 	load_names()
 	randomize()
-	center = get_node(center_path)
+	center = get_node_or_null(center_path)
+	if not center:
+		center = self
 	for node in get_parent().get_children():
 		var potential_pred = node.find_child("Predator", true)
 		if potential_pred:
@@ -86,14 +94,15 @@ func _init_spawn_zones():
 		spawnable_zones[spawn_zone.spawn_type].push_back(spawn_zone)
 
 func _spawn_boids():
-	for i in grass_count:
-		var grass = grass_scene.instantiate()
-		var pos = Utils.random_point_in_unit_sphere() * radius
-		pos.y = 0.3
-		add_child(grass)
-		grass.global_position = pos
-		var grass_instance : GrassFood = grass
-		grasses.push_back(grass_instance)
+	if grass_scene:
+		for i in grass_count:
+			var grass = grass_scene.instantiate()
+			var pos = Utils.random_point_in_unit_sphere() * radius
+			pos.y = 0.3
+			add_child(grass)
+			grass.global_position = pos
+			var grass_instance : GrassFood = grass
+			grasses.push_back(grass_instance)
 
 	for type in spawn_amount:
 		for i in spawn_amount[type]:
@@ -112,21 +121,23 @@ func _spawn_boids():
 			boid.global_position = pos
 			boid.global_rotation = Vector3(0, randf_range(0, PI * 2.0),  0)
 			boid.draw_gizmos_propagate(false)
-			if not typeof(boid) in boids:
-				boids[typeof(boid)] = []
-
-
-			
+			if not boid.get_boid_type() in boids:
+				boids[boid.get_boid_type()] = []
 			boid.hunger = randf_range(0.0, 0.1)
 			boid.metabolism = randf_range(0.5, 0.9)
 			boid.name = get_random_unique_name()
 			
-			boids[typeof(boid)].push_back(boid)
+			boids[boid.get_boid_type()].push_back(boid)
 			
 			var constrain = boid.get_node("Constrain")
-			if constrain:
+			if constrain and type == "Shark":
+				constrain.center = center
+				constrain.radius = shark_radius
+				constrain.enabled = true
+			elif constrain:
 				constrain.center = center
 				constrain.radius = radius
+
 var names = []
 
 func load_names():
@@ -165,17 +176,18 @@ func get_spawn_position(boid: Boid) -> Vector3:
 			return Vector3.ZERO
 
 func remove_boid(boid: Boid):
-	if not typeof(boid) in boids:
+	if not boid.get_boid_type() in boids:
 		return
 	if boid_infometer and boid_infometer.saved_boid == boid:
 		boid_infometer.clear_boids()
-	var list_of_boids : Array = boids[typeof(boid)]
+	var list_of_boids : Array = boids[boid.get_boid_type()]
 	var index = list_of_boids.find(boid, 0)
+	if index == -1: return
 	list_of_boids.remove_at(index)
 	for boid_a in list_of_boids:
 		index = boid_a.neighbours.find(boid, 0)
+		if index == -1: continue
 		boid_a.neighbours.remove_at(index)
-	
-	boid.call_deferred("queue_free()")
+	boid.queue_free()
 	
 
