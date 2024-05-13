@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/BoidController.gd" id="1_idi5i"]
 [ext_resource type="PackedScene" uid="uid://be8abksxbl3jb" path="res://scenes/Player.tscn" id="2_inug3"]
-[ext_resource type="PackedScene" uid="uid://b5w6wthj6ida4" path="res://scenes/env_controller.tscn" id="3_tn47o"]
+[ext_resource type="PackedScene" uid="uid://b5w6wthj6ida4" path="res://scenes/Environment/env_controller1.tscn" id="3_tn47o"]
 
 [node name="SharkTest" type="Node3D"]
 

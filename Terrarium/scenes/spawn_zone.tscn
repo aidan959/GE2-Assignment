@@ -11,3 +11,4 @@ override_shape = SubResource("BoxShape3D_c1kgh")
 draw_gizmos = true
 
 [node name="CollisionArea" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_c1kgh")

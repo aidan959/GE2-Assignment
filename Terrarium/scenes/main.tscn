@@ -8,7 +8,7 @@
 [ext_resource type="Script" path="res://scripts/BoidInfometer.gd" id="7_cgsf7"]
 [ext_resource type="PackedScene" uid="uid://cdc1p35m2yavw" path="res://scenes/TerrainModel.tscn" id="7_mpobr"]
 [ext_resource type="Script" path="res://scenes/Follower.gd" id="8_cwjm7"]
-[ext_resource type="PackedScene" uid="uid://dp276413u6prv" path="res://scenes/water.tscn" id="9_jggms"]
+[ext_resource type="PackedScene" uid="uid://dp276413u6prv" path="res://scenes/Environment/water.tscn" id="9_jggms"]
 [ext_resource type="Script" path="res://scripts/MainMenu.gd" id="10_6yboc"]
 [ext_resource type="AudioStream" uid="uid://dpniofcytnny2" path="res://sounds/music/sheep song.mp3" id="11_5pvwx"]
 [ext_resource type="AudioStream" uid="uid://cf3o7h3vc534a" path="res://sounds/music/sheep_music.mp3" id="12_dunkj"]
@@ -116,7 +116,7 @@ override_shape = SubResource("BoxShape3D_6n7f8")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0785122, 1.65177, -0.0539837)
 
 [node name="Player" parent="." instance=ExtResource("4_mbjog")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.68523, 1.18654, 6.07644)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.65612, 1.18654, 6.01328)
 
 [node name="BoidInfometer" type="Control" parent="." node_paths=PackedStringArray("player", "viewport")]
 visible = false
@@ -386,7 +386,7 @@ curve = SubResource("Curve3D_xb707")
 script = ExtResource("14_2hd0c")
 
 [node name="PathFollow3D" type="PathFollow3D" parent="Path3D"]
-transform = Transform3D(0.0904023, 0.000847178, 0.995896, -0.000543715, 0.99999, -0.000801306, -0.995895, -0.000469048, 0.0904028, -23.8257, 0.0062724, 60.9016)
+transform = Transform3D(0.0904026, 0.000847184, 0.995898, -0.000543717, 0.999996, -0.000801308, -0.995898, -0.000469051, 0.090403, -23.8257, 0.0062724, 60.9016)
 progress = 318.954
 
 [node name="GodCloud" parent="Path3D/PathFollow3D" instance=ExtResource("14_fhm0n")]

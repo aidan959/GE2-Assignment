@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://cfgb6gp0q3mdj"]
 
-[ext_resource type="Script" path="res://Test_env.gd" id="1_1hbfu"]
-[ext_resource type="PackedScene" uid="uid://bfy1dib6amqkf" path="res://scenes/weather.tscn" id="1_w743o"]
+[ext_resource type="Script" path="res://scripts/environment/EnvController.gd" id="1_3qgqt"]
+[ext_resource type="PackedScene" uid="uid://bfy1dib6amqkf" path="res://scenes/Environment/weather.tscn" id="2_eqb88"]
 
 [sub_resource type="Gradient" id="Gradient_ubya2"]
 offsets = PackedFloat32Array(0.1, 0.4, 0.6, 0.903371)
@@ -38,7 +38,7 @@ volumetric_fog_enabled = true
 volumetric_fog_density = 0.01
 
 [node name="Environment Controller" type="Node3D"]
-script = ExtResource("1_1hbfu")
+script = ExtResource("1_3qgqt")
 top_sky = SubResource("Gradient_ubya2")
 horizon_sky = SubResource("Gradient_t8y4m")
 sun_colour = SubResource("Gradient_svvyr")
@@ -48,7 +48,7 @@ heat_colour = SubResource("Gradient_kub1w")
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_sha78")
 
-[node name="Weather" parent="WorldEnvironment" instance=ExtResource("1_w743o")]
+[node name="Weather" parent="WorldEnvironment" instance=ExtResource("2_eqb88")]
 
 [node name="SunMoon" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -103.953)
