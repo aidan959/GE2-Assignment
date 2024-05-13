@@ -1,9 +1,7 @@
-class_name Roam extends SteeringBehaviour
+class_name Roam extends SteeringBehavior
 
-
-var force = Vector3.ZERO
 var center_of_mass
-# Called when the node enters the scene tree for the first time.
+
 func _ready():
 	boid = get_parent()
 	boid.count_neighbours = true

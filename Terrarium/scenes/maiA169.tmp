@@ -1,0 +1,275 @@
+[gd_scene load_steps=24 format=3 uid="uid://dh52fxfx2rten"]
+
+[ext_resource type="Script" path="res://scripts/BoidController.gd" id="2_qkdbf"]
+[ext_resource type="Script" path="res://scenes/grass.gd" id="3_l3wkh"]
+[ext_resource type="Texture2D" uid="uid://bf5r2lkwaxguk" path="res://textures/moss1.png" id="4_4bhah"]
+[ext_resource type="PackedScene" uid="uid://cpty6hvhjeoq8" path="res://scenes/spawn_zone.tscn" id="4_4csqi"]
+[ext_resource type="PackedScene" uid="uid://be8abksxbl3jb" path="res://scenes/Player.tscn" id="4_mbjog"]
+[ext_resource type="Script" path="res://scripts/BoidInfometer.gd" id="7_cgsf7"]
+[ext_resource type="PackedScene" uid="uid://cdc1p35m2yavw" path="res://scenes/TerrainModel.tscn" id="7_mpobr"]
+[ext_resource type="Script" path="res://scenes/Follower.gd" id="8_cwjm7"]
+[ext_resource type="PackedScene" uid="uid://dp276413u6prv" path="res://scenes/water.tscn" id="9_jggms"]
+[ext_resource type="Script" path="res://scripts/MainMenu.gd" id="10_6yboc"]
+[ext_resource type="AudioStream" uid="uid://dpniofcytnny2" path="res://sounds/music/sheep song.mp3" id="11_5pvwx"]
+[ext_resource type="AudioStream" uid="uid://cf3o7h3vc534a" path="res://sounds/music/sheep_music.mp3" id="12_dunkj"]
+[ext_resource type="PackedScene" uid="uid://qd8lu6e8lj03" path="res://jar.tscn" id="13_pv3wt"]
+[ext_resource type="Script" path="res://scenes/GodPath.gd" id="14_2hd0c"]
+[ext_resource type="PackedScene" uid="uid://dn43u1jd5gbam" path="res://scenes/GodCloud.tscn" id="14_fhm0n"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3nacf"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_6qn1q"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5tj4n"]
+albedo_texture = ExtResource("4_4bhah")
+
+[sub_resource type="TextMesh" id="TextMesh_5sns6"]
+material = SubResource("StandardMaterial3D_5tj4n")
+text = "GRASS"
+pixel_size = 0.05
+depth = 0.5
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_gi46d"]
+size = Vector3(7, 1, 7)
+
+[sub_resource type="PackedScene" id="PackedScene_kxt68"]
+_bundled = {
+"conn_count": 2,
+"conns": PackedInt32Array(1073741827, 1073741826, 13, 12, 2, 0, 0, 1073741829, 1073741828, 15, 14, 2, 0, 0),
+"editable_instances": [],
+"names": PackedStringArray("Grass", "Area3D", "collision_layer", "collision_mask", "script", "GrassMesh", "MeshInstance3D", "mesh", "GrassCollision", "CollisionShape3D", "transform", "shape", "_on_body_entered", "body_entered", "_on_body_exit", "body_exited"),
+"node_count": 3,
+"node_paths": [NodePath("."), NodePath("."), NodePath("."), NodePath("."), NodePath("."), NodePath(".")],
+"nodes": PackedInt32Array(-1, -1, 1, 0, -1, 3, 2, 0, 3, 1, 4, 2, 0, 1073741824, 0, 6, 5, -1, 1, 7, 3, 0, 1073741825, 0, 9, 8, -1, 2, 10, 4, 11, 5, 0),
+"variants": [0, 256, ExtResource("3_l3wkh"), SubResource("TextMesh_5sns6"), Transform3D(1, 6.46044e-05, -3.04385e-05, -6.46044e-05, 1, -7.65898e-05, 3.04385e-05, 7.65898e-05, 1, 0, 0, 0), SubResource("BoxShape3D_gi46d")],
+"version": 3
+}
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_78eg5"]
+size = Vector3(100, 1, 20)
+
+[sub_resource type="Curve3D" id="Curve3D_xb707"]
+_data = {
+"points": PackedVector3Array(-46.573, 0.380249, -0.928314, 46.573, -0.380249, 0.928314, -16.9017, 0, -136.768, -1.31972, 0.138062, -67.5452, 1.31972, -0.138062, 67.5452, 82.5638, 0, -40.5488, 37.3643, -0.0460205, 0.542633, -37.3643, 0.0460205, -0.542633, -17.5972, 0, 61.2353, -0.926514, -0.0460205, 70.9926, 0.926514, 0.0460205, -70.9926, -115.672, 0, -38.9258, -46.9751, 0.117188, 1.26543, 46.9751, -0.117188, -1.26543, -16.9017, 0, -136.768),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0)
+}
+point_count = 5
+
+[node name="Main" type="Node3D"]
+
+[node name="RigidBody3D" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.77253, 9.08541, 70.6684)
+collision_layer = 769
+collision_mask = 769
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+shape = SubResource("BoxShape3D_3nacf")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D"]
+mesh = SubResource("BoxMesh_6qn1q")
+
+[node name="Ground" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0785122, -28.9413, -0.0539837)
+size = Vector3(100, 0.001, 100)
+
+[node name="BoidController" type="Node3D" parent="." node_paths=PackedStringArray("spawnable_zones_node")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.15405, 1.91234, 5.04409)
+script = ExtResource("2_qkdbf")
+spawn_amount = {
+"Shark": 0,
+"Sheep": 100
+}
+grass_scene = SubResource("PackedScene_kxt68")
+radius = 25
+neighbour_distance = 15
+avoid_distance = 1
+spawnable_zones_node = NodePath("SpawnableZones")
+center_path = NodePath("../World Center")
+metadata/_edit_group_ = true
+
+[node name="SpawnableZones" type="Node3D" parent="BoidController"]
+
+[node name="SpawnZone" parent="BoidController/SpawnableZones" instance=ExtResource("4_4csqi")]
+spawn_type = 1
+override_shape = SubResource("BoxShape3D_78eg5")
+
+[node name="World Center" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0785122, 1.65177, -0.0539837)
+
+[node name="Player" parent="." instance=ExtResource("4_mbjog")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.68523, 1.18654, 6.07644)
+
+[node name="BoidInfometer" type="Control" parent="." node_paths=PackedStringArray("player", "viewport")]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+mouse_filter = 2
+script = ExtResource("7_cgsf7")
+player = NodePath("../Player")
+viewport = NodePath("SheepData/SheepViewport/SheepCamera/UIViewport")
+
+[node name="SheepData" type="Panel" parent="BoidInfometer"]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 24.0
+offset_right = 224.0
+offset_bottom = 301.0
+
+[node name="SheepViewport" type="Panel" parent="BoidInfometer/SheepData"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.05
+anchor_top = 0.05
+anchor_right = 0.95
+anchor_bottom = 0.65
+grow_horizontal = 2
+
+[node name="SheepCamera" type="SubViewportContainer" parent="BoidInfometer/SheepData/SheepViewport"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="UIViewport" type="SubViewport" parent="BoidInfometer/SheepData/SheepViewport/SheepCamera"]
+handle_input_locally = false
+use_occlusion_culling = true
+size = Vector2i(180, 170)
+render_target_update_mode = 0
+
+[node name="Follower" type="Camera3D" parent="BoidInfometer/SheepData/SheepViewport/SheepCamera/UIViewport"]
+transform = Transform3D(-0.450504, 0, 0.892775, 0, 1, 0, -0.892775, 0, -0.450504, 0, 3, 0)
+current = true
+fov = 50.0
+near = 0.095
+script = ExtResource("8_cwjm7")
+orbit_height = 3.0
+
+[node name="Stats" type="Panel" parent="BoidInfometer/SheepData"]
+layout_direction = 2
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.7
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="NameTag" type="RichTextLabel" parent="BoidInfometer/SheepData/Stats"]
+custom_minimum_size = Vector2(100.22, 27.415)
+layout_mode = 1
+offset_right = 1.0
+offset_bottom = 27.415
+bbcode_enabled = true
+
+[node name="StateTag" type="RichTextLabel" parent="BoidInfometer/SheepData/Stats"]
+custom_minimum_size = Vector2(100.22, 27.415)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -100.22
+offset_bottom = 27.415
+grow_horizontal = 0
+bbcode_enabled = true
+
+[node name="HealthBar" type="ProgressBar" parent="BoidInfometer/SheepData/Stats"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -13.5
+offset_bottom = 13.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HungerBar" type="ProgressBar" parent="BoidInfometer/SheepData/Stats"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -27.0
+grow_horizontal = 2
+grow_vertical = 0
+max_value = 1.0
+
+[node name="terrain2" parent="." instance=ExtResource("7_mpobr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.9581, -51.4737, -38.6941)
+
+[node name="Water" parent="terrain2" instance=ExtResource("9_jggms")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 43.4179, 0)
+
+[node name="MenuCamera" type="Camera3D" parent="." node_paths=PackedStringArray("sheep_target")]
+current = true
+script = ExtResource("8_cwjm7")
+orbit_speed = 0.1
+orbit_radius = 200.0
+orbit_height = 200.0
+sheep_target = NodePath("../terrain2/Water")
+do_lerp = true
+lerp_amount = 0.001
+
+[node name="Main Menu" type="Control" parent="." node_paths=PackedStringArray("player", "menu_camera", "boid_controller")]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("10_6yboc")
+player = NodePath("../Player")
+menu_camera = NodePath("../MenuCamera")
+boid_controller = NodePath("../BoidController")
+transition_duration = 0.1
+menu_music = ExtResource("11_5pvwx")
+game_music = ExtResource("12_dunkj")
+target_menu_music_volume = 0.7
+target_game_music_volume = 0.5
+
+[node name="CenterContainer" type="CenterContainer" parent="Main Menu"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 535.0
+offset_bottom = 613.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="Main Menu/CenterContainer"]
+custom_minimum_size = Vector2(256, 512)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Main Menu/CenterContainer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Main Menu/CenterContainer/Panel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 90)
+layout_mode = 2
+
+[node name="Button" type="Button" parent="Main Menu/CenterContainer/Panel/VBoxContainer/MarginContainer"]
+layout_mode = 2
+text = "Start Game
+"
+
+[node name="Jar" parent="." instance=ExtResource("13_pv3wt")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, -18.2373, -42.5121, -37.1993)
+
+[node name="Path3D" type="Path3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 56.4785, 0)
+curve = SubResource("Curve3D_xb707")
+script = ExtResource("14_2hd0c")
+
+[node name="PathFollow3D" type="PathFollow3D" parent="Path3D"]
+transform = Transform3D(0.0903975, 0.000847199, 0.995895, -0.000543686, 0.999989, -0.000801332, -0.995894, -0.000469021, 0.0903981, -23.8253, 0.00627206, 60.9016)
+progress = 318.954
+
+[node name="GodCloud" parent="Path3D/PathFollow3D" instance=ExtResource("14_fhm0n")]
+
+[connection signal="pressed" from="Main Menu/CenterContainer/Panel/VBoxContainer/MarginContainer/Button" to="Main Menu" method="_on_button_pressed"]

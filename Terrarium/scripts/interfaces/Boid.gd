@@ -3,7 +3,6 @@ class_name Boid extends CharacterBody3D
 @export var mass = 1
 @export var force = Vector3.ZERO
 @export var acceleration = Vector3.ZERO
-@export var vel = Vector3.ZERO
 @export var speed:float
 @export var max_speed: float = 10.0
 @export var max_force = 10
@@ -33,6 +32,13 @@ var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 var grav_vel: Vector3
 @export var current_state : BoidStates
+
+var is_in_water : bool = false
+
+var is_currently_selected = false
+
+var influencing_weights = {}
+
 enum SpawnLocations {
 	WATER,
 	LAND,
@@ -82,7 +88,7 @@ func _ready():
 	initialize_flock()
 	initialize_behaviours()
 
-func draw_gizmos_propagate(dg):
+func draw_gizmos_propagate(dg : bool ):
 	draw_gizmos = dg
 	var children = get_children()
 	for child in children:
@@ -99,12 +105,12 @@ func process_gravity(delta: float) -> Vector3:
 
 func count_neighbours_simple(type: Variant):
 	neighbours.clear()
-	if type not in flock.boids:
-		return 0
-	for boid in flock.boids[type]:
+	if typeof(type) not in flock.boids:
+		return neighbours.size()
+	for boid in flock.boids[typeof(type)]:
 		if boid != self and !boid.is_dead() and global_position.distance_to(global_position) < flock.neighbour_distance:
 			neighbours.push_back(boid)
-			if neighbours.size() == flock.max_neighbours:
+			if neighbours.size() >= flock.max_neighbours:
 				break
 	return neighbours.size()
 
@@ -131,7 +137,7 @@ func seek_force(target: Vector3):
 	var toTarget = target - global_transform.origin
 	toTarget = toTarget.normalized()
 	var desired = toTarget * max_speed
-	var output = desired - vel
+	var output = desired - velocity
 	output.y = 0.0 # todo why?
 	return output
 	
@@ -145,7 +151,7 @@ func arrive_force(target:Vector3, slowingDistance:float):
 	var ramped = (dist / slowingDistance) * max_speed
 	var limit_length = min(max_speed, ramped)
 	var desired = (toTarget * limit_length) / dist 
-	return desired - vel
+	return desired - velocity
 
 
 	
@@ -162,20 +168,29 @@ func update_weights(weights):
 func calculate(_delta):
 	var force_acc = Vector3.ZERO	
 	var behaviours_active = ""
-	for i in behaviours.size():
-		if behaviours[i].enabled:
-			var f = behaviours[i].calculate() * behaviours[i].weight
-			if is_nan(f.x) or is_nan(f.y) or is_nan(f.z):
-				print(str(behaviours[i]) + " is NAN")
-				f = Vector3.ZERO
-			behaviours_active += behaviours[i].name + ": " + str(round(f.length())) + " "
-			force_acc += f 
+	reset_debug_influencing_weight()
+	for behaviour in behaviours:
+		if not behaviour.enabled:
+			continue
+		var f = behaviour.calculate() * behaviour.weight
+		if is_nan(f.x) or is_nan(f.y) or is_nan(f.z):
+			print(str(behaviour) + " is NAN")
+			f = Vector3.ZERO			
+		force_acc += f 
+		add_debug_influencing_weight(behaviour, f)
+			
 	force_acc = force_acc.limit_length(max_force)
 	if draw_gizmos:
 		DebugDraw2D.set_text(name, behaviours_active)
 	return force_acc
 
+func reset_debug_influencing_weight():
+	if is_currently_selected:
+		influencing_weights = {}
 
+func add_debug_influencing_weight(behaviour: SteeringBehavior, f: Vector3):
+	if is_currently_selected:
+		influencing_weights[behaviour.name] = f
 func _process(_delta):
 	should_calculate = true
 	if draw_gizmos: on_draw_gizmos()
@@ -216,23 +231,24 @@ func _physics_process(delta):
 	force = lerp(force, new_force, delta)
 	if ! pause:
 		acceleration = force / mass
-		vel += acceleration * delta
-		speed = vel.length()
+		velocity += acceleration * delta
+		speed = velocity.length()
 		if speed > 0:
 			if max_speed == 0:
 				push_warning("max_speed is 0")
-			vel = vel.limit_length(max_speed)
+			velocity = velocity.limit_length(max_speed)
 			
 			# Damping
-			vel -= vel * delta * damping
+			velocity -= velocity * delta * damping
 			
-			set_velocity(vel)
+			set_velocity(velocity)
 			move_and_slide()
+			
+			var temp_up = global_transform.basis.y.lerp(Vector3.UP + (acceleration * banking), delta * 5.0)
 			
 			# Implement Banking as described:
 			# https://www.cs.toronto.edu/~dt/siggraph97-course/cwr87/
-			var temp_up = global_transform.basis.y.lerp(Vector3.UP + (acceleration * banking), delta * 5.0)
-			look_at(global_transform.origin - vel.normalized(), temp_up)
+			look_at(global_transform.origin - velocity.normalized(), temp_up)
 
 
 

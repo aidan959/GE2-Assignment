@@ -1,0 +1,86 @@
+[gd_scene load_steps=8 format=3 uid="uid://qd8lu6e8lj03"]
+
+[ext_resource type="PackedScene" uid="uid://o50qy4rtwq5f" path="res://models/gltf/Jar.gltf" id="1_e1cgo"]
+
+[sub_resource type="Shader" id="Shader_nnqln"]
+code = "shader_type spatial;
+render_mode blend_mix,depth_draw_always,cull_back,diffuse_burley,specular_schlick_ggx,shadows_disabled;
+uniform vec4 albedo : source_color;
+uniform sampler2D texture_albedo : source_color,filter_linear_mipmap,repeat_enable;
+uniform float proximity_fade_distance;
+uniform float point_size : hint_range(0,128);
+uniform sampler2D texture_orm : hint_roughness_g,filter_linear_mipmap,repeat_enable;
+uniform sampler2D texture_refraction : filter_linear_mipmap,repeat_enable;
+uniform float refraction : hint_range(-16,16);
+uniform vec4 refraction_texture_channel;
+uniform sampler2D screen_texture : hint_screen_texture, repeat_disable, filter_linear_mipmap;uniform sampler2D depth_texture : hint_depth_texture, repeat_disable, filter_nearest;uniform vec3 uv1_scale;
+
+uniform vec3 uv1_offset;
+uniform vec3 uv2_scale;
+uniform vec3 uv2_offset;
+
+
+void vertex() {
+	UV=UV*uv1_scale.xy+uv1_offset.xy;
+}
+
+
+
+
+
+
+void fragment() {
+	vec2 base_uv = UV;
+	vec4 albedo_tex = texture(texture_albedo,base_uv);
+	ALBEDO = albedo.rgb * albedo_tex.rgb;
+	vec4 orm_tex = texture(texture_orm,base_uv);
+	ROUGHNESS = orm_tex.g;
+	METALLIC = orm_tex.b;
+	vec3 ref_normal = NORMAL;
+	vec2 ref_ofs = SCREEN_UV - ref_normal.xy * dot(texture(texture_refraction,base_uv),refraction_texture_channel) * refraction;
+	float ref_amount = 1.0 - albedo.a * albedo_tex.a;
+	EMISSION += textureLod(screen_texture,ref_ofs,ROUGHNESS * 8.0).rgb * ref_amount * EXPOSURE;
+	ALBEDO *= 1.0 - ref_amount;
+	ALPHA = 1.0;
+	float depth_tex = textureLod(depth_texture,SCREEN_UV,0.0).r;
+	vec4 world_pos = INV_PROJECTION_MATRIX * vec4(SCREEN_UV*2.0-1.0,depth_tex,1.0);
+	world_pos.xyz/=world_pos.w;
+	ALPHA*=clamp(1.0-smoothstep(world_pos.z+proximity_fade_distance,world_pos.z,VERTEX.z),0.0,1.0);
+}
+"
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_wdtde"]
+noise_type = 3
+frequency = 0.033
+offset = Vector3(14.9, 0, 0)
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_bh388"]
+seamless = true
+noise = SubResource("FastNoiseLite_wdtde")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_m7p80"]
+frequency = 0.0122
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_03dt5"]
+noise = SubResource("FastNoiseLite_m7p80")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_28g0u"]
+render_priority = 0
+shader = SubResource("Shader_nnqln")
+shader_parameter/albedo = Color(0.392157, 0.811765, 1, 0.384314)
+shader_parameter/proximity_fade_distance = 1.0
+shader_parameter/point_size = 30.3
+shader_parameter/refraction = -0.594999
+shader_parameter/refraction_texture_channel = null
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/uv2_scale = Vector3(1, 1, 1)
+shader_parameter/uv2_offset = Vector3(0, 0, 0)
+shader_parameter/texture_albedo = SubResource("NoiseTexture2D_bh388")
+shader_parameter/texture_refraction = SubResource("NoiseTexture2D_03dt5")
+
+[node name="Jar" instance=ExtResource("1_e1cgo")]
+
+[node name="Circle" parent="." index="0"]
+ignore_occlusion_culling = true
+surface_material_override/0 = SubResource("ShaderMaterial_28g0u")

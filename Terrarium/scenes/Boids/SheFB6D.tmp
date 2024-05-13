@@ -1,0 +1,155 @@
+[gd_scene load_steps=24 format=3 uid="uid://blg3yr70eue5y"]
+
+[ext_resource type="Script" path="res://scripts/Boids/Sheep.gd" id="1_k0npw"]
+[ext_resource type="Script" path="res://scripts/Boids/Behaviours/Escape.gd" id="1_pslmd"]
+[ext_resource type="Script" path="res://scripts/Boids/Behaviours/Cohesion.gd" id="2_3285g"]
+[ext_resource type="AudioStream" uid="uid://c8dvh5en5w7h" path="res://sounds/test_sounds/Escape.mp3" id="3_jlbw6"]
+[ext_resource type="Script" path="res://scripts/Boids/Behaviours/Alignment.gd" id="3_xtapx"]
+[ext_resource type="Script" path="res://scripts/Boids/Behaviours/Avoidance.gd" id="4_art8r"]
+[ext_resource type="Script" path="res://scripts/Boids/Behaviours/Constrain.gd" id="5_5hxyb"]
+[ext_resource type="AudioStream" uid="uid://dfty4fywj5ryk" path="res://sounds/test_sounds/Cohesion.mp3" id="5_oudvs"]
+[ext_resource type="PackedScene" uid="uid://c83v5ntlr0m0p" path="res://scripts/Boids/Behaviours/Grazer.tscn" id="6_85b7r"]
+[ext_resource type="Script" path="res://scripts/Boids/Behaviours/Wander.gd" id="7_eurwo"]
+[ext_resource type="PackedScene" uid="uid://c210s82j3dkwd" path="res://SheepModel.tscn" id="8_nycs1"]
+[ext_resource type="AudioStream" uid="uid://c485c2e08igui" path="res://sounds/test_sounds/Avoidance.mp3" id="8_yb4k3"]
+[ext_resource type="AudioStream" uid="uid://inl8wq6vnkh4" path="res://sounds/test_sounds/Constrain.mp3" id="9_g4fbp"]
+[ext_resource type="AudioStream" uid="uid://oe63b0a3skib" path="res://sounds/test_sounds/Grazing.mp3" id="9_y1emy"]
+[ext_resource type="Script" path="res://scripts/BoidSoundPlayer.gd" id="12_k3lcw"]
+[ext_resource type="AudioStream" uid="uid://csjqtmso106w0" path="res://sounds/sheep/sheep-baa1.wav" id="14_jn2f7"]
+[ext_resource type="AudioStream" uid="uid://cfpmpdscdy1b3" path="res://sounds/sheep/sheep-baa4.wav" id="15_mwu25"]
+[ext_resource type="AudioStream" uid="uid://bqfmy75spoa8b" path="res://sounds/sheep/sheep-baa5.wav" id="16_kn1al"]
+[ext_resource type="AudioStream" uid="uid://c6evphj760jlv" path="res://sounds/music/angel_sound_effect.mp3" id="19_od7wj"]
+[ext_resource type="AudioStream" uid="uid://ct5x1ilvrit2k" path="res://sounds/music/bring_me_life.mp3" id="20_enw0f"]
+[ext_resource type="AudioStream" uid="uid://df1wqtoojvfvp" path="res://sounds/sheep/sheep-baa-GOD.mp3" id="21_1phdk"]
+
+[sub_resource type="TextMesh" id="TextMesh_hbalk"]
+text = "SHEEP"
+pixel_size = 0.05
+depth = 0.5
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ggkxb"]
+size = Vector3(0.60084, 0.91084, 1.39185)
+
+[node name="Boid" type="CharacterBody3D"]
+process_thread_group = 1
+process_thread_group_order = 0
+process_thread_messages = 3
+collision_layer = 769
+script = ExtResource("1_k0npw")
+escape_distance = 5.0
+ascension_rate = null
+ascension_shake_intensity = null
+max_ascension_velocity = null
+mass = null
+force = null
+acceleration = null
+vel = null
+speed = null
+max_speed = null
+max_force = null
+banking = null
+damping = null
+neighbour_distance = 15.0
+draw_gizmos = false
+pause = null
+health = null
+hunger = 1.0
+metabolism = 1.0
+tick_rate = 60
+is_currently_eating = null
+spawn_location = null
+current_state = null
+
+[node name="SheepBody" type="CSGBox3D" parent="."]
+process_thread_group = 2
+process_thread_group_order = 0
+process_thread_messages = 3
+visible = false
+layers = 256
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+visible = false
+mesh = SubResource("TextMesh_hbalk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0451426, 0.454725, 0.0760498)
+shape = SubResource("BoxShape3D_ggkxb")
+
+[node name="Escape" type="Node" parent="."]
+script = ExtResource("1_pslmd")
+weight = 10.0
+sounds = Array[AudioStream]([ExtResource("3_jlbw6")])
+sound_weight = 1.0
+
+[node name="Cohesion" type="Node" parent="."]
+script = ExtResource("2_3285g")
+weight = 1.5
+sounds = Array[AudioStream]([ExtResource("5_oudvs")])
+sound_weight = 0.195
+
+[node name="Alignment" type="Node" parent="."]
+script = ExtResource("3_xtapx")
+weight = 1.5
+
+[node name="Avoidance" type="Node" parent="."]
+script = ExtResource("4_art8r")
+softness = 1.0
+weight = 0.5
+sounds = Array[AudioStream]([ExtResource("8_yb4k3")])
+
+[node name="Constrain" type="Node" parent="."]
+script = ExtResource("5_5hxyb")
+draw_gizmos = false
+sounds = Array[AudioStream]([ExtResource("9_g4fbp")])
+
+[node name="Grazer" parent="." instance=ExtResource("6_85b7r")]
+weight = 1.5
+sounds = Array[AudioStream]([ExtResource("9_y1emy")])
+sound_weight = 0.445
+enabled = false
+
+[node name="Wander" type="Node" parent="."]
+script = ExtResource("7_eurwo")
+distance = 10.0
+radius = 5.0
+weight = 0.1
+draw_gizmos = false
+sounds = Array[AudioStream]([ExtResource("14_jn2f7"), ExtResource("15_mwu25"), ExtResource("16_kn1al")])
+sound_weight = 0.565
+
+[node name="GroundDetector" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.00872263, 0)
+
+[node name="AscensionLight" type="SpotLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 9.03658, 0)
+visible = false
+light_color = Color(1, 1, 0.513726, 1)
+light_indirect_energy = 3.214
+light_volumetric_fog_energy = 20.03
+light_size = 178.81
+light_specular = 16.0
+shadow_enabled = true
+shadow_blur = 5.14
+distance_fade_enabled = true
+spot_range = 30.0
+spot_angle = 16.1695
+
+[node name="Sheep" parent="." instance=ExtResource("8_nycs1")]
+transform = Transform3D(-2.18557e-08, 0, -0.5, 0, 0.5, 0, 0.5, 0, -2.18557e-08, 0, 0, 0)
+
+[node name="SoundPlayer" type="AudioStreamPlayer3D" parent="." node_paths=PackedStringArray("boid")]
+process_thread_group = 1
+process_thread_group_order = 2
+process_thread_messages = 3
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.895964, 0.666691)
+attenuation_model = 2
+emission_angle_enabled = true
+emission_angle_degrees = 30.1
+attenuation_filter_cutoff_hz = 8980.0
+doppler_tracking = 2
+script = ExtResource("12_k3lcw")
+boid = NodePath("..")
+min_sound_interval = 5.0
+dead_music = ExtResource("19_od7wj")
+funny_dead_music = ExtResource("20_enw0f")
+kill_sound = ExtResource("21_1phdk")

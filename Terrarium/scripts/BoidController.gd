@@ -1,22 +1,17 @@
-class_name BoidController extends Node
+@tool
+class_name BoidController extends Node3D
 
-@export var sheep_scene:PackedScene
-@export var spawners: Dictionary  = {
-	Sheep: 0.3,
-	Shark: 0.1
-}
 
 var boid_types : Dictionary = {
 	"Sheep": preload("res://scenes/Boids/Sheep.tscn"),
-	"Frog": preload("res://scenes/Boids/Frog.tscn"),
-	"Shark": preload("res://scenes/Boids/Shark.tscn")
+	"Shark": preload("res://scenes/Boids/Shark2.tscn")
 }
 
 
 @export var spawn_amount : Dictionary = {
 	"Sheep": 70,
-	"Frog": 30,
 	"Shark": 5
+
 }
  
 @export var grass_scene:PackedScene
@@ -30,20 +25,31 @@ var boid_types : Dictionary = {
 
 @export var max_neighbours = 10
 @export var environment_controller : EnvironmentController
-
+@export var boid_infometer : BoidInfometer
 var boids : Dictionary = {}
 var grasses : Array[GrassFood] = []
 var predators : Array[Node3D] = []
+@export var spawnable_zones_node : Node3D
 
+var spawnable_zones : Dictionary = {}
 
-@export var draw_gizmos : bool = false
+@export var spawn_on_ready : bool = false
+var _draw_gizmos : bool = false
+@export var draw_gizmos : bool  :
+	get:
+		return _draw_gizmos
+	set(value):
+		_draw_gizmos = value
+		if boid_infometer:
+			boid_infometer.draw_gizmos = _draw_gizmos
 var cells = {}
 
 @export var center_path:NodePath
 var center
 
 func do_draw_gizmos():
-	pass
+	if Engine.is_editor_hint():
+		DebugDraw3D.draw_sphere(global_position, radius, Color.ORANGE)
 
 
 func _process(_delta):
@@ -57,7 +63,22 @@ func _ready():
 		var potential_pred = node.find_child("Predator", true)
 		if potential_pred:
 			predators.push_back(potential_pred.get_parent())
-			
+	_init_spawn_zones()
+	if spawn_on_ready:
+		_spawn_boids()
+func _init_spawn_zones():
+	if not spawnable_zones_node:
+		push_error("No spawnable zones node set.")
+		return
+
+	for spawn_zone in spawnable_zones_node.get_children():
+		if not spawn_zone is SpawnZone:
+			continue
+		if not spawn_zone.spawn_type in spawnable_zones:
+			spawnable_zones[spawn_zone.spawn_type] = []
+		spawnable_zones[spawn_zone.spawn_type].push_back(spawn_zone)
+		print("Added spawn_zone")
+func _spawn_boids():
 	for i in grass_count:
 		var grass = grass_scene.instantiate()
 		var pos = Utils.random_point_in_unit_sphere() * radius
@@ -66,25 +87,29 @@ func _ready():
 		grass.global_position = pos
 		var grass_instance : GrassFood = grass
 		grasses.push_back(grass_instance)
-	
+
 	for type in spawn_amount:
 		for i in spawn_amount[type]:
 			var _amount = spawn_amount[type]
 
 			var boid = boid_types[type].instantiate()
-
-			var pos = get_spawn_position(boid)
+			var pos 
+			if boid.spawn_location in spawnable_zones:
+				pos = spawnable_zones[boid.spawn_location].pick_random().get_spawn_location()
+			else:
+				pos= get_spawn_position(boid) # random spawn from center
+				push_error(boid.name +" does not have a spawn zone.")
 
 			add_child(boid)
+			print(pos)
 			boid.global_position = pos
 			boid.global_rotation = Vector3(0, randf_range(0, PI * 2.0),  0)
-
+			boid.draw_gizmos_propagate(false)
 			if not typeof(boid) in boids:
-				
 				boids[typeof(boid)] = []
 
 
-			boid.draw_gizmos_propagate(draw_gizmos)
+			
 			boid.hunger = randf_range(0.0, 0.1)
 			boid.metabolism = randf_range(0.01, 0.05)
 			boid.name = get_random_unique_name()
@@ -95,8 +120,6 @@ func _ready():
 			if constrain:
 				constrain.center = center
 				constrain.radius = radius
-
-
 var names = []
 
 func load_names():

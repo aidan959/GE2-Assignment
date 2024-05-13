@@ -9,7 +9,7 @@ uniform float amount = 0.9;
 uniform float speed = 1.0;
 // Water color
 uniform vec4 out_color: source_color = vec4(0.0, 0.2, 1.0, 1.0);
-uniform float depth_factor = 0.1;
+uniform float depth_factor = 0.0;
 
 // Vertex shader variables
 varying vec2 vertex_uv;

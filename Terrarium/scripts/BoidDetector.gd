@@ -11,3 +11,6 @@ func _physics_process(_delta):
 	var collider = get_collider()
 	if collider is Boid:
 		detected_boid = collider
+	else:
+		return
+	

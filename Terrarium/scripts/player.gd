@@ -6,11 +6,14 @@ class_name Player extends CharacterBody3D
 
 @export_range(0.1, 3.0, 0.1) var jump_height: float = 1 # m
 @export_range(0.1, 3.0, 0.1, "or_greater") var camera_sens: float = 1
+@export var crosshair:  Panel 
+@export var music_player:  AudioStreamPlayer
 
 var jumping: bool = false
 var mouse_captured: bool = false
 
 var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
+@export var crosshair_visible : bool = false : set = _enable_crosshair
 
 var move_dir: Vector2
 var look_dir: Vector2
@@ -19,11 +22,37 @@ var walk_vel: Vector3
 var grav_vel: Vector3  
 var jump_vel: Vector3 
 
-@onready var camera: Camera3D = $Camera
+@export var BOB_SPEED: float = 10.0 
+@export var view_bob : bool = true
+var last_bob_time: float = 0.0
 
+enum movement_states {
+	MOVE,
+	SWIM
+}
+
+var current_movement_state = movement_states.MOVE
+
+
+func apply_bob(delta: float):
+	if move_dir.length() > 0 and is_on_floor():
+		last_bob_time += delta * BOB_SPEED
+		if last_bob_time > 2.0 * PI:
+			last_bob_time -= 2.0 * PI  
+		
+		var bob_phase = last_bob_time
+		var new_y_position = camera.position.y + sin(bob_phase) * 0.02  
+		camera.position = Vector3(camera.position.x, new_y_position, camera.position.z)
+
+@onready var camera: Camera3D = $Camera
+func _enable_crosshair(value: bool):
+	crosshair_visible = value
+	if crosshair:
+		crosshair.visible = crosshair_visible
+		
+		
 func _ready() -> void:
-	capture_mouse()
-	
+	crosshair_visible = false
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
@@ -34,8 +63,16 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func _physics_process(delta: float) -> void:
 	if mouse_captured: _handle_joypad_camera_rotation(delta)
-	velocity = _walk(delta) + _gravity(delta) + _jump(delta)
+	match current_movement_state:
+		movement_states.MOVE:
+			velocity = _walk(delta) + _gravity(delta) + _jump(delta)
+			
+		movement_states.SWIM:
+			velocity = (_walk(delta) * 0.5) 
+			velocity.y = 0
+	
 	move_and_slide()
+	if view_bob: apply_bob(delta)
 
 func capture_mouse() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -64,7 +101,7 @@ func _walk(delta: float) -> Vector3:
 	return walk_vel
 
 func _gravity(delta: float) -> Vector3:
-	grav_vel = Vector3.ZERO if is_on_floor() else grav_vel.move_toward(Vector3(0, velocity.y - gravity, 0), gravity * delta)
+	grav_vel = Vector3.ZERO if is_on_floor() else grav_vel.move_toward(Vector3(0, velocity.y - gravity, 0), abs(gravity * delta))
 	return grav_vel
 
 func _jump(delta: float) -> Vector3:

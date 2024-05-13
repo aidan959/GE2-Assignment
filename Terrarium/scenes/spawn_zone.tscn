@@ -2,11 +2,12 @@
 
 [ext_resource type="Script" path="res://scripts/spawn_zone.gd" id="1_scta0"]
 
-[sub_resource type="Curve3D" id="Curve3D_ywre1"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_c1kgh"]
 
-[node name="SpawnPath" type="Path3D"]
-curve = SubResource("Curve3D_ywre1")
+[node name="SpawnZone" type="Area3D"]
 script = ExtResource("1_scta0")
-spawnable_boids = Array[String](["Sheep"])
+spawn_type = 0
+override_shape = SubResource("BoxShape3D_c1kgh")
+draw_gizmos = true
 
-[node name="SpawnLocation" type="PathFollow3D" parent="."]
+[node name="CollisionArea" type="CollisionShape3D" parent="."]

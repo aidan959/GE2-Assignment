@@ -49,6 +49,7 @@ func change_weather():
 		var rand_choice = randi() % 2  # Random integer 0, 1, or 2
 		var intensity = randf_range(500, 1500) 
 		rand_choice = 2
+		
 		match rand_choice:
 			0:
 				set_weather_condition("rain", intensity)
