@@ -60,7 +60,7 @@ var new_force = Vector3.ZERO
 var should_calculate = false
 func initialize_flock():
 	if not get_parent() is BoidController:
-		push_error("Boid spawned outside of BoidManager node.")	
+		push_error("Boid spawned outside of BoidController node.")	
 	flock = get_parent()
 	if flock.grasses.size() == 0: push_warning("No instances of grass found.")
 func initalize_sound_player():
@@ -199,7 +199,6 @@ func _process(_delta):
 func kill():
 	health = 0.0
 	current_state = BoidStates.DEAD
-	print(name +  " is Dead")
 
 func is_dead() -> bool:
 	return current_state == BoidStates.DEAD
@@ -250,6 +249,9 @@ func _physics_process(delta):
 			# https://www.cs.toronto.edu/~dt/siggraph97-course/cwr87/
 			look_at(global_transform.origin - velocity.normalized(), temp_up)
 
-
+func despawn_me():
+	if not flock:
+		return
+	flock.remove_boid(self)
 
 

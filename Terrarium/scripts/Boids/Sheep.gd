@@ -5,6 +5,8 @@ var grass = []
 var is_currently_escaping = false
 
 @onready var animator : AnimationPlayer = $Sheep/AnimationPlayer
+@onready var ExplosionParticles = load("res://scenes/explosion_particles.tscn")
+
 
 var ascension_light : SpotLight3D = null
 
@@ -31,6 +33,7 @@ func _ready():
 	super._ready()
 	foods_liked = [Grass]
 	ascension_light = find_child("AscensionLight")
+	ascension_target = flock.god_sheep
 
 func update_nearest_grass():
 	var temp_nearest_distance : float = INF
@@ -111,9 +114,7 @@ func _physics_process(delta):
 	var target_dot : float = temp_up.dot(target)
 	
 	if not is_equal_approx(target_dot, 1.0):
-	
 		look_at(global_transform.origin - velocity.normalized(), temp_up)
-		
 
 func set_enabled(behavior, enabled):
 	behavior.enabled = enabled
@@ -195,18 +196,22 @@ func _process(_delta):
 @export var ascension_rate: float = 0.2
 @export var ascension_shake_intensity: float = 0.5  
 @export var max_ascension_velocity: float = 30.0
-@export var explosion_threshold: float = 1.0  # Distance within which explosion triggers
+@export var explosion_threshold: float = 5.0  # Distance within which explosion triggers
 var ascension_velocity: Vector3 = Vector3.ZERO
 var ascension_acceleration: float = 0.05
+var ascension_target : Node3D = null
 var exploded = false  # To ensure the explosion only happens once
 
 func ascension(delta):
 	if exploded:
 		return
+	if not ascension_target:
+		push_error("Dead with no ascension target")
+		exploded = true
 	
-	var godsheep = get_node("../../Path3D/PathFollow3D")
-	var target_position = godsheep.global_transform.origin
-	DebugDraw3D.draw_box(target_position, Quaternion(), Vector3(5, 5, 5), Color.BLUE)
+	
+	var target_position = ascension_target.global_transform.origin
+	DebugDraw3D.draw_box(target_position, Quaternion(), Vector3(10, 10, 10), Color.BLUE)
 	var direction_to_target = (target_position - global_transform.origin).normalized()
 	
 	ascension_acceleration += ascension_rate * delta
@@ -214,10 +219,9 @@ func ascension(delta):
 	ascension_velocity = ascension_velocity.normalized() * min(ascension_velocity.length(), max_ascension_velocity) + get_shake_vector(delta)
 	
 	global_transform.origin += ascension_velocity * delta
-	
 	ascension_light.global_transform.origin = global_transform.origin + Vector3(0, 10.0, 0)
 	if not is_equal_approx(ascension_light.global_position.dot(global_position), 1.0):
-		ascension_light.look_at(global_position, Vector3.UP)
+		ascension_light.look_at(global_position, Vector3.DOWN )
 	if ascension_velocity.length() > 0:
 		look_at(global_transform.origin + ascension_velocity.normalized(), Vector3.DOWN)
 	else:
@@ -227,9 +231,13 @@ func ascension(delta):
 		explode()
 
 func explode():
-	$ExplosionParticles.emitting = true
-	queue_free()
-	exploded = true
+	var particles = ExplosionParticles.instantiate()
+	add_child(particles)
+	print("boom")
+	particles.transform.origin = transform.origin
+	# exploded = true
+	# queue_free()
+
 
 func get_shake_vector(delta: float) -> Vector3:
 	var shake_vector = Vector3(randf_range(-ascension_shake_intensity, ascension_shake_intensity), 0, randf_range(-ascension_shake_intensity, ascension_shake_intensity))

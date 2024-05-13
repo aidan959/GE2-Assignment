@@ -4,14 +4,13 @@ class_name BoidController extends Node3D
 
 var boid_types : Dictionary = {
 	"Sheep": preload("res://scenes/Boids/Sheep.tscn"),
-	"Shark": preload("res://scenes/Boids/Shark2.tscn")
+	"Shark": preload("res://scenes/Boids/Shark.tscn")
 }
 
 
 @export var spawn_amount : Dictionary = {
 	"Sheep": 70,
 	"Shark": 5
-
 }
  
 @export var grass_scene:PackedScene
@@ -44,7 +43,9 @@ var _draw_gizmos : bool = false
 			boid_infometer.draw_gizmos = _draw_gizmos
 var cells = {}
 
-@export var center_path:NodePath
+@export var center_path : NodePath
+
+@export var god_sheep : GodHead
 var center
 
 func do_draw_gizmos():
@@ -63,9 +64,15 @@ func _ready():
 		var potential_pred = node.find_child("Predator", true)
 		if potential_pred:
 			predators.push_back(potential_pred.get_parent())
+	
 	_init_spawn_zones()
 	if spawn_on_ready:
 		_spawn_boids()
+	
+	draw_gizmos = draw_gizmos # forces variable update
+	
+	if not god_sheep and "Sheep" in spawn_amount and spawn_amount["Sheep"] > 0:
+		push_error("No god sheep set. Sheep will exhibit weird behaviours.")
 func _init_spawn_zones():
 	if not spawnable_zones_node:
 		push_error("No spawnable zones node set.")
@@ -77,7 +84,7 @@ func _init_spawn_zones():
 		if not spawn_zone.spawn_type in spawnable_zones:
 			spawnable_zones[spawn_zone.spawn_type] = []
 		spawnable_zones[spawn_zone.spawn_type].push_back(spawn_zone)
-		print("Added spawn_zone")
+
 func _spawn_boids():
 	for i in grass_count:
 		var grass = grass_scene.instantiate()
@@ -101,7 +108,7 @@ func _spawn_boids():
 				push_error(boid.name +" does not have a spawn zone.")
 
 			add_child(boid)
-			print(pos)
+
 			boid.global_position = pos
 			boid.global_rotation = Vector3(0, randf_range(0, PI * 2.0),  0)
 			boid.draw_gizmos_propagate(false)
@@ -111,7 +118,7 @@ func _spawn_boids():
 
 			
 			boid.hunger = randf_range(0.0, 0.1)
-			boid.metabolism = randf_range(0.01, 0.05)
+			boid.metabolism = randf_range(0.5, 0.9)
 			boid.name = get_random_unique_name()
 			
 			boids[typeof(boid)].push_back(boid)
@@ -152,8 +159,19 @@ func get_spawn_position(boid: Boid) -> Vector3:
 			pos.y = 0.0
 			return pos
 		boid.SpawnLocations.AMBHIBIOUS:
-			push_error("AMBIBIOUS NOT CONFIGURED")
+			push_error("AMBHIBIOUS NOT CONFIGURED")
 			return Vector3.ZERO
-	return Vector3.ZERO
+		_:
+			return Vector3.ZERO
 
-
+func remove_boid(boid: Boid):
+	if not typeof(boid) in boids:
+		return
+	if boid_infometer and boid_infometer.saved_boid == boid:
+		boid_infometer.clear_boids()
+	var list_of_boids : Array[Boid] = boids[typeof(boid)]
+	var index = list_of_boids.find(boid, 0)
+	list_of_boids.remove_at(index)
+	for boid_a in list_of_boids:
+		index = boid_a.neighbours.find(boid, 0)
+		boid_a.neighbours.remove_at(index)
