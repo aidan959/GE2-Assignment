@@ -108,13 +108,14 @@ func _physics_process(delta):
 	# Implement Banking as described:
 	# https://www.cs.toronto.edu/~dt/siggraph97-course/cwr87/
 
+	if is_equal_approx(acceleration.length(), 0):
+		return
 	var temp_up = global_transform.basis.y.lerp(Vector3.UP + (acceleration * banking), delta * 5.0)
 
 	var target : Vector3 = global_transform.origin - velocity.normalized()
 	var target_dot : float = temp_up.dot(target)
 	
-	if not is_equal_approx(target_dot, 1.0):
-		look_at(global_transform.origin - velocity.normalized(), temp_up)
+	look_at(global_transform.origin - velocity.normalized(), temp_up)
 
 func set_enabled(behavior, enabled):
 	behavior.enabled = enabled
@@ -221,7 +222,7 @@ func ascension(delta):
 	global_transform.origin += ascension_velocity * delta
 	ascension_light.global_transform.origin = global_transform.origin + Vector3(0, 10.0, 0)
 	if not is_equal_approx(ascension_light.global_position.dot(global_position), 1.0):
-		ascension_light.look_at(global_position, Vector3.DOWN )
+		ascension_light.look_at(global_position, Vector3.RIGHT )
 	if ascension_velocity.length() > 0:
 		look_at(global_transform.origin + ascension_velocity.normalized(), Vector3.DOWN)
 	else:
@@ -235,8 +236,9 @@ func explode():
 	add_child(particles)
 	print("boom")
 	particles.transform.origin = transform.origin
+	despawn_me()
 	# exploded = true
-	# queue_free()
+	#queue_free()
 
 
 func get_shake_vector(delta: float) -> Vector3:

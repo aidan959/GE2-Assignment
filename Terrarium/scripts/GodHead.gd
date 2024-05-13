@@ -39,7 +39,7 @@ func _process(delta):
 		if not typeof(Sheep) in boid_controller.boids: 
 			return
 		var sheep_boids = boid_controller.boids[typeof(Sheep)]
-		if sheep_boids.size() > 40:
+		if sheep_boids.size() > 110:
 			pick_sheep = true
 	if pick_sheep == true:
 		if target_sheep == null:
