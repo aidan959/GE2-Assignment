@@ -47,7 +47,7 @@ var cells = {}
 
 @export var god_sheep : GodHead
 var center
-
+var boids_to_despawn : Array[Boid] = [] 
 func do_draw_gizmos():
 	if Engine.is_editor_hint():
 		DebugDraw3D.draw_sphere(global_position, radius, Color.ORANGE)
@@ -175,3 +175,7 @@ func remove_boid(boid: Boid):
 	for boid_a in list_of_boids:
 		index = boid_a.neighbours.find(boid, 0)
 		boid_a.neighbours.remove_at(index)
+	
+	boid.call_deferred("queue_free()")
+	
+
