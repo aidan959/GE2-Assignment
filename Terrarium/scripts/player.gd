@@ -8,6 +8,7 @@ class_name Player extends CharacterBody3D
 @export_range(0.1, 3.0, 0.1, "or_greater") var camera_sens: float = 1
 @export var crosshair:  Panel 
 @export var music_player:  AudioStreamPlayer
+@export var spawn_on_ready : bool = false
 
 var jumping: bool = false
 var mouse_captured: bool = false
@@ -53,6 +54,8 @@ func _enable_crosshair(value: bool):
 		
 func _ready() -> void:
 	crosshair_visible = false
+	if spawn_on_ready:
+		capture_mouse()
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:

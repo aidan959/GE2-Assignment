@@ -45,3 +45,9 @@ draw_gizmos = false
 
 [node name="SHARK" parent="." instance=ExtResource("8_kwnw1")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.880758, 2.38647)
+light_color = Color(0.365015, 1, 0.919213, 1)
+light_energy = 5.857
+omni_range = 4.898
