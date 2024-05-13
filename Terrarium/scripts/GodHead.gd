@@ -69,7 +69,6 @@ func move_towards_target(delta):
 		var distance_to_sheep = global_transform.origin.distance_to(target_sheep.global_transform.origin)
 		if distance_to_sheep < 30.0:
 			speed = lerp(20.0, 5.0, remap(distance_to_sheep, 7.0, 30.0, 1.0, 0.0))
-			print(speed)
 		if distance_to_sheep < 3.0:
 			moving_back = true
 	elif moving_back:
