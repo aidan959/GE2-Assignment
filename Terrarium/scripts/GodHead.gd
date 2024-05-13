@@ -1,35 +1,42 @@
-extends Node3D
+class_name GodHead extends PathFollow3D
 
 var speed = 20
 var wave_amplitude = 0.5
 var wave_frequency = 1
-var neck_scene = preload("res://scenes/Neck.tscn")
 var target_sheep = null
 var start_position = null
 var neck_parts = []
 var movement_path = []
 var movement_transforms = [] 
+@export var neck_scene : PackedScene = preload("res://scenes/Neck.tscn")
 @export var pick_sheep : bool = false
-var boid_controller_path = "../../../../BoidController"
 @export var boid_controller: BoidController
+@export var path_3d : Path3D
 var total_time = 0.0 
 
 func _ready():
 	start_position = global_transform.origin
-
+	if not boid_controller:	
+		boid_controller = get_node_or_null("../../BoidController")
+	if not boid_controller:
+		push_error("GodCloud cannot find BoidController")
+	if not path_3d:
+		var parent =  get_parent()
+		if parent is Path3D:
+			path_3d = parent
+		else:
+			push_error("GodCloud should have Path3D field, or be child of Path3D")
 func _process(delta):
 	total_time += delta
-	var path3d = get_node_or_null("../../../")
-	if path3d:
+	if path_3d:
 		if target_sheep:
-			path3d.call("set_movement_allowed", false)
+			path_3d.call("set_movement_allowed", false)
 			move_towards_target(delta)
 		else:
-			path3d.call("set_movement_allowed", true)
+			path_3d.call("set_movement_allowed", true)
 	else:
 		print("Path3D node not found")
-	
-	boid_controller = get_node_or_null(boid_controller_path)
+
 	if boid_controller:
 		if not typeof(Sheep) in boid_controller.boids: 
 			return
@@ -41,7 +48,6 @@ func _process(delta):
 			target_sheep = get_random_sheep_child()
 
 func get_random_sheep_child():
-	boid_controller = get_node_or_null(boid_controller_path)
 	if boid_controller:
 		var sheep_boids = boid_controller.boids[typeof(Sheep)]
 		if sheep_boids.size() > 0:
