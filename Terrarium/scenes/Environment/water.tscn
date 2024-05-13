@@ -38,11 +38,11 @@ normal_texture = SubResource("NoiseTexture2D_32fnv")
 material = SubResource("StandardMaterial3D_pfk4i")
 top_radius = 150.0
 bottom_radius = 150.0
-height = 38.574
+height = 100.0
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_hqgef"]
-height = 21.2774
-radius = 52.8022
+height = 100.101
+radius = 150.051
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8w1or"]
 render_priority = 0
@@ -95,7 +95,7 @@ cap_bottom = false
 mesh = SubResource("PlaneMesh_wjghp")
 
 [node name="WaterBody" type="MeshInstance3D" parent="Water"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -19.7, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -50.91, 0)
 mesh = SubResource("CylinderMesh_a23te")
 skeleton = NodePath("../..")
 

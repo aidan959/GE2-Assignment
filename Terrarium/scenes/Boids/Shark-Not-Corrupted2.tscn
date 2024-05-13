@@ -1,0 +1,49 @@
+[gd_scene load_steps=10 format=3 uid="uid://bh03rxsoeagwv"]
+
+[ext_resource type="Script" path="res://scripts/Boids/Shark.gd" id="1_s8yfn"]
+[ext_resource type="PackedScene" uid="uid://b1vprshi6ha4e" path="res://models/gltf/SHARK.gltf" id="2_t3hsv"]
+[ext_resource type="Script" path="res://scripts/Boids/Behaviours/AntiSocial.gd" id="3_vshx3"]
+[ext_resource type="Script" path="res://scripts/Boids/Behaviours/Cohesion.gd" id="4_qw5f3"]
+[ext_resource type="Script" path="res://scripts/Boids/Behaviours/Alignment.gd" id="5_kux1g"]
+[ext_resource type="Script" path="res://scripts/Boids/Behaviours/Avoidance.gd" id="6_l2rmc"]
+[ext_resource type="Script" path="res://scripts/Boids/Behaviours/Constrain.gd" id="7_jnf18"]
+[ext_resource type="Script" path="res://scripts/Boids/Behaviours/Wander.gd" id="8_fbkm2"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_tclmf"]
+size = Vector3(5.41626, 1.91836, 2.78278)
+
+[node name="Boid2" type="CharacterBody3D"]
+script = ExtResource("1_s8yfn")
+
+[node name="SHARK" parent="." instance=ExtResource("2_t3hsv")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 3.8743e-06, -0.161291, -0.564301)
+shape = SubResource("BoxShape3D_tclmf")
+
+[node name="AntiSocial" type="Node" parent="."]
+script = ExtResource("3_vshx3")
+softness = 1.0
+
+[node name="Cohesion" type="Node" parent="."]
+script = ExtResource("4_qw5f3")
+
+[node name="Alignment" type="Node" parent="."]
+script = ExtResource("5_kux1g")
+
+[node name="Avoidance" type="Node" parent="."]
+script = ExtResource("6_l2rmc")
+softness = 1.0
+weight = 3.0
+
+[node name="Constrain" type="Node" parent="."]
+script = ExtResource("7_jnf18")
+draw_gizmos = false
+
+[node name="Wander" type="Node" parent="."]
+script = ExtResource("8_fbkm2")
+distance = 10.0
+radius = 5.0
+weight = 0.1
+draw_gizmos = false
