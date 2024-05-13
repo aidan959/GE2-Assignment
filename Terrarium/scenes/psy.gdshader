@@ -1,7 +1,7 @@
 shader_type spatial;
 
 uniform float intensity : hint_range(0.0, 2.0) = 0.8;
-uniform float speed : hint_range(0.0, 5.0) = 0.4;
+uniform float speed : hint_range(0.0, 5.0) = 0.2;
 uniform sampler2D noise_tex; 
 uniform int segments = 6; 
 
@@ -49,7 +49,7 @@ void fragment() {
     vec2 uv = UV;
 
     // Rotate UV coordinates continuously
-    float rotation_angle = TIME * speed; // Control rotation speed with 'speed' uniform
+    float rotation_angle = TIME * speed; 
     uv = rotate_uv(uv, rotation_angle);
 
     // Apply kaleidoscope effect
@@ -65,5 +65,5 @@ void fragment() {
     vec3 final_color = mix(col, rgb, hsv.y); // Mix based on saturation
 
     ALBEDO = final_color;
-    ALPHA = 0.5; // Adjust transparency as needed
+    ALPHA = 0.5; 
 }
