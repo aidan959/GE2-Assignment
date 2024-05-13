@@ -117,6 +117,7 @@ func _spawn_boids():
 			boid.draw_gizmos_propagate(false)
 			if not typeof(boid) in boids:
 				boids[typeof(boid)] = []
+			print(type + ": " + str(typeof(boid)))
 
 
 			
@@ -130,6 +131,7 @@ func _spawn_boids():
 			if constrain:
 				constrain.center = center
 				constrain.radius = radius
+	print(boids)
 var names = []
 
 func load_names():
