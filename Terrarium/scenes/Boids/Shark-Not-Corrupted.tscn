@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://tld5eaa38dt1"]
+[gd_scene load_steps=11 format=3 uid="uid://tld5eaa38dt1"]
 
 [ext_resource type="Script" path="res://scripts/Boids/Shark.gd" id="1_r4hdo"]
 [ext_resource type="PackedScene" uid="uid://b1vprshi6ha4e" path="res://models/gltf/SHARK.gltf" id="2_bgnhx"]
@@ -8,11 +8,12 @@
 [ext_resource type="Script" path="res://scripts/Boids/Behaviours/Avoidance.gd" id="6_aufm0"]
 [ext_resource type="Script" path="res://scripts/Boids/Behaviours/Constrain.gd" id="7_x8mny"]
 [ext_resource type="Script" path="res://scripts/Boids/Behaviours/Wander.gd" id="8_0jtpa"]
+[ext_resource type="Script" path="res://scripts/Boids/Behaviours/SharkConstrain.gd" id="9_p7ikv"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_tclmf"]
 size = Vector3(5.41626, 1.91836, 2.78278)
 
-[node name="Boid" type="CharacterBody3D"]
+[node name="Boid2" type="CharacterBody3D"]
 script = ExtResource("1_r4hdo")
 
 [node name="SHARK" parent="." instance=ExtResource("2_bgnhx")]
@@ -47,3 +48,6 @@ distance = 10.0
 radius = 5.0
 weight = 0.1
 draw_gizmos = false
+
+[node name="SharkConstrain" type="Node" parent="."]
+script = ExtResource("9_p7ikv")

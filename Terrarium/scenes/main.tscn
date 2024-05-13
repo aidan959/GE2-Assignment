@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://dh52fxfx2rten"]
+[gd_scene load_steps=26 format=3 uid="uid://dh52fxfx2rten"]
 
 [ext_resource type="Script" path="res://scripts/BoidController.gd" id="2_qkdbf"]
 [ext_resource type="Script" path="res://scenes/grass.gd" id="3_l3wkh"]
@@ -6,15 +6,14 @@
 [ext_resource type="PackedScene" uid="uid://cpty6hvhjeoq8" path="res://scenes/spawn_zone.tscn" id="4_4csqi"]
 [ext_resource type="PackedScene" uid="uid://be8abksxbl3jb" path="res://scenes/Player.tscn" id="4_mbjog"]
 [ext_resource type="Script" path="res://scripts/BoidInfometer.gd" id="7_cgsf7"]
-[ext_resource type="PackedScene" uid="uid://cdc1p35m2yavw" path="res://scenes/TerrainModel.tscn" id="7_mpobr"]
 [ext_resource type="Script" path="res://scenes/Follower.gd" id="8_cwjm7"]
 [ext_resource type="PackedScene" uid="uid://dp276413u6prv" path="res://scenes/Environment/water.tscn" id="9_jggms"]
 [ext_resource type="Script" path="res://scripts/MainMenu.gd" id="10_6yboc"]
 [ext_resource type="AudioStream" uid="uid://dpniofcytnny2" path="res://sounds/music/sheep song.mp3" id="11_5pvwx"]
 [ext_resource type="AudioStream" uid="uid://cf3o7h3vc534a" path="res://sounds/music/sheep_music.mp3" id="12_dunkj"]
+[ext_resource type="PackedScene" uid="uid://cqymokgipbbvo" path="res://scenes/TerrainModelScene.tscn" id="13_ju76i"]
 [ext_resource type="PackedScene" uid="uid://qd8lu6e8lj03" path="res://jar.tscn" id="13_pv3wt"]
 [ext_resource type="PackedScene" uid="uid://dn43u1jd5gbam" path="res://scenes/GodCloud.tscn" id="14_fhm0n"]
-[ext_resource type="PackedScene" uid="uid://db1i4dc4t020u" path="res://models/gltf/terrain.glb" id="15_bkhi2"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5tj4n"]
 albedo_texture = ExtResource("4_4bhah")
@@ -67,6 +66,7 @@ _data = {
 point_count = 5
 
 [node name="Main" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.21323, -0.213242)
 
 [node name="BoidController" type="Node3D" parent="." node_paths=PackedStringArray("spawnable_zones_node", "god_sheep")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.447, 1.91234, -38.6893)
@@ -249,19 +249,13 @@ offset_bottom = 159.0
 allow_search = false
 auto_height = true
 
-[node name="terrain2" parent="." instance=ExtResource("7_mpobr")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.9581, -51.4737, -38.6941)
-
-[node name="Water" parent="terrain2" instance=ExtResource("9_jggms")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 43.4179, 0)
-
 [node name="MenuCamera" type="Camera3D" parent="." node_paths=PackedStringArray("sheep_target")]
 current = true
 script = ExtResource("8_cwjm7")
 orbit_speed = 0.1
 orbit_radius = 200.0
 orbit_height = 200.0
-sheep_target = NodePath("../terrain2/Water")
+sheep_target = NodePath("../terrain/Water")
 do_lerp = true
 lerp_amount = 0.001
 
@@ -397,9 +391,13 @@ curve = SubResource("Curve3D_xb707")
 [node name="GodCloud" parent="Path3D" instance=ExtResource("14_fhm0n")]
 transform = Transform3D(-0.0199283, 0.00816098, -0.999758, -4.65657e-10, 0.999957, 0.0081626, 0.999793, 0.000162669, -0.0199276, -16.9017, 0, -136.768)
 
-
 [node name="Node3D" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 96.7727, -45.0329, 0)
 
+[node name="terrain" parent="." instance=ExtResource("13_ju76i")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.3872, -58.4064, -38.8851)
+
+[node name="Water" parent="terrain" instance=ExtResource("9_jggms")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 43.1996, 0)
 
 [connection signal="pressed" from="Main Menu/CenterContainer/Panel/VBoxContainer/MarginContainer2/Button" to="Main Menu" method="_on_button_pressed"]
