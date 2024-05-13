@@ -254,4 +254,7 @@ func despawn_me():
 		return
 	flock.remove_boid(self)
 
+static func get_boid_type():
+	push_error("This should be set on the boid in particular.")
+	return "Boid"
 

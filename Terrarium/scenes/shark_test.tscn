@@ -33,4 +33,4 @@ size = Vector3(100, 0.001, 100)
 curve = SubResource("Curve3D_nxukm")
 
 [node name="PathFollow3D" type="PathFollow3D" parent="SharkPath"]
-transform = Transform3D(0.488101, 0.0293171, -0.872294, -9.31323e-10, 0.999435, 0.0335902, 0.872787, -0.0163954, 0.487825, -7.22261, -12.0638, 40.9334)
+transform = Transform3D(0.488101, 0.0293171, -0.872294, -9.31322e-10, 0.999435, 0.0335902, 0.872787, -0.0163954, 0.487825, -7.22261, -12.0638, 40.9334)

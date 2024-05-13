@@ -36,8 +36,6 @@ process_thread_messages = 3
 collision_layer = 769
 script = ExtResource("1_k0npw")
 escape_distance = 5.0
-neighbour_distance = 8.851
-tick_rate = 60
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 visible = false

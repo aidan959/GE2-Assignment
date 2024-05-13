@@ -117,3 +117,5 @@ func _process(_delta):
 	
 func update_stats():
 	super.update_stats()
+static func get_boid_type():
+	return "Shark"
