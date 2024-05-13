@@ -70,3 +70,7 @@ func _physics_process(_delta):
 	ordered_list.sort_custom(func(a, b): return a[1] > b[1])
 	for behaviour_weight in ordered_list:
 		weight_list.add_item(behaviour_weight[0] + ": " + "%.4f" % behaviour_weight[1])
+
+func clear_boids():
+	saved_boid = null
+	boid_detector.detected_boid = null 

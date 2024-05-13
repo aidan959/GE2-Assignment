@@ -36,16 +36,13 @@ func _ready():
 	if menu_camera:
 		menu_camera.current = true
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
 
 func _on_button_pressed():
 	if not player or not menu_camera or not boid_controller:
 		return
 	visible = false
-	var transition_duration = 1.0
-	var distance = (player.camera.global_transform.origin - menu_camera.global_transform.origin).length()
+	#var transition_duration = 1.0
+	#var distance = (player.camera.global_transform.origin - menu_camera.global_transform.origin).length()
 	# var direction = (player.camera.global_transform.origin - menu_camera.global_transform.origin).normalized()
 	
 	do_transition = true
