@@ -29,6 +29,13 @@ func _process(delta):
 	else:
 		print("Path3D node not found")
 	
+	boid_controller = get_node_or_null(boid_controller_path)
+	if boid_controller:
+		if not typeof(Sheep) in boid_controller.boids: 
+			return
+		var sheep_boids = boid_controller.boids[typeof(Sheep)]
+		if sheep_boids.size() > 30:
+			pick_sheep = true
 	if pick_sheep == true:
 		if target_sheep == null:
 			target_sheep = get_random_sheep_child()
@@ -69,6 +76,7 @@ func move_towards_target(delta):
 			delete_neck_as_moving_back()
 		else:
 			moving_back = false
+			pick_sheep =false
 
 func get_perpendicular_vector(direction):
 	var up_vector = Vector3.UP
