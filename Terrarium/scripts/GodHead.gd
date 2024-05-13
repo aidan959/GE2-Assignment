@@ -34,8 +34,6 @@ func _process(delta):
 			move_towards_target(delta)
 		else:
 			path_3d.call("set_movement_allowed", true)
-	else:
-		print("Path3D node not found")
 
 	if boid_controller:
 		if not typeof(Sheep) in boid_controller.boids: 
@@ -47,16 +45,11 @@ func _process(delta):
 		if target_sheep == null:
 			target_sheep = get_random_sheep_child()
 
-func get_random_sheep_child():
+func get_random_sheep_child() -> Sheep:
 	if boid_controller:
 		var sheep_boids = boid_controller.boids[typeof(Sheep)]
 		if sheep_boids.size() > 0:
-			var random_index = randi() % sheep_boids.size()
-			return sheep_boids[random_index]
-		else:
-			print(boid_controller.boids[typeof(Sheep)])
-	else:
-		print("BoidController not found")
+			return sheep_boids.pick_random()
 	return null
 
 
