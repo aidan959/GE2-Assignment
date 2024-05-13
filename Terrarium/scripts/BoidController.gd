@@ -23,7 +23,7 @@ var boid_types : Dictionary = {
 @export var avoid_distance = 20
 
 @export var max_neighbours = 10
-@export var environment_controller : EnvironmentController
+
 @export var boid_infometer : BoidInfometer
 var boids : Dictionary = {}
 var grasses : Array[GrassFood] = []

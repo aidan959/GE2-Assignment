@@ -269,14 +269,14 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("10_6yboc")
-player = NodePath("../Player")
-menu_camera = NodePath("../MenuCamera")
-boid_controller = NodePath("../BoidController")
 transition_duration = 0.1
 menu_music = ExtResource("11_5pvwx")
 game_music = ExtResource("12_dunkj")
 target_menu_music_volume = 0.7
 target_game_music_volume = 0.5
+player = NodePath("../Player")
+menu_camera = NodePath("../MenuCamera")
+boid_controller = NodePath("../BoidController")
 
 [node name="CenterContainer" type="CenterContainer" parent="Main Menu"]
 custom_minimum_size = Vector2(100, 100)
@@ -393,7 +393,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 56.4785, 0)
 curve = SubResource("Curve3D_xb707")
 
 [node name="GodCloud" parent="Path3D" instance=ExtResource("14_fhm0n")]
-
 transform = Transform3D(-0.0199283, 0.00816099, -0.999758, -4.65657e-10, 0.999957, 0.0081626, 0.999793, 0.000162669, -0.0199276, -16.9017, 0, -136.768)
 
 [connection signal="pressed" from="Main Menu/CenterContainer/Panel/VBoxContainer/MarginContainer2/Button" to="Main Menu" method="_on_button_pressed"]
