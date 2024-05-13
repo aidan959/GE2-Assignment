@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://bgst8nitltog5"]
+
+[ext_resource type="PackedScene" uid="uid://b1vprshi6ha4e" path="res://models/gltf/SHARK.gltf" id="1_gar7a"]
+
+[node name="SHARK" instance=ExtResource("1_gar7a")]

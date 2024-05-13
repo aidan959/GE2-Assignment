@@ -233,7 +233,6 @@ func ascension(delta):
 func explode():
 	var particles = ExplosionParticles.instantiate()
 	add_child(particles)
-	print("boom")
 	particles.transform.origin = transform.origin
 	despawn_me()
 	# exploded = true
@@ -276,3 +275,5 @@ func update_animation():
 				change_animation("Eating_002")  
 		BoidStates.DEAD:
 			animator.stop()
+static func get_boid_type():
+	return "Sheep"
