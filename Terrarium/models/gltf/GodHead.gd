@@ -1,6 +1,6 @@
 extends Node3D
 
-var speed = 10
+var speed = 20
 var wave_amplitude = 0.5
 var wave_frequency = 1
 var neck_scene = preload("res://scenes/Neck.tscn")
@@ -34,7 +34,7 @@ func _process(delta):
 		if not typeof(Sheep) in boid_controller.boids: 
 			return
 		var sheep_boids = boid_controller.boids[typeof(Sheep)]
-		if sheep_boids.size() > 30:
+		if sheep_boids.size() > 40:
 			pick_sheep = true
 	if pick_sheep == true:
 		if target_sheep == null:
@@ -43,7 +43,6 @@ func _process(delta):
 func get_random_sheep_child():
 	boid_controller = get_node_or_null(boid_controller_path)
 	if boid_controller:
-		print(boid_controller.boids)
 		var sheep_boids = boid_controller.boids[typeof(Sheep)]
 		if sheep_boids.size() > 0:
 			var random_index = randi() % sheep_boids.size()
@@ -68,13 +67,18 @@ func move_towards_target(delta):
 		global_transform.origin += direction * speed * delta + lateral_offset
 		movement_transforms.append(global_transform)
 		create_neck_at_position()
-		if global_transform.origin.distance_to(target_sheep.global_transform.origin) < 3.0:
+		var distance_to_sheep = global_transform.origin.distance_to(target_sheep.global_transform.origin)
+		if distance_to_sheep < 30.0:
+			speed = lerp(20.0, 5.0, remap(distance_to_sheep, 7.0, 30.0, 1.0, 0.0))
+			print(speed)
+		if distance_to_sheep < 3.0:
 			moving_back = true
 	elif moving_back:
 		if movement_transforms.size() > 0:
 			global_transform = movement_transforms.pop_back()
 			delete_neck_as_moving_back()
 		else:
+			speed = 20
 			moving_back = false
 			pick_sheep =false
 
