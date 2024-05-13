@@ -366,7 +366,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 56.4785, 0)
 curve = SubResource("Curve3D_xb707")
 
 [node name="GodCloud" parent="Path3D" instance=ExtResource("14_fhm0n")]
-transform = Transform3D(0.0903576, 0.000847388, 0.995899, -0.00054368, 0.99999, -0.000801541, -0.995901, -0.000469029, 0.0903578, -23.8217, 0.0062692, 60.9019)
-progress = 318.95
+
+transform = Transform3D(-0.0199283, 0.00816099, -0.999758, -4.65657e-10, 0.999957, 0.0081626, 0.999793, 0.000162669, -0.0199276, -16.9017, 0, -136.768)
 
 [connection signal="pressed" from="Main Menu/CenterContainer/Panel/VBoxContainer/MarginContainer2/Button" to="Main Menu" method="_on_button_pressed"]
