@@ -11,7 +11,6 @@ uniform sampler2D DEPTH_TEXTURE : hint_depth_texture, filter_linear_mipmap;
 
 varying vec2 vertex_uv;
 
-// Helper functions to generate offsets, ensuring smooth wrapping
 float generateOffset(float angle, float height, float val1, float val2, float time) {
     float adjustedAngle = mod(angle + val1 * height, amount) / amount;
     float radianOffset = (adjustedAngle + time * speed) * 2.0 * PI;

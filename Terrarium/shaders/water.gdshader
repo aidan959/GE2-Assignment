@@ -1,4 +1,5 @@
 shader_type spatial;
+render_mode blend_mix;
 
 // https://godotshaders.com/shader/low-poly-water/
 
@@ -8,7 +9,7 @@ uniform float roughness = 0.3;
 uniform float amount = 0.9;
 uniform float speed = 1.0;
 // Water color
-uniform vec4 out_color: source_color = vec4(0.0, 0.2, 1.0, 1.0);
+uniform vec4 out_color: source_color = vec4(0.0, 0.2, 1.0, 0.8);
 uniform float depth_factor = 0.0;
 
 // Vertex shader variables
@@ -46,12 +47,13 @@ void fragment() {
 	METALLIC = metallic;
 	SPECULAR = specular;
 	ROUGHNESS = roughness;
+	ALPHA = out_color.a;
 	
-	float depth = texture(DEPTH_TEXTURE, SCREEN_UV).r;
-	depth = depth * 2.0 - 1.0;
-	depth = PROJECTION_MATRIX[3][2] / (depth + PROJECTION_MATRIX[2][2]);
-	depth = depth + VERTEX.z;
-
-	float linear_depth = clamp(1.0 - depth, 0.0, 1.0);
-	ALPHA = clamp(1.0 - linear_depth * depth_factor, 0.0, 1.0); 
+	//float depth = texture(DEPTH_TEXTURE, SCREEN_UV).r;
+	//depth = depth * 2.0 - 1.0;
+	//depth = PROJECTION_MATRIX[3][2] / (depth + PROJECTION_MATRIX[2][2]);
+	//depth = depth + VERTEX.z;
+//
+	//float linear_depth = clamp(1.0 - depth, 0.0, 1.0);
+	//ALPHA = clamp(1.0 - linear_depth * depth_factor, 0.0, 1.0); 
 }

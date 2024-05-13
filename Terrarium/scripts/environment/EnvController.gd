@@ -83,6 +83,7 @@ func updateSkyColors(delta):
 	
 
 func consider_changing_weather():
+	weather_occured = true
 	if randi() % 3 == 0:
 		change_weather()
 
@@ -90,7 +91,7 @@ func change_weather():
 	rand_choice = randi() % 3
 	var intensity = randf_range(500, 1500)
 	weather_controller.start_timer(weather_duration)
-	weather_occured = true
+
 	match rand_choice:
 		0:
 			weather_controller.rain(intensity)

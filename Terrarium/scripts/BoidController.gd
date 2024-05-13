@@ -169,7 +169,7 @@ func remove_boid(boid: Boid):
 		return
 	if boid_infometer and boid_infometer.saved_boid == boid:
 		boid_infometer.clear_boids()
-	var list_of_boids : Array[Boid] = boids[typeof(boid)]
+	var list_of_boids : Array = boids[typeof(boid)]
 	var index = list_of_boids.find(boid, 0)
 	list_of_boids.remove_at(index)
 	for boid_a in list_of_boids:
