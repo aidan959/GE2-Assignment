@@ -83,7 +83,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.447, 1.91234, -38.6893)
 script = ExtResource("2_qkdbf")
 spawn_amount = {
 "Shark": 0,
-"Sheep": 100
+"Sheep": 1
 }
 grass_scene = SubResource("PackedScene_kxt68")
 radius = 90
