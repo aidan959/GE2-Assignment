@@ -1,7 +1,7 @@
 [gd_scene load_steps=16 format=3 uid="uid://bfy1dib6amqkf"]
 
-[ext_resource type="Script" path="res://scripts/environment/weather.gd" id="1_rn8mp"]
-[ext_resource type="Shader" path="res://shaders/heat.gdshader" id="2_wxd20"]
+[ext_resource type="Script" path="res://scripts/environment/weather.gd" id="1_wt3pw"]
+[ext_resource type="Shader" path="res://shaders/heat.gdshader" id="2_qfwyn"]
 
 [sub_resource type="Curve" id="Curve_rkc8h"]
 _data = [Vector2(0.795082, 1), 0.0, -2.21228, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -74,7 +74,7 @@ curve = SubResource("Curve_c8heb")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ok4v1"]
 render_priority = 0
-shader = ExtResource("2_wxd20")
+shader = ExtResource("2_qfwyn")
 shader_parameter/max_shift = 2.5
 shader_parameter/speed = 0.03
 shader_parameter/min_heathaze_dist = 0.99
@@ -84,11 +84,9 @@ flip_faces = true
 top_radius = 5.0
 bottom_radius = 5.0
 height = 8.0
-cap_top = false
 
 [node name="weather" type="Node3D"]
-visible = false
-script = ExtResource("1_rn8mp")
+script = ExtResource("1_wt3pw")
 
 [node name="SnowParticles" type="GPUParticles3D" parent="."]
 transform = Transform3D(4, 0, 0, 0, 2, 0, 0, 0, 4, 0, 0, 0)

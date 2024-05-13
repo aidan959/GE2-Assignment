@@ -33,6 +33,7 @@ func _ready():
 	super._ready()
 	foods_liked = [Grass]
 	ascension_light = find_child("AscensionLight")
+	ascension_target = flock.god_sheep
 
 func update_nearest_grass():
 	var temp_nearest_distance : float = INF
@@ -113,9 +114,7 @@ func _physics_process(delta):
 	var target_dot : float = temp_up.dot(target)
 	
 	if not is_equal_approx(target_dot, 1.0):
-	
 		look_at(global_transform.origin - velocity.normalized(), temp_up)
-		
 
 func set_enabled(behavior, enabled):
 	behavior.enabled = enabled
@@ -200,14 +199,18 @@ func _process(_delta):
 @export var explosion_threshold: float = 5.0  # Distance within which explosion triggers
 var ascension_velocity: Vector3 = Vector3.ZERO
 var ascension_acceleration: float = 0.05
+var ascension_target : Node3D = null
 var exploded = false  # To ensure the explosion only happens once
 
 func ascension(delta):
 	if exploded:
 		return
+	if not ascension_target:
+		push_error("Dead with no ascension target")
+		exploded = true
 	
-	var godsheep = get_node("../../Path3D/PathFollow3D")
-	var target_position = godsheep.global_transform.origin
+	
+	var target_position = ascension_target.global_transform.origin
 	DebugDraw3D.draw_box(target_position, Quaternion(), Vector3(10, 10, 10), Color.BLUE)
 	var direction_to_target = (target_position - global_transform.origin).normalized()
 	
@@ -218,7 +221,7 @@ func ascension(delta):
 	global_transform.origin += ascension_velocity * delta
 	ascension_light.global_transform.origin = global_transform.origin + Vector3(0, 10.0, 0)
 	if not is_equal_approx(ascension_light.global_position.dot(global_position), 1.0):
-		ascension_light.look_at(global_position, Vector3.UP)
+		ascension_light.look_at(global_position, Vector3.DOWN )
 	if ascension_velocity.length() > 0:
 		look_at(global_transform.origin + ascension_velocity.normalized(), Vector3.DOWN)
 	else:

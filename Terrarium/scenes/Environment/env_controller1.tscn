@@ -1,13 +1,13 @@
 [gd_scene load_steps=20 format=3 uid="uid://b5w6wthj6ida4"]
 
-[ext_resource type="Script" path="res://scripts/environment/EnvController.gd" id="1_od8gl"]
-[ext_resource type="PackedScene" uid="uid://bfy1dib6amqkf" path="res://scenes/weather.tscn" id="2_byges"]
-[ext_resource type="Script" path="res://scripts/environment/DayNightCycle.gd" id="3_ufogt"]
-[ext_resource type="Shader" path="res://shaders/heat.gdshader" id="4_wku4n"]
+[ext_resource type="Script" path="res://scripts/environment/EnvController1.gd" id="1_bv2e0"]
+[ext_resource type="Shader" path="res://shaders/heat.gdshader" id="2_w3bl7"]
+[ext_resource type="PackedScene" uid="uid://bfy1dib6amqkf" path="res://scenes/Environment/weather.tscn" id="3_2bvu7"]
+[ext_resource type="Script" path="res://scripts/environment/DayNightCycle.gd" id="4_aq68i"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_0a7vj"]
 render_priority = 0
-shader = ExtResource("4_wku4n")
+shader = ExtResource("2_w3bl7")
 shader_parameter/max_shift = 2.5
 shader_parameter/speed = 0.03
 shader_parameter/min_heathaze_dist = 0.99
@@ -61,7 +61,7 @@ sky = SubResource("Sky_x33bs")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_7hj4x"]
 render_priority = 0
-shader = ExtResource("4_wku4n")
+shader = ExtResource("2_w3bl7")
 shader_parameter/max_shift = 2.5
 shader_parameter/speed = 0.03
 shader_parameter/min_heathaze_dist = 0.99
@@ -74,17 +74,17 @@ size = Vector2(100, 50)
 albedo_color = Color(0, 0, 1, 1)
 
 [node name="EnvironmentController" type="Node3D"]
-script = ExtResource("1_od8gl")
+script = ExtResource("1_bv2e0")
 
 [node name="HeatMesh" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.619, 0)
 material_override = SubResource("ShaderMaterial_0a7vj")
 mesh = SubResource("CylinderMesh_dqnpp")
 
-[node name="weather" parent="." instance=ExtResource("2_byges")]
+[node name="weather" parent="." instance=ExtResource("3_2bvu7")]
 
 [node name="DayNightCycle" type="Node3D" parent="."]
-script = ExtResource("3_ufogt")
+script = ExtResource("4_aq68i")
 top_sky_colour = SubResource("Gradient_ubya2")
 horizon_sky_colour = SubResource("Gradient_t8y4m")
 sun_colour = SubResource("Gradient_svvyr")

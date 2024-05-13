@@ -1,0 +1,142 @@
+[gd_scene load_steps=15 format=3 uid="uid://dp276413u6prv"]
+
+[ext_resource type="Shader" path="res://shaders/water.gdshader" id="1_o3odg"]
+[ext_resource type="Script" path="res://scripts/environment/WaterCollision.gd" id="2_8cyu6"]
+[ext_resource type="Shader" path="res://shaders/waterfall.gdshader" id="3_gpdku"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yb3uy"]
+render_priority = 0
+shader = ExtResource("1_o3odg")
+shader_parameter/metallic = 0.6
+shader_parameter/specular = 0.5
+shader_parameter/roughness = 0.2
+shader_parameter/amount = 0.8
+shader_parameter/speed = 1.0
+shader_parameter/out_color = Color(0.0345242, 0.266293, 1, 1)
+shader_parameter/depth_factor = 0.6
+shader_parameter/circle_radius = 0.5
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_wjghp"]
+material = SubResource("ShaderMaterial_yb3uy")
+size = Vector2(300, 300)
+subdivide_width = 75
+subdivide_depth = 75
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_32fnv"]
+as_normal_map = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pfk4i"]
+transparency = 1
+blend_mode = 1
+depth_draw_mode = 1
+albedo_color = Color(0.00194636, 0.116038, 0.559626, 1)
+roughness = 0.09
+normal_enabled = true
+normal_texture = SubResource("NoiseTexture2D_32fnv")
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_a23te"]
+material = SubResource("StandardMaterial3D_pfk4i")
+top_radius = 150.0
+bottom_radius = 150.0
+height = 38.574
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_hqgef"]
+height = 21.2774
+radius = 52.8022
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8w1or"]
+render_priority = 0
+shader = ExtResource("1_o3odg")
+shader_parameter/metallic = 0.6
+shader_parameter/specular = 0.5
+shader_parameter/roughness = 0.3
+shader_parameter/amount = 0.9
+shader_parameter/speed = 1.0
+shader_parameter/out_color = Color(0, 0.2, 1, 1)
+shader_parameter/depth_factor = 0.0
+shader_parameter/circle_radius = 0.5
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_5ewfb"]
+material = SubResource("ShaderMaterial_8w1or")
+size = Vector2(40, 150)
+subdivide_width = 8
+subdivide_depth = 24
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_kno5a"]
+size = Vector3(40.566, 10, 162.597)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fk52h"]
+render_priority = 0
+shader = ExtResource("3_gpdku")
+shader_parameter/metallic = 0.6
+shader_parameter/specular = 0.5
+shader_parameter/roughness = 0.3
+shader_parameter/amount = 0.9
+shader_parameter/speed = 1.0
+shader_parameter/out_color = Color(0, 0.2, 1, 1)
+shader_parameter/depth_factor = 0.0
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_oi5mr"]
+material = SubResource("ShaderMaterial_fk52h")
+flip_faces = true
+top_radius = 20.0
+bottom_radius = 20.0
+height = 15.0
+radial_segments = 20
+rings = 5
+cap_top = false
+cap_bottom = false
+
+[node name="Water Scene" type="Node3D"]
+
+[node name="Water" type="Node3D" parent="."]
+
+[node name="Water Mesh" type="MeshInstance3D" parent="Water"]
+mesh = SubResource("PlaneMesh_wjghp")
+
+[node name="WaterBody" type="MeshInstance3D" parent="Water"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -19.7, 0)
+mesh = SubResource("CylinderMesh_a23te")
+skeleton = NodePath("../..")
+
+[node name="Area3D" type="Area3D" parent="Water/WaterBody"]
+collision_layer = 769
+collision_mask = 768
+gravity_space_override = 3
+gravity_point_center = Vector3(0, 1, 0)
+gravity_direction = Vector3(0, 1, 0)
+linear_damp_space_override = 3
+linear_damp = 100.0
+script = ExtResource("2_8cyu6")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Water/WaterBody/Area3D"]
+shape = SubResource("CylinderShape3D_hqgef")
+
+[node name="Island Water" type="Node3D" parent="."]
+
+[node name="River" type="MeshInstance3D" parent="Island Water"]
+transform = Transform3D(0.91706, 0, -0.398749, 0, 1, 0, 0.398749, 0, 0.91706, 20.6104, 6.33819, -6.91717)
+mesh = SubResource("PlaneMesh_5ewfb")
+
+[node name="Area3D" type="Area3D" parent="Island Water/River"]
+collision_layer = 769
+collision_mask = 768
+gravity_space_override = 3
+gravity_point_center = Vector3(0, 1, 0)
+gravity_direction = Vector3(0, 1, 0)
+linear_damp_space_override = 3
+linear_damp = 100.0
+script = ExtResource("2_8cyu6")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Island Water/River/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.210801, -5.75697, 6.49508)
+shape = SubResource("BoxShape3D_kno5a")
+
+[node name="Waterfall" type="MeshInstance3D" parent="Island Water"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1.5, -3.55792, -13.3808, 62.2746)
+mesh = SubResource("CylinderMesh_oi5mr")
+
+[connection signal="body_entered" from="Water/WaterBody/Area3D" to="Water/WaterBody/Area3D" method="_on_body_entered"]
+[connection signal="body_exited" from="Water/WaterBody/Area3D" to="Water/WaterBody/Area3D" method="_on_body_exited"]
+[connection signal="body_entered" from="Island Water/River/Area3D" to="Island Water/River/Area3D" method="_on_body_entered"]
+[connection signal="body_exited" from="Island Water/River/Area3D" to="Island Water/River/Area3D" method="_on_body_exited"]
