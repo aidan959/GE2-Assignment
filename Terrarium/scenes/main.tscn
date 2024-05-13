@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://dh52fxfx2rten"]
+[gd_scene load_steps=27 format=3 uid="uid://dh52fxfx2rten"]
 
 [ext_resource type="Script" path="res://scripts/BoidController.gd" id="2_qkdbf"]
 [ext_resource type="Script" path="res://scenes/grass.gd" id="3_l3wkh"]
@@ -14,6 +14,7 @@
 [ext_resource type="AudioStream" uid="uid://cf3o7h3vc534a" path="res://sounds/music/sheep_music.mp3" id="12_dunkj"]
 [ext_resource type="PackedScene" uid="uid://qd8lu6e8lj03" path="res://jar.tscn" id="13_pv3wt"]
 [ext_resource type="PackedScene" uid="uid://dn43u1jd5gbam" path="res://scenes/GodCloud.tscn" id="14_fhm0n"]
+[ext_resource type="PackedScene" uid="uid://db1i4dc4t020u" path="res://models/gltf/terrain.glb" id="15_bkhi2"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5tj4n"]
 albedo_texture = ExtResource("4_4bhah")
@@ -387,7 +388,7 @@ size_flags_vertical = 3
 text = "0"
 
 [node name="Jar" parent="." instance=ExtResource("13_pv3wt")]
-transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, -18.2373, -42.5121, -37.1993)
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, -18.2373, -129.112, -37.1993)
 
 [node name="Path3D" type="Path3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 56.4785, 0)
@@ -396,7 +397,9 @@ curve = SubResource("Curve3D_xb707")
 [node name="GodCloud" parent="Path3D" instance=ExtResource("14_fhm0n")]
 transform = Transform3D(-0.0199283, 0.00816098, -0.999758, -4.65657e-10, 0.999957, 0.0081626, 0.999793, 0.000162669, -0.0199276, -16.9017, 0, -136.768)
 
+
 [node name="Node3D" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 96.7727, -45.0329, 0)
+
 
 [connection signal="pressed" from="Main Menu/CenterContainer/Panel/VBoxContainer/MarginContainer2/Button" to="Main Menu" method="_on_button_pressed"]
