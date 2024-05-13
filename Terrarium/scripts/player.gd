@@ -11,11 +11,13 @@ class_name Player extends CharacterBody3D
 @export var environment_controller : EnvController 
 @export var spawn_on_ready : bool = false
 
+
 var jumping: bool = false
 var mouse_captured: bool = false
 
 var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 @export var crosshair_visible : bool = false : set = _enable_crosshair
+var good_time : bool = false
 
 var move_dir: Vector2
 var look_dir: Vector2

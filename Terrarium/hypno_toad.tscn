@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://cmc4tspovpkyd"]
+
+[ext_resource type="PackedScene" uid="uid://dshmswp1uwyy8" path="res://models/blender/HypnoToad.glb" id="1_df6bm"]
+[ext_resource type="Script" path="res://hypno_toad.gd" id="2_d53yg"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5dyqr"]
+size = Vector3(2.54689, 3.83441, 1.8407)
+
+[node name="HypnoToad" instance=ExtResource("1_df6bm")]
+
+[node name="Area3D" type="Area3D" parent="Plane" index="0"]
+script = ExtResource("2_d53yg")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Plane/Area3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.024086, 1.12076, -0.106507)
+shape = SubResource("BoxShape3D_5dyqr")
+
+[node name="Timer" type="Timer" parent="Plane/Area3D" index="1"]
+wait_time = 20.0
+one_shot = true
+
+[connection signal="body_entered" from="Plane/Area3D" to="Plane" method="_on_area_3d_body_entered"]
+[connection signal="body_entered" from="Plane/Area3D" to="Plane/Area3D" method="_on_body_entered"]
+[connection signal="timeout" from="Plane/Area3D/Timer" to="Plane/Area3D" method="_on_timer_timeout"]
