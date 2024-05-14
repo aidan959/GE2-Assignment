@@ -1,10 +1,11 @@
-[gd_scene load_steps=26 format=3 uid="uid://dh52fxfx2rten"]
+[gd_scene load_steps=27 format=3 uid="uid://dh52fxfx2rten"]
 
 [ext_resource type="Script" path="res://scripts/BoidController.gd" id="2_qkdbf"]
 [ext_resource type="Script" path="res://scenes/grass.gd" id="3_l3wkh"]
 [ext_resource type="Texture2D" uid="uid://bf5r2lkwaxguk" path="res://textures/moss1.png" id="4_4bhah"]
 [ext_resource type="PackedScene" uid="uid://cpty6hvhjeoq8" path="res://scenes/spawn_zone.tscn" id="4_4csqi"]
 [ext_resource type="PackedScene" uid="uid://be8abksxbl3jb" path="res://scenes/Player.tscn" id="4_mbjog"]
+[ext_resource type="Script" path="res://scripts/SpatialHashing.gd" id="4_ytxpe"]
 [ext_resource type="Script" path="res://scripts/BoidInfometer.gd" id="7_cgsf7"]
 [ext_resource type="Script" path="res://scenes/Follower.gd" id="8_cwjm7"]
 [ext_resource type="PackedScene" uid="uid://dp276413u6prv" path="res://scenes/Environment/water.tscn" id="9_jggms"]
@@ -68,7 +69,7 @@ point_count = 5
 [node name="Main" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.21323, -0.213242)
 
-[node name="BoidController" type="Node3D" parent="." node_paths=PackedStringArray("spawnable_zones_node", "god_sheep")]
+[node name="BoidController" type="Node3D" parent="." node_paths=PackedStringArray("player", "spawnable_zones_node", "god_sheep")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.447, 1.91234, -38.6893)
 script = ExtResource("2_qkdbf")
 spawn_amount = {
@@ -81,11 +82,16 @@ shark_radius = 120.025
 neighbour_distance = 15
 avoid_distance = 1
 max_neighbours = 15
+player = NodePath("../Player")
 spawnable_zones_node = NodePath("SpawnableZones")
 draw_gizmos = true
 center_path = NodePath("../World Center")
 god_sheep = NodePath("../Path3D/GodCloud")
 metadata/_edit_group_ = true
+
+[node name="SpatialHashing" type="Node3D" parent="BoidController"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.447, -1.91234, 38.6893)
+script = ExtResource("4_ytxpe")
 
 [node name="SpawnableZones" type="Node3D" parent="BoidController"]
 
@@ -268,7 +274,6 @@ script = ExtResource("10_6yboc")
 player = NodePath("../Player")
 menu_camera = NodePath("../MenuCamera")
 boid_controller = NodePath("../BoidController")
-transition_duration = 0.1
 menu_music = ExtResource("11_5pvwx")
 game_music = ExtResource("12_dunkj")
 target_menu_music_volume = 0.7
@@ -389,15 +394,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 56.4785, 0)
 curve = SubResource("Curve3D_xb707")
 
 [node name="GodCloud" parent="Path3D" instance=ExtResource("14_fhm0n")]
-transform = Transform3D(-0.0199283, 0.00816098, -0.999758, -4.65657e-10, 0.999957, 0.0081626, 0.999793, 0.000162669, -0.0199276, -16.9017, 0, -136.768)
+transform = Transform3D(-0.0199283, 0.00816097, -0.999757, -4.65657e-10, 0.999956, 0.00816259, 0.999793, 0.000162669, -0.0199276, -16.9017, 0, -136.768)
 
 [node name="Node3D" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 96.7727, -45.0329, 0)
 
 [node name="terrain" parent="." instance=ExtResource("13_ju76i")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.3872, -58.4064, -38.8851)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.2962, -58.4064, -38.9849)
 
 [node name="Water" parent="terrain" instance=ExtResource("9_jggms")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 43.1996, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 46.9229, 0)
 
 [connection signal="pressed" from="Main Menu/CenterContainer/Panel/VBoxContainer/MarginContainer2/Button" to="Main Menu" method="_on_button_pressed"]

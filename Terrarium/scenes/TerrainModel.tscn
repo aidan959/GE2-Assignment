@@ -11,7 +11,7 @@
 [ext_resource type="Script" path="res://addons/proton_scatter/src/scatter_shape.gd" id="9_pcf6k"]
 [ext_resource type="Script" path="res://addons/proton_scatter/src/shapes/sphere_shape.gd" id="10_jc8qw"]
 
-[sub_resource type="Resource" id="Resource_yx7ws"]
+[sub_resource type="Resource" id="Resource_bf6ej"]
 script = ExtResource("4_abq5e")
 amount = 40
 enabled = true
@@ -20,7 +20,7 @@ custom_seed = 0
 restrict_height = true
 reference_frame = 1
 
-[sub_resource type="Resource" id="Resource_waifu"]
+[sub_resource type="Resource" id="Resource_5e3ox"]
 script = ExtResource("5_pa3qj")
 position = Vector3(0.15, 0.15, 0.15)
 rotation = Vector3(5, 360, 5)
@@ -31,7 +31,7 @@ custom_seed = 0
 restrict_height = false
 reference_frame = 2
 
-[sub_resource type="Resource" id="Resource_8qwfe"]
+[sub_resource type="Resource" id="Resource_a8d0w"]
 script = ExtResource("6_ryngi")
 iterations = 3
 offset_step = 0.2
@@ -43,7 +43,7 @@ custom_seed = 0
 restrict_height = true
 reference_frame = 0
 
-[sub_resource type="Resource" id="Resource_j6p2p"]
+[sub_resource type="Resource" id="Resource_1cqki"]
 script = ExtResource("7_ny5ms")
 ray_direction = Vector3(0, -1, 0)
 ray_length = 5.0
@@ -59,15 +59,15 @@ custom_seed = 0
 restrict_height = false
 reference_frame = 0
 
-[sub_resource type="Resource" id="Resource_ip7ce"]
+[sub_resource type="Resource" id="Resource_4aifn"]
 script = ExtResource("3_naggf")
-stack = Array[Resource("res://addons/proton_scatter/src/modifiers/base_modifier.gd")]([SubResource("Resource_yx7ws"), SubResource("Resource_waifu"), SubResource("Resource_8qwfe"), SubResource("Resource_j6p2p")])
+stack = Array[Resource("res://addons/proton_scatter/src/modifiers/base_modifier.gd")]([SubResource("Resource_bf6ej"), SubResource("Resource_5e3ox"), SubResource("Resource_a8d0w"), SubResource("Resource_1cqki")])
 
 [sub_resource type="Resource" id="Resource_g8bsm"]
 script = ExtResource("10_jc8qw")
 radius = 27.1214
 
-[sub_resource type="Resource" id="Resource_y5ivu"]
+[sub_resource type="Resource" id="Resource_gh6xt"]
 script = ExtResource("4_abq5e")
 amount = 10
 enabled = true
@@ -76,7 +76,7 @@ custom_seed = 0
 restrict_height = true
 reference_frame = 1
 
-[sub_resource type="Resource" id="Resource_yfxv2"]
+[sub_resource type="Resource" id="Resource_ir4om"]
 script = ExtResource("5_pa3qj")
 position = Vector3(0.15, 0.15, 0.15)
 rotation = Vector3(5, 360, 5)
@@ -87,7 +87,7 @@ custom_seed = 0
 restrict_height = false
 reference_frame = 2
 
-[sub_resource type="Resource" id="Resource_u5d2x"]
+[sub_resource type="Resource" id="Resource_daojv"]
 script = ExtResource("6_ryngi")
 iterations = 3
 offset_step = 0.2
@@ -99,7 +99,7 @@ custom_seed = 0
 restrict_height = true
 reference_frame = 0
 
-[sub_resource type="Resource" id="Resource_gaygg"]
+[sub_resource type="Resource" id="Resource_682hp"]
 script = ExtResource("7_ny5ms")
 ray_direction = Vector3(0, -1, 0)
 ray_length = 5.0
@@ -115,9 +115,9 @@ custom_seed = 0
 restrict_height = false
 reference_frame = 0
 
-[sub_resource type="Resource" id="Resource_in8im"]
+[sub_resource type="Resource" id="Resource_hhaei"]
 script = ExtResource("3_naggf")
-stack = Array[Resource("res://addons/proton_scatter/src/modifiers/base_modifier.gd")]([SubResource("Resource_y5ivu"), SubResource("Resource_yfxv2"), SubResource("Resource_u5d2x"), SubResource("Resource_gaygg")])
+stack = Array[Resource("res://addons/proton_scatter/src/modifiers/base_modifier.gd")]([SubResource("Resource_gh6xt"), SubResource("Resource_ir4om"), SubResource("Resource_daojv"), SubResource("Resource_682hp")])
 
 [sub_resource type="Resource" id="Resource_nnefq"]
 script = ExtResource("10_jc8qw")
@@ -130,7 +130,7 @@ radius = 15.1089
 [node name="Trees" type="Node3D" parent="terrain"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 51, 2)
 script = ExtResource("2_kcc44")
-modifier_stack = SubResource("Resource_ip7ce")
+modifier_stack = SubResource("Resource_4aifn")
 Performance/use_chunks = true
 Performance/chunk_dimensions = Vector3(15, 15, 15)
 
@@ -147,7 +147,7 @@ shape = SubResource("Resource_g8bsm")
 [node name="Trees2" type="Node3D" parent="terrain"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 61, 35)
 script = ExtResource("2_kcc44")
-modifier_stack = SubResource("Resource_in8im")
+modifier_stack = SubResource("Resource_hhaei")
 Performance/use_chunks = true
 Performance/chunk_dimensions = Vector3(15, 15, 15)
 

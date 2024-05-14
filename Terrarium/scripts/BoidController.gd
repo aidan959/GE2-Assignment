@@ -26,8 +26,8 @@ var boid_types : Dictionary = {
 @export var avoid_distance = 20
 
 @export var max_neighbours = 10
-
 @export var boid_infometer : BoidInfometer
+@export var player: Player
 var boids : Dictionary = {}
 var grasses : Array[GrassFood] = []
 var predators : Array[Node3D] = []
@@ -61,13 +61,26 @@ func do_draw_gizmos():
 
 func _process(_delta):
 	if draw_gizmos: do_draw_gizmos()
+	if Engine.is_editor_hint():
+		return
+	if Input.is_action_just_pressed("spawn_boid_debug"):
+		var pos = player.global_position
+		pos += -player.camera.global_basis.z * 5
+		var boid : Boid = spawn_boid("Sheep", pos)
+		boid.velocity = -player.camera.global_basis.z * 5
+		boid.look_at(pos + -player.camera.global_basis.z * 5, Vector3.UP)
 
 func _ready():
 	load_names()
-	randomize()
 	center = get_node_or_null(center_path)
 	if not center:
 		center = self
+		
+	if not player:
+		for node in get_parent().get_children():
+			if node is Player:
+				player = node
+				return
 	for node in get_parent().get_children():
 		var potential_pred = node.find_child("Predator", true)
 		if potential_pred:
@@ -106,37 +119,8 @@ func _spawn_boids():
 
 	for type in spawn_amount:
 		for i in spawn_amount[type]:
-			var _amount = spawn_amount[type]
-
-			var boid = boid_types[type].instantiate()
-			var pos 
-			if boid.spawn_location in spawnable_zones:
-				pos = spawnable_zones[boid.spawn_location].pick_random().get_spawn_location()
-			else:
-				pos= get_spawn_position(boid) # random spawn from center
-				push_error(boid.name +" does not have a spawn zone.")
-
-			add_child(boid)
-
-			boid.global_position = pos
-			boid.global_rotation = Vector3(0, randf_range(0, PI * 2.0),  0)
-			boid.draw_gizmos_propagate(false)
-			if not boid.get_boid_type() in boids:
-				boids[boid.get_boid_type()] = []
-			boid.hunger = randf_range(0.0, 0.1)
-			boid.metabolism = randf_range(0.5, 0.9)
-			boid.name = get_random_unique_name()
+			spawn_boid(type, null)
 			
-			boids[boid.get_boid_type()].push_back(boid)
-			
-			var constrain = boid.get_node("Constrain")
-			if constrain and type == "Shark":
-				constrain.center = center
-				constrain.radius = shark_radius
-				constrain.enabled = true
-			elif constrain:
-				constrain.center = center
-				constrain.radius = radius
 
 var names = []
 
@@ -148,6 +132,8 @@ func load_names():
 		if sheep_name != "":
 			names.append(sheep_name)
 
+
+
 func get_random_unique_name():
 	if names.size() == 0:
 		push_error("No more unique names available.")
@@ -157,8 +143,8 @@ func get_random_unique_name():
 	var sheep_name = names[index]
 	names.remove_at(index) 
 	return sheep_name
-	
-	
+
+
 func get_spawn_position(boid: Boid) -> Vector3:
 	match boid.spawn_location:
 		boid.SpawnLocations.WATER:
@@ -188,6 +174,43 @@ func remove_boid(boid: Boid):
 		index = boid_a.neighbours.find(boid, 0)
 		if index == -1: continue
 		boid_a.neighbours.remove_at(index)
+	names.push_back(boid.name)
+	remove_child(boid)
 	boid.queue_free()
 	
+func spawn_boid(type: String, pos = null) -> Boid: # pos is a vector3
+	if pos and not pos is Vector3:
+		push_error("pos must be set as a Vector3")
+		pos = null
+		
+	var boid = boid_types[type].instantiate()
+	if pos and pos is Vector3:
+		pass
+	elif boid.spawn_location in spawnable_zones:
+		pos = spawnable_zones[boid.spawn_location].pick_random().get_spawn_location()
+	else:
+		pos= get_spawn_position(boid) # random spawn from center
+		push_error(boid.name +" does not have a spawn zone.")
 
+	add_child(boid)
+
+	boid.global_position = pos
+	boid.global_rotation = Vector3(0, randf_range(0, PI * 2.0),  0)
+	boid.draw_gizmos_propagate(false)
+	if not boid.get_boid_type() in boids:
+		boids[boid.get_boid_type()] = []
+	boid.hunger = randf_range(0.0, 0.1)
+	boid.metabolism = randf_range(0.05, 0.06)
+	boid.name = get_random_unique_name()
+	
+	boids[boid.get_boid_type()].push_back(boid)
+	
+	var constrain = boid.get_node("Constrain")
+	if constrain and type == "Shark":
+		constrain.center = center
+		constrain.radius = shark_radius
+		constrain.enabled = true
+	elif constrain:
+		constrain.center = center
+		constrain.radius = radius
+	return boid

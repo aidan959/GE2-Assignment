@@ -7,7 +7,7 @@ var is_currently_escaping = false
 @onready var animator : AnimationPlayer = $Sheep/AnimationPlayer
 @onready var ExplosionParticles = load("res://scenes/explosion_particles.tscn")
 
-
+var has_exploded : bool = false
 var ascension_light : SpotLight3D = null
 
 @export_category("Escape")
@@ -49,6 +49,9 @@ func update_nearest_grass():
 
 	
 func do_be_dead(delta):
+
+	if exploded:
+		return
 	ascension(delta)
 	move_and_slide()
 	# look_at(global_transform.origin + Vector3(0, -1, 0), Vector3.BACK)
@@ -60,7 +63,7 @@ func _physics_process(delta):
 	if is_dead():
 		do_be_dead(delta)
 		return
-		
+
 	if nearest_grass == null:
 		#print("no nearest_grass")
 		pass
@@ -107,13 +110,10 @@ func _physics_process(delta):
 		return
 	# Implement Banking as described:
 	# https://www.cs.toronto.edu/~dt/siggraph97-course/cwr87/
-
 	if is_equal_approx(acceleration.length(), 0):
 		return
 	var temp_up = global_transform.basis.y.lerp(Vector3.UP + (acceleration * banking), delta * 5.0)
 
-	var target : Vector3 = global_transform.origin - velocity.normalized()
-	
 	look_at(global_transform.origin - velocity.normalized(), temp_up)
 
 func set_enabled(behavior, enabled):
@@ -197,8 +197,10 @@ func _process(_delta):
 @export var ascension_shake_intensity: float = 0.5  
 @export var max_ascension_velocity: float = 30.0
 @export var explosion_threshold: float = 5.0  # Distance within which explosion triggers
+@export var explosion_sounds: Array[AudioStream] = []
+
 var ascension_velocity: Vector3 = Vector3.ZERO
-var ascension_acceleration: float = 0.05
+var ascension_acceleration: float = 0.2
 var ascension_target : Node3D = null
 var exploded = false  # To ensure the explosion only happens once
 
@@ -208,7 +210,6 @@ func ascension(delta):
 	if not ascension_target:
 		push_error("Dead with no ascension target")
 		exploded = true
-	
 	
 	var target_position = ascension_target.global_transform.origin
 	DebugDraw3D.draw_box(target_position, Quaternion(), Vector3(10, 10, 10), Color.BLUE)
@@ -223,18 +224,29 @@ func ascension(delta):
 	if not is_equal_approx(ascension_light.global_position.dot(global_position), 1.0):
 		ascension_light.look_at(global_position, Vector3.RIGHT )
 	if ascension_velocity.length() > 0:
-		look_at(global_transform.origin + ascension_velocity.normalized(), Vector3.DOWN)
+		look_at(global_transform.origin + ascension_velocity.normalized(), Vector3.UP)
 	else:
-		look_at(global_transform.origin + Vector3(0, 0, 1), Vector3.DOWN)
-	
-	if global_transform.origin.distance_to(target_position) < explosion_threshold:
-		explode()
+		look_at(global_transform.origin + Vector3(0, 0, 1), Vector3.UP)
 
+var time_since_explosion : float
+var time_to_live_after_explosion : float = 2
 func explode():
+	time_since_explosion = Time.get_unix_time_from_system()
 	var particles = ExplosionParticles.instantiate()
 	add_child(particles)
-	particles.transform.origin = transform.origin
-	despawn_me()
+	velocity = Vector3.ZERO
+	$Sheep.visible = false
+	$ExplosionParticles.explode()
+	var explosion_sound = get_random_explosion_sound()
+	if explosion_sound:
+		boid_sound_player.stop()
+		boid_sound_player.stream = explosion_sound
+		boid_sound_player.pitch_scale = randf_range(0.9,1.1)
+		boid_sound_player.volume_db = 0.0
+		explosion_sound.play()
+	else:
+		push_warning("No explosion sound files found")
+	# despawn_me()
 	# exploded = true
 	#queue_free()
 
@@ -277,3 +289,6 @@ func update_animation():
 			animator.stop()
 static func get_boid_type():
 	return "Sheep"
+
+func get_random_explosion_sound():
+	explosion_sounds.pick_random()

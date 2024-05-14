@@ -22,7 +22,7 @@ class_name Boid extends CharacterBody3D
 @export_range(0.0,100.0) var health : float = 100.0
 @export_range(0.0,1.0) var hunger : float = 0.0
 @export_range(0.001,1.0) var metabolism : float = 0.001
-@export_range(0, 60.0) var tick_rate : int = 1 # abstract this to director  
+@export_range(0, 60.0) var tick_rate : int = 5 # abstract this to director  
 @export var is_currently_eating = false
 @export var spawn_location : SpawnLocations = SpawnLocations.LAND
 

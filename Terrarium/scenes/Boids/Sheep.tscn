@@ -1,8 +1,9 @@
-[gd_scene load_steps=23 format=3 uid="uid://blg3yr70eue5y"]
+[gd_scene load_steps=25 format=3 uid="uid://blg3yr70eue5y"]
 
 [ext_resource type="Script" path="res://scripts/Boids/Sheep.gd" id="1_k0npw"]
 [ext_resource type="Script" path="res://scripts/Boids/Behaviours/Escape.gd" id="1_pslmd"]
 [ext_resource type="Script" path="res://scripts/Boids/Behaviours/Cohesion.gd" id="2_3285g"]
+[ext_resource type="AudioStream" uid="uid://u4b7672nialr" path="res://sounds/sheep/explosions/explosion_01.mp3" id="2_bvykl"]
 [ext_resource type="Script" path="res://scripts/Boids/Behaviours/Alignment.gd" id="3_xtapx"]
 [ext_resource type="Script" path="res://scripts/Boids/Behaviours/Avoidance.gd" id="4_art8r"]
 [ext_resource type="Script" path="res://scripts/Boids/Behaviours/Constrain.gd" id="5_5hxyb"]
@@ -20,6 +21,7 @@
 [ext_resource type="AudioStream" uid="uid://c6evphj760jlv" path="res://sounds/music/angel_sound_effect.mp3" id="19_od7wj"]
 [ext_resource type="AudioStream" uid="uid://ct5x1ilvrit2k" path="res://sounds/music/bring_me_life.mp3" id="20_enw0f"]
 [ext_resource type="AudioStream" uid="uid://df1wqtoojvfvp" path="res://sounds/sheep/sheep-baa-GOD.mp3" id="21_1phdk"]
+[ext_resource type="PackedScene" uid="uid://dsqev0puyw6fa" path="res://scenes/explosion_particles.tscn" id="21_7s50r"]
 
 [sub_resource type="TextMesh" id="TextMesh_hbalk"]
 text = "SHEEP"
@@ -36,6 +38,7 @@ process_thread_messages = 3
 collision_layer = 769
 script = ExtResource("1_k0npw")
 escape_distance = 5.0
+explosion_sounds = Array[AudioStream]([ExtResource("2_bvykl")])
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 visible = false
@@ -118,3 +121,22 @@ min_sound_interval = 5.0
 dead_music = ExtResource("19_od7wj")
 funny_dead_music = ExtResource("20_enw0f")
 kill_sound = ExtResource("21_1phdk")
+
+[node name="ExplosionSoundPlayer" type="AudioStreamPlayer3D" parent="." node_paths=PackedStringArray("boid")]
+process_thread_group = 1
+process_thread_group_order = 2
+process_thread_messages = 3
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.895964, 0.666691)
+attenuation_model = 2
+emission_angle_enabled = true
+emission_angle_degrees = 30.1
+attenuation_filter_cutoff_hz = 8980.0
+doppler_tracking = 2
+script = ExtResource("12_k3lcw")
+boid = NodePath("..")
+min_sound_interval = 5.0
+dead_music = ExtResource("19_od7wj")
+funny_dead_music = ExtResource("20_enw0f")
+kill_sound = ExtResource("21_1phdk")
+
+[node name="ExplosionParticles" parent="." instance=ExtResource("21_7s50r")]

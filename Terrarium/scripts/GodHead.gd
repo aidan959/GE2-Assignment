@@ -42,7 +42,7 @@ func _ready():
 func _process(delta):
 	total_time += delta
 	if path_3d:
-		if target_sheep:
+		if target_sheep and false: # added to stop this code from running
 			target = target_sheep.global_transform.origin
 			move_towards_target(target, delta)
 		elif birth_sheep:
@@ -57,7 +57,7 @@ func _process(delta):
 		var sheep_boids = boid_controller.boids[Sheep.get_boid_type()]
 		if sheep_boids.size() > 110:
 			pick_sheep = true
-		if sheep_boids.size() < 500:
+		if sheep_boids.size() < 1:
 			birth_sheep = true
 	if pick_sheep == true:
 		if target_sheep == null:
@@ -127,3 +127,8 @@ func delete_neck_as_moving_back():
 		
 	var last_neck_part = neck_parts.pop_back()
 	last_neck_part.queue_free()
+
+
+func _on_sheep_detector_body_entered(body):
+	if body is Sheep and body.is_dead():
+		body.explode()
