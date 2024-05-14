@@ -1,13 +1,26 @@
-[gd_scene load_steps=6 format=3 uid="uid://be8abksxbl3jb"]
+[gd_scene load_steps=10 format=3 uid="uid://be8abksxbl3jb"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_khdcl"]
 [ext_resource type="Script" path="res://scripts/BoidDetector.gd" id="2_3jdk1"]
 [ext_resource type="AudioStream" uid="uid://dpniofcytnny2" path="res://sounds/music/sheep song.mp3" id="3_21wkv"]
+[ext_resource type="Script" path="res://scenes/MeshInstance3D.gd" id="3_u1yu4"]
 [ext_resource type="PackedScene" uid="uid://cfgb6gp0q3mdj" path="res://scenes/Environment/env_controller.tscn" id="4_xb8qy"]
+[ext_resource type="Shader" path="res://scenes/psy.gdshader" id="5_44eyh"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_t4vqa"]
 radius = 0.3
 height = 1.8
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2w4jx"]
+render_priority = 0
+shader = ExtResource("5_44eyh")
+shader_parameter/intensity = 1.0
+shader_parameter/speed = 1.0
+shader_parameter/segments = 6
+
+[sub_resource type="QuadMesh" id="QuadMesh_brt0k"]
+material = SubResource("ShaderMaterial_2w4jx")
+size = Vector2(4, 4)
 
 [node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("crosshair", "music_player", "environment_controller")]
 collision_layer = 513
@@ -25,6 +38,13 @@ shape = SubResource("CapsuleShape3D_t4vqa")
 [node name="Camera" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.61863, 0)
 current = true
+
+[node name="TripBALLS" type="MeshInstance3D" parent="Camera"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0926265, -6.56045)
+visible = false
+mesh = SubResource("QuadMesh_brt0k")
+skeleton = NodePath("../..")
+script = ExtResource("3_u1yu4")
 
 [node name="BoidDetector" type="RayCast3D" parent="Camera"]
 transform = Transform3D(1, 0, 0, 0, 1.19249e-08, -1, 0, 1, 1.19249e-08, 0, 0, 0)

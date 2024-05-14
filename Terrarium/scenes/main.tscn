@@ -12,8 +12,9 @@
 [ext_resource type="Script" path="res://scripts/MainMenu.gd" id="10_6yboc"]
 [ext_resource type="AudioStream" uid="uid://dpniofcytnny2" path="res://sounds/music/sheep song.mp3" id="11_5pvwx"]
 [ext_resource type="AudioStream" uid="uid://cf3o7h3vc534a" path="res://sounds/music/sheep_music.mp3" id="12_dunkj"]
-[ext_resource type="PackedScene" uid="uid://cqymokgipbbvo" path="res://scenes/TerrainModelScene.tscn" id="13_ju76i"]
+[ext_resource type="PackedScene" uid="uid://d13job65ose07" path="res://scenes/TerrainModelScene.tscn" id="13_ju76i"]
 [ext_resource type="PackedScene" uid="uid://qd8lu6e8lj03" path="res://jar.tscn" id="13_pv3wt"]
+[ext_resource type="PackedScene" uid="uid://cmc4tspovpkyd" path="res://hypno_toad.tscn" id="14_a76tr"]
 [ext_resource type="PackedScene" uid="uid://dn43u1jd5gbam" path="res://scenes/GodCloud.tscn" id="14_fhm0n"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5tj4n"]
@@ -69,7 +70,10 @@ point_count = 5
 [node name="Main" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.21323, -0.213242)
 
-[node name="BoidController" type="Node3D" parent="." node_paths=PackedStringArray("player", "spawnable_zones_node", "god_sheep")]
+[node name="HypnoToad" parent="." instance=ExtResource("14_a76tr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -6, 0)
+
+[node name="BoidController" type="Node3D" parent="." node_paths=PackedStringArray("spawnable_zones_node", "god_sheep")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.447, 1.91234, -38.6893)
 script = ExtResource("2_qkdbf")
 spawn_amount = {
