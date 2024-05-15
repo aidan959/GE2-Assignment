@@ -87,6 +87,10 @@ spawn_boid_debug={
 ]
 }
 
+[layer_names]
+
+3d_physics/layer_24="Water"
+
 [physics]
 
 common/physics_ticks_per_second=30

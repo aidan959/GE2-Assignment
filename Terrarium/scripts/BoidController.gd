@@ -28,6 +28,8 @@ var boid_types : Dictionary = {
 @export var max_neighbours = 10
 @export var boid_infometer : BoidInfometer
 @export var player: Player
+var environment_controller: EnvController
+
 var boids : Dictionary = {}
 var grasses : Array[GrassFood] = []
 var predators : Array[Node3D] = []
@@ -92,7 +94,8 @@ func _ready():
 		var potential_pred = node.find_child("Predator", true)
 		if potential_pred:
 			predators.push_back(potential_pred.get_parent())
-	
+	if not environment_controller:
+		environment_controller = player.environment_controller
 	_init_spawn_zones()
 	if spawn_on_ready:
 		_spawn_boids()
@@ -211,12 +214,23 @@ func spawn_boid(type: String, pos = null) -> Boid: # pos is a vector3
 	boid.name = get_random_unique_name()
 	
 	boids[boid.get_boid_type()].push_back(boid)
-	
+	boid.environment_controller = environment_controller
 	var constrain = boid.get_node("Constrain")
-	if constrain and type == "Shark":
+	var evict = boid.get_node("Evict")
+	var shark_constrain = boid.get_node("SharkConstrain")
+	
+	if constrain and evict and type == "Shark":
 		constrain.center = center
 		constrain.radius = shark_radius
 		constrain.enabled = true
+		evict.radius = radius
+		evict.center = center
+		evict.enabled = true
+		shark_constrain.radius = radius
+		shark_constrain.center = center
+		shark_constrain.enabled = true
+		
+	
 	elif constrain:
 		constrain.center = center
 		constrain.radius = radius

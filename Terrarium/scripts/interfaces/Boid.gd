@@ -53,7 +53,7 @@ enum BoidStates {
 } 
 var flock : BoidController = null
 var can_eat = false
-
+var environment_controller : EnvController = null
 var tick_counter :int = 0 
 var count_neighbours = false
 var neighbours = [] 
@@ -85,6 +85,8 @@ func initialize_behaviours():
  
 func _ready():
 	randomize()
+	if not environment_controller:
+		environment_controller = flock.environment_controller()
 	initalize_sound_player()
 	initialize_flock()
 	initialize_behaviours()

@@ -162,6 +162,7 @@ func calculate(_delta):
 			
 		var f = behaviour.calculate() * behaviour.weight
 		if f.length() == 0.0: continue
+		if behaviour is Wander: f.y *= 0.01
 		if behaviour is Escape: is_currently_escaping = true
 		behaviour_forces[behaviour] = f
 		add_debug_influencing_weight(behaviour, f)
