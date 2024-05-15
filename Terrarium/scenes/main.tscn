@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://dh52fxfx2rten"]
+[gd_scene load_steps=28 format=3 uid="uid://dh52fxfx2rten"]
 
 [ext_resource type="Script" path="res://scripts/BoidController.gd" id="2_qkdbf"]
 [ext_resource type="Script" path="res://scenes/grass.gd" id="3_l3wkh"]
@@ -73,7 +73,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.21323, -0.213242)
 [node name="HypnoToad" parent="." instance=ExtResource("14_a76tr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -6, 0)
 
-[node name="BoidController" type="Node3D" parent="." node_paths=PackedStringArray("spawnable_zones_node", "god_sheep")]
+[node name="BoidController" type="Node3D" parent="." node_paths=PackedStringArray("player", "spawnable_zones_node", "god_sheep")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.447, 1.91234, -38.6893)
 script = ExtResource("2_qkdbf")
 spawn_amount = {
@@ -94,8 +94,10 @@ god_sheep = NodePath("../Path3D/GodCloud")
 metadata/_edit_group_ = true
 
 [node name="SpatialHashing" type="Node3D" parent="BoidController"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.447, -1.91234, 38.6893)
 script = ExtResource("4_ytxpe")
+bucket_size = 19.48
+draw_gizmos = true
+a = true
 
 [node name="SpawnableZones" type="Node3D" parent="BoidController"]
 
@@ -398,7 +400,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 56.4785, 0)
 curve = SubResource("Curve3D_xb707")
 
 [node name="GodCloud" parent="Path3D" instance=ExtResource("14_fhm0n")]
-transform = Transform3D(-0.0199283, 0.00816097, -0.999757, -4.65657e-10, 0.999956, 0.00816259, 0.999793, 0.000162669, -0.0199276, -16.9017, 0, -136.768)
+transform = Transform3D(-0.0199283, 0.00816098, -0.999757, -4.65657e-10, 0.999956, 0.00816259, 0.999793, 0.000162669, -0.0199276, -16.9017, 0, -136.768)
 
 [node name="Node3D" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 96.7727, -45.0329, 0)
