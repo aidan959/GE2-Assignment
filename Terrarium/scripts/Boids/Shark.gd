@@ -39,7 +39,7 @@ func _physics_process(delta):
 		tick_counter+= 1
 		#if tick_counter % tick_rate == 0: update_stats()	
 	
-	count_neighbours_simple(get_script())
+	count_neighbours_simple(get_boid_type())
 	if max_speed == 0:
 		push_warning("max_speed is 0")
 	#force = Vector3.ZERO # TODO REMOVE

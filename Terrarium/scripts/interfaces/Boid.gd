@@ -22,7 +22,7 @@ class_name Boid extends CharacterBody3D
 @export_range(0.0,100.0) var health : float = 100.0
 @export_range(0.0,1.0) var hunger : float = 0.0
 @export_range(0.001,1.0) var metabolism : float = 0.001
-@export_range(0, 60.0) var tick_rate : int = 5 # abstract this to director  
+@export_range(0, 60.0) var tick_rate : int = 60# abstract this to director  
 @export var is_currently_eating = false
 @export var spawn_location : SpawnLocations = SpawnLocations.LAND
 
@@ -103,17 +103,24 @@ func process_gravity(delta: float) -> Vector3:
 	return grav_vel
 
 
-func count_neighbours_simple(type: Variant):
+func count_neighbours_simple(boid_type: String):
 	neighbours.clear()
-	if typeof(type) not in flock.boids:
-		return neighbours.size()
-	for boid in flock.boids[typeof(type)]:
-		if boid != self and !boid.is_dead() and global_position.distance_to(global_position) < flock.neighbour_distance:
-			neighbours.push_back(boid)
+	if boid_type not in flock.boids:
+		return 0
+	for b in flock.boids[boid_type]:
+		if b != self and !b.is_dead() and global_position.distance_to(global_position) < flock.neighbour_distance:
+			neighbours.push_back(b)
 			if neighbours.size() >= flock.max_neighbours:
 				break
 	return neighbours.size()
-
+func count_neighbours_spatial(boid_type: String):
+	neighbours.clear()
+	
+	if boid_type not in flock.boids:
+		return neighbours.size()
+	neighbours = flock.spatial_hashing.get_boid_in_adjacent_nodes(self)
+	
+	return neighbours.size()
 func _input(event):
 	if event is InputEventKey and event.keycode == KEY_P and event.pressed:
 		pause = ! pause
@@ -249,6 +256,8 @@ func _physics_process(delta):
 			# https://www.cs.toronto.edu/~dt/siggraph97-course/cwr87/
 			look_at(global_transform.origin - velocity.normalized(), temp_up)
 
+
+	
 func despawn_me():
 	if not flock:
 		return

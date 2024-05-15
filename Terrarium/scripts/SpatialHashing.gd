@@ -6,7 +6,7 @@ var rows : int
 var pages : int
 var radius : float
 var buckets : Dictionary = {}
-
+@onready var boid_controller : BoidController = get_parent()
 @export_range(0.1, 20.0) var bucket_size: float = 10.0
 @export var draw_gizmos: bool = false
 
@@ -23,7 +23,7 @@ var min_z
 var max_z 
 @export var a = false
 var inv_bucket_size : float = 0.0
-func do_draw_gizmos():
+func establish_grid_params():
 	var parent : BoidController = get_parent()
 	radius = parent.radius
 	min_x = center.x - radius
@@ -36,7 +36,9 @@ func do_draw_gizmos():
 	grid_y = int(snapped((max_y - min_y) / bucket_size, 1))
 	grid_z = int(snapped((max_z - min_z) / bucket_size, 1))
 	inv_bucket_size = 1.0 / bucket_size
-
+func do_draw_gizmos():
+	
+	establish_grid_params()
 	
 	for i in grid_x:
 		for j in grid_y: 
@@ -48,14 +50,23 @@ func do_draw_gizmos():
 				var unique_id = id_x + id_y * grid_x + id_z * (grid_x * grid_y)
 				#print("id = ", unique_id, " pos: ", pos)
 				DebugDraw3D.draw_box(pos, Quaternion.IDENTITY, Vector3(bucket_size,bucket_size,bucket_size), Color.PURPLE, true)
+				
 	#DebugDraw3D.draw_box(get_position_from_id(560),Quaternion.IDENTITY, Vector3(bucket_size,bucket_size,bucket_size), Color.RED, true)
 	DebugDraw3D.draw_box(get_position_from_id(get_id_from_position(Vector3(-40, 80, 40))),Quaternion.IDENTITY, Vector3(bucket_size,bucket_size,bucket_size), Color.RED, true)
 	
-	
+func boids_to_buckets():
+	clear_buckets()
+	for type in boid_controller.boids:
+		for boid in boid_controller.boids[type]:
+			var bucket_id = get_id_from_position(boid.global_position)
+			if not buckets.has(bucket_id):
+				buckets[bucket_id] = []
+			buckets[bucket_id].push_back(boid)
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	
+		
 	if not Engine.is_editor_hint(): return
-	clear_buckets()
 
 	if bucket_size < 4:
 		draw_gizmos = false
@@ -95,9 +106,10 @@ func get_id_from_position(position: Vector3) -> int:
 	return id_x + id_y * grid_x + id_z * (grid_x * grid_y)
 func _ready():
 	var parent : BoidController = get_parent()
-	
 	center = parent.global_position
-	
+	establish_grid_params()
+
+
 func get_grid_center_from_bucket_id(bucket_id: int) -> Vector3:
 	var z_index = bucket_id % grid_z
 	var y_index = (bucket_id / grid_z) % grid_y
@@ -110,20 +122,25 @@ func get_grid_center_from_bucket_id(bucket_id: int) -> Vector3:
 	return Vector3(center_x, center_y, center_z)
 
 
-func get_adjacent_nodes(grid_id: int, grid_width: int, grid_height: int) -> Array:
-	var adjacent_nodes = []
-	var x = grid_id % grid_width
-	var y = grid_id / grid_width
-
-	for dx in [-1, 0, 1]:
-		for dy in [-1, 0, 1]:
-			if dx == 0 and dy == 0:
-				continue 
-			var new_x = x + dx
-			var new_y = y + dy
-			if new_x >= 0 and new_x < grid_width and new_y >= 0 and new_y < grid_height:
-				var adjacent_id = new_x + new_y * grid_width
-				adjacent_nodes.append(adjacent_id)
-
-	return adjacent_nodes
+func get_boid_in_adjacent_nodes(boid: Boid) -> Array[Boid]:
+	var neighbours : Array[Boid] = [] 
+	for dz in [0, -1, 1]: for dy in [0, -1, 1]: for dx in [0,-1, 1]:
+		var pos = boid.global_position + Vector3(dx * bucket_size, dy * bucket_size, dz * bucket_size)
+		var bucket_id = get_id_from_position(pos)
+		if draw_gizmos:
+			var grid_pos = get_position_from_id(bucket_id)
+			DebugDraw3D.draw_aabb_ab(grid_pos, Vector3(bucket_size,bucket_size,bucket_size))
+		if not buckets.has(bucket_id):
+			return []
+		for b : Boid in buckets[bucket_id]:
+			if b == boid: continue # self
+			if b.get_boid_type() != boid.get_boid_type(): continue # not matching type
+			if draw_gizmos:
+				DebugDraw3D.draw_box(boid.global_position, Quaternion.IDENTITY, Vector3(1,1,1),Color.DARK_GOLDENROD, true )
+			if boid.global_position.distance_to(b.global_position) < boid.neighbour_distance:
+				neighbours.push_back(b)
+				if neighbours.size() >= boid_controller.max_neighbours:
+					return neighbours
+	return neighbours # should not be possible
+				
 

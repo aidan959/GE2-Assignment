@@ -49,7 +49,9 @@ var cells = {}
 
 @export var center_path : NodePath
 
+
 @export var god_sheep : GodHead
+@export var spatial_hashing : SpatialHashing
 var center : Node3D
 
 func do_draw_gizmos():
@@ -69,18 +71,23 @@ func _process(_delta):
 		var boid : Boid = spawn_boid("Sheep", pos)
 		boid.velocity = -player.camera.global_basis.z * 5
 		boid.look_at(pos + -player.camera.global_basis.z * 5, Vector3.UP)
-
+func _physics_process(delta):
+	spatial_hashing.boids_to_buckets()
 func _ready():
 	load_names()
 	center = get_node_or_null(center_path)
 	if not center:
 		center = self
-		
+	if not spatial_hashing:
+		for node in get_children():
+			if node is SpatialHashing:
+				spatial_hashing = node
+				break
 	if not player:
 		for node in get_parent().get_children():
 			if node is Player:
 				player = node
-				return
+				break
 	for node in get_parent().get_children():
 		var potential_pred = node.find_child("Predator", true)
 		if potential_pred:
@@ -111,7 +118,7 @@ func _spawn_boids():
 		for i in grass_count:
 			var grass = grass_scene.instantiate()
 			var pos = Utils.random_point_in_unit_sphere() * radius
-			pos.y = 0.3
+			pos.y = -4.5
 			add_child(grass)
 			grass.global_position = pos
 			var grass_instance : GrassFood = grass

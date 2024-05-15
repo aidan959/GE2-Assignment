@@ -83,9 +83,8 @@ spawn_amount = {
 grass_scene = SubResource("PackedScene_kxt68")
 radius = 90
 shark_radius = 120.025
-neighbour_distance = 15
 avoid_distance = 1
-max_neighbours = 15
+max_neighbours = 20
 player = NodePath("../Player")
 spawnable_zones_node = NodePath("SpawnableZones")
 draw_gizmos = true
@@ -94,9 +93,9 @@ god_sheep = NodePath("../Path3D/GodCloud")
 metadata/_edit_group_ = true
 
 [node name="SpatialHashing" type="Node3D" parent="BoidController"]
+visible = false
 script = ExtResource("4_ytxpe")
-bucket_size = 19.48
-draw_gizmos = true
+bucket_size = 8.0
 a = true
 
 [node name="SpawnableZones" type="Node3D" parent="BoidController"]
@@ -400,7 +399,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 56.4785, 0)
 curve = SubResource("Curve3D_xb707")
 
 [node name="GodCloud" parent="Path3D" instance=ExtResource("14_fhm0n")]
-transform = Transform3D(-0.0199283, 0.00816098, -0.999757, -4.65657e-10, 0.999956, 0.00816259, 0.999793, 0.000162669, -0.0199276, -16.9017, 0, -136.768)
+transform = Transform3D(-0.0199283, 0.00816097, -0.999757, -4.65657e-10, 0.999956, 0.00816259, 0.999793, 0.000162669, -0.0199276, -16.9017, 0, -136.768)
 
 [node name="Node3D" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 96.7727, -45.0329, 0)
