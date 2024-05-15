@@ -25,4 +25,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.24407, 0, -0.0133101)
 [node name="GodHead" parent="." instance=ExtResource("3_rvmkv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.23893, 3.08628, -0.0133097)
 
+[node name="BirthTimer" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
+
 [connection signal="body_entered" from="SheepDetector" to="." method="_on_sheep_detector_body_entered"]
+[connection signal="timeout" from="BirthTimer" to="." method="_on_BirthTimer_timeout"]
