@@ -18,7 +18,7 @@ func calculate():
 	for neighbour in boid.neighbours:
 		if neighbour.is_currently_escaping:
 			var diff = boid.global_position - boid.flock.predators[0].global_position
-			force = (diff/diff.length()) * inv_square(diff.length())
+			force = (diff/diff.length()) * inv_square(diff.length()) * 0.5
 			return force
 	if boid.global_position.distance_to(boid.flock.predators[0].global_position) > boid.escape_distance : return force
 	var diff = boid.global_position - boid.flock.predators[0].global_position

@@ -79,9 +79,9 @@ func _physics_process(delta):
 	if max_speed == 0:
 		push_warning("max_speed is 0")
 	# lerp in the new forces
-	if should_calculate:
-		force = calculate(delta)
-		should_calculate = false
+
+	force = calculate(delta)
+
 	#force = lerp(force, new_force, delta)
 	force.y *= 0.1
 	if is_in_water:
@@ -111,7 +111,7 @@ func _physics_process(delta):
 	# https://www.cs.toronto.edu/~dt/siggraph97-course/cwr87/
 
 	var temp_up = global_transform.basis.y.lerp(Vector3.UP + (acceleration * banking), delta * 5.0)
-
+	
 	look_at(global_transform.origin - velocity.normalized(), temp_up)
 
 func set_enabled(behavior, enabled):
@@ -186,7 +186,7 @@ func calculate(_delta):
 
 
 func _process(_delta):
-	should_calculate = true
+
 	if draw_gizmos: on_draw_gizmos()
 	update_animation()
 	

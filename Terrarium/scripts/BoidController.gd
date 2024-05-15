@@ -77,9 +77,8 @@ func _physics_process(delta):
 	spatial_hashing.boids_to_buckets()
 func _ready():
 	load_names()
-	center = get_node_or_null(center_path)
-	if not center:
-		center = self
+
+	center = self
 	if not spatial_hashing:
 		for node in get_children():
 			if node is SpatialHashing:
@@ -217,6 +216,7 @@ func spawn_boid(type: String, pos = null) -> Boid: # pos is a vector3
 	
 	boids[boid.get_boid_type()].push_back(boid)
 	boid.environment_controller = environment_controller
+	boid.look_at(center.global_position, Vector3.UP)
 	var constrain = boid.get_node("Constrain")
 	var evict = boid.get_node("Evict")
 	var shark_constrain = boid.get_node("SharkConstrain")

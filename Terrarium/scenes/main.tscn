@@ -62,7 +62,7 @@ spawn_amount = {
 }
 grass_scene = ExtResource("3_v3mhn")
 grass_count = 10
-radius = 90
+radius = 70
 shark_radius = 120.025
 avoid_distance = 1
 max_neighbours = 20
@@ -77,7 +77,6 @@ metadata/_edit_group_ = true
 [node name="SpatialHashing" type="Node3D" parent="BoidController"]
 visible = false
 script = ExtResource("4_ytxpe")
-bucket_size = 8.0
 a = true
 
 [node name="SpawnableZones" type="Node3D" parent="BoidController"]
@@ -130,7 +129,7 @@ draw_gizmos = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0785122, 1.65177, -0.0539837)
 
 [node name="Player" parent="." instance=ExtResource("4_mbjog")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.65612, 1.18654, 6.01328)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.8776, -5.50702, -49.5252)
 
 [node name="BoidInfometer" type="Control" parent="." node_paths=PackedStringArray("player", "viewport")]
 visible = false
