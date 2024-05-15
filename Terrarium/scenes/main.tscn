@@ -51,7 +51,7 @@ point_count = 5
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.21323, -0.213242)
 
 [node name="HypnoToad" parent="." instance=ExtResource("14_a76tr")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -6, 0)
+transform = Transform3D(-0.590514, 0, 0.0729245, -0.00883672, 0.590616, -0.0715564, -0.0723871, -0.0721, -0.586163, 3.14247, -7.00044, -66.8366)
 
 [node name="BoidController" type="Node3D" parent="." node_paths=PackedStringArray("player", "spawnable_zones_node", "god_sheep", "spatial_hashing")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.447, 1.91234, -38.6893)
@@ -391,7 +391,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 56.4785, 0)
 curve = SubResource("Curve3D_xb707")
 
 [node name="GodCloud" parent="Path3D" instance=ExtResource("14_fhm0n")]
-transform = Transform3D(-0.0199283, 0.00816097, -0.999757, -4.65657e-10, 0.999956, 0.00816259, 0.999793, 0.000162669, -0.0199276, -16.9017, 0, -136.768)
+transform = Transform3D(-0.0199283, 0.00816098, -0.999757, -4.65657e-10, 0.999956, 0.00816259, 0.999793, 0.000162669, -0.0199276, -16.9017, 0, -136.768)
 
 [node name="Node3D" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 96.7727, -45.0329, 0)
