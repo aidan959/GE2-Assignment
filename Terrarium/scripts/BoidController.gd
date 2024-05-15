@@ -12,7 +12,7 @@ var boid_types : Dictionary = {
 	"Sheep": 70,
 	"Shark": 5
 }
- 
+
 @export var grass_scene:PackedScene
 @export var grass_count = 1
 
@@ -28,6 +28,8 @@ var boid_types : Dictionary = {
 @export var max_neighbours = 10
 @export var boid_infometer : BoidInfometer
 @export var player: Player
+var environment_controller: EnvController
+
 var boids : Dictionary = {}
 var grasses : Array[GrassFood] = []
 var predators : Array[Node3D] = []
@@ -75,9 +77,8 @@ func _physics_process(delta):
 	spatial_hashing.boids_to_buckets()
 func _ready():
 	load_names()
-	center = get_node_or_null(center_path)
-	if not center:
-		center = self
+
+	center = self
 	if not spatial_hashing:
 		for node in get_children():
 			if node is SpatialHashing:
@@ -92,7 +93,8 @@ func _ready():
 		var potential_pred = node.find_child("Predator", true)
 		if potential_pred:
 			predators.push_back(potential_pred.get_parent())
-	
+	if not environment_controller:
+		environment_controller = player.environment_controller
 	_init_spawn_zones()
 	if spawn_on_ready:
 		_spawn_boids()
@@ -117,8 +119,10 @@ func _spawn_boids():
 	if grass_scene:
 		for i in grass_count:
 			var grass = grass_scene.instantiate()
-			var pos = Utils.random_point_in_unit_sphere() * radius
-			pos.y = -4.5
+			var pos : Vector3 = Vector3.ZERO
+			if Boid.SpawnLocations.GRASS in spawnable_zones:
+				pos = spawnable_zones[Boid.SpawnLocations.GRASS].pick_random().get_spawn_location()
+
 			add_child(grass)
 			grass.global_position = pos
 			var grass_instance : GrassFood = grass
@@ -152,7 +156,7 @@ func get_random_unique_name():
 	return sheep_name
 
 
-func get_spawn_position(boid: Boid) -> Vector3:
+func get_spawn_position(boid: Node3D) -> Vector3:
 	match boid.spawn_location:
 		boid.SpawnLocations.WATER:
 			var pos = Utils.random_point_in_unit_sphere() * radius
@@ -211,12 +215,24 @@ func spawn_boid(type: String, pos = null) -> Boid: # pos is a vector3
 	boid.name = get_random_unique_name()
 	
 	boids[boid.get_boid_type()].push_back(boid)
-	
+	boid.environment_controller = environment_controller
+	boid.look_at(center.global_position, Vector3.UP)
 	var constrain = boid.get_node("Constrain")
-	if constrain and type == "Shark":
+	var evict = boid.get_node("Evict")
+	var shark_constrain = boid.get_node("SharkConstrain")
+	
+	if constrain and evict and type == "Shark":
 		constrain.center = center
 		constrain.radius = shark_radius
 		constrain.enabled = true
+		evict.radius = radius
+		evict.center = center
+		evict.enabled = true
+		shark_constrain.radius = radius
+		shark_constrain.center = center
+		shark_constrain.enabled = true
+		
+	
 	elif constrain:
 		constrain.center = center
 		constrain.radius = radius

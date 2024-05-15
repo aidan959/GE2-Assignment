@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://do7aea6ie87y"]
+[gd_scene load_steps=11 format=3 uid="uid://do7aea6ie87y"]
 
 [ext_resource type="Script" path="res://scripts/Boids/Shark.gd" id="1_1dv3b"]
 [ext_resource type="Script" path="res://scripts/Boids/Behaviours/Cohesion.gd" id="3_1nmjh"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://scripts/Boids/Behaviours/SharkConstrain.gd" id="6_uoa04"]
 [ext_resource type="Script" path="res://scripts/Boids/Behaviours/Wander.gd" id="7_hc27p"]
 [ext_resource type="PackedScene" uid="uid://b1vprshi6ha4e" path="res://scenes/SharkModelScene.tscn" id="8_kwnw1"]
+[ext_resource type="Script" path="res://scripts/Boids/Behaviours/Evict.gd" id="8_oo2lo"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ggkxb"]
 size = Vector3(5.41844, 1.90493, 2.7298)
@@ -49,6 +50,9 @@ distance = 10.0
 radius = 5.0
 weight = 0.1
 draw_gizmos = false
+
+[node name="Evict" type="Node" parent="."]
+script = ExtResource("8_oo2lo")
 
 [node name="SHARK" parent="." instance=ExtResource("8_kwnw1")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
