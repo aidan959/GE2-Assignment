@@ -85,11 +85,11 @@ func initialize_behaviours():
  
 func _ready():
 	randomize()
-	if not environment_controller:
-		environment_controller = flock.environment_controller()
 	initalize_sound_player()
 	initialize_flock()
 	initialize_behaviours()
+	if not environment_controller:
+		environment_controller = flock.environment_controller
 
 func draw_gizmos_propagate(dg : bool ):
 	draw_gizmos = dg

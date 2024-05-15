@@ -12,7 +12,7 @@ func on_draw_gizmos():
 
 @onready var start_weight : float = weight
 func calculate():
-	if boid.environment_controller.rain_particles.emitting:
+	if boid.environment_controller.weather_controller.rain_particles.emitting:
 		weight = 0.0
 	else:
 		weight = start_weight

@@ -11,7 +11,7 @@ var has_exploded : bool = false
 var ascension_light : SpotLight3D = null
 
 @export_category("Escape")
-@export_range(0.0, 15.0) var escape_distance :float = 10.0
+@export_range(0.0, 15.0) var escape_distance :float = 5.0
 
 
 enum AnimationStates{
@@ -74,7 +74,7 @@ func _physics_process(delta):
 	elif hunger > 0.5 and current_state != BoidStates.GRAZING:
 		change_state(BoidStates.GRAZING)
 		
-	count_neighbours_spatial(get_boid_type())
+	count_neighbours_spatial(Sheep.get_boid_type())
 	
 	if max_speed == 0:
 		push_warning("max_speed is 0")

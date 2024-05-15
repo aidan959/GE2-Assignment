@@ -12,7 +12,7 @@ var boid_types : Dictionary = {
 	"Sheep": 70,
 	"Shark": 5
 }
- 
+
 @export var grass_scene:PackedScene
 @export var grass_count = 1
 
@@ -120,8 +120,10 @@ func _spawn_boids():
 	if grass_scene:
 		for i in grass_count:
 			var grass = grass_scene.instantiate()
-			var pos = Utils.random_point_in_unit_sphere() * radius
-			pos.y = -4.5
+			var pos : Vector3 = Vector3.ZERO
+			if Boid.SpawnLocations.GRASS in spawnable_zones:
+				pos = spawnable_zones[Boid.SpawnLocations.GRASS].pick_random().get_spawn_location()
+
 			add_child(grass)
 			grass.global_position = pos
 			var grass_instance : GrassFood = grass
@@ -155,7 +157,7 @@ func get_random_unique_name():
 	return sheep_name
 
 
-func get_spawn_position(boid: Boid) -> Vector3:
+func get_spawn_position(boid: Node3D) -> Vector3:
 	match boid.spawn_location:
 		boid.SpawnLocations.WATER:
 			var pos = Utils.random_point_in_unit_sphere() * radius

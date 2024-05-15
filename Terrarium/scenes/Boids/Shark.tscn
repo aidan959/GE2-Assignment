@@ -7,7 +7,7 @@
 [ext_resource type="Script" path="res://scripts/Boids/Behaviours/Constrain.gd" id="6_6psgg"]
 [ext_resource type="Script" path="res://scripts/Boids/Behaviours/SharkConstrain.gd" id="6_uoa04"]
 [ext_resource type="Script" path="res://scripts/Boids/Behaviours/Wander.gd" id="7_hc27p"]
-[ext_resource type="PackedScene" uid="uid://b1vprshi6ha4e" path="res://models/gltf/SHARK.gltf" id="8_kwnw1"]
+[ext_resource type="PackedScene" uid="uid://b1vprshi6ha4e" path="res://scenes/SharkModelScene.tscn" id="8_kwnw1"]
 [ext_resource type="Script" path="res://scripts/Boids/Behaviours/Evict.gd" id="8_oo2lo"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ggkxb"]

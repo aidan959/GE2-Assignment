@@ -93,7 +93,8 @@ shape = SubResource("BoxShape3D_agdxs")
 draw_gizmos = true
 
 [node name="SpawnZone8" parent="BoidController/SpawnableZones" instance=ExtResource("4_4csqi")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.2243, -7.67354, -7.01856)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.2243, -8.63323, -7.01856)
+spawn_type = 3
 shape = SubResource("BoxShape3D_72mcq")
 draw_gizmos = true
 
@@ -391,7 +392,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 56.4785, 0)
 curve = SubResource("Curve3D_xb707")
 
 [node name="GodCloud" parent="Path3D" instance=ExtResource("14_fhm0n")]
-transform = Transform3D(-0.0199283, 0.00816098, -0.999757, -4.65657e-10, 0.999956, 0.00816259, 0.999793, 0.000162669, -0.0199276, -16.9017, 0, -136.768)
+transform = Transform3D(-0.0199283, 0.00816097, -0.999756, -4.65657e-10, 0.999955, 0.00816259, 0.999793, 0.000162669, -0.0199276, -16.9017, 0, -136.768)
 
 [node name="Node3D" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 96.7727, -45.0329, 0)

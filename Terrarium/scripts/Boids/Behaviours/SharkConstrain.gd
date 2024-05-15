@@ -12,7 +12,7 @@ func on_draw_gizmos():
 
 
 func calculate():
-	if boid.environment_controller.rain_particles.emitting:
+	if boid.environment_controller.weather_controller.rain_particles.emitting:
 		var to_center = center.global_transform.origin - boid.global_transform.origin if center else - boid.global_transform.origin 
 #	
 		var power = max(to_center.length() - radius, 0)
