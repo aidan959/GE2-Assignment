@@ -89,9 +89,12 @@ emission_curve = SubResource("CurveTexture_1qd3b")
 turbulence_noise_strength = 2.5
 turbulence_noise_scale = 2.275
 
-[node name="ExplosionParticles" type="Node3D"]
+[node name="ExplosionParticles" type="Node3D" node_paths=PackedStringArray("particles1", "particles2", "particles3")]
 transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
 script = ExtResource("1_lpjuf")
+particles1 = NodePath("GPUParticles3D")
+particles2 = NodePath("GPUParticles3D2")
+particles3 = NodePath("GPUParticles3D3")
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="."]
 emitting = false

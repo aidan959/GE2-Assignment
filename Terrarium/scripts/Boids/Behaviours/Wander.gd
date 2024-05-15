@@ -32,4 +32,4 @@ func calculate():
 
 	world_target = boid.global_transform * (local_target)
 	force = boid.seek_force(world_target)
-	return force
+	return force.normalized()

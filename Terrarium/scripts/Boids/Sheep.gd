@@ -83,7 +83,7 @@ func _physics_process(delta):
 		force = calculate(delta)
 		should_calculate = false
 	#force = lerp(force, new_force, delta)
-	
+	force.y *= 0.1
 	if is_in_water:
 		force.y += 0.5
 		
@@ -102,15 +102,14 @@ func _physics_process(delta):
 		velocity -= velocity * delta * damping
 
 	velocity = velocity.limit_length(max_speed)
-	
+	velocity -= velocity * delta * damping
 	move_and_slide()
 	if is_zero_approx(velocity.length()) or  is_currently_eating:
 		global_rotation.x = 0.0
 		return
 	# Implement Banking as described:
 	# https://www.cs.toronto.edu/~dt/siggraph97-course/cwr87/
-	if is_equal_approx(acceleration.length(), 0):
-		return
+
 	var temp_up = global_transform.basis.y.lerp(Vector3.UP + (acceleration * banking), delta * 5.0)
 
 	look_at(global_transform.origin - velocity.normalized(), temp_up)

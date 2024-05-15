@@ -42,7 +42,8 @@ var influencing_weights = {}
 enum SpawnLocations {
 	WATER,
 	LAND,
-	AMBHIBIOUS
+	AMBHIBIOUS,
+	GRASS
 }
 
 enum BoidStates {

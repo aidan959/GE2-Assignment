@@ -1,6 +1,6 @@
 class_name GrassFood extends Area3D
 @export var fullness: float = 100.0  # Fullness percentage of the grass
-var depletion_rate: float = 1.0  # Rate of the grass depletion
+var depletion_rate: float = 0.0  # Rate of the grass depletion
 
 @export_range (0,10) var max_num_grazers : int = 5
 var current_num_grazers = 0

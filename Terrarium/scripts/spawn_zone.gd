@@ -17,6 +17,8 @@ func _process(_delta):
 				box_color = Color.GREEN
 			Boid.SpawnLocations.WATER:
 				box_color = Color.RED
+			Boid.SpawnLocations.GRASS:
+				box_color = Color.YELLOW
 			_:
 				box_color = Color.PURPLE
 				
