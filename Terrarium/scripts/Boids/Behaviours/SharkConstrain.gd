@@ -2,9 +2,7 @@ class_name SharkConstrain extends SteeringBehavior
 
 @export var water_top : float
 @export var water_bottom : float
-@export var radius:float = 100
 
-var center
 func on_draw_gizmos():
 	pass
 	#var center_pos = center.global_transform.origin if center else Vector3.ZERO 
@@ -12,14 +10,6 @@ func on_draw_gizmos():
 
 
 func calculate():
-	if boid.environment_controller.weather_controller.rain_particles.emitting:
-		var to_center = center.global_transform.origin - boid.global_transform.origin if center else - boid.global_transform.origin 
-#	
-		var power = max(to_center.length() - radius, 0)
-		force = to_center.limit_length(power)
-		pass
-	else:
-		pass # return to normal height
 #	Inline IF!! 
 	if boid.global_position.y > water_top:
 		force = Vector3(0, -1, 0)

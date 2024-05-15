@@ -14,13 +14,7 @@ func inv_square(distance: float) -> float:
 
 func calculate():
 	force = Vector3.ZERO
-	if boid.flock.predators.size() ==0: return force
-	for neighbour in boid.neighbours:
-		if neighbour.is_currently_escaping:
-			var diff = boid.global_position - boid.flock.predators[0].global_position
-			force = (diff/diff.length()) * inv_square(diff.length()) * 0.5
-			return force
-	if boid.global_position.distance_to(boid.flock.predators[0].global_position) > boid.escape_distance : return force
+	if boid.flock.predators.size() ==0  or boid.global_position.distance_to(boid.flock.predators[0].global_position) > boid.escape_distance : return force
 	var diff = boid.global_position - boid.flock.predators[0].global_position
 	force = (diff/diff.length()) * inv_square(diff.length())
 	
