@@ -51,7 +51,7 @@ point_count = 5
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.21323, -0.213242)
 
 [node name="HypnoToad" parent="." instance=ExtResource("14_a76tr")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -6, 0)
+transform = Transform3D(-0.560766, 0, -0.127146, 0, 0.575, 0, 0.127146, 0, -0.560766, 2.02512, -6, -66.5643)
 
 [node name="BoidController" type="Node3D" parent="." node_paths=PackedStringArray("player", "spawnable_zones_node", "god_sheep", "spatial_hashing")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.447, 1.91234, -38.6893)
@@ -129,7 +129,7 @@ draw_gizmos = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0785122, 1.65177, -0.0539837)
 
 [node name="Player" parent="." instance=ExtResource("4_mbjog")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.8776, -5.50702, -49.5252)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.79823, -5.50702, 8.2796)
 
 [node name="BoidInfometer" type="Control" parent="." node_paths=PackedStringArray("player", "viewport")]
 visible = false

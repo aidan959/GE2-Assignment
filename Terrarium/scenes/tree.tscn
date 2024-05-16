@@ -1,5 +1,17 @@
-[gd_scene load_steps=2 format=3 uid="uid://ceabje1ag3rm2"]
+[gd_scene load_steps=4 format=3 uid="uid://ceabje1ag3rm2"]
 
 [ext_resource type="PackedScene" uid="uid://csxn7v5ohoacx" path="res://models/gltf/Tree.glb" id="1_jvfsn"]
+[ext_resource type="Script" path="res://scripts/treerandomisation.gd" id="2_eqi0b"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_14mnx"]
+height = 8.0
+radius = 1.0
 
 [node name="Tree" instance=ExtResource("1_jvfsn")]
+script = ExtResource("2_eqi0b")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="2"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
+shape = SubResource("CylinderShape3D_14mnx")

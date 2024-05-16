@@ -75,9 +75,9 @@ func _process(delta):
 		sheep_boids = boid_controller.boids[Sheep.get_boid_type()]
 		minimum_amount_of_sheep = int(boid_controller.spawn_amount[Sheep.get_boid_type()] * 0.8)
 		maximum_amount_of_sheep = minimum_amount_of_sheep * 1.3
-		if sheep_boids.size() < maximum_amount_of_sheep:
+		if sheep_boids.size() == maximum_amount_of_sheep:
 			pick_sheep = true
-		if sheep_boids.size() == minimum_amount_of_sheep:
+		if sheep_boids.size() < minimum_amount_of_sheep:
 			birth_sheep = true
 	if pick_sheep == true:
 		if target_sheep == null:
