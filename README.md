@@ -114,6 +114,12 @@ I am most proud of two things - the capable abstractions of boid's which allows 
 
 I learned a lot about writing code within Godot and its unique paradigms. I learned how to do audio in Godot and mixing audio for games. I learned a huge amount about boid behaviours and the process of implementing those things in a collaborative environment. 
 
+## Aleksey (C20402732)
+I did the bulk of the model creation for the project. This was done due to me having the most modeling experience out of the group. This included creating the low-poly models, texturing them, rigging them and animating them. After this was done i worked on implementing the moving godsheep. This gave a way for the sheep to reproduce and to be blessed if the shepard was well behaved. 
+
+I am most proud of two things - the look and feel of the enviroment and the un-natural feeling of the moving godsheep
+
+I broadened by knowledge in using blender as i had never done animation before, learning about keyframing and how to output these animations into godot. 
 
 # Addons Used
 
