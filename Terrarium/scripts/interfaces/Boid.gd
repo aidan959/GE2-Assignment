@@ -59,6 +59,8 @@ var count_neighbours = false
 var neighbours = [] 
 var new_force = Vector3.ZERO
 var should_calculate = false
+var environment_controller: EnvController
+
 func initialize_flock():
 	if not get_parent() is BoidController:
 		push_error("Boid spawned outside of BoidController node.")	

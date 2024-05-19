@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://c2nwkj3tahlxg"]
+[gd_scene load_steps=9 format=3 uid="uid://c2nwkj3tahlxg"]
 
 [ext_resource type="Script" path="res://scenes/grass.gd" id="1_l7ap0"]
 [ext_resource type="ArrayMesh" uid="uid://d3yivowteccaj" path="res://models/flora/grass.res" id="2_jhysd"]
+[ext_resource type="Shader" path="res://shaders/waterfall.gdshader" id="3_nv80f"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_gi46d"]
-size = Vector3(1.83578, 1, 1.90326)
+size = Vector3(4.03472, 1, 3.94707)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_gdi85"]
 
@@ -14,13 +15,30 @@ instance_count = 30
 mesh = ExtResource("2_jhysd")
 buffer = PackedFloat32Array(2, 3, 0.44, 0.73, 0.98, 1, 0.0075188, 0.103448, 0, 3, 0.44, 0.73, 0.98, 1, 0, 0.103448, 2.13397, 2.5, 0.44, 0.73, 0.98, 1, 0.00802246, 0.0862069, 0.401924, 1.5, 0.44, 0.73, 0.98, 1, 0.00151099, 0.0517241, 2.5, 2.13397, 0.44, 0.73, 0.98, 1, 0.0093985, 0.0735853, 1.5, 0.401924, 0.44, 0.73, 0.98, 1, 0.0056391, 0.0138594, 3, 2, 0.44, 0.73, 0.98, 1, 0.0112782, 0.0689655, 3, 0, 0.44, 0.73, 0.98, 1, 0.0112782, 0, 263, 2, 0.44, 0.73, 0.98, 1, 0.988722, 0.0689655, 263, 0, 0.44, 0.73, 0.98, 1, 0.988722, 0, 263.5, 2.13397, 0.44, 0.73, 0.98, 1, 0.990601, 0.0735853, 264.5, 0.401924, 0.44, 0.73, 0.98, 1, 0.994361, 0.0138594, 263.866, 2.5, 0.44, 0.73, 0.98, 1, 0.991978, 0.0862069, 265.598, 1.5, 0.44, 0.73, 0.98, 1, 0.998489, 0.0517241, 264, 3, 0.44, 0.73, 0.98, 1, 0.992481, 0.103448, 266, 3, 0.44, 0.73, 0.98, 1, 1, 0.103448, 264, 26, 0.44, 0.73, 0.98, 1, 0.992481, 0.896552, 266, 26, 0.44, 0.73, 0.98, 1, 1, 0.896552, 263.866, 26.5, 0.44, 0.73, 0.98, 1, 0.991978, 0.913793, 265.598, 27.5, 0.44, 0.73, 0.98, 1, 0.998489, 0.948276, 263.5, 26.866, 0.44, 0.73, 0.98, 1, 0.990601, 0.926415, 264.5, 28.5981, 0.44, 0.73, 0.98, 1, 0.994361, 0.986141, 263, 27, 0.44, 0.73, 0.98, 1, 0.988722, 0.931035, 263, 29, 0.44, 0.73, 0.98, 1, 0.988722, 1, 3, 27, 0.44, 0.73, 0.98, 1, 0.0112782, 0.931035, 3, 29, 0.44, 0.73, 0.98, 1, 0.0112782, 1, 2.5, 26.866, 0.44, 0.73, 0.98, 1, 0.0093985, 0.926415, 1.5, 28.5981, 0.44, 0.73, 0.98, 1, 0.0056391, 0.986141, 2.13397, 26.5, 0.44, 0.73, 0.98, 1, 0.00802246, 0.913793, 0.401924, 27.5, 0.44, 0.73, 0.98, 1, 0.00151099, 0.948276, 2, 26, 0.44, 0.73, 0.98, 1, 0.0075188, 0.896552, 0, 26, 0.44, 0.73, 0.98, 1, 0, 0.896552, 0, 1.96182e-44, 1.4013e-45, 0, 2.10195e-44, 1.96182e-44, 1.4013e-45, 1.82169e-44, 2.8026e-45, 1.4013e-45, 1.96182e-44, 1.82169e-44, 2.8026e-45, 1.68156e-44, 4.2039e-45, 2.8026e-45, 1.82169e-44, 1.68156e-44, 4.2039e-45, 1.54143e-44, 5.60519e-45, 4.2039e-45, 1.68156e-44, 1.54143e-44, 5.60519e-45, 1.4013e-44, 7.00649e-45, 5.60519e-45, 1.54143e-44, 1.4013e-44, 7.00649e-45, 1.26117e-44, 8.40779e-45, 7.00649e-45, 1.4013e-44, 1.26117e-44, 8.40779e-45, 1.12104e-44, 9.80909e-45, 8.40779e-45, 1.26117e-44, 1.12104e-44, 0, 1.96182e-44, 1.4013e-45, 0, 2.10195e-44, 1.96182e-44, 1.4013e-45, 1.82169e-44, 2.8026e-45, 1.4013e-45, 1.96182e-44, 1.82169e-44, 2.8026e-45, 1.68156e-44, 4.2039e-45, 2.8026e-45, 1.82169e-44, 1.68156e-44, 4.2039e-45, 1.54143e-44, 5.60519e-45, 4.2039e-45, 1.68156e-44, 1.54143e-44, 5.60519e-45, 1.4013e-44, 7.00649e-45, 5.60519e-45, 1.54143e-44, 1.4013e-44, 7.00649e-45, 1.26117e-44, 8.40779e-45, 7.00649e-45, 1.4013e-44, 1.26117e-44, 8.40779e-45, 1.12104e-44, 9.80909e-45, 8.40779e-45, 1.26117e-44, 1.12104e-44, 7.28675e-44, 7.42688e-44, 0, 7.42688e-44, 7.56701e-44, 0, 7.56701e-44, 7.70714e-44, 0, 7.70714e-44, 7.84727e-44, 0, 7.84727e-44, 7.9874e-44, 0, 7.9874e-44, 8.12753e-44, 0, 8.12753e-44, 8.26766e-44)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hhyke"]
+render_priority = 0
+shader = ExtResource("3_nv80f")
+shader_parameter/metallic = 0.6
+shader_parameter/specular = 0.5
+shader_parameter/roughness = 0.3
+shader_parameter/amount = 1.9
+shader_parameter/speed = 2.0
+shader_parameter/out_color = Color(0, 0.44919, 0.213604, 1)
+shader_parameter/depth_factor = 1.0
+
+[sub_resource type="TextMesh" id="TextMesh_7vqr0"]
+material = SubResource("ShaderMaterial_hhyke")
+text = "GRASS"
+font_size = 127
+depth = 0.36
+
 [node name="Grass" type="Area3D"]
 collision_layer = 0
 collision_mask = 256
 script = ExtResource("1_l7ap0")
 
 [node name="GrassCollision" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 6.46044e-05, -3.04385e-05, -6.46044e-05, 1, -7.65898e-05, 3.04385e-05, 7.65898e-05, 1, 0, 0.5, 0)
+transform = Transform3D(1, 6.46044e-05, -3.04385e-05, -6.46044e-05, 1, -7.65898e-05, 3.04385e-05, 7.65898e-05, 1, 0, 0, 0)
 shape = SubResource("BoxShape3D_gi46d")
 
 [node name="GrassPlane" type="MeshInstance3D" parent="."]
@@ -28,7 +46,11 @@ visible = false
 mesh = SubResource("PlaneMesh_gdi85")
 
 [node name="GrassMesh" type="MultiMeshInstance3D" parent="."]
+visible = false
 multimesh = SubResource("MultiMesh_uxcgx")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("TextMesh_7vqr0")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_body_exit"]

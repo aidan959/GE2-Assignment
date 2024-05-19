@@ -48,10 +48,10 @@ var _draw_gizmos : bool = false
 var cells = {}
 
 @export var center_path : NodePath
-
-
 @export var god_sheep : GodHead
 @export var spatial_hashing : SpatialHashing
+
+var environment_controller : EnvController
 var center : Node3D
 
 func do_draw_gizmos():
@@ -92,7 +92,7 @@ func _ready():
 		var potential_pred = node.find_child("Predator", true)
 		if potential_pred:
 			predators.push_back(potential_pred.get_parent())
-	
+	environment_controller = player.environment_controller
 	_init_spawn_zones()
 	if spawn_on_ready:
 		_spawn_boids()

@@ -15,6 +15,14 @@ run/main_scene="res://scenes/main.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
 
+[display]
+
+window/size/viewport_width=1920
+window/size/viewport_height=1080
+window/size/mode=3
+window/size/resizable=false
+window/size/borderless=true
+
 [editor_plugins]
 
 enabled=PackedStringArray()
@@ -97,6 +105,8 @@ Genocide={
 ]
 }
 
-[physics]
+[rendering]
 
-common/physics_ticks_per_second=30
+anti_aliasing/quality/msaa_2d=3
+anti_aliasing/quality/msaa_3d=3
+anti_aliasing/quality/use_taa=true

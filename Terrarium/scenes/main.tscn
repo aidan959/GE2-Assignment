@@ -121,6 +121,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0785122, 1.65177, -0.053983
 
 [node name="Player" parent="." instance=ExtResource("4_mbjog")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.65612, 1.18654, 6.01328)
+camera_sens = 0.6
 
 [node name="BoidInfometer" type="Control" parent="." node_paths=PackedStringArray("player", "viewport", "boid_controller")]
 visible = false
@@ -390,6 +391,9 @@ curve = SubResource("Curve3D_xb707")
 
 [node name="GodCloud" parent="Path3D" instance=ExtResource("14_fhm0n")]
 transform = Transform3D(-0.0199283, 0.00816098, -0.999757, -4.65657e-10, 0.999956, 0.00816259, 0.999793, 0.000162669, -0.0199276, -16.9017, 0, -136.768)
+minimum_amount_of_sheep = 10
+maximum_amount_of_sheep = 120
+path_speed = 5.0
 
 [node name="Node3D" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 96.7727, -45.0329, 0)

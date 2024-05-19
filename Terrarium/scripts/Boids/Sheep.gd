@@ -211,7 +211,7 @@ func ascension(delta):
 		exploded = true
 	
 	var target_position = ascension_target.global_transform.origin
-	DebugDraw3D.draw_box(target_position, Quaternion(), Vector3(10, 10, 10), Color.BLUE)
+	#DebugDraw3D.draw_box(target_position, Quaternion(), Vector3(10, 10, 10), Color.BLUE)
 	var direction_to_target = (target_position - global_transform.origin).normalized()
 	
 	ascension_acceleration += ascension_rate * delta
