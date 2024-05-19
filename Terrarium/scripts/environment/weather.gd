@@ -39,7 +39,6 @@ func snow(intensity : float):
 	is_fog = true
 	
 func heat():
-	return
 	world_environment.environment.volumetric_fog_density = 0.0
 	heat_mesh.show()
 	

@@ -48,7 +48,7 @@ point_count = 5
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.21323, -0.213242)
 
 [node name="HypnoToad" parent="." instance=ExtResource("14_a76tr")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -6, 0)
+transform = Transform3D(-0.590514, 0, 0.0729245, -0.00883672, 0.590616, -0.0715564, -0.0723871, -0.0721, -0.586163, 3.14247, -7.00044, -66.8366)
 
 [node name="BoidController" type="Node3D" parent="." node_paths=PackedStringArray("player", "spawnable_zones_node", "god_sheep", "spatial_hashing")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.447, 1.91234, -38.6893)
@@ -59,7 +59,7 @@ spawn_amount = {
 }
 grass_scene = ExtResource("3_v3mhn")
 grass_count = 10
-radius = 70
+radius = 90
 shark_radius = 120.025
 avoid_distance = 1
 max_neighbours = 20
@@ -73,7 +73,7 @@ metadata/_edit_group_ = true
 
 [node name="SpatialHashing" type="Node3D" parent="BoidController"]
 script = ExtResource("4_ytxpe")
-draw_gizmos = true
+bucket_size = 8.0
 a = true
 
 [node name="SpawnableZones" type="Node3D" parent="BoidController"]
@@ -89,8 +89,7 @@ shape = SubResource("BoxShape3D_agdxs")
 draw_gizmos = true
 
 [node name="SpawnZone8" parent="BoidController/SpawnableZones" instance=ExtResource("4_4csqi")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.2243, -8.63323, -7.01856)
-spawn_type = 3
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.2243, -7.67354, -7.01856)
 shape = SubResource("BoxShape3D_72mcq")
 draw_gizmos = true
 
@@ -121,7 +120,7 @@ draw_gizmos = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0785122, 1.65177, -0.0539837)
 
 [node name="Player" parent="." instance=ExtResource("4_mbjog")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.8776, -5.50702, -49.5252)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.65612, 1.18654, 6.01328)
 
 [node name="BoidInfometer" type="Control" parent="." node_paths=PackedStringArray("player", "viewport", "boid_controller")]
 visible = false
@@ -390,7 +389,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 56.4785, 0)
 curve = SubResource("Curve3D_xb707")
 
 [node name="GodCloud" parent="Path3D" instance=ExtResource("14_fhm0n")]
-transform = Transform3D(-0.0199283, 0.00816097, -0.999756, -4.65657e-10, 0.999955, 0.00816259, 0.999793, 0.000162669, -0.0199276, -16.9017, 0, -136.768)
+transform = Transform3D(-0.0199283, 0.00816098, -0.999757, -4.65657e-10, 0.999956, 0.00816259, 0.999793, 0.000162669, -0.0199276, -16.9017, 0, -136.768)
 
 [node name="Node3D" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 96.7727, -45.0329, 0)

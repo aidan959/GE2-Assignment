@@ -11,7 +11,7 @@ var has_exploded : bool = false
 var ascension_light : SpotLight3D = null
 
 @export_category("Escape")
-@export_range(0.0, 15.0) var escape_distance :float = 5.0
+@export_range(0.0, 15.0) var escape_distance :float = 10.0
 
 
 enum AnimationStates{
@@ -74,7 +74,7 @@ func _physics_process(delta):
 	elif hunger > 0.5 and current_state != BoidStates.GRAZING:
 		change_state(BoidStates.GRAZING)
 		
-	count_neighbours_spatial(Sheep.get_boid_type())
+	count_neighbours_spatial(get_boid_type())
 	
 	if max_speed == 0:
 		push_warning("max_speed is 0")
@@ -112,7 +112,7 @@ func _physics_process(delta):
 	# https://www.cs.toronto.edu/~dt/siggraph97-course/cwr87/
 
 	var temp_up = global_transform.basis.y.lerp(Vector3.UP + (acceleration * banking), delta * 5.0)
-	
+
 	look_at(global_transform.origin - velocity.normalized(), temp_up)
 
 func set_enabled(behavior, enabled):
@@ -163,7 +163,6 @@ func calculate(_delta):
 			
 		var f = behaviour.calculate() * behaviour.weight
 		if f.length() == 0.0: continue
-		if behaviour is Wander: f.y *= 0.01
 		if behaviour is Escape: is_currently_escaping = true
 		behaviour_forces[behaviour] = f
 		add_debug_influencing_weight(behaviour, f)
@@ -187,7 +186,7 @@ func calculate(_delta):
 
 
 func _process(_delta):
-
+	should_calculate = true
 	if draw_gizmos: on_draw_gizmos()
 	update_animation()
 	
