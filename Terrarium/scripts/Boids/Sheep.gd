@@ -80,15 +80,16 @@ func _physics_process(delta):
 		push_warning("max_speed is 0")
 	# lerp in the new forces
 
-	force = calculate(delta)
+	var new_force = calculate(delta)
 
-	#force = lerp(force, new_force, delta)
+	force = lerp(force, new_force, delta)
 	force.y *= 0.1
 	if is_in_water:
 		force.y += 0.5
 		
 	else:
-		force += super.process_gravity(delta)
+		if is_on_floor:
+			force += super.process_gravity(delta)
 	
 	acceleration = force / mass
 	velocity += acceleration * delta

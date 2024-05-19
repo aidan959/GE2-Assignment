@@ -114,7 +114,13 @@ func _init_spawn_zones():
 		if not spawn_zone.spawn_type in spawnable_zones:
 			spawnable_zones[spawn_zone.spawn_type] = []
 		spawnable_zones[spawn_zone.spawn_type].push_back(spawn_zone)
-
+func _spawn_boids_paramaterized(no_sheep, no_sharks, no_grass):
+	spawn_amount["Sheep"] = no_sheep
+	spawn_amount["Shark"] = no_sharks
+	grass_count = no_grass
+	_spawn_boids()
+	
+	
 func _spawn_boids():
 	if grass_scene:
 		for i in grass_count:
@@ -217,11 +223,12 @@ func spawn_boid(type: String, pos = null) -> Boid: # pos is a vector3
 	boids[boid.get_boid_type()].push_back(boid)
 	boid.environment_controller = environment_controller
 	boid.look_at(center.global_position, Vector3.UP)
-	var constrain = boid.get_node("Constrain")
-	var evict = boid.get_node("Evict")
-	var shark_constrain = boid.get_node("SharkConstrain")
+
 	
-	if constrain and evict and type == "Shark":
+	var constrain = boid.get_node("Constrain")
+	if  type == "Shark":
+		var evict = boid.get_node("Evict")
+		var shark_constrain = boid.get_node("SharkConstrain")
 		constrain.center = center
 		constrain.radius = shark_radius
 		constrain.enabled = true

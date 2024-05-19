@@ -9,8 +9,12 @@ extends Control
 @export var game_music: AudioStream
 @export var target_menu_music_volume = 1.0
 @export var target_game_music_volume = 0.6
-
-
+@export var no_sheep_slider : HSlider
+@export var no_shark_slider : HSlider
+@export var no_grass_slider : HSlider
+@export var no_sheep_label: RichTextLabel
+@export var no_shark_label : RichTextLabel
+@export var no_grass_label : RichTextLabel
 
 var menu_music_volume = 1.0
 var game_music_volume = 0.0
@@ -22,6 +26,10 @@ var do_transition = false
 func _ready():
 	get_player()
 	get_camera()
+	no_sheep_slider.value = no_sheep
+	no_shark_slider.value = no_shark
+	no_grass_slider.value = no_grass
+	
 	if not menu_camera:push_error("Main Menu will not function without a main camera in the scene.")
 	if not player: push_error("Main Menu will not function without a player in the scene.")
 	if not boid_controller: push_error("Main Menu will not function without a boid_controller in the scene.")
@@ -46,7 +54,7 @@ func _on_button_pressed():
 	# var direction = (player.camera.global_transform.origin - menu_camera.global_transform.origin).normalized()
 	
 	do_transition = true
-	boid_controller._spawn_boids()
+	boid_controller._spawn_boids_paramaterized(no_sheep, no_shark, no_grass)
 func get_player():
 	if player: return
 	
@@ -104,4 +112,22 @@ func update_music_volumes(progress: float):
 		actual_volume = remap(menu_music_volume, 0.0, 1.0,-120, -12)
 
 	player.music_player.volume_db = actual_volume
+	
+
+var no_sheep : int = 40
+var no_shark : int = 5
+var no_grass : int = 10
+
+func _on_no_sheep_slider_value_changed(value):
+	no_sheep_label.clear()
+	no_sheep_label.add_text(str(int(value)))
+	no_sheep = int(value)
+func _on_no_shark_slider_value_changed(value):
+	no_shark_label.clear()
+	no_shark_label.add_text(str(int(value)))
+	no_shark = int(value)
+func _on_no_grass_slider_value_changed(value):
+	no_grass_label.clear()
+	no_grass_label.add_text(str(int(value)))
+	no_grass = int(value)
 	

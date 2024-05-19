@@ -7,7 +7,7 @@
 [ext_resource type="Script" path="res://scripts/Boids/Behaviours/Constrain.gd" id="6_6psgg"]
 [ext_resource type="Script" path="res://scripts/Boids/Behaviours/SharkConstrain.gd" id="6_uoa04"]
 [ext_resource type="Script" path="res://scripts/Boids/Behaviours/Wander.gd" id="7_hc27p"]
-[ext_resource type="PackedScene" uid="uid://b1vprshi6ha4e" path="res://scenes/SharkModelScene.tscn" id="8_kwnw1"]
+[ext_resource type="PackedScene" uid="uid://b1vprshi6ha4e" path="res://models/gltf/SHARK.gltf" id="8_kwnw1"]
 [ext_resource type="Script" path="res://scripts/Boids/Behaviours/Evict.gd" id="8_oo2lo"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ggkxb"]
@@ -36,13 +36,14 @@ weight = 3.0
 
 [node name="Constrain" type="Node" parent="."]
 script = ExtResource("6_6psgg")
+weight = 100.0
 draw_gizmos = false
 enabled = false
 
 [node name="SharkConstrain" type="Node" parent="."]
 script = ExtResource("6_uoa04")
-water_top = -8.623
-water_bottom = -45.033
+water_top = -12.8
+water_bottom = -55.0
 
 [node name="Wander" type="Node" parent="."]
 script = ExtResource("7_hc27p")

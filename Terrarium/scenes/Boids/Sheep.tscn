@@ -59,7 +59,7 @@ sound_weight = 0.195
 
 [node name="Alignment" type="Node" parent="."]
 script = ExtResource("3_xtapx")
-
+weight = 0.9
 [node name="Avoidance" type="Node" parent="."]
 script = ExtResource("4_art8r")
 softness = 1.0
@@ -80,6 +80,7 @@ enabled = false
 script = ExtResource("7_eurwo")
 distance = 10.0
 radius = 5.0
+
 weight = 0.1
 draw_gizmos = false
 sounds = Array[AudioStream]([ExtResource("14_jn2f7"), ExtResource("15_mwu25"), ExtResource("16_kn1al")])

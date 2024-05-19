@@ -12,6 +12,7 @@ func on_draw_gizmos():
 
 @onready var start_weight : float = weight
 func calculate():
+	if boid.global_position.distance_to(center.global_position): return Vector3.ZERO  
 	if boid.environment_controller.weather_controller.rain_particles.emitting:
 		weight = 0.0
 	else:

@@ -98,6 +98,7 @@ func update_weights(weights):
 func calculate(_delta):
 	var force_acc = Vector3.ZERO	
 	var behaviours_active = ""
+	reset_debug_influencing_weight()
 	for i in behaviours.size():
 		if behaviours[i].enabled:
 			var f = behaviours[i].calculate() * behaviours[i].weight
@@ -106,6 +107,7 @@ func calculate(_delta):
 				f = Vector3.ZERO
 			behaviours_active += behaviours[i].name + ": " + str(round(f.length())) + " "
 			force_acc += f 
+			add_debug_influencing_weight(behaviours[i], f)
 	force_acc = force_acc.limit_length(max_force)
 	if draw_gizmos:
 		DebugDraw2D.set_text(name, behaviours_active)

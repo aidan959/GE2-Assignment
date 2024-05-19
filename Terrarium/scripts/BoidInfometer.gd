@@ -17,6 +17,8 @@ var viewport_camera: Camera3D = null
 @onready var sheep_cam :SubViewportContainer = find_child("SheepCamera")
 @onready var weight_list :ItemList = find_child("WeightList")
 @export var draw_gizmos : bool = false
+@export var boid_controller : BoidController 
+
 func _ready():
 	if !viewport:
 		push_warning("Viewport has not been set.")
@@ -36,7 +38,20 @@ func _process(_delta):
 			saved_boid = null
 		else:
 			saved_boid =boid_detector.detected_boid
-		
+	if Input.is_action_just_pressed("Kill"):
+		if boid_detector.detected_boid:
+			boid_detector.detected_boid.health = 0.0
+			boid_detector.detected_boid.velocity = Vector3.ZERO
+			return
+		if saved_boid:
+			saved_boid.health = 0.0
+			saved_boid.detected_boid.health = 0
+			saved_boid.detected_boid.velocity = Vector3.ZERO
+	if Input.is_action_just_pressed("Genocide"):
+		for sheep in boid_controller.boids["Sheep"]:
+			sheep.health = 0
+			sheep.velocity = Vector3.ZERO
+	
 func _physics_process(_delta):
 	if !boid_detector:
 		return

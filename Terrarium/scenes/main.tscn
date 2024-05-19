@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://dh52fxfx2rten"]
+[gd_scene load_steps=24 format=3 uid="uid://dh52fxfx2rten"]
 
 [ext_resource type="Script" path="res://scripts/BoidController.gd" id="2_qkdbf"]
 [ext_resource type="PackedScene" uid="uid://c2nwkj3tahlxg" path="res://scenes/grass.tscn" id="3_v3mhn"]
@@ -27,9 +27,6 @@ size = Vector3(28.115, 0.01, 33.76)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_4n6og"]
 size = Vector3(37.285, 1, 38.775)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_fa0qh"]
-size = Vector3(12.575, 1, 16.705)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_jsobj"]
 size = Vector3(35, 20, 35)
@@ -75,8 +72,8 @@ spatial_hashing = NodePath("SpatialHashing")
 metadata/_edit_group_ = true
 
 [node name="SpatialHashing" type="Node3D" parent="BoidController"]
-visible = false
 script = ExtResource("4_ytxpe")
+draw_gizmos = true
 a = true
 
 [node name="SpawnableZones" type="Node3D" parent="BoidController"]
@@ -100,11 +97,6 @@ draw_gizmos = true
 [node name="SpawnZone7" parent="BoidController/SpawnableZones" instance=ExtResource("4_4csqi")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -35.044, -0.992968, 41.7226)
 shape = SubResource("BoxShape3D_4n6og")
-draw_gizmos = true
-
-[node name="SpawnZone3" parent="BoidController/SpawnableZones" instance=ExtResource("4_4csqi")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.8814, 15.4865, -58.8773)
-shape = SubResource("BoxShape3D_fa0qh")
 draw_gizmos = true
 
 [node name="SpawnZone4" parent="BoidController/SpawnableZones" instance=ExtResource("4_4csqi")]
@@ -131,7 +123,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0785122, 1.65177, -0.053983
 [node name="Player" parent="." instance=ExtResource("4_mbjog")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.8776, -5.50702, -49.5252)
 
-[node name="BoidInfometer" type="Control" parent="." node_paths=PackedStringArray("player", "viewport")]
+[node name="BoidInfometer" type="Control" parent="." node_paths=PackedStringArray("player", "viewport", "boid_controller")]
 visible = false
 layout_mode = 3
 anchors_preset = 0
@@ -141,6 +133,7 @@ mouse_filter = 2
 script = ExtResource("7_cgsf7")
 player = NodePath("../Player")
 viewport = NodePath("SheepData/SheepViewport/SheepCamera/UIViewport")
+boid_controller = NodePath("../BoidController")
 
 [node name="SheepData" type="Panel" parent="BoidInfometer"]
 layout_mode = 0
@@ -262,7 +255,7 @@ sheep_target = NodePath("../terrain/Water")
 do_lerp = true
 lerp_amount = 0.001
 
-[node name="Main Menu" type="Control" parent="." node_paths=PackedStringArray("player", "menu_camera", "boid_controller")]
+[node name="Main Menu" type="Control" parent="." node_paths=PackedStringArray("player", "menu_camera", "boid_controller", "no_sheep_slider", "no_shark_slider", "no_grass_slider", "no_sheep_label", "no_shark_label", "no_grass_label")]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
@@ -275,6 +268,12 @@ menu_music = ExtResource("11_5pvwx")
 game_music = ExtResource("12_dunkj")
 target_menu_music_volume = 0.7
 target_game_music_volume = 0.5
+no_sheep_slider = NodePath("CenterContainer/Panel/VBoxContainer/MarginContainer3/NoSheepOption/NoSheep/NoSheepSlider")
+no_shark_slider = NodePath("CenterContainer/Panel/VBoxContainer/MarginContainer/NoSheepOption/NoSheep/NoSheepSlider")
+no_grass_slider = NodePath("CenterContainer/Panel/VBoxContainer/MarginContainer4/NoSheepOption/NoSheep/NoSheepSlider")
+no_sheep_label = NodePath("CenterContainer/Panel/VBoxContainer/MarginContainer3/NoSheepOption/NoSheep/NoSheepSliderLabel")
+no_shark_label = NodePath("CenterContainer/Panel/VBoxContainer/MarginContainer/NoSheepOption/NoSheep/NoSharkSpawn")
+no_grass_label = NodePath("CenterContainer/Panel/VBoxContainer/MarginContainer4/NoSheepOption/NoSheep/NoGrassSpawn")
 
 [node name="CenterContainer" type="CenterContainer" parent="Main Menu"]
 custom_minimum_size = Vector2(100, 100)
@@ -353,7 +352,7 @@ size_flags_horizontal = 3
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="NoSheepSliderLabel" type="RichTextLabel" parent="Main Menu/CenterContainer/Panel/VBoxContainer/MarginContainer/NoSheepOption/NoSheep"]
+[node name="NoSharkSpawn" type="RichTextLabel" parent="Main Menu/CenterContainer/Panel/VBoxContainer/MarginContainer/NoSheepOption/NoSheep"]
 layout_mode = 2
 size_flags_vertical = 3
 text = "0"
@@ -378,7 +377,7 @@ size_flags_horizontal = 3
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="NoSheepSliderLabel" type="RichTextLabel" parent="Main Menu/CenterContainer/Panel/VBoxContainer/MarginContainer4/NoSheepOption/NoSheep"]
+[node name="NoGrassSpawn" type="RichTextLabel" parent="Main Menu/CenterContainer/Panel/VBoxContainer/MarginContainer4/NoSheepOption/NoSheep"]
 layout_mode = 2
 size_flags_vertical = 3
 text = "0"
@@ -403,3 +402,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.2962, -58.4064, -38.9849)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 46.9229, 0)
 
 [connection signal="pressed" from="Main Menu/CenterContainer/Panel/VBoxContainer/MarginContainer2/Button" to="Main Menu" method="_on_button_pressed"]
+[connection signal="value_changed" from="Main Menu/CenterContainer/Panel/VBoxContainer/MarginContainer3/NoSheepOption/NoSheep/NoSheepSlider" to="Main Menu" method="_on_no_sheep_slider_value_changed"]
+[connection signal="value_changed" from="Main Menu/CenterContainer/Panel/VBoxContainer/MarginContainer/NoSheepOption/NoSheep/NoSheepSlider" to="Main Menu" method="_on_no_shark_slider_value_changed"]
+[connection signal="value_changed" from="Main Menu/CenterContainer/Panel/VBoxContainer/MarginContainer4/NoSheepOption/NoSheep/NoSheepSlider" to="Main Menu" method="_on_no_grass_slider_value_changed"]
