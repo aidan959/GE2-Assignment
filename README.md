@@ -121,6 +121,14 @@ I am most proud of two things - the look and feel of the enviroment and the un-n
 
 I broadened by knowledge in using blender as i had never done animation before, learning about keyframing and how to output these animations into godot. 
 
+
+## Finn (C20492576)
+I did most of the in-game environment. Some environmental features were implemented through the EnvironmentController scene which included features such as day/night cycle and custom weather effects. I also created the water effects for the project which involved creating a custom shader with some help from a reference which can be seen below. This was used to apply a retro low poly visual to the river and the body of water surrounding the island. 
+
+The things I was most proud of were the 2 additional shaders I created, one for the heat distortion during hot weather and a psychedelic experience for when the player comes in contact with the Hypno Toad. The kaleidoscope effect was done by segmenting the current image, mirroring them and applying a rotation effect to the segments. The colours also continuously shift based on a noise tecture and hue shifting of colours which gives the effect of spatial distortion.
+
+I learned a lot about shaders and how they work in general with uv coordinate wrapping and manipulation with vertices and fragments. 
+
 # Addons Used
 
 NOTE:  Addons are not included in the repo and must be installed manually to run.
@@ -138,3 +146,4 @@ Sheep Baa Sound effects - freesound.org
 
 # References
 Blood Particles - https://youtu.be/KEcyDD8QtGA?si=PFcKC3R6qJ1toGWa
+Water Shader - https://godotshaders.com/shader/low-poly-water/
