@@ -129,6 +129,13 @@ The things I was most proud of were the 2 additional shaders I created, one for 
 
 I learned a lot about shaders and how they work in general with uv coordinate wrapping and manipulation with vertices and fragments. 
 
+## Matthew (C20381946)
+I handled model creation and behaviour for the sharks in the project. This involved creating a low-poly model of a Blue Shark in Blender, native to Ireland and a sheep's natural enemy. I modified the Constrain boid behaviour into SharkConstrain specifically for the sharks, containing them within the water and created separate spawn zones for them to ensure the sheep were effectively harassed by the threat of danger. I also implemented a blood splatter effect making use of multiple particle systems within Godot's visual shader system, following a reference video, to add realistic depictions of when sheep get too close to a hungry shark. I recorded clips of my voice to be used for sheep sounds and in-game music.
+
+I am most proud of learning how to use and create models in Blender, along with learning more about particle systems and how they can be implemented within shaders in Godot.
+
+I have gained knowledge in Blender - inlcuding model creation, rigging, and weight painting - and Godot in two aspects that can be transferred and applied to future projects.
+
 # Addons Used
 
 NOTE:  Addons are not included in the repo and must be installed manually to run.
