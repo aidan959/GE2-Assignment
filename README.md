@@ -1,17 +1,20 @@
 # Sheep Terrarium
 Name: Aidan Dowling
 Student Number: C20394933
+
 Name: Aleksey Makarevich
 Student Number: C20402732
+
 Name: Matthew Tweedy
 Student Number: C20381946
+
 Name: Finn Maguire
 Student Number: C20492576
 
 Class Group: TU856/4
 
 ## Video:
-[![YouTube](http://img.youtube.com/vi/J2kHSSFA4NU/0.jpg)](https://www.youtube.com/watch?v=J2kHSSFA4NU)
+[![YouTube](http://img.youtube.com/vi/uGD1eXDlA-8/0.jpg)](https://youtu.be/uGD1eXDlA-8)
 
 ## Screenshots
 | Feature | Image |
